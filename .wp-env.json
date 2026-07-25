@@ -1,0 +1,8 @@
+{
+  "core": null,
+  "themes": ["./lamutable"],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true
+  }
+}
