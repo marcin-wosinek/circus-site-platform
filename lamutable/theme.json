@@ -37,12 +37,30 @@
         {
           "name": "Bricolage Grotesque",
           "slug": "display",
-          "fontFamily": "\"Bricolage Grotesque\", ui-sans-serif, system-ui, sans-serif"
+          "fontFamily": "\"Bricolage Grotesque\", ui-sans-serif, system-ui, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Bricolage Grotesque",
+              "fontStyle": "normal",
+              "fontWeight": "200 800",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/bricolage-grotesque-latin.woff2"]
+            }
+          ]
         },
         {
           "name": "Geist",
           "slug": "body",
-          "fontFamily": "\"Geist\", ui-sans-serif, system-ui, sans-serif"
+          "fontFamily": "\"Geist\", ui-sans-serif, system-ui, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Geist",
+              "fontStyle": "normal",
+              "fontWeight": "100 900",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/geist-latin.woff2"]
+            }
+          ]
         }
       ],
       "fontSizes": [
@@ -196,6 +214,38 @@
       }
     },
     "blocks": {
+      "core/navigation": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--display)",
+          "fontSize": "var(--wp--preset--font-size--sm)",
+          "fontWeight": "600",
+          "letterSpacing": "0.08em",
+          "textTransform": "uppercase"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--ink)"
+        },
+        "elements": {
+          "link": {
+            "color": {
+              "text": "var(--wp--preset--color--ink)"
+            },
+            "typography": {
+              "textDecoration": "none"
+            },
+            ":hover": {
+              "color": {
+                "text": "var(--wp--preset--color--ink)"
+              }
+            },
+            ":focus": {
+              "color": {
+                "text": "var(--wp--preset--color--ink)"
+              }
+            }
+          }
+        }
+      },
       "core/separator": {
         "color": {
           "text": "var(--wp--preset--color--rule)"

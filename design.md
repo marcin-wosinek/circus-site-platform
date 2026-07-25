@@ -60,6 +60,27 @@ add it to `theme.json` first, then reference it.
 - Body: Geist, base line-height 1.6.
 - Links: accent color, underlined, ink on hover/focus.
 
+## Header (template part · locked 2026-07-25)
+- Nav archetype · N7 brutal slab, softened for the playful genre: full-width
+  bar, 2px solid ink border-bottom, no shadow / blur / rounded slab corners.
+  The only curve in the header is the CTA pill (locked CTA voice).
+- Logo · `lamutable/assets/images/logo.png` — the stacked LA/MUTA/-BLE
+  wordmark, re-cut from the brand JPG as a transparent PNG in ink
+  (`oklch(20% 0.015 40)`) so it sits directly on any paper tone. 5.5rem tall
+  on desktop, 4rem ≤ 781px. Links home.
+- Nav voice · Bricolage Grotesque 600, `sm`, uppercase, 0.08em tracking
+  (set in `theme.json` → `styles.blocks.core/navigation`). Links: Quiénes
+  somos · Proyectos · Eventos; "Contacto" is the filled-pill CTA.
+- States · hover/focus/current = accent underline (0.14em thick, 0.4em
+  offset); active = accent text; focus ring = 2px `focus`, 3px offset.
+- Mobile · core/navigation overlay menu (paper background, ink text) below
+  600px; slab border carried onto the open overlay's edge.
+- Files · pattern `lamutable/patterns/header.php` (dynamic URLs, i18n) →
+  `parts/header.html`; slab CSS in `lamutable/style.css` § Header slab.
+- Fonts now self-hosted: latin-subset variable woff2 for both families in
+  `lamutable/assets/fonts/`, registered via `fontFace` in `theme.json` —
+  no Google Fonts request at runtime.
+
 ## Motion stance
 - None yet. Static block theme, no build step, no JS animation layer.
 - If motion is introduced later, keep it CSS-only (`transform`/`opacity`),
