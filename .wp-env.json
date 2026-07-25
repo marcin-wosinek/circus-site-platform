@@ -4,5 +4,9 @@
   "config": {
     "WP_DEBUG": true,
     "SCRIPT_DEBUG": true
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
   }
 }

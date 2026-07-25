@@ -142,6 +142,69 @@ Alternate palettes/font pairings go in `styles/*.json` (same shape as
 `theme.json`). Comparing 2–3 variations side by side in the Site Editor
 (Appearance → Editor → Styles) is the cheapest way to pick a direction.
 
+## Importing production content
+
+To work locally against a real copy of the live site (e.g. a Hostinger export),
+you need a database dump and the `wp-content/uploads` folder. wp-env runs
+WordPress inside Docker containers, so **the containers cannot see your host
+filesystem directly** — only the directories mapped in `.wp-env.json`:
+
+```json
+"mappings": {
+  "wp-content/uploads": "./import/uploads",
+  "wp-content/import": "./import/db"
+}
+```
+
+`./import/` is gitignored — it's a local-only staging area, never committed.
+
+### 1. Import the database
+
+```bash
+# Copy the SQL dump where the cli container can reach it
+mkdir -p import/db
+cp ~/Downloads/<export>.sql import/db/
+
+# Wipe the local DB first for a clean, conflict-free import
+npx wp-env run cli wp db reset --yes
+
+# Import — path is relative to the container's wp-content/import mapping
+npx wp-env run cli wp db import wp-content/import/<export>.sql
+```
+
+Skipping the `wp db reset` step still mostly works, but the dump's `ID = 1`
+rows (default post, admin user, "Uncategorized" term, `siteurl` option, etc.)
+will collide with the fresh install's own default rows and get silently
+skipped — you end up with a mix of old and new data. Reset first, unless you
+specifically want to preserve the local install's existing content.
+
+No search-replace of URLs is needed: `wp-env`'s `WP_SITEURL`/`WP_HOME`
+constants override whatever `siteurl`/`home` values are in the dump, so the
+site correctly serves at `http://localhost:8888` regardless of the export's
+original domain.
+
+### 2. Import the uploads
+
+```bash
+mkdir -p import/uploads
+unzip -o ~/Downloads/uploads.zip -d import/uploads
+```
+
+Check `unzip -l ~/Downloads/uploads.zip | head` first: if the archive already
+has files at its root (e.g. `2026/04/photo.jpg`) extract straight into
+`import/uploads`; if it wraps everything in an `uploads/` folder, extract one
+level up instead so the years (`2026/`, etc.) end up directly under
+`import/uploads/`.
+
+### 3. Verify
+
+```bash
+npx wp-env run cli wp post list --post_type=post --fields=ID,post_title,post_date
+npx wp-env run cli wp option get siteurl
+```
+
+Then load <http://localhost:8888> and check that content and images render.
+
 ## Gotchas (read before debugging "my change does nothing")
 
 1. **User customizations override theme files.** The style hierarchy is:
