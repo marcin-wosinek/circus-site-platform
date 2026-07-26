@@ -3,7 +3,8 @@
   "themes": ["./lamutable"],
   "config": {
     "WP_DEBUG": true,
-    "SCRIPT_DEBUG": true
+    "SCRIPT_DEBUG": true,
+    "WP_DEVELOPMENT_MODE": "theme"
   },
   "mappings": {
     "wp-content/uploads": "./import/uploads",
