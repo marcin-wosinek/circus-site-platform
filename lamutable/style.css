@@ -123,3 +123,26 @@ Text Domain: lamutable
 	font-size: var(--wp--preset--font-size--sm);
 	font-weight: 600;
 }
+
+/* ---- Front page · color journey (design.md § Main region) ---- */
+/* Hairlines only inside <main> — the 2px ink weight stays chrome-exclusive. */
+.event-rail > * + * {
+	border-top: 1px solid var(--wp--preset--color--rule);
+}
+
+.project-card {
+	border: 1px solid var(--wp--preset--color--rule);
+}
+
+/* Ink inversion band: the locked CTA hover (ink bg) would vanish on the ink
+   ground — invert to paper instead. Focus ring color already passes on ink. */
+.band-ink .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--ink);
+}
+
+main a:focus-visible,
+main .wp-block-button__link:focus-visible {
+	outline: 2px solid var(--wp--preset--color--focus);
+	outline-offset: 3px;
+}

@@ -24,8 +24,13 @@ defer to it. Amend intentionally — the file is the rule.
   --wp--preset--color--neutral:  oklch(42% 0.014 45);
   --wp--preset--color--ink-2:    oklch(38% 0.014 42);
   --wp--preset--color--ink:      oklch(20% 0.015 40);  /* text */
+  --wp--preset--color--accent-tint: oklch(87% 0.055 45); /* warm section band */
   --wp--preset--color--accent:   oklch(60% 0.150 38);  /* warm terracotta */
   --wp--preset--color--focus:    oklch(58% 0.190 38);
+
+  /* Gradient presets (settings.color.gradients), static CSS only:          */
+  /* hero-wash · 160deg paper → paper-3                                      */
+  /* warm-wash · 160deg accent-tint → paper                                  */
 
   --wp--preset--font-family--display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --wp--preset--font-family--body:    "Geist", ui-sans-serif, system-ui, sans-serif;
@@ -105,6 +110,48 @@ add it to `theme.json` first, then reference it.
   `--wp--preset--font-size--2-xl`, `2xs` → `--wp--preset--spacing--2-xs`.
   Two wrong references (theme.json h2, style.css nav padding) were fixed
   2026-07-26; always use the kebab form in hand-written CSS.
+
+## Main region · color journey (locked 2026-07-26)
+- The `<main>` background moves; the chrome doesn't. Header and footer stay
+  on base `paper` — the 2px ink slabs frame the journey, they never join it.
+- Per-page sequence (bands are `core/group` blocks with preset backgrounds):
+  `paper` hero → `paper-2` → `accent-tint` wash → `ink` inversion → `paper`
+  before the footer slab. Shorter pages drop rungs but keep the order —
+  never jump straight from `paper` to `ink` without a warmer step between.
+- Limits · max one `accent-tint` band and one `ink` inversion per page.
+  The inversion is the statement/CTA moment: `paper` text on `ink` carries
+  the ≈13:1 contrast; `accent` on `ink` is for large display type and
+  decoration only, never body copy.
+- Gradients · only the two named presets (`hero-wash`, `warm-wash`), used as
+  band entries — not stacked, not layered, no new gradients without adding
+  a preset first. Static CSS; no animated or scroll-driven color (locked
+  motion stance).
+- Rule-weight hierarchy · inside `<main>`, dividers are hairlines only
+  (1px `rule` / `rule-2`). The 2px ink weight belongs to the chrome slabs
+  exclusively.
+
+## Front page (locked 2026-07-26)
+- Macrostructure · Ecosystem Index on the color journey: `hero-wash` hero →
+  `paper-2` events rail → `accent-tint` projects grid → `ink` inversion
+  (red de apoyo mutuo + Contacto CTA) → `paper` quiénes-somos teaser.
+- Copy · all sourced from the association's own pages (quienes-somos,
+  eventos, proyectos, colaboraciones) — nothing invented. Events rail
+  mirrors the live front page's five upcoming events; only Halloween has a
+  confirmed date, so it alone shows one.
+- Rails · rail head = h2 left + accent "Ver … →" edge link right (wraps and
+  stacks on mobile). Event rows are hairline-separated flex rows
+  (`.event-rail`); project cards are `paper` groups with 1px `rule` border
+  (`.project-card`) on the tint band.
+- Ink band exceptions (style.css) · CTA hover inverts to paper/ink (the
+  locked ink-bg hover would vanish); band links are `paper`, not accent.
+  Focus rings now cover `<main>` links/buttons, same 2px `focus` / 3px
+  offset as the chrome.
+- Files · pattern `lamutable/patterns/front-page.php` (dynamic URLs, i18n)
+  → template `lamutable/templates/front-page.html` (`<main>`, blockGap 0 so
+  bands touch); band CSS in `lamutable/style.css` § Front page.
+- Verified · 1280 + 375 px, no horizontal scroll; grid collapses to one
+  column; events list is theme-managed now — editors update it in the Site
+  Editor (template), not the old page 593 content.
 
 ## Motion stance
 - None yet. Static block theme, no build step, no JS animation layer.

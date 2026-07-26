@@ -21,8 +21,21 @@
         { "name": "Neutral", "slug": "neutral", "color": "oklch(42% 0.014 45)" },
         { "name": "Ink 2", "slug": "ink-2", "color": "oklch(38% 0.014 42)" },
         { "name": "Ink", "slug": "ink", "color": "oklch(20% 0.015 40)" },
+        { "name": "Accent tint", "slug": "accent-tint", "color": "oklch(87% 0.055 45)" },
         { "name": "Accent", "slug": "accent", "color": "oklch(60% 0.150 38)" },
         { "name": "Focus", "slug": "focus", "color": "oklch(58% 0.190 38)" }
+      ],
+      "gradients": [
+        {
+          "name": "Hero wash",
+          "slug": "hero-wash",
+          "gradient": "linear-gradient(160deg, var(--wp--preset--color--paper) 0%, var(--wp--preset--color--paper-3) 100%)"
+        },
+        {
+          "name": "Warm wash",
+          "slug": "warm-wash",
+          "gradient": "linear-gradient(160deg, var(--wp--preset--color--accent-tint) 0%, var(--wp--preset--color--paper) 100%)"
+        }
       ]
     },
     "typography": {
