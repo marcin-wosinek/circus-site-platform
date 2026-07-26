@@ -9,10 +9,11 @@ Requires PHP: 7.4
 Text Domain: lamutable
 */
 
-/* Hallmark · component: header (template part) · nav: N7 brutal slab, playful-rounded · genre: playful · theme: custom (design.md)
+/* Hallmark · components: header (nav: N7 brutal slab, playful-rounded) + footer (Ft5 statement) · genre: playful · theme: custom (design.md)
  * states: default · hover · focus-visible · active · current — loading/error/success n/a for nav links; CTA button states in theme.json
  * contrast: ink on paper ≈ 13:1 · accent underline decorative only (ink text carries the 4.5:1)
  * Slab discipline: no shadow, no blur, no rounded slab corners — pill radius lives on the CTA only (locked CTA voice).
+ * pre-emit critique: P4 H4 E4 S4 R5 V4
  */
 
 /* ---- Header slab ---- */
@@ -35,26 +36,32 @@ Text Domain: lamutable
 	line-height: 0;
 }
 
-/* ---- Nav link states (typography voice comes from theme.json core/navigation) ---- */
-.site-header .wp-block-navigation .wp-block-navigation-item__content {
-	padding-block: var(--wp--preset--spacing--2xs);
+/* ---- Nav link states, shared header + footer (typography voice comes from theme.json core/navigation) ---- */
+.site-header .wp-block-navigation .wp-block-navigation-item__content,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content {
+	padding-block: var(--wp--preset--spacing--2-xs);
 	white-space: nowrap;
 }
 
 .site-header .wp-block-navigation .wp-block-navigation-item__content:hover,
-.site-header .wp-block-navigation .wp-block-navigation-item__content:focus-visible {
+.site-header .wp-block-navigation .wp-block-navigation-item__content:focus-visible,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content:hover,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content:focus-visible {
 	text-decoration: underline;
 	text-decoration-color: var(--wp--preset--color--accent);
 	text-decoration-thickness: 0.14em;
 	text-underline-offset: 0.4em;
 }
 
-.site-header .wp-block-navigation .wp-block-navigation-item__content:active {
+.site-header .wp-block-navigation .wp-block-navigation-item__content:active,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content:active {
 	color: var(--wp--preset--color--accent);
 }
 
 .site-header .wp-block-navigation .current-menu-item > .wp-block-navigation-item__content,
-.site-header .wp-block-navigation .wp-block-navigation-item__content[aria-current="page"] {
+.site-header .wp-block-navigation .wp-block-navigation-item__content[aria-current="page"],
+.site-footer .wp-block-navigation .current-menu-item > .wp-block-navigation-item__content,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content[aria-current="page"] {
 	text-decoration: underline;
 	text-decoration-color: var(--wp--preset--color--accent);
 	text-decoration-thickness: 0.14em;
@@ -62,7 +69,9 @@ Text Domain: lamutable
 }
 
 .site-header a:focus-visible,
-.site-header button:focus-visible {
+.site-header button:focus-visible,
+.site-footer a:focus-visible,
+.site-footer button:focus-visible {
 	outline: 2px solid var(--wp--preset--color--focus);
 	outline-offset: 3px;
 }
@@ -80,8 +89,37 @@ Text Domain: lamutable
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.site-header * {
+	.site-header *,
+	.site-footer * {
 		transition: none;
 		animation: none;
 	}
+}
+
+/* ---- Footer slab (Ft5 statement) ---- */
+.site-footer {
+	border-top: 2px solid var(--wp--preset--color--ink);
+	padding-top: var(--wp--preset--spacing--2-xl);
+	padding-bottom: var(--wp--preset--spacing--xl);
+}
+
+.site-footer .site-footer__statement {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--2-xl);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	max-width: 28ch;
+	overflow-wrap: anywhere;
+}
+
+.site-footer .site-footer__meta {
+	border-top: 1px solid var(--wp--preset--color--rule);
+	padding-top: var(--wp--preset--spacing--sm);
+}
+
+.site-footer .site-footer__wordmark {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 600;
 }

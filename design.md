@@ -81,6 +81,31 @@ add it to `theme.json` first, then reference it.
   `lamutable/assets/fonts/`, registered via `fontFace` in `theme.json` —
   no Google Fonts request at runtime.
 
+## Footer (template part · locked 2026-07-26)
+- Footer archetype · Ft5 statement (playful cluster). Ft8 marquee was the
+  genre default but needs animation — rejected under the locked motion
+  stance; Ft3 columns rejected (3 links is not a sitemap).
+- Slab · 2px solid ink border-top, mirroring the header slab — the page
+  opens and closes with the same rule. No shadow / blur / rounding.
+- Statement · "Movimiento en común." — one closing display sentence
+  (Bricolage 700, `2xl` fluid, -0.02em, lh 1.08, max 28ch). Copy derived
+  from the association's own description, not invented.
+- Meta row · hairline (1px `rule`) above; "Asociación La Mutable" wordmark
+  left (Bricolage 600, `sm`), nav links right: Quiénes somos ·
+  Colaboraciones · Contacto. Links inherit the locked nav voice
+  (theme.json core/navigation) and the header's accent-underline states,
+  now shared via `.site-header, .site-footer` selectors in style.css.
+- Legal · `© {year} Asociación La Mutable · Valencia`, muted `xs`; year is
+  dynamic (`date_i18n`) in the pattern.
+- Mobile · meta row wraps to a stack; links stay single-line (nowrap per
+  item, wrap between items). Verified 320/375/1280, no horizontal scroll.
+- Files · pattern `lamutable/patterns/footer.php` (dynamic URLs, i18n) →
+  `parts/footer.html`; slab CSS in `lamutable/style.css` § Footer slab.
+- Note · preset CSS vars kebab-case digit slugs: `2xl` → 
+  `--wp--preset--font-size--2-xl`, `2xs` → `--wp--preset--spacing--2-xs`.
+  Two wrong references (theme.json h2, style.css nav padding) were fixed
+  2026-07-26; always use the kebab form in hand-written CSS.
+
 ## Motion stance
 - None yet. Static block theme, no build step, no JS animation layer.
 - If motion is introduced later, keep it CSS-only (`transform`/`opacity`),
