@@ -11,11 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Zip theme
-        run: zip -r lamutable.zip lamutable -x '*.DS_Store'
+      - name: Stage theme
+        run: |
+          mkdir -p dist/lamutable
+          cp -r lamutable/. dist/lamutable/
+          find dist -name '.DS_Store' -delete
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: lamutable-theme
-          path: lamutable.zip
+          path: dist
