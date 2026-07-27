@@ -1,0 +1,21 @@
+name: Build theme ZIP
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Zip theme
+        run: zip -r lamutable.zip lamutable -x '*.DS_Store'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lamutable-theme
+          path: lamutable.zip
