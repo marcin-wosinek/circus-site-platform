@@ -140,6 +140,12 @@ punch lists, `hallmark study <url|screenshot>` to extract DNA from a
 reference. Its output gets persisted as tokens + `design.md` entries, never
 left only in chat.
 
+**Never put Hallmark pre-emit critique comments into theme code**, including
+comments such as
+`<!-- Hallmark · fair-event single template · pre-emit critique: P5 H4 E5 S5 R5 V4 -->`.
+These comments confuse the WordPress block parser. Keep critique metadata out
+of templates, template parts, patterns, and all other emitted block markup.
+
 ### 4. Build pages from patterns
 
 Every reusable section is one PHP file in `patterns/` with the standard header

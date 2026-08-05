@@ -13,7 +13,6 @@ Text Domain: lamutable
  * states: default · hover · focus-visible · active · current — loading/error/success n/a for nav links; CTA button states in theme.json
  * contrast: ink on paper ≈ 13:1 · accent underline decorative only (ink text carries the 4.5:1)
  * Slab discipline: no shadow, no blur, no rounded slab corners — pill radius lives on the CTA only (locked CTA voice).
- * pre-emit critique: P4 H4 E4 S4 R5 V4
  */
 
 /* ---- Header slab ---- */
