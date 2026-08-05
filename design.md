@@ -153,6 +153,18 @@ add it to `theme.json` first, then reference it.
   column; events list is theme-managed now — editors update it in the Site
   Editor (template), not the old page 593 content.
 
+## Fair event document (locked 2026-08-05)
+- Template · `single-fair_event.html`, selected by WordPress only for the
+  `fair_event` post type (whose public rewrite base is `/fair-events/`); other
+  posts retain their existing template.
+- Structure · shared header → paper document (title, optional 3:2 featured
+  image, post content) → shared footer. The reusable document layout lives in
+  `patterns/single-fair-event.php`; the template stays thin.
+- Metadata · no author/byline. Fair-event documents speak for La Mutable,
+  rather than presenting the WordPress account that entered the content.
+- Tokens · existing `paper` and spacing presets only; no new visual token or
+  CSS rule was introduced.
+
 ## Motion stance
 - None yet. Static block theme, no build step, no JS animation layer.
 - If motion is introduced later, keep it CSS-only (`transform`/`opacity`),
