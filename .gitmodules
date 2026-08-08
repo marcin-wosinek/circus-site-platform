@@ -1,0 +1,9 @@
+[submodule "sites/acro-agenda.es"]
+	path = sites/acro-agenda.es
+	url = https://github.com/marcin-wosinek/acro-agenda.es.git
+[submodule "sites/fusion-circus"]
+	path = sites/fusion-circus
+	url = https://github.com/marcin-wosinek/fusion-circus-theme.git
+[submodule "sites/lamutable.es"]
+	path = sites/lamutable.es
+	url = https://github.com/marcin-wosinek/lamutable.es.git
