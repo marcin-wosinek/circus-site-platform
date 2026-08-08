@@ -46,6 +46,11 @@ Do not assume the future registry format, authentication mechanism, hosting
 provider, or directory structure until those decisions are added to the
 repository.
 
+Site projects normally live under `sites/`. Existing independent projects may
+be Git submodules, while platform-owned sites such as `sites/circus-it.eu` are
+tracked directly in this repository. Check `.gitmodules` instead of assuming a
+registered site is a submodule.
+
 ## Development guidelines
 
 - Treat production systems as read-only unless a task explicitly authorizes a

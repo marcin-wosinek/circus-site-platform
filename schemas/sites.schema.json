@@ -30,7 +30,7 @@
       "properties": {
         "folder": {
           "type": "string",
-          "description": "Repository-relative path to the site directory.",
+          "description": "Repository-relative path to the site project directory.",
           "pattern": "^sites/[a-z0-9]+(?:[.-][a-z0-9]+)*$"
         },
         "port": {

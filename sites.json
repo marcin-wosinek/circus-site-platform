@@ -5,6 +5,10 @@
       "folder": "sites/acro-agenda.es",
       "port": 9788
     },
+    "circus-it.eu": {
+      "folder": "sites/circus-it.eu",
+      "port": 9791
+    },
     "fusion-circus": {
       "folder": "sites/fusion-circus",
       "port": 9789

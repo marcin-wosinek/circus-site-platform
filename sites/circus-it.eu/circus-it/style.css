@@ -1,0 +1,50 @@
+/*
+Theme Name: Circus IT
+Theme URI: https://circus-it.eu/
+Description: Minimal block theme for Circus IT.
+Version: 0.1.0
+Requires at least: 6.7
+Requires PHP: 7.4
+Text Domain: circus-it
+*/
+
+.site-shell {
+	min-height: 100svh;
+}
+
+.site-header,
+.site-footer {
+	font-family: var(--wp--preset--font-family--utility);
+}
+
+.site-header {
+	border-bottom: 1px solid var(--wp--preset--color--rule);
+}
+
+.site-header a,
+.site-footer a {
+	text-decoration: none;
+}
+
+.site-header a:hover,
+.site-footer a:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.25em;
+}
+
+.hero-statement {
+	border-left: 0.25rem solid var(--wp--preset--color--signal);
+}
+
+.site-header a:focus-visible,
+.site-footer a:focus-visible,
+main a:focus-visible {
+	outline: 2px solid var(--wp--preset--color--signal);
+	outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+	.hero-statement {
+		padding-left: var(--wp--preset--spacing--medium) !important;
+	}
+}
