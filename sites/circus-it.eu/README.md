@@ -21,7 +21,7 @@ The site runs locally with `wp-env` on <http://localhost:9791>. From this
 directory, start it with:
 
 ```sh
-npx wp-env start
+npx @wordpress/env start
 ```
 
 ## Import production content
@@ -45,7 +45,7 @@ ignored by Git and must not be committed. Ensure SSH key authentication works
 and that `wp` is available on the remote server, then run:
 
 ```sh
-npx wp-env start
+npx @wordpress/env start
 node scripts/import-production.mjs --apply
 ```
 

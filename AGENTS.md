@@ -90,7 +90,7 @@ For each change:
 
 There is no repository-wide install, build, lint, or test command yet.
 Site-specific commands are documented in each site's README. The
-`sites/circus-it.eu` project currently uses `npx wp-env start` for its local
+`sites/circus-it.eu` project currently uses `npx @wordpress/env start` for its local
 WordPress runtime and `node scripts/import-production.mjs --apply` for an
 explicit production-to-local content import. The import requires Docker,
 Node.js, SSH access, remote WP-CLI, and a gitignored `.env.import-local` file.

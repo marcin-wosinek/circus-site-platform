@@ -68,7 +68,7 @@ function capture(command, args, destination) {
 }
 
 function wp(...args) {
-	run('npx', ['wp-env', 'run', 'cli', 'wp', ...args]);
+	run('npx', ['@wordpress/env', 'run', 'cli', 'wp', ...args]);
 }
 
 function remoteDatabaseExportCommand(wordpressPath) {
@@ -126,7 +126,7 @@ console.log(`Import target: ${projectDir} (${localUrl}, destructive local update
 
 const sshArgs = [...(sshPort ? ['-p', sshPort] : []), ...(sshKey ? ['-i', sshKey] : []), sshTarget];
 run('ssh', [...sshArgs, `wp --path=${shellQuote(remotePath)} core is-installed`]);
-run('npx', ['wp-env', 'run', 'cli', 'wp', 'core', 'is-installed']);
+run('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'core', 'is-installed']);
 
 capture('ssh', [...sshArgs, remoteDatabaseExportCommand(remotePath)], databaseFile);
 capture('ssh', [...sshArgs, `tar -C ${shellQuote(join(remotePath, 'wp-content'))} -czf - uploads`], uploadsArchive);
@@ -153,7 +153,7 @@ wp('option', 'update', 'home', localUrl);
 wp('option', 'update', 'siteurl', localUrl);
 wp('theme', 'activate', 'circus-it');
 
-const userCheck = spawnSync('npx', ['wp-env', 'run', 'cli', 'wp', 'user', 'get', adminUser, '--field=ID'], {
+const userCheck = spawnSync('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'user', 'get', adminUser, '--field=ID'], {
 	cwd: projectDir,
 	stdio: 'ignore',
 });
