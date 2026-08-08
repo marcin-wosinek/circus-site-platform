@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circus-it.eu/schemas/sites.schema.json",
+  "title": "Circus Site Platform site registry",
+  "description": "Sites managed by the platform and their local runtime settings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sites"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "sites": {
+      "type": "object",
+      "description": "Site definitions keyed by stable site ID.",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/site"
+      }
+    }
+  },
+  "$defs": {
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["folder", "port"],
+      "properties": {
+        "folder": {
+          "type": "string",
+          "description": "Repository-relative path to the site directory.",
+          "pattern": "^sites/[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+        },
+        "port": {
+          "type": "integer",
+          "description": "Local HTTP port assigned to the site.",
+          "minimum": 1024,
+          "maximum": 65535
+        }
+      }
+    }
+  }
+}

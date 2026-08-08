@@ -1,0 +1,17 @@
+{
+  "$schema": "./schemas/sites.schema.json",
+  "sites": {
+    "acro-agenda.es": {
+      "folder": "sites/acro-agenda.es",
+      "port": 9788
+    },
+    "fusion-circus": {
+      "folder": "sites/fusion-circus",
+      "port": 9789
+    },
+    "lamutable.es": {
+      "folder": "sites/lamutable.es",
+      "port": 9790
+    }
+  }
+}
