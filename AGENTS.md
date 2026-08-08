@@ -88,6 +88,9 @@ For each change:
 4. Document new configuration keys, environment variables, commands, and
    operational risks.
 
-At present, the repository has no established install, build, lint, or test
-command. Add those instructions here when the initial JavaScript tooling is
-introduced.
+There is no repository-wide install, build, lint, or test command yet.
+Site-specific commands are documented in each site's README. The
+`sites/circus-it.eu` project currently uses `npx wp-env start` for its local
+WordPress runtime and `node scripts/import-production.mjs --apply` for an
+explicit production-to-local content import. The import requires Docker,
+Node.js, SSH access, remote WP-CLI, and a gitignored `.env.import-local` file.
