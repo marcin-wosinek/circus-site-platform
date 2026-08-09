@@ -9,7 +9,7 @@ the platform itself can instead be tracked directly in this repository.
 
 | Site ID | Folder | Local port | Source repository |
 | --- | --- | ---: | --- |
-| `acro-agenda.es` | `sites/acro-agenda.es` | 9788 | [marcin-wosinek/acro-agenda.es](https://github.com/marcin-wosinek/acro-agenda.es) |
+| `acro-agenda.es` | `sites/acro-agenda.es` | 9788 | This repository |
 | `circus-it.eu` | `sites/circus-it.eu` | 9791 | This repository |
 | `fusion-circus` | `sites/fusion-circus` | 9789 | [marcin-wosinek/fusion-circus-theme](https://github.com/marcin-wosinek/fusion-circus-theme) |
 | `lamutable.es` | `sites/lamutable.es` | 9790 | [marcin-wosinek/lamutable.es](https://github.com/marcin-wosinek/lamutable.es) |
@@ -56,3 +56,7 @@ For imports, the site's `.wp-env.json` must map `wp-content/uploads` and
 The command reads the default production URL and local port from the registry.
 These can be overridden with `PRODUCTION_URL` and `LOCAL_URL` in
 `.env.import-local/<site-id>` at the platform root.
+
+See [`../docs/import-production.md`](../docs/import-production.md) for the
+complete import workflow. Keep hosting details and other site-only prerequisites
+in the README inside the relevant site directory.

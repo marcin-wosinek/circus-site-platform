@@ -26,8 +26,8 @@ The import command is destructive only to the selected local wp-env instance
 and requires `--apply`. Production is read-only. Put each site's SSH settings
 in the ignored `.env.import-local/<site-id>` file; a site-local
 `.env.import-local` remains supported for compatibility. See
-[`sites/circus-it.eu/.env.import-local.example`](sites/circus-it.eu/.env.import-local.example)
-for the available settings.
+[`docs/import-production.md`](docs/import-production.md) for prerequisites,
+configuration, safeguards, and recovery details.
 
 ## Planned scope
 
