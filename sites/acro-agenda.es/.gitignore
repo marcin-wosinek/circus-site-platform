@@ -2,3 +2,5 @@ node_modules/
 import/
 .DS_Store
 artifacts/
+.wp-env-plugins/
+.wp-env.override.json

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { writeJsonFile } from '../scripts/lib/json-file.mjs';
 import { resolvePluginDownloads } from '../scripts/lib/plugin-downloads.mjs';
+import { fairPluginSlug } from '../scripts/lib/wp-env-plugin-sources.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -120,4 +121,12 @@ test('plugin downloads activate non-experimental plugins before experimental var
 			'https://example.test/fair-events-experimental.zip',
 		],
 	);
+});
+
+test('versioned fair release assets get stable wp-env plugin slugs', () => {
+	assert.equal(
+		fairPluginSlug('https://github.com/example/releases/download/build/fair-events.1.12.0-57-gc1d1e0fd.zip'),
+		'fair-events',
+	);
+	assert.equal(fairPluginSlug('https://downloads.wordpress.org/plugin/akismet.zip'), undefined);
 });
