@@ -12,12 +12,35 @@ import {
 	statSync,
 	writeFileSync,
 } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
-const projectDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const envFile = join(projectDir, '.env.import-local');
+const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const registryFile = join(platformDir, 'sites.json');
+const siteId = process.argv.slice(2).find((argument) => !argument.startsWith('-'));
+
+if (!siteId) {
+	console.error(`Usage: node ${process.argv[1]} <site-id> --apply`);
+	process.exit(1);
+}
+
+const registry = JSON.parse(readFileSync(registryFile, 'utf8'));
+const site = registry.sites?.[siteId];
+if (!site) {
+	console.error(`Error: Unknown site "${siteId}". Available sites: ${Object.keys(registry.sites ?? {}).join(', ')}`);
+	process.exit(1);
+}
+
+const projectDir = resolve(platformDir, site.folder);
+const projectRelative = relative(platformDir, projectDir);
+if (!projectRelative || projectRelative.startsWith(`..${sep}`) || projectRelative === '..' || !projectRelative.startsWith(`sites${sep}`)) {
+	console.error(`Error: Site "${siteId}" has an unsafe folder: ${site.folder}`);
+	process.exit(1);
+}
+const sharedEnvFile = join(platformDir, '.env.import-local', siteId);
+const siteEnvFile = join(projectDir, '.env.import-local');
+const envFile = existsSync(sharedEnvFile) ? sharedEnvFile : siteEnvFile;
 const wpEnvFile = join(projectDir, '.wp-env.json');
 const importDir = join(projectDir, 'import');
 const dbDir = join(importDir, 'db');
@@ -27,6 +50,9 @@ const databaseFile = join(dbDir, `production-${timestamp}.sql`);
 const uploadsArchive = join(importDir, `uploads-${timestamp}.tar.gz`);
 const uploadsNext = join(importDir, `uploads-next-${timestamp}`);
 const wordpressPluginDownloads = 'https://downloads.wordpress.org/plugin';
+
+if (!existsSync(projectDir)) fail(`Site folder does not exist: ${site.folder}`);
+if (!existsSync(wpEnvFile)) fail(`Site "${siteId}" does not have a .wp-env.json file.`);
 
 function loadEnv(path) {
 	if (!existsSync(path)) return;
@@ -147,7 +173,7 @@ function remoteDatabaseExportCommand(wordpressPath) {
 loadEnv(envFile);
 
 if (!process.argv.includes('--apply')) {
-	console.log(`Usage: node ${process.argv[1]} --apply`);
+	console.log(`Usage: node ${process.argv[1]} <site-id> --apply`);
 	console.log('Downloads production database/uploads, then replaces the local wp-env content.');
 	console.log('Production remains read-only. The current local database is backed up first.');
 	process.exit(0);
@@ -157,8 +183,8 @@ const sshTarget = process.env.PRODUCTION_SSH;
 const sshPort = process.env.PRODUCTION_SSH_PORT;
 const sshKey = process.env.PRODUCTION_SSH_KEY;
 const remotePath = process.env.PRODUCTION_WP_PATH;
-const productionUrl = process.env.PRODUCTION_URL ?? 'https://circus-it.eu';
-const localUrl = process.env.LOCAL_URL ?? 'http://localhost:9791';
+const productionUrl = process.env.PRODUCTION_URL ?? site.productionUrl;
+const localUrl = process.env.LOCAL_URL ?? `http://localhost:${site.port}`;
 const adminUser = process.env.LOCAL_ADMIN_USER ?? 'admin';
 const adminEmail = process.env.LOCAL_ADMIN_EMAIL ?? 'admin@localhost.test';
 const adminPassword = process.env.LOCAL_ADMIN_PASSWORD ?? 'password';
@@ -207,7 +233,13 @@ wp('search-replace', productionUrl, localUrl, '--all-tables-with-prefix', '--pre
 wp('option', 'update', 'home', localUrl);
 wp('option', 'update', 'siteurl', localUrl);
 syncWpEnvPlugins();
-wp('theme', 'activate', 'circus-it');
+const wpEnvThemes = JSON.parse(readFileSync(wpEnvFile, 'utf8')).themes;
+if (!Array.isArray(wpEnvThemes) || wpEnvThemes.length !== 1 || typeof wpEnvThemes[0] !== 'string') {
+	fail(`Site "${siteId}" must define exactly one theme in .wp-env.json.`);
+}
+const themeSlug = wpEnvThemes[0].replace(/^\.\//, '').split('/').filter(Boolean).at(-1);
+if (!themeSlug || !/^[a-z0-9][a-z0-9-]*$/.test(themeSlug)) fail(`Cannot derive a theme slug from ${wpEnvThemes[0]}.`);
+wp('theme', 'activate', themeSlug);
 
 const userCheck = spawnSync('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'user', 'get', adminUser, '--field=ID'], {
 	cwd: projectDir,

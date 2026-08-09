@@ -88,9 +88,10 @@ For each change:
 4. Document new configuration keys, environment variables, commands, and
    operational risks.
 
-There is no repository-wide install, build, lint, or test command yet.
-Site-specific commands are documented in each site's README. The
-`sites/circus-it.eu` project currently uses `npx @wordpress/env start` for its local
-WordPress runtime and `node scripts/import-production.mjs --apply` for an
-explicit production-to-local content import. The import requires Docker,
-Node.js, SSH access, remote WP-CLI, and a gitignored `.env.import-local` file.
+The repository-wide shared-tooling tests run with `npm test`. Shared site
+operations run from the repository root with `npm run start -- <site-id>`,
+`npm run stop -- <site-id>`, `npm run update -- <site-id>`, and
+`npm run import -- <site-id> --apply`. The import requires Docker, Node.js, SSH
+access, remote WP-CLI, and a gitignored `.env.import-local/<site-id>` file. It
+reads production and destructively replaces only the selected local wp-env
+database and uploads; `--apply` remains mandatory.

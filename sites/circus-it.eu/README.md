@@ -17,11 +17,11 @@ automation.
 
 ## Local WordPress
 
-The site runs locally with `wp-env` on <http://localhost:9791>. From this
-directory, start it with:
+The site runs locally with `wp-env` on <http://localhost:9791>. From the
+platform root, start it with:
 
 ```sh
-npx @wordpress/env start
+npm run start -- circus-it.eu
 ```
 
 ## Import production content
@@ -38,15 +38,17 @@ Hostinger accounts where PHP process functions such as `proc_open()` are
 disabled. The database password is neither written to disk remotely nor added
 to the command log.
 
-Copy `.env.import-local.example` to `.env.import-local` and set the Hostinger
-SSH target, port, and absolute WordPress path. Set `PRODUCTION_SSH_KEY` too if
-the key is not selected through your SSH configuration. The local file is
-ignored by Git and must not be committed. Ensure SSH key authentication works
-and that `wp` is available on the remote server, then run:
+Use `.env.import-local.example` as a template for the platform-root
+`.env.import-local/circus-it.eu` file and set the Hostinger SSH target, port,
+and absolute WordPress path. Set `PRODUCTION_SSH_KEY` too if the key is not
+selected through your SSH configuration. The local file is ignored by Git and
+must not be committed. The previous site-local `.env.import-local` location is
+also supported. Ensure SSH key authentication works and that `wp` is available
+on the remote server, then run from the platform root:
 
 ```sh
-npx @wordpress/env start
-node scripts/import-production.mjs --apply
+npm run start -- circus-it.eu
+npm run import -- circus-it.eu --apply
 ```
 
 `--apply` is mandatory because the operation resets the local database and

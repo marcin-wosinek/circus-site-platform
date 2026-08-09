@@ -3,19 +3,23 @@
   "sites": {
     "acro-agenda.es": {
       "folder": "sites/acro-agenda.es",
-      "port": 9788
+      "port": 9788,
+      "productionUrl": "https://acro-agenda.es"
     },
     "circus-it.eu": {
       "folder": "sites/circus-it.eu",
-      "port": 9791
+      "port": 9791,
+      "productionUrl": "https://circus-it.eu"
     },
     "fusion-circus": {
       "folder": "sites/fusion-circus",
-      "port": 9789
+      "port": 9789,
+      "productionUrl": "https://fusion-circus.com"
     },
     "lamutable.es": {
       "folder": "sites/lamutable.es",
-      "port": 9790
+      "port": 9790,
+      "productionUrl": "https://lamutable.es"
     }
   }
 }

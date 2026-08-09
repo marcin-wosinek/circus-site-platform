@@ -29,6 +29,7 @@ registry. Each entry is keyed by a stable site ID and currently requires:
   must remain inside `sites/`.
 - `port`: local HTTP port assigned to the site. Ports must not be reused by
   another entry.
+- `productionUrl`: canonical HTTPS URL used as the source URL during imports.
 
 The registry is validated by [`schemas/sites.schema.json`](../schemas/sites.schema.json).
 JSON Schema validates the shape and range of individual values; automation
@@ -38,3 +39,20 @@ verify that every folder exists.
 Site-specific WordPress configuration, themes, content, and scripts remain in
 their site directory. Cross-site commands and shared orchestration belong in
 the platform repository.
+
+## Shared commands
+
+From the platform root, select a registered site with:
+
+```sh
+npm run start -- <site-id>
+npm run stop -- <site-id>
+npm run update -- <site-id>
+npm run import -- <site-id> --apply
+```
+
+For imports, the site's `.wp-env.json` must map `wp-content/uploads` and
+`wp-content/import` to local directories and define exactly one tracked theme.
+The command reads the default production URL and local port from the registry.
+These can be overridden with `PRODUCTION_URL` and `LOCAL_URL` in
+`.env.import-local/<site-id>` at the platform root.

@@ -1,0 +1,12 @@
+{
+  "name": "circus-site-platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+	"test": "node --test",
+    "start": "node scripts/site-command.mjs start",
+    "stop": "node scripts/site-command.mjs stop",
+    "update": "node scripts/site-command.mjs update",
+    "import": "node scripts/import-production.mjs"
+  }
+}
