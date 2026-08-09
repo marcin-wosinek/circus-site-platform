@@ -12,6 +12,7 @@ code and tracked themes are not replaced.
 - A running local site started with `npm run start -- <site-id>`
 - SSH key access to the production host
 - WP-CLI and `mysqldump` on the production host
+- Internet access to GitHub when production has active `fair-*` plugins
 
 The remote database export runs `mysqldump` directly, using connection values
 read by WP-CLI from `wp-config.php`. The database password is not written to
@@ -41,6 +42,10 @@ Optional values:
 - `LOCAL_ADMIN_EMAIL`: local administrator email; defaults to
   `admin@localhost.test`
 - `LOCAL_ADMIN_PASSWORD`: local administrator password; defaults to `password`
+- `FAIR_PLUGIN_RELEASE`: optional `fair-event-plugins` GitHub release tag to pin;
+  by default the newest release containing every required `fair-*` ZIP is used
+- `GITHUB_TOKEN`: optional GitHub token used only for API authentication; public
+  releases work without one, subject to GitHub's unauthenticated rate limit
 
 Site READMEs may point to a site-specific example containing appropriate host
 and path placeholders.
@@ -62,14 +67,18 @@ downloads both production snapshots and validates the uploads archive. It then:
 2. Resets and imports the local database.
 3. Performs a serialization-safe replacement of the production URL with the
    local URL.
-4. Updates `.wp-env.json` with WordPress.org download URLs derived from active
-   plugin entry files in the imported database.
+4. Updates `.wp-env.json` with download URLs derived from active plugin entry
+   files. `fair-*` plugins resolve to versioned ZIP assets from one coherent
+   [`fair-event-plugins`](https://github.com/marcin-wosinek/fair-event-plugins)
+   GitHub prerelease; other plugins resolve to WordPress.org.
 5. Activates the single tracked theme configured by `.wp-env.json`.
 6. Creates or resets the configured local administrator.
 
-All active production plugins must be published in the WordPress.org Plugin
-Directory under the same slug as their production plugin directory. If the
-import changes `.wp-env.json`, apply its plugin list with:
+Active plugins outside the `fair-*` suite must be published in the WordPress.org
+Plugin Directory under the same slug as their production plugin directory. The
+selected fair plugin release URL is written into `.wp-env.json`, so subsequent
+updates remain pinned until another import is run. To apply a changed plugin
+list:
 
 ```sh
 npm run update -- <site-id>

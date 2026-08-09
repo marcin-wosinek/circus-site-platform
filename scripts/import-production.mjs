@@ -15,6 +15,7 @@ import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { writeJsonFile } from './lib/json-file.mjs';
+import { resolvePluginDownloads } from './lib/plugin-downloads.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const registryFile = join(platformDir, 'sites.json');
@@ -49,7 +50,6 @@ const timestamp = new Date().toISOString().replaceAll(/[:.]/g, '-');
 const databaseFile = join(dbDir, `production-${timestamp}.sql`);
 const uploadsArchive = join(importDir, `uploads-${timestamp}.tar.gz`);
 const uploadsNext = join(importDir, `uploads-next-${timestamp}`);
-const wordpressPluginDownloads = 'https://downloads.wordpress.org/plugin';
 
 if (!existsSync(projectDir)) fail(`Site folder does not exist: ${site.folder}`);
 if (!existsSync(wpEnvFile)) fail(`Site "${siteId}" does not have a .wp-env.json file.`);
@@ -130,21 +130,15 @@ function wpJson(...args) {
 	fail('WP-CLI did not return valid JSON.');
 }
 
-function syncWpEnvPlugins() {
+async function syncWpEnvPlugins() {
 	const activePlugins = wpJson('option', 'get', 'active_plugins', '--format=json', '--skip-plugins');
-	if (!Array.isArray(activePlugins) || activePlugins.some((plugin) => typeof plugin !== 'string')) {
-		fail('The imported active_plugins option is not a list of plugin entry files.');
-	}
-
 	const wpEnv = JSON.parse(readFileSync(wpEnvFile, 'utf8'));
-	const plugins = activePlugins.map((plugin) => {
-		const [directory, entryFile] = plugin.split('/');
-		const slug = entryFile ? directory : directory.replace(/\.php$/, '');
-		if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) {
-			fail(`Cannot derive a WordPress.org slug from active plugin entry: ${plugin}`);
-		}
-		return `${wordpressPluginDownloads}/${slug}.zip`;
-	});
+	let plugins;
+	try {
+		plugins = await resolvePluginDownloads(activePlugins);
+	} catch (error) {
+		fail(error.message);
+	}
 	if (JSON.stringify(wpEnv.plugins ?? []) !== JSON.stringify(plugins)) {
 		wpEnv.plugins = plugins;
 		writeJsonFile(wpEnvFile, wpEnv);
@@ -232,7 +226,7 @@ wp('db', 'import', `wp-content/import/${databaseFile.slice(dbDir.length + 1)}`);
 wp('search-replace', productionUrl, localUrl, '--all-tables-with-prefix', '--precise', '--report-changed-only');
 wp('option', 'update', 'home', localUrl);
 wp('option', 'update', 'siteurl', localUrl);
-syncWpEnvPlugins();
+await syncWpEnvPlugins();
 const wpEnvThemes = JSON.parse(readFileSync(wpEnvFile, 'utf8')).themes;
 if (!Array.isArray(wpEnvThemes) || wpEnvThemes.length !== 1 || typeof wpEnvThemes[0] !== 'string') {
 	fail(`Site "${siteId}" must define exactly one theme in .wp-env.json.`);

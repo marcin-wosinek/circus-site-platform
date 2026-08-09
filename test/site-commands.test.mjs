@@ -6,6 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { writeJsonFile } from '../scripts/lib/json-file.mjs';
+import { resolvePluginDownloads } from '../scripts/lib/plugin-downloads.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -44,4 +45,53 @@ test('generated JSON files use the repository formatting', (context) => {
 		readFileSync(path, 'utf8'),
 		'{\n  "plugins": [\n    "example"\n  ],\n  "config": {\n    "WP_DEBUG": true\n  }\n}\n',
 	);
+});
+
+test('plugin downloads use one fair release and WordPress.org for other plugins', async () => {
+	const requests = [];
+	const fetchImpl = async (url) => {
+		requests.push(url);
+		return {
+			ok: true,
+			json: async () => [{
+				tag_name: 'build-2',
+				draft: false,
+				assets: [
+					{ name: 'fair-events.1.2.3.zip', browser_download_url: 'https://example.test/fair-events.zip' },
+					{ name: 'fair-form.2.3.4.zip', browser_download_url: 'https://example.test/fair-form.zip' },
+				],
+			}],
+		};
+	};
+
+	assert.deepEqual(
+		await resolvePluginDownloads(
+			['fair-events/fair-events.php', 'akismet/akismet.php', 'fair-form/fair-form.php'],
+			{ fetchImpl },
+		),
+		[
+			'https://example.test/fair-events.zip',
+			'https://downloads.wordpress.org/plugin/akismet.zip',
+			'https://example.test/fair-form.zip',
+		],
+	);
+	assert.equal(requests.length, 1);
+});
+
+test('plugin downloads can pin a fair release tag', async () => {
+	let requestedUrl;
+	const fetchImpl = async (url) => {
+		requestedUrl = url;
+		return {
+			ok: true,
+			json: async () => ({
+				tag_name: 'build/a',
+				draft: false,
+				assets: [{ name: 'fair-events.1.2.3.zip', browser_download_url: 'https://example.test/fair-events.zip' }],
+			}),
+		};
+	};
+
+	await resolvePluginDownloads(['fair-events/fair-events.php'], { fetchImpl, fairRelease: 'build/a' });
+	assert.match(requestedUrl, /releases\/tags\/build%2Fa$/);
 });
