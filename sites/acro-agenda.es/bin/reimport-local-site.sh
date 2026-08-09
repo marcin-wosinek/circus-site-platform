@@ -17,7 +17,6 @@ UPLOADS_SOURCE="${2:-/Users/marcinwosinek/Downloads/uploads.zip}"
 IMPORT_DB="$PROJECT_DIR/import/db"
 IMPORT_UPLOADS="$PROJECT_DIR/import/uploads"
 LOG_FILE="$PROJECT_DIR/import/reimport-local-site.log"
-REST_ENV="$PROJECT_DIR/.env.wp-rest"
 CLI_CONTAINER="$(docker ps --filter 'name=wp-env-acro-agendaes-.*-cli-' --format '{{.Names}}' | head -n 1)"
 
 run() {
@@ -68,32 +67,7 @@ else
 	run docker exec "$CLI_CONTAINER" wp user create admin admin@localhost.test --user_pass=password --role=administrator
 fi
 
-# Keep local REST publishing credentials in a known state after every import.
-# Application Passwords are intentionally captured outside run(), because its
-# command log is kept under import/ and must never contain a credential.
-if docker exec "$CLI_CONTAINER" wp user get ai-editor --field=ID >/dev/null 2>&1; then
-	run docker exec "$CLI_CONTAINER" wp user update ai-editor --user_email=ai-editor@localhost.test --display_name='AI Editor' --role=administrator
-else
-	run docker exec "$CLI_CONTAINER" wp user create ai-editor ai-editor@localhost.test --display_name='AI Editor' --role=administrator
-fi
-
-AI_APPLICATION_PASSWORD="$(docker exec "$CLI_CONTAINER" wp user application-password create ai-editor 'Local REST API' --porcelain)"
-if [ -z "$AI_APPLICATION_PASSWORD" ]; then
-	echo 'Failed to create an Application Password for ai-editor.' >&2
-	exit 1
-fi
-
-umask 077
-{
-	printf 'WP_REST_URL=http://localhost:9788\n'
-	printf 'WP_REST_USERNAME=ai-editor\n'
-	printf 'WP_REST_APPLICATION_PASSWORD=%s\n' "$AI_APPLICATION_PASSWORD"
-} >"$REST_ENV"
-chmod 600 "$REST_ENV"
-printf '  created local REST credentials in %s\n' "$REST_ENV" | tee -a "$LOG_FILE"
-
 run docker exec "$CLI_CONTAINER" wp option get home
 run docker exec "$CLI_CONTAINER" wp user get admin --fields=ID,user_login,roles --format=table
-run docker exec "$CLI_CONTAINER" wp user get ai-editor --fields=ID,user_login,display_name,roles --format=table
 run docker exec "$CLI_CONTAINER" wp plugin list --fields=name,status,version --format=table
 printf 'Reimport finished: %s\n' "$(date '+%Y-%m-%dT%H:%M:%S%z')" | tee -a "$LOG_FILE"

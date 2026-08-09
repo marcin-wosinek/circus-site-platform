@@ -63,7 +63,7 @@ Decision history:
 - 2026-07-27 · v1 proposed single-accent terracotta (Coral register) under
   the then-current one-accent project rule.
 - 2026-07-27 · Marcin removed the one-accent rule and asked for genuinely
-  playful → v2, catalog **Hum** tuned to the brief. CLAUDE.md color rule
+  playful → v2, catalog **Hum** tuned to the brief. The project color rule
   amended the same day.
 - 2026-07-27 · v2 LOCKED. Tokens persisted into `theme.json`; latin-subset
   variable woff2 for Plus Jakarta Sans (normal + italic) and JetBrains Mono

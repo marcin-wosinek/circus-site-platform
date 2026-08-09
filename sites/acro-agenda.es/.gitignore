@@ -2,6 +2,3 @@ node_modules/
 import/
 .DS_Store
 artifacts/
-playwright-report/
-test-results/
-.env.wp-rest

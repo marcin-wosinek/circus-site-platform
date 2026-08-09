@@ -1,26 +1,10 @@
 {
   "name": "acro-agenda.es",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "playwright test",
-    "screenshot": "node scripts/screenshot.mjs",
-    "publish:page": "bin/publish-page-content.sh",
-    "publish:page:dry-run": "bin/publish-page-content.sh --dry-run"
+    "screenshot": "node scripts/screenshot.mjs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/marcin-wosinek/acro-agenda.es.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/marcin-wosinek/acro-agenda.es/issues"
-  },
-  "homepage": "https://github.com/marcin-wosinek/acro-agenda.es#readme",
   "devDependencies": {
     "@playwright/test": "^1.62.1"
   }
