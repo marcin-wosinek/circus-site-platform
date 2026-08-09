@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-	"test": "node --test",
+    "test": "node --test",
     "start": "node scripts/site-command.mjs start",
     "stop": "node scripts/site-command.mjs stop",
     "update": "node scripts/site-command.mjs update",

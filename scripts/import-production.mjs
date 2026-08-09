@@ -10,11 +10,11 @@ import {
 	readFileSync,
 	rmSync,
 	statSync,
-	writeFileSync,
 } from 'node:fs';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { writeJsonFile } from './lib/json-file.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const registryFile = join(platformDir, 'sites.json');
@@ -147,7 +147,7 @@ function syncWpEnvPlugins() {
 	});
 	if (JSON.stringify(wpEnv.plugins ?? []) !== JSON.stringify(plugins)) {
 		wpEnv.plugins = plugins;
-		writeFileSync(wpEnvFile, `${JSON.stringify(wpEnv, null, '\t')}\n`);
+		writeJsonFile(wpEnvFile, wpEnv);
 		console.log(`Updated ${wpEnvFile} from the imported active_plugins option.`);
 	}
 }

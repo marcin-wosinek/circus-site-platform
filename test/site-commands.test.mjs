@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
+import { writeJsonFile } from '../scripts/lib/json-file.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -29,4 +32,16 @@ test('site commands require a registered site', () => {
 	const result = run('scripts/site-command.mjs', ['start', 'not-managed']);
 	assert.equal(result.status, 1);
 	assert.match(result.stderr, /Unknown site "not-managed"/);
+});
+
+test('generated JSON files use the repository formatting', (context) => {
+	const directory = mkdtempSync(resolve(tmpdir(), 'circus-site-platform-'));
+	context.after(() => rmSync(directory, { recursive: true }));
+	const path = resolve(directory, '.wp-env.json');
+	writeJsonFile(path, { plugins: ['example'], config: { WP_DEBUG: true } });
+
+	assert.equal(
+		readFileSync(path, 'utf8'),
+		'{\n  "plugins": [\n    "example"\n  ],\n  "config": {\n    "WP_DEBUG": true\n  }\n}\n',
+	);
 });
