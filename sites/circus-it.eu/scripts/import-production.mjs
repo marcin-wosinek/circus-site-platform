@@ -1,12 +1,24 @@
 #!/usr/bin/env node
 
-import { closeSync, cpSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync, rmSync, statSync } from 'node:fs';
+import {
+	closeSync,
+	cpSync,
+	existsSync,
+	mkdirSync,
+	openSync,
+	readdirSync,
+	readFileSync,
+	rmSync,
+	statSync,
+	writeFileSync,
+} from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 const projectDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const envFile = join(projectDir, '.env.import-local');
+const wpEnvFile = join(projectDir, '.wp-env.json');
 const importDir = join(projectDir, 'import');
 const dbDir = join(importDir, 'db');
 const uploadsDir = join(importDir, 'uploads');
@@ -14,6 +26,7 @@ const timestamp = new Date().toISOString().replaceAll(/[:.]/g, '-');
 const databaseFile = join(dbDir, `production-${timestamp}.sql`);
 const uploadsArchive = join(importDir, `uploads-${timestamp}.tar.gz`);
 const uploadsNext = join(importDir, `uploads-next-${timestamp}`);
+const wordpressPluginDownloads = 'https://downloads.wordpress.org/plugin';
 
 function loadEnv(path) {
 	if (!existsSync(path)) return;
@@ -69,6 +82,48 @@ function capture(command, args, destination) {
 
 function wp(...args) {
 	run('npx', ['@wordpress/env', 'run', 'cli', 'wp', ...args]);
+}
+
+function wpJson(...args) {
+	console.log(`+ npx @wordpress/env run cli wp ${args.join(' ')}`);
+	const result = spawnSync('npx', ['@wordpress/env', 'run', 'cli', 'wp', ...args], {
+		cwd: projectDir,
+		encoding: 'utf8',
+	});
+	if (result.stdout) process.stdout.write(result.stdout);
+	if (result.stderr) process.stderr.write(result.stderr);
+	if (result.error) fail(result.error.message);
+	if (result.status !== 0) fail(`wp exited with status ${result.status}`);
+	for (const line of result.stdout.split(/\r?\n/)) {
+		try {
+			return JSON.parse(line);
+		} catch {
+			// wp-env prints status lines around the WP-CLI output.
+		}
+	}
+	fail('WP-CLI did not return valid JSON.');
+}
+
+function syncWpEnvPlugins() {
+	const activePlugins = wpJson('option', 'get', 'active_plugins', '--format=json', '--skip-plugins');
+	if (!Array.isArray(activePlugins) || activePlugins.some((plugin) => typeof plugin !== 'string')) {
+		fail('The imported active_plugins option is not a list of plugin entry files.');
+	}
+
+	const wpEnv = JSON.parse(readFileSync(wpEnvFile, 'utf8'));
+	const plugins = activePlugins.map((plugin) => {
+		const [directory, entryFile] = plugin.split('/');
+		const slug = entryFile ? directory : directory.replace(/\.php$/, '');
+		if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) {
+			fail(`Cannot derive a WordPress.org slug from active plugin entry: ${plugin}`);
+		}
+		return `${wordpressPluginDownloads}/${slug}.zip`;
+	});
+	if (JSON.stringify(wpEnv.plugins ?? []) !== JSON.stringify(plugins)) {
+		wpEnv.plugins = plugins;
+		writeFileSync(wpEnvFile, `${JSON.stringify(wpEnv, null, '\t')}\n`);
+		console.log(`Updated ${wpEnvFile} from the imported active_plugins option.`);
+	}
 }
 
 function remoteDatabaseExportCommand(wordpressPath) {
@@ -151,6 +206,7 @@ wp('db', 'import', `wp-content/import/${databaseFile.slice(dbDir.length + 1)}`);
 wp('search-replace', productionUrl, localUrl, '--all-tables-with-prefix', '--precise', '--report-changed-only');
 wp('option', 'update', 'home', localUrl);
 wp('option', 'update', 'siteurl', localUrl);
+syncWpEnvPlugins();
 wp('theme', 'activate', 'circus-it');
 
 const userCheck = spawnSync('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'user', 'get', adminUser, '--field=ID'], {

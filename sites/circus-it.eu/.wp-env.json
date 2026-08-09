@@ -1,16 +1,22 @@
 {
-	"core": null,
-	"port": 9791,
-	"testsEnvironment": false,
-	"themes": ["./circus-it"],
-	"config": {
-		"WP_DEBUG": true,
-		"SCRIPT_DEBUG": true,
-		"WP_DEVELOPMENT_MODE": "theme"
-	},
-	"mappings": {
-		"wp-content/uploads": "./import/uploads",
-		"wp-content/import": "./import/db"
-	}
+  "core": null,
+  "port": 9791,
+  "testsEnvironment": false,
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/polylang.zip",
+    "https://downloads.wordpress.org/plugin/fair-events.zip",
+    "https://downloads.wordpress.org/plugin/fair-payments-connector.zip",
+    "https://downloads.wordpress.org/plugin/hostinger.zip",
+    "https://downloads.wordpress.org/plugin/plausible-analytics.zip"
+  ],
+  "themes": ["./circus-it"],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true,
+    "WP_DEVELOPMENT_MODE": "theme"
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
+  }
 }
-

@@ -54,7 +54,12 @@ replaces local uploads. Before doing so, the command downloads both snapshots,
 validates the uploads archive, and saves the current local database and uploads
 under the ignored `import/` directory. It then performs a serialization-safe
 URL replacement from `https://circus-it.eu` to `http://localhost:9791`,
-activates the tracked theme, and creates or resets the local `admin` user.
+updates `.wp-env.json` with WordPress.org download URLs derived from the active
+plugin entry files recorded in the imported database, activates the tracked
+theme, and creates or resets the local `admin` user. Apply a changed plugin list
+with `npx @wordpress/env start --update`. All active production plugins must
+therefore be published in the WordPress.org Plugin Directory under the same
+slug as their production plugin directory.
 
 The default local password is `password`. Override `LOCAL_ADMIN_USER`,
 `LOCAL_ADMIN_EMAIL`, or `LOCAL_ADMIN_PASSWORD` in `.env.import-local` when
