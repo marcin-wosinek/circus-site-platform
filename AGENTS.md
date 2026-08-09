@@ -51,6 +51,10 @@ be Git submodules, while platform-owned sites such as `sites/circus-it.eu` are
 tracked directly in this repository. Check `.gitmodules` instead of assuming a
 registered site is a submodule.
 
+When merging an independent repository or submodule into this repository,
+follow [Merge a repository into this repository](docs/merge-repository.md) to
+preserve its Git history and verify the imported tree.
+
 ## Development guidelines
 
 - Treat production systems as read-only unless a task explicitly authorizes a
