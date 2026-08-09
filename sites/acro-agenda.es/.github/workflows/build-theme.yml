@@ -1,0 +1,24 @@
+name: Build theme ZIP
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stage theme
+        run: |
+          mkdir -p dist/acro-agenda
+          cp -r acro-agenda/. dist/acro-agenda/
+          find dist -name '.DS_Store' -delete
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: acro-agenda-theme
+          path: dist

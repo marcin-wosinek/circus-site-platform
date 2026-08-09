@@ -1,0 +1,8 @@
+[
+  { "date": "2026-08-02", "macrostructure": "Ecosystem Index (calendar-led: weekly list → full calendar → subscriptions)", "theme": "Hum (locked, design.md)", "enrichment": "none", "brief": "Acro Agenda · Valencia: local events discovery with existing Fair Events calendar and mailing signup blocks" },
+  { "date": "2026-08-01", "macrostructure": "Split Studio (copy/visual 1:1, category-only visual, form-led middle)", "theme": "Hum (locked, design.md)", "enrichment": "none", "brief": "Acro Agenda · Publica tu evento: split hero with mono eyebrow and truthful Jam/Clase/Taller/Festival tags; coral endcap with agenda text link" },
+  { "date": "2026-07-28", "macrostructure": "none (chrome: footer)", "theme": "Hum (locked, design.md)", "enrichment": "none", "footer": "Ft5 Statement (sentence≤28ch, wordmark=none, rule=none)", "brief": "Acro Agenda · footer part + pattern: «Nos vemos en la jam.» statement, region pill links, © bloginfo credit" },
+  { "date": "2026-07-28", "macrostructure": "none (chrome: header)", "theme": "Hum (locked, design.md)", "enrichment": "none", "nav": "N1b three-section (links=3, dropdowns=none, always-solid)", "brief": "Acro Agenda · header part + pattern: wordmark + sol dot, region links, Publica tu evento push CTA" },
+  { "date": "2026-07-27", "macrostructure": "none (design-system proposal)", "theme": "Hum (Hum-lite, CSS-only motion)", "enrichment": "none", "brief": "Acro Agenda v2 · one-accent rule removed, genuinely playful multi-accent palette + fonts into design.md" },
+  { "date": "2026-07-27", "macrostructure": "none (design-system proposal)", "theme": "Coral (tuned warm) — superseded by v2", "enrichment": "none", "brief": "Acro Agenda v1 · single-accent terracotta proposal" }
+]

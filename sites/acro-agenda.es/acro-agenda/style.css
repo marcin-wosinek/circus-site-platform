@@ -1,0 +1,414 @@
+/*
+Theme Name: Acro Agenda
+Theme URI: https://acro-agenda.es
+Description: Child theme of Twenty Twenty-Five for acro-agenda.es
+Template: twentytwentyfive
+Version: 0.1.0
+Requires at least: 6.7
+Requires PHP: 7.4
+Text Domain: acro-agenda
+*/
+
+/* Hum push button — press physics (design.md · Shape & CTA voice).
+   Rest state (sol fill, ink text, pill radius, 4px sol-deep edge + cast
+   shadow) comes from theme.json; only the motion lives here. */
+.wp-element-button,
+.wp-block-button__link {
+	transition:
+		transform 160ms var(--wp--custom--ease--press),
+		box-shadow 160ms var(--wp--custom--ease--press),
+		background-color 160ms var(--wp--custom--ease--press),
+		border-color 160ms var(--wp--custom--ease--press);
+}
+
+.wp-element-button:not(:disabled, [aria-disabled="true"]):hover,
+.wp-block-button__link:not([aria-disabled="true"]):hover {
+	transform: translateY(-2px);
+	box-shadow:
+		0 6px 0 0 var(--wp--preset--color--sol-deep),
+		var(--wp--custom--shadow--btn-cast);
+}
+
+.wp-element-button:not(:disabled, [aria-disabled="true"]):active,
+.wp-block-button__link:not([aria-disabled="true"]):active {
+	transform: translateY(3px);
+	box-shadow: 0 1px 0 0 var(--wp--preset--color--sol-deep);
+	outline: none;
+}
+
+/* Hallmark · component: buttons · genre: playful · theme: Hum (locked, design.md)
+ * voices: primary push (above) · secondary soft (.is-style-soft) · tertiary outline (.is-style-outline)
+ * states: default · hover · focus (global ring below) · active · disabled —
+ * loading/error/success have no entry vector in a JS-free block theme; add
+ * alongside the first real form. One push button per view (design.md).
+ * contrast: pass · pre-emit critique: P4 H4 E4 S4 R5 V4 */
+
+/* Secondary "suave" — flat Papel-2 fill, soft shadow; hover deepens to the
+   palette's designated hover surface (Papel 3) with a 1px lift. */
+.wp-block-button.is-style-soft > .wp-block-button__link {
+	background-color: var(--wp--preset--color--base-2);
+	box-shadow: var(--wp--custom--shadow--btn-soft);
+}
+
+.wp-block-button.is-style-soft > .wp-block-button__link:not([aria-disabled="true"]):hover {
+	background-color: var(--wp--preset--color--base-3);
+	transform: translateY(-1px);
+	box-shadow: var(--wp--custom--shadow--btn-soft);
+}
+
+.wp-block-button.is-style-soft > .wp-block-button__link:not([aria-disabled="true"]):active {
+	background-color: var(--wp--preset--color--base-3);
+	transform: translateY(1px);
+	box-shadow: none;
+}
+
+/* Tertiary outline — 1px ink-mix border (design.md: "1px outline", not
+   core's 2px), transparent fill. Hover stays on the paper ramp: accents
+   keep their owned roles (three-rule). */
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	background-color: transparent;
+	border: 1px solid color-mix(in oklch, var(--wp--preset--color--contrast) 30%, transparent);
+	box-shadow: none;
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:not([aria-disabled="true"]):hover {
+	background-color: var(--wp--preset--color--base-2);
+	border-color: color-mix(in oklch, var(--wp--preset--color--contrast) 50%, transparent);
+	transform: translateY(-1px);
+	box-shadow: none;
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:not([aria-disabled="true"]):active {
+	background-color: var(--wp--preset--color--base-3);
+	transform: translateY(1px);
+	box-shadow: none;
+}
+
+/* Disabled — flattened to the paper ramp: no pressable edge, no lift.
+   Ink at 45% (ink-with-opacity rule, never a new grey); WCAG exempts
+   disabled controls from contrast minima. */
+.wp-element-button:disabled,
+.wp-element-button[aria-disabled="true"],
+.wp-block-button .wp-block-button__link[aria-disabled="true"] {
+	background-color: var(--wp--preset--color--base-3);
+	color: color-mix(in oklch, var(--wp--preset--color--contrast) 45%, transparent);
+	border-color: transparent;
+	box-shadow: none;
+	transform: none;
+	cursor: not-allowed;
+}
+
+/* No horizontal scroll, ever — clip (not hidden) so sticky/fixed chrome
+   keeps the viewport as its containing block on mobile */
+html,
+body {
+	overflow-x: clip;
+}
+
+/* Hallmark · component: header · genre: playful · theme: Hum (locked, design.md)
+   nav: N1b three-section · knobs: links=3, dropdowns=none, scroll=always-solid
+   character moment: wordmark sol dot, 4s pulse (design.md · Motion) */
+
+.aa-wordmark {
+	white-space: nowrap;
+}
+
+.aa-wordmark a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* The wordmark's character dot — sol yellow, gentle 4s pulse at rest */
+.aa-wordmark a::after {
+	content: "";
+	display: inline-block;
+	width: 0.32em;
+	height: 0.32em;
+	margin-inline-start: 0.18em;
+	border-radius: var(--wp--custom--radius--pill);
+	background: var(--wp--preset--color--sol);
+	animation: aa-dot-pulse 4s ease-in-out infinite;
+}
+
+@keyframes aa-dot-pulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.04); }
+}
+
+/* Region links — cielo owns hover tints (design.md · three-rule) */
+.wp-block-navigation .wp-block-navigation-item__content {
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--sm);
+	border-radius: var(--wp--custom--radius--pill);
+	transition:
+		background-color 160ms var(--wp--custom--ease--press),
+		color 160ms var(--wp--custom--ease--press);
+}
+
+.wp-block-navigation .wp-block-navigation-item__content:hover {
+	background-color: color-mix(in oklch, var(--wp--preset--color--cielo) 10%, transparent);
+}
+
+.wp-block-navigation .wp-block-navigation-item__content[aria-current="page"] {
+	color: var(--wp--preset--color--cielo-deep);
+}
+
+/* Overlay menu links: ≥44px touch targets (selector mirrors core's
+   zero-padding rule to win specificity) */
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-content .wp-block-navigation-item__content {
+	padding: var(--wp--preset--spacing--sm) var(--wp--preset--spacing--md);
+}
+
+/* Header CTA never wraps; keeps the ≥44px hit target */
+.aa-header-cta .wp-block-button__link {
+	white-space: nowrap;
+	min-height: 2.75rem;
+	display: inline-flex;
+	align-items: center;
+}
+
+/* Narrow phones: everything steps down one size so the row fits 320px.
+   !important needed to beat the block's inline padding / generated gap. */
+@media (max-width: 30em) {
+	.aa-header {
+		padding-inline: var(--wp--preset--spacing--sm) !important;
+		gap: var(--wp--preset--spacing--xs) !important;
+	}
+
+	.aa-wordmark {
+		font-size: var(--wp--preset--font-size--base) !important;
+	}
+
+	.aa-header-cta .wp-block-button__link {
+		font-size: var(--wp--preset--font-size--sm);
+		padding-inline: var(--wp--preset--spacing--md);
+	}
+}
+
+/* Hallmark · component: footer · genre: playful · theme: Hum (locked, design.md)
+   footer: Ft5 Statement · knobs: sentence≤28ch · wordmark=none · rule=none (band is the boundary)
+   pre-emit critique: P4 H4 E4 S4 R5 V4 */
+
+.aa-footer-line {
+	max-width: 28ch;
+}
+
+/* Meta links — same pill vocabulary as the header nav (cielo owns hover).
+   Negative start margin realigns the first pill's text with the statement's
+   left edge; block padding keeps the ≥44px hit target. */
+.aa-footer-nav {
+	margin-inline-start: calc(-1 * var(--wp--preset--spacing--sm));
+}
+
+/* Credit line — ink at reduced strength, never a new grey */
+.aa-footer-copy {
+	color: color-mix(in oklch, var(--wp--preset--color--contrast) 72%, transparent);
+}
+
+/* Narrow phones: tighten the band's inline padding to match the header.
+   !important needed to beat the block's inline padding. */
+@media (max-width: 30em) {
+	.aa-footer {
+		padding-inline: var(--wp--preset--spacing--sm) !important;
+	}
+}
+
+/* Hallmark · component: form inputs (Fair Form plugin) · genre: playful · theme: Hum (locked, design.md)
+ * states: default · hover · focus · active(=focus) · disabled · loading (plugin
+ * disables submit + swaps label) · error · success (.fair-form-message-*)
+ * menta owns success (design.md); coral = this view's pop moment (error + required mark)
+ * contrast: pass · pre-emit critique: P4 H4 E4 S4 R5 V4 */
+
+/* Rest — the plugin ships WP-admin chrome (grey #8c8f94 border, 4px radius,
+   admin-blue focus) and form controls don't inherit fonts, so inputs render
+   Arial and textareas monospace. font: inherit + Hum tokens fix both.
+   Border stays 1px in every state (no-layout-shift rule); the outline slot
+   is reserved transparent so the focus ring appears without a repaint pop. */
+.fair-form-form input[type="text"],
+.fair-form-form input[type="email"],
+.fair-form-form input[type="tel"],
+.fair-form-form select,
+.fair-form-form textarea {
+	font: inherit;
+	color: var(--wp--preset--color--contrast);
+	background-color: var(--wp--preset--color--base);
+	border: 1px solid color-mix(in oklch, var(--wp--preset--color--contrast) 45%, transparent);
+	border-radius: var(--wp--custom--radius--input);
+	padding: var(--wp--preset--spacing--sm) var(--wp--preset--spacing--md);
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+	transition:
+		background-color 160ms var(--wp--custom--ease--press),
+		border-color 160ms var(--wp--custom--ease--press);
+}
+
+.fair-form-form ::placeholder {
+	color: color-mix(in oklch, var(--wp--preset--color--contrast) 55%, transparent);
+	opacity: 1;
+}
+
+/* Hover — fill steps to the designated hover surface; border holds still */
+@media (hover: hover) {
+	.fair-form-form input[type="text"]:not(:disabled):hover,
+	.fair-form-form input[type="email"]:not(:disabled):hover,
+	.fair-form-form input[type="tel"]:not(:disabled):hover,
+	.fair-form-form select:not(:disabled):hover,
+	.fair-form-form textarea:not(:disabled):hover {
+		background-color: var(--wp--preset--color--base-2);
+	}
+}
+
+/* Focus — instant ring (never animated), border deepens to ink; overrides the
+   plugin's admin-blue border + box-shadow at equal specificity, later cascade */
+.fair-form-form input[type="text"]:focus,
+.fair-form-form input[type="email"]:focus,
+.fair-form-form input[type="tel"]:focus,
+.fair-form-form select:focus,
+.fair-form-form textarea:focus {
+	outline: 2px solid var(--wp--custom--color--focus);
+	outline-offset: 2px;
+	border-color: var(--wp--preset--color--contrast);
+	box-shadow: none;
+}
+
+/* Disabled — same voice as disabled buttons: Papel 3, ink at 45%, flat.
+   Radius re-asserted because the plugin's disabled rule outranks the rest rule. */
+.fair-form-form input:disabled,
+.fair-form-form select:disabled,
+.fair-form-form textarea:disabled {
+	background-color: var(--wp--preset--color--base-3);
+	border-color: transparent;
+	border-radius: var(--wp--custom--radius--input);
+	color: color-mix(in oklch, var(--wp--preset--color--contrast) 45%, transparent);
+	cursor: not-allowed;
+}
+
+/* Loading — the plugin disables the submit button and swaps its label while
+   in flight; the theme's disabled-button voice carries it. Cancel the
+   plugin's extra opacity fade so the voice stays ours. */
+.fair-form-submit-button:disabled {
+	opacity: 1;
+}
+
+/* Checkbox (the "keep informed" opt-in on other Fair forms) */
+.fair-form-form input[type="checkbox"] {
+	accent-color: var(--wp--custom--color--focus);
+}
+
+/* Required mark — coral pulled toward ink to clear small-text contrast */
+.fair-form-form .required {
+	color: color-mix(in oklch, var(--wp--preset--color--coral) 60%, var(--wp--preset--color--contrast));
+}
+
+/* Result messages — accent-tinted fills with ink text (never accent text on
+   accent fills). Menta owns success; coral owns error, the view's one pop. */
+.fair-form-form .fair-form-message {
+	border-radius: var(--wp--custom--radius--input);
+	padding: var(--wp--preset--spacing--sm) var(--wp--preset--spacing--md);
+	font-weight: 500;
+}
+
+.fair-form-form .fair-form-message-success {
+	background-color: color-mix(in oklch, var(--wp--preset--color--menta) 25%, var(--wp--preset--color--base));
+	border: 1px solid var(--wp--preset--color--menta);
+	color: var(--wp--preset--color--contrast);
+}
+
+.fair-form-form .fair-form-message-error {
+	background-color: color-mix(in oklch, var(--wp--preset--color--coral) 14%, var(--wp--preset--color--base));
+	border: 1px solid var(--wp--preset--color--coral);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* Plugin credit line — ink at reduced strength, never a new grey */
+.fair-audience-powered-by {
+	color: color-mix(in oklch, var(--wp--preset--color--contrast) 55%, transparent);
+}
+
+/* Hallmark · primitive: closing callout
+ * genre: playful · theme: Hum (locked, design.md)
+ * roles: sol=primary action · cielo=links/hover · coral=one optional pop/view
+ * pre-emit critique: P4 H4 E5 S5 R5 V4 */
+
+/* Endcap — a centred Papel 2 closing surface, not a second primary-button
+   treatment. */
+.wp-block-group.is-style-closing-callout {
+	padding: var(--wp--preset--spacing--2xl);
+	background-color: var(--wp--preset--color--base-2);
+	border-radius: var(--wp--custom--radius--card);
+	text-align: center;
+}
+
+/* Small mono primitives — labels and tags stay on the neutral paper ramp so
+   accents remain available to their locked roles. */
+p.is-style-mono-eyebrow,
+p.is-style-activity-tag {
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: var(--wp--custom--typography--mono-label-weight);
+	letter-spacing: var(--wp--custom--typography--mono-label-tracking);
+	line-height: var(--wp--custom--typography--mono-label-line-height);
+	text-transform: uppercase;
+}
+
+p.is-style-mono-eyebrow {
+	color: color-mix(in oklch, var(--wp--preset--color--contrast) 72%, transparent);
+}
+
+p.is-style-activity-tag {
+	display: inline-flex;
+	width: fit-content;
+	padding: var(--wp--preset--spacing--2xs) var(--wp--preset--spacing--xs);
+	background-color: var(--wp--preset--color--base-2);
+	border-radius: var(--wp--custom--radius--pill);
+	color: var(--wp--preset--color--contrast);
+}
+
+@media (max-width: 30em) {
+	.wp-block-group.is-style-closing-callout {
+		padding: var(--wp--preset--spacing--md);
+	}
+}
+
+/* Focus ring — --wp--custom--color--focus, shown instantly (never animated) */
+:focus-visible {
+	outline: 2px solid var(--wp--custom--color--focus);
+	outline-offset: 2px;
+}
+
+/* Reduced motion: transforms collapse to a color transition (design.md) */
+@media (prefers-reduced-motion: reduce) {
+	.aa-wordmark a::after {
+		animation: none;
+	}
+
+	.wp-element-button,
+	.wp-block-button__link {
+		transition: background-color 150ms linear;
+	}
+
+	.wp-element-button:not(:disabled, [aria-disabled="true"]):hover,
+	.wp-element-button:not(:disabled, [aria-disabled="true"]):active,
+	.wp-block-button__link:not([aria-disabled="true"]):hover,
+	.wp-block-button__link:not([aria-disabled="true"]):active {
+		transform: none;
+		background-color: var(--wp--preset--color--sol-deep);
+		box-shadow:
+			0 4px 0 0 var(--wp--preset--color--sol-deep),
+			var(--wp--custom--shadow--btn-cast);
+	}
+
+	/* Soft / outline voices already speak in color on hover — just hold
+	   them to their own ramp instead of the primary's sol-deep. */
+	.wp-block-button.is-style-soft > .wp-block-button__link:not([aria-disabled="true"]):hover,
+	.wp-block-button.is-style-soft > .wp-block-button__link:not([aria-disabled="true"]):active {
+		background-color: var(--wp--preset--color--base-3);
+		box-shadow: var(--wp--custom--shadow--btn-soft);
+	}
+
+	.wp-block-button.is-style-outline > .wp-block-button__link:not([aria-disabled="true"]):hover,
+	.wp-block-button.is-style-outline > .wp-block-button__link:not([aria-disabled="true"]):active {
+		background-color: var(--wp--preset--color--base-2);
+		box-shadow: none;
+	}
+
+}
