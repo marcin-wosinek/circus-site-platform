@@ -15,14 +15,14 @@
     "wp-content/import": "./import/db"
   },
   "plugins": [
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-audience-experimental.1.1.1.zip",
     "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-audience.1.12.0-57-gc1d1e0fd.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-events-experimental.1.4.1-57-gc1d1e0fd.zip",
     "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-events.1.12.0-57-gc1d1e0fd.zip",
     "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-form.1.3.0-57-gc1d1e0fd.zip",
     "https://downloads.wordpress.org/plugin/hostinger.zip",
     "https://downloads.wordpress.org/plugin/plausible-analytics.zip",
     "https://downloads.wordpress.org/plugin/plugin-check.zip",
-    "https://downloads.wordpress.org/plugin/wp-mail-logging.zip"
+    "https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-audience-experimental.1.1.1.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.12.0-57-gc1d1e0fd/fair-events-experimental.1.4.1-57-gc1d1e0fd.zip"
   ]
 }

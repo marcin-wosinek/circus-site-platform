@@ -95,3 +95,29 @@ test('plugin downloads can pin a fair release tag', async () => {
 	await resolvePluginDownloads(['fair-events/fair-events.php'], { fetchImpl, fairRelease: 'build/a' });
 	assert.match(requestedUrl, /releases\/tags\/build%2Fa$/);
 });
+
+test('plugin downloads activate non-experimental plugins before experimental variants', async () => {
+	const fetchImpl = async () => ({
+		ok: true,
+		json: async () => [{
+			tag_name: 'build-2',
+			draft: false,
+			assets: [
+				{ name: 'fair-events-experimental.1.0.0.zip', browser_download_url: 'https://example.test/fair-events-experimental.zip' },
+				{ name: 'fair-events.2.0.0.zip', browser_download_url: 'https://example.test/fair-events.zip' },
+			],
+		}],
+	});
+
+	assert.deepEqual(
+		await resolvePluginDownloads(
+			['fair-events-experimental/plugin.php', 'akismet/akismet.php', 'fair-events/plugin.php'],
+			{ fetchImpl },
+		),
+		[
+			'https://downloads.wordpress.org/plugin/akismet.zip',
+			'https://example.test/fair-events.zip',
+			'https://example.test/fair-events-experimental.zip',
+		],
+	);
+});

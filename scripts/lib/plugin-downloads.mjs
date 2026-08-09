@@ -69,6 +69,10 @@ export async function resolvePluginDownloads(activePlugins, {
 	const fairDownloads = fairSlugs.length
 		? await fairPluginDownloads(fairSlugs, { fetchImpl, githubToken, fairRelease })
 		: new Map();
+	const activationOrder = [
+		...slugs.filter((slug) => !slug.endsWith('-experimental')),
+		...slugs.filter((slug) => slug.endsWith('-experimental')),
+	];
 
-	return slugs.map((slug) => fairDownloads.get(slug) ?? `${wordpressPluginDownloads}/${slug}.zip`);
+	return activationOrder.map((slug) => fairDownloads.get(slug) ?? `${wordpressPluginDownloads}/${slug}.zip`);
 }
