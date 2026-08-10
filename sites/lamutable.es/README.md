@@ -1,5 +1,8 @@
 # lamutable.es — theme project guide
 
+The Lamutable website lives directly in the Circus Site Platform repository. It
+is not a Git submodule.
+
 Custom WordPress block theme for lamutable.es, built as a **child theme of Twenty
 Twenty-Five** and developed locally with **wp-env**. There is no designer on the
 team, so the workflow below is deliberately constrained: all design decisions
@@ -63,10 +66,17 @@ and grows from there. Version 3 requires WordPress ≥ 6.6 — fine for us.
 ```json
 {
   "core": null,
+  "port": 9790,
+  "testsEnvironment": false,
   "themes": ["./lamutable"],
   "config": {
     "WP_DEBUG": true,
-    "SCRIPT_DEBUG": true
+    "SCRIPT_DEBUG": true,
+    "WP_DEVELOPMENT_MODE": "theme"
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
   }
 }
 ```
@@ -76,22 +86,21 @@ Twenty-Five, so the parent theme needs no extra install step.
 
 ### Commands
 
-| Command | What it does |
-|---|---|
-| `npx wp-env start` | Start (first run downloads images; slow once) |
-| `npx wp-env stop` | Stop containers, keep data |
-| `npx wp-env clean all` | **Reset the database** (see "gotchas" — you'll want this) |
-| `npx wp-env destroy` | Remove everything including volumes |
-| `npx wp-env run cli wp <cmd>` | Run any WP-CLI command inside the container |
+Run shared lifecycle commands from the platform repository root:
 
-- Dev site: <http://localhost:8888> — login `admin` / `password`
-- Test site: <http://localhost:8889> (used by automated tests, ignore otherwise)
+```sh
+npm run start -- lamutable.es
+npm run stop -- lamutable.es
+npm run update -- lamutable.es
+```
+
+The development site runs at <http://localhost:9790> with the default wp-env
+login `admin` / `password`. The separate wp-env test environment is disabled.
+Theme files are mounted live, so edits only require a browser reload. There is
+no build step.
 
 If the theme isn't active after start:
 `npx wp-env run cli wp theme activate lamutable`
-
-Theme files are mounted live — edit locally, reload the browser. No build step
-exists in this project and we keep it that way unless we add custom JS.
 
 ## Design workflow (no designer)
 
@@ -144,66 +153,19 @@ Alternate palettes/font pairings go in `styles/*.json` (same shape as
 
 ## Importing production content
 
-To work locally against a real copy of the live site (e.g. a Hostinger export),
-you need a database dump and the `wp-content/uploads` folder. wp-env runs
-WordPress inside Docker containers, so **the containers cannot see your host
-filesystem directly** — only the directories mapped in `.wp-env.json`:
+Create the ignored platform-root `.env.import-local/lamutable.es` file with the
+site's SSH connection details, then run:
 
-```json
-"mappings": {
-  "wp-content/uploads": "./import/uploads",
-  "wp-content/import": "./import/db"
-}
+```sh
+npm run import -- lamutable.es --apply
 ```
 
-`./import/` is gitignored — it's a local-only staging area, never committed.
-
-### 1. Import the database
-
-```bash
-# Copy the SQL dump where the cli container can reach it
-mkdir -p import/db
-cp ~/Downloads/<export>.sql import/db/
-
-# Wipe the local DB first for a clean, conflict-free import
-npx wp-env run cli wp db reset --yes
-
-# Import — path is relative to the container's wp-content/import mapping
-npx wp-env run cli wp db import wp-content/import/<export>.sql
-```
-
-Skipping the `wp db reset` step still mostly works, but the dump's `ID = 1`
-rows (default post, admin user, "Uncategorized" term, `siteurl` option, etc.)
-will collide with the fresh install's own default rows and get silently
-skipped — you end up with a mix of old and new data. Reset first, unless you
-specifically want to preserve the local install's existing content.
-
-No search-replace of URLs is needed: `wp-env`'s `WP_SITEURL`/`WP_HOME`
-constants override whatever `siteurl`/`home` values are in the dump, so the
-site correctly serves at `http://localhost:8888` regardless of the export's
-original domain.
-
-### 2. Import the uploads
-
-```bash
-mkdir -p import/uploads
-unzip -o ~/Downloads/uploads.zip -d import/uploads
-```
-
-Check `unzip -l ~/Downloads/uploads.zip | head` first: if the archive already
-has files at its root (e.g. `2026/04/photo.jpg`) extract straight into
-`import/uploads`; if it wraps everything in an `uploads/` folder, extract one
-level up instead so the years (`2026/`, etc.) end up directly under
-`import/uploads/`.
-
-### 3. Verify
-
-```bash
-npx wp-env run cli wp post list --post_type=post --fields=ID,post_title,post_date
-npx wp-env run cli wp option get siteurl
-```
-
-Then load <http://localhost:8888> and check that content and images render.
+Production is read-only. The command destructively replaces only Lamutable's
+local wp-env database and uploads, preserves a local backup, updates the pinned
+plugin sources from production, and reactivates the tracked theme. The
+repository theme is not replaced by an import. See
+[`../../docs/import-production.md`](../../docs/import-production.md) for the
+prerequisites, safeguards, configuration keys, and recovery details.
 
 ## Gotchas (read before debugging "my change does nothing")
 

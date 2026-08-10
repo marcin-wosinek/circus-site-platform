@@ -1,5 +1,7 @@
 {
   "core": null,
+  "port": 9790,
+  "testsEnvironment": false,
   "themes": ["./lamutable"],
   "config": {
     "WP_DEBUG": true,
