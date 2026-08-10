@@ -22,6 +22,12 @@ npm run import -- circus-it.eu --apply
 `start`, `stop`, and `update` run `wp-env` in the folder registered for the
 site. `update` is shorthand for `wp-env start --update`.
 
+Use these root commands instead of invoking `wp-env` directly. Before starting
+or updating a site, the shared command generates an ignored
+`.wp-env.override.json` that maps versioned Fair plugin releases to the local,
+ignored `.wp-env-plugins/` cache. The tracked `.wp-env.json` remains the
+canonical environment configuration.
+
 The import command is destructive only to the selected local wp-env instance
 and requires `--apply`. Production is read-only. Put each site's SSH settings
 in the ignored `.env.import-local/<site-id>` file; a site-local
