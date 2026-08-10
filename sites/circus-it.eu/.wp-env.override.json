@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/polylang.zip",
+    "./.wp-env-plugins/fair-events",
+    "./.wp-env-plugins/fair-payments-connector",
+    "./.wp-env-plugins/fair-timetable",
+    "https://downloads.wordpress.org/plugin/hostinger.zip",
+    "https://downloads.wordpress.org/plugin/plausible-analytics.zip"
+  ]
+}
