@@ -1,0 +1,246 @@
+# lamutable.es — theme project guide
+
+Custom WordPress block theme for lamutable.es, built as a **child theme of Twenty
+Twenty-Five** and developed locally with **wp-env**. There is no designer on the
+team, so the workflow below is deliberately constrained: all design decisions
+live as tokens in `theme.json`, and layout work happens at the pattern level.
+
+## Why a child theme of Twenty Twenty-Five
+
+- Twenty Twenty-Five ships with WordPress core, is well designed, and keeps
+  receiving fixes — we inherit hundreds of small correct decisions (line
+  heights, content widths, block gaps) for free.
+- A block child theme is cheap: our `theme.json` **merges on top of** the
+  parent's, our `templates/*.html` and `parts/*.html` **override by filename**,
+  and our `patterns/*.php` are **additive**. We only maintain what we change.
+- If we ever outgrow it, converting to a standalone theme is mostly copying
+  the parent files we still rely on.
+
+## Prerequisites
+
+- Node.js (LTS) — wp-env runs via `npx`, no global install needed
+- Docker Desktop (wp-env runs WordPress in containers)
+
+## Repository layout
+
+```
+.
+├── .wp-env.json          # local environment definition
+├── README.md             # this guide
+└── lamutable/            # the theme (directory name = theme slug)
+    ├── style.css         # theme header (declares the parent via Template:)
+    ├── theme.json        # design tokens + default styles (the design system)
+    ├── templates/        # full-page templates (HTML), override parent by name
+    ├── parts/            # header/footer template parts (HTML, no subfolders!)
+    ├── patterns/         # theme-owned patterns (PHP)
+    └── styles/           # style variations (JSON) — alternate palettes/fonts
+```
+
+Minimum viable theme files:
+
+`lamutable/style.css`:
+
+```css
+/*
+Theme Name: Lamutable
+Theme URI: https://lamutable.es
+Description: Child theme of Twenty Twenty-Five for lamutable.es
+Template: twentytwentyfive
+Version: 0.1.0
+Requires at least: 6.7
+Requires PHP: 7.4
+Text Domain: lamutable
+*/
+```
+
+`lamutable/theme.json` starts as `{ "$schema": "https://schemas.wp.org/trunk/theme.json", "version": 3, "settings": {}, "styles": {} }`
+and grows from there. Version 3 requires WordPress ≥ 6.6 — fine for us.
+
+## Local environment (wp-env)
+
+`.wp-env.json` at the repo root:
+
+```json
+{
+  "core": null,
+  "themes": ["./lamutable"],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true
+  }
+}
+```
+
+`"core": null` means "latest stable WordPress", which already bundles Twenty
+Twenty-Five, so the parent theme needs no extra install step.
+
+### Commands
+
+| Command | What it does |
+|---|---|
+| `npx wp-env start` | Start (first run downloads images; slow once) |
+| `npx wp-env stop` | Stop containers, keep data |
+| `npx wp-env clean all` | **Reset the database** (see "gotchas" — you'll want this) |
+| `npx wp-env destroy` | Remove everything including volumes |
+| `npx wp-env run cli wp <cmd>` | Run any WP-CLI command inside the container |
+
+- Dev site: <http://localhost:8888> — login `admin` / `password`
+- Test site: <http://localhost:8889> (used by automated tests, ignore otherwise)
+
+If the theme isn't active after start:
+`npx wp-env run cli wp theme activate lamutable`
+
+Theme files are mounted live — edit locally, reload the browser. No build step
+exists in this project and we keep it that way unless we add custom JS.
+
+## Design workflow (no designer)
+
+The system that keeps the result coherent without a designer:
+
+### 1. Tokens first — everything is a preset in `theme.json`
+
+- **Colors:** one brand color, one accent, 3–4 neutrals — defined once in
+  `settings.color.palette`. Borrow values from a proven palette (Radix,
+  Tailwind) rather than picking hex codes by eye.
+- **Typography:** at most two fonts. Define the scale in
+  `settings.typography.fontSizes` using a modular scale (1.25 ratio is safe);
+  prefer `fluid: true` sizes.
+- **Spacing:** define `settings.spacing.spacingSizes` as a scale and use only
+  those steps.
+
+**Hard rule: no raw hex values, no raw px values in templates or patterns.**
+If a pattern needs a color or size, it references a preset
+(`var:preset|color|accent`, `var:preset|spacing|50`). If the preset doesn't
+exist, add it to `theme.json` first. This single rule is what keeps the site
+looking designed.
+
+- `settings.*` = what the editor UI offers (presets, toggles)
+- `styles.*` = default appearance without user action (element and per-block styles)
+
+### 2. Build pages from patterns
+
+Every reusable section (hero, feature grid, CTA, contact, footer) is a file in
+`patterns/`, one pattern per PHP file with the standard header comment
+(`Title:`, `Slug: lamutable/<name>`, `Categories:`). Steal *layout* from the
+WordPress.org pattern directory or well-designed theme pattern sets, rebuild it
+with our tokens. Conventions:
+
+- Slug prefix `lamutable/`, text domain `lamutable`, translatable strings
+  through `esc_html_e()` / `esc_attr_e()`.
+- A pattern must look right using only presets — if it needs a one-off value,
+  the token scale is wrong, fix the scale.
+
+### 3. Iterate visually, in small steps
+
+Change one token or one pattern → reload → judge → adjust. Judging "does this
+look off?" is much easier than designing from scratch. Always check ~375 px
+width too, not just desktop.
+
+### 4. Explore with style variations
+
+Alternate palettes/font pairings go in `styles/*.json` (same shape as
+`theme.json`). Comparing 2–3 variations side by side in the Site Editor
+(Appearance → Editor → Styles) is the cheapest way to pick a direction.
+
+## Importing production content
+
+To work locally against a real copy of the live site (e.g. a Hostinger export),
+you need a database dump and the `wp-content/uploads` folder. wp-env runs
+WordPress inside Docker containers, so **the containers cannot see your host
+filesystem directly** — only the directories mapped in `.wp-env.json`:
+
+```json
+"mappings": {
+  "wp-content/uploads": "./import/uploads",
+  "wp-content/import": "./import/db"
+}
+```
+
+`./import/` is gitignored — it's a local-only staging area, never committed.
+
+### 1. Import the database
+
+```bash
+# Copy the SQL dump where the cli container can reach it
+mkdir -p import/db
+cp ~/Downloads/<export>.sql import/db/
+
+# Wipe the local DB first for a clean, conflict-free import
+npx wp-env run cli wp db reset --yes
+
+# Import — path is relative to the container's wp-content/import mapping
+npx wp-env run cli wp db import wp-content/import/<export>.sql
+```
+
+Skipping the `wp db reset` step still mostly works, but the dump's `ID = 1`
+rows (default post, admin user, "Uncategorized" term, `siteurl` option, etc.)
+will collide with the fresh install's own default rows and get silently
+skipped — you end up with a mix of old and new data. Reset first, unless you
+specifically want to preserve the local install's existing content.
+
+No search-replace of URLs is needed: `wp-env`'s `WP_SITEURL`/`WP_HOME`
+constants override whatever `siteurl`/`home` values are in the dump, so the
+site correctly serves at `http://localhost:8888` regardless of the export's
+original domain.
+
+### 2. Import the uploads
+
+```bash
+mkdir -p import/uploads
+unzip -o ~/Downloads/uploads.zip -d import/uploads
+```
+
+Check `unzip -l ~/Downloads/uploads.zip | head` first: if the archive already
+has files at its root (e.g. `2026/04/photo.jpg`) extract straight into
+`import/uploads`; if it wraps everything in an `uploads/` folder, extract one
+level up instead so the years (`2026/`, etc.) end up directly under
+`import/uploads/`.
+
+### 3. Verify
+
+```bash
+npx wp-env run cli wp post list --post_type=post --fields=ID,post_title,post_date
+npx wp-env run cli wp option get siteurl
+```
+
+Then load <http://localhost:8888> and check that content and images render.
+
+## Gotchas (read before debugging "my change does nothing")
+
+1. **User customizations override theme files.** The style hierarchy is:
+   core defaults → parent theme.json → child theme.json → **user changes saved
+   in the Site Editor (stored in the DB)**. If you styled something through the
+   Site Editor UI once, later `theme.json` edits to the same thing are
+   silently ignored. Fix: Site Editor → Styles → revisions/reset, or nuke the
+   DB with `npx wp-env clean all`. Rule of thumb: **use the Site Editor to
+   preview, but persist every decision into `theme.json` / template files**,
+   then reset the DB customizations.
+2. **Selected style variations are stored in the DB too** — editing the JSON
+   file won't update a site that already picked it. Re-select it or reset.
+3. **Template parts must live flat in `parts/`** — subdirectories are not
+   supported (templates in `templates/` likewise).
+4. **Invalid `theme.json` fails silently.** A typo or wrong shape means the
+   whole file may not apply. The `$schema` line gives editor validation — keep
+   it, and check with a JSON linter when in doubt.
+5. **Overriding a parent template** requires the exact same filename
+   (e.g., `templates/home.html` overrides Twenty Twenty-Five's `home.html`).
+   Copy the parent file from
+   `wp-content/themes/twentytwentyfive/` as a starting point, don't rewrite
+   from scratch.
+
+## Definition of "done" for a change
+
+- Renders correctly on the frontend at desktop **and** ~375 px width.
+- Site Editor reflects it (Styles UI shows the tokens, patterns appear in the
+  inserter under our categories).
+- No raw colors/sizes were introduced; everything traces back to a preset.
+- Works on a fresh DB (`npx wp-env clean all`, re-check) — proves nothing
+  relies on manual Site Editor tweaks.
+
+## References
+
+- Theme structure: <https://developer.wordpress.org/themes/block-themes/theme-structure/>
+- theme.json living reference: <https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/>
+- Global settings & styles: <https://developer.wordpress.org/themes/global-settings-and-styles/>
+- wp-env: <https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/>
+- Pattern directory (layout inspiration): <https://wordpress.org/patterns/>

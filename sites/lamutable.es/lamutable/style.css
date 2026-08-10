@@ -1,0 +1,147 @@
+/*
+Theme Name: Lamutable
+Theme URI: https://lamutable.es
+Description: Child theme of Twenty Twenty-Five for lamutable.es
+Template: twentytwentyfive
+Version: 0.1.1
+Requires at least: 6.7
+Requires PHP: 7.4
+Text Domain: lamutable
+*/
+
+/* Hallmark · components: header (nav: N7 brutal slab, playful-rounded) + footer (Ft5 statement) · genre: playful · theme: custom (design.md)
+ * states: default · hover · focus-visible · active · current — loading/error/success n/a for nav links; CTA button states in theme.json
+ * contrast: ink on paper ≈ 13:1 · accent underline decorative only (ink text carries the 4.5:1)
+ * Slab discipline: no shadow, no blur, no rounded slab corners — pill radius lives on the CTA only (locked CTA voice).
+ */
+
+/* ---- Header slab ---- */
+.site-header {
+	border-bottom: 2px solid var(--wp--preset--color--ink);
+}
+
+.site-header .site-logo {
+	margin: 0;
+}
+
+.site-header .site-logo img {
+	display: block;
+	height: 5.5rem;
+	width: auto;
+}
+
+.site-header .site-logo a {
+	display: block;
+	line-height: 0;
+}
+
+/* ---- Nav link states, shared header + footer (typography voice comes from theme.json core/navigation) ---- */
+.site-header .wp-block-navigation .wp-block-navigation-item__content,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content {
+	padding-block: var(--wp--preset--spacing--2-xs);
+	white-space: nowrap;
+}
+
+.site-header .wp-block-navigation .wp-block-navigation-item__content:hover,
+.site-header .wp-block-navigation .wp-block-navigation-item__content:focus-visible,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content:hover,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content:focus-visible {
+	text-decoration: underline;
+	text-decoration-color: var(--wp--preset--color--accent);
+	text-decoration-thickness: 0.14em;
+	text-underline-offset: 0.4em;
+}
+
+.site-header .wp-block-navigation .wp-block-navigation-item__content:active,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content:active {
+	color: var(--wp--preset--color--accent);
+}
+
+.site-header .wp-block-navigation .current-menu-item > .wp-block-navigation-item__content,
+.site-header .wp-block-navigation .wp-block-navigation-item__content[aria-current="page"],
+.site-footer .wp-block-navigation .current-menu-item > .wp-block-navigation-item__content,
+.site-footer .wp-block-navigation .wp-block-navigation-item__content[aria-current="page"] {
+	text-decoration: underline;
+	text-decoration-color: var(--wp--preset--color--accent);
+	text-decoration-thickness: 0.14em;
+	text-underline-offset: 0.4em;
+}
+
+.site-header a:focus-visible,
+.site-header button:focus-visible,
+.site-footer a:focus-visible,
+.site-footer button:focus-visible {
+	outline: 2px solid var(--wp--preset--color--focus);
+	outline-offset: 3px;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 781px) {
+	.site-header .site-logo img {
+		height: 4rem;
+	}
+}
+
+/* Overlay menu: keep the slab voice, generous tap targets */
+.site-header .wp-block-navigation__responsive-container.is-menu-open {
+	border-left: 2px solid var(--wp--preset--color--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header *,
+	.site-footer * {
+		transition: none;
+		animation: none;
+	}
+}
+
+/* ---- Footer slab (Ft5 statement) ---- */
+.site-footer {
+	border-top: 2px solid var(--wp--preset--color--ink);
+	padding-top: var(--wp--preset--spacing--2-xl);
+	padding-bottom: var(--wp--preset--spacing--xl);
+}
+
+.site-footer .site-footer__statement {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--2-xl);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	max-width: 28ch;
+	overflow-wrap: anywhere;
+}
+
+.site-footer .site-footer__meta {
+	border-top: 1px solid var(--wp--preset--color--rule);
+	padding-top: var(--wp--preset--spacing--sm);
+}
+
+.site-footer .site-footer__wordmark {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 600;
+}
+
+/* ---- Front page · color journey (design.md § Main region) ---- */
+/* Hairlines only inside <main> — the 2px ink weight stays chrome-exclusive. */
+.event-rail > * + * {
+	border-top: 1px solid var(--wp--preset--color--rule);
+}
+
+.project-card {
+	border: 1px solid var(--wp--preset--color--rule);
+}
+
+/* Ink inversion band: the locked CTA hover (ink bg) would vanish on the ink
+   ground — invert to paper instead. Focus ring color already passes on ink. */
+.band-ink .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--ink);
+}
+
+main a:focus-visible,
+main .wp-block-button__link:focus-visible {
+	outline: 2px solid var(--wp--preset--color--focus);
+	outline-offset: 3px;
+}
