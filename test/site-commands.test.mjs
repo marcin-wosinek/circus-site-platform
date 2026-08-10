@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { writeJsonFile } from '../scripts/lib/json-file.mjs';
 import { resolvePluginDownloads } from '../scripts/lib/plugin-downloads.mjs';
-import { fairPluginSlug } from '../scripts/lib/wp-env-plugin-sources.mjs';
+import { fairPluginSlug, stageWpEnvPluginSources } from '../scripts/lib/wp-env-plugin-sources.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -129,4 +129,32 @@ test('versioned fair release assets get stable wp-env plugin slugs', () => {
 		'fair-events',
 	);
 	assert.equal(fairPluginSlug('https://downloads.wordpress.org/plugin/akismet.zip'), undefined);
+});
+
+test('refreshing a staged fair plugin preserves the previous version', async (context) => {
+	const siteDir = mkdtempSync(resolve(tmpdir(), 'circus-site-platform-'));
+	context.after(() => rmSync(siteDir, { recursive: true }));
+	const cacheDir = resolve(siteDir, '.wp-env-plugins');
+	mkdirSync(resolve(cacheDir, 'fair-events'), { recursive: true });
+	writeJsonFile(resolve(cacheDir, 'sources.json'), {
+		'fair-events': 'https://example.test/fair-events.1.0.0.zip',
+	});
+
+	const archiveDir = resolve(siteDir, 'archive');
+	mkdirSync(resolve(archiveDir, 'fair-events'), { recursive: true });
+	writeFileSync(resolve(archiveDir, 'fair-events/fair-events.php'), '/* Version: 2.0.0 */\n');
+	const zip = spawnSync('zip', ['-qr', 'fair-events.zip', 'fair-events'], { cwd: archiveDir, encoding: 'utf8' });
+	assert.equal(zip.status, 0, zip.stderr);
+	const archive = readFileSync(resolve(archiveDir, 'fair-events.zip'));
+	const sources = await stageWpEnvPluginSources(
+		['https://example.test/fair-events.2.0.0.zip'],
+		siteDir,
+		{
+			refresh: true,
+			fetchImpl: async () => ({ ok: true, arrayBuffer: async () => archive }),
+		},
+	);
+
+	assert.deepEqual(sources, ['./.wp-env-plugins/fair-events']);
+	assert.match(readFileSync(resolve(cacheDir, 'fair-events/fair-events.php'), 'utf8'), /Version: 2\.0\.0/);
 });

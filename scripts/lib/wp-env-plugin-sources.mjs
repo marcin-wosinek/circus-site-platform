@@ -54,7 +54,18 @@ export async function stageWpEnvPluginSources(pluginSources, siteDir, { refresh 
 				? resolve(extracted, entries[0].name)
 				: extracted;
 			if (existsSync(destination)) {
-				renameSync(destination, resolve(cacheDir, `${slug}.previous-${Date.now()}`));
+				const previous = resolve(cacheDir, `${slug}.previous-${Date.now()}`);
+				try {
+					renameSync(destination, previous);
+				} catch (error) {
+					if (process.platform !== 'darwin' || error.code !== 'EACCES') throw error;
+					const chmod = spawnSync('chmod', ['-N', destination], { encoding: 'utf8' });
+					if (chmod.error) throw chmod.error;
+					if (chmod.status !== 0) {
+						throw new Error(`Failed to clear the macOS ACL on ${destination}: ${chmod.stderr.trim()}`);
+					}
+					renameSync(destination, previous);
+				}
 			}
 			renameSync(pluginRoot, destination);
 			manifest[slug] = source;
