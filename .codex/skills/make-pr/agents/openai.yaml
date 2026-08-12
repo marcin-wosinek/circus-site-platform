@@ -1,0 +1,4 @@
+interface:
+  display_name: "Make PR"
+  short_description: "Implement an issue and open a focused PR"
+  default_prompt: "Use $make-pr to implement the referenced GitHub issue and open a pull request."
