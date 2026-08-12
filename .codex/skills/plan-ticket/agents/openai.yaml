@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Ticket"
+  short_description: "Ground a GitHub ticket in an actionable plan"
+  default_prompt: "Use $plan-ticket to investigate the referenced GitHub issue, draft an implementation plan, and post it after approval."
