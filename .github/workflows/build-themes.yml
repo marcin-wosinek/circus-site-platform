@@ -9,6 +9,7 @@ on:
       - .github/workflows/build-themes.yml
       - sites/acro-agenda.es/acro-agenda/**
       - sites/circus-it.eu/circus-it/**
+      - sites/lamutable.es/lamutable/**
 
 permissions:
   contents: read
@@ -26,6 +27,9 @@ jobs:
           - site: circus-it.eu
             slug: circus-it
             path: sites/circus-it.eu/circus-it
+          - site: lamutable.es
+            slug: lamutable
+            path: sites/lamutable.es/lamutable
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -101,13 +105,13 @@ jobs:
           set -euo pipefail
 
           mapfile -t files < <(find bundle -type f -printf '%P\n' | sort)
-          expected=(acro-agenda.zip circus-it.zip)
+          expected=(acro-agenda.zip circus-it.zip lamutable.zip)
           [[ "${files[*]}" == "${expected[*]}" ]] || {
             echo "Unexpected bundle contents: ${files[*]:-<empty>}" >&2
             exit 1
           }
 
-          for slug in acro-agenda circus-it; do
+          for slug in acro-agenda circus-it lamutable; do
             archive="bundle/$slug.zip"
             entries="$(unzip -Z1 "$archive")"
             [[ -n "$entries" ]] || { echo "Archive is empty: $archive" >&2; exit 1; }
