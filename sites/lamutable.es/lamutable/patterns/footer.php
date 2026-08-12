@@ -27,12 +27,10 @@
 			<!-- /wp:paragraph -->
 
 			<!-- wp:navigation {"overlayMenu":"never","style":{"spacing":{"blockGap":"var:preset|spacing|lg"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
-				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Quiénes somos', 'lamutable' ); ?>","url":"<?php echo esc_url( home_url( '/quienes-somos/' ) ); ?>"} /-->
-				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Colaboraciones', 'lamutable' ); ?>","url":"<?php echo esc_url( home_url( '/colaboraciones/' ) ); ?>"} /-->
-				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Contacto', 'lamutable' ); ?>","url":"<?php echo esc_url( home_url( '/contacto/' ) ); ?>"} /-->
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Aviso legal', 'lamutable' ); ?>","url":"https://lamutable.es/aviso-legal/","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Política de privacidad', 'lamutable' ); ?>","url":"https://lamutable.es/politica-de-privacidad/","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Política de cookies', 'lamutable' ); ?>","url":"https://lamutable.es/politica-de-cookies/","kind":"custom"} /-->
+				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Contacto', 'lamutable' ); ?>","url":"<?php echo esc_url( home_url( '/contacto/' ) ); ?>"} /-->
 			<!-- /wp:navigation -->
 		</div>
 		<!-- /wp:group -->
