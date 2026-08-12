@@ -1,0 +1,134 @@
+name: Build WordPress theme artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/build-themes.yml
+      - sites/acro-agenda.es/acro-agenda/**
+      - sites/circus-it.eu/circus-it/**
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Package ${{ matrix.slug }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - site: acro-agenda.es
+            slug: acro-agenda
+            path: sites/acro-agenda.es/acro-agenda
+          - site: circus-it.eu
+            slug: circus-it
+            path: sites/circus-it.eu/circus-it
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Validate and package theme
+        env:
+          THEME_SITE: ${{ matrix.site }}
+          THEME_SLUG: ${{ matrix.slug }}
+          THEME_PATH: ${{ matrix.path }}
+        run: |
+          set -euo pipefail
+
+          [[ "$THEME_SITE" =~ ^[a-z0-9.-]+$ ]] || { echo "Invalid site ID: $THEME_SITE" >&2; exit 1; }
+          [[ "$THEME_SLUG" =~ ^[a-z0-9-]+$ ]] || { echo "Invalid theme slug: $THEME_SLUG" >&2; exit 1; }
+          [[ "$THEME_PATH" == sites/* ]] || { echo "Theme path must be inside sites/: $THEME_PATH" >&2; exit 1; }
+          [[ -d "$THEME_PATH" ]] || { echo "Theme directory does not exist: $THEME_PATH" >&2; exit 1; }
+
+          sites_root="$(realpath sites)"
+          resolved_path="$(realpath "$THEME_PATH")"
+          [[ "$resolved_path" == "$sites_root"/* ]] || { echo "Theme path resolves outside sites/: $resolved_path" >&2; exit 1; }
+          find "$resolved_path" -mindepth 1 -print -quit | grep -q . || { echo "Theme directory is empty: $THEME_PATH" >&2; exit 1; }
+          [[ -r "$resolved_path/style.css" ]] || { echo "Theme style.css is missing or unreadable: $THEME_PATH/style.css" >&2; exit 1; }
+          grep -Eiq '^[[:space:]]*Theme Name[[:space:]]*:' "$resolved_path/style.css" || { echo "Theme Name header is missing: $THEME_PATH/style.css" >&2; exit 1; }
+
+          mkdir -p "stage/$THEME_SLUG" dist
+          cp -a "$resolved_path/." "stage/$THEME_SLUG/"
+          find "stage/$THEME_SLUG" -name .git -prune -exec rm -rf {} +
+          find "stage/$THEME_SLUG" -name .github -prune -exec rm -rf {} +
+          find "stage/$THEME_SLUG" -name .DS_Store -delete
+          (cd stage && zip -q -r "../dist/$THEME_SLUG.zip" "$THEME_SLUG")
+
+          archive="dist/$THEME_SLUG.zip"
+          entries="$(unzip -Z1 "$archive")"
+          [[ -n "$entries" ]] || { echo "Archive is empty: $archive" >&2; exit 1; }
+          if grep -Eq '(^/|(^|/)\.\.(/|$))' <<< "$entries"; then
+            echo "Archive contains an unsafe path" >&2
+            exit 1
+          fi
+          if grep -Evq "^${THEME_SLUG}/" <<< "$entries"; then
+            echo "Archive contains an entry outside $THEME_SLUG/" >&2
+            exit 1
+          fi
+          grep -Fxq "$THEME_SLUG/style.css" <<< "$entries" || { echo "Archive is missing $THEME_SLUG/style.css" >&2; exit 1; }
+          if grep -Eq '(^|/)(\.git|\.github|\.DS_Store)(/|$)' <<< "$entries"; then
+            echo "Archive contains repository-only metadata" >&2
+            exit 1
+          fi
+
+      - name: Upload packaged theme
+        uses: actions/upload-artifact@v4
+        with:
+          name: packaged-theme-${{ matrix.slug }}
+          path: dist/${{ matrix.slug }}.zip
+          if-no-files-found: error
+          retention-days: 1
+
+  bundle:
+    name: Publish theme bundle
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download packaged themes
+        uses: actions/download-artifact@v4
+        with:
+          pattern: packaged-theme-*
+          path: bundle
+          merge-multiple: true
+
+      - name: Validate bundle contents
+        run: |
+          set -euo pipefail
+
+          mapfile -t files < <(find bundle -type f -printf '%P\n' | sort)
+          expected=(acro-agenda.zip circus-it.zip)
+          [[ "${files[*]}" == "${expected[*]}" ]] || {
+            echo "Unexpected bundle contents: ${files[*]:-<empty>}" >&2
+            exit 1
+          }
+
+          for slug in acro-agenda circus-it; do
+            archive="bundle/$slug.zip"
+            entries="$(unzip -Z1 "$archive")"
+            [[ -n "$entries" ]] || { echo "Archive is empty: $archive" >&2; exit 1; }
+            if grep -Eq '(^/|(^|/)\.\.(/|$))' <<< "$entries"; then
+              echo "$archive contains an unsafe path" >&2
+              exit 1
+            fi
+            if grep -Evq "^${slug}/" <<< "$entries"; then
+              echo "$archive contains an entry outside $slug/" >&2
+              exit 1
+            fi
+            grep -Fxq "$slug/style.css" <<< "$entries" || { echo "$archive is missing $slug/style.css" >&2; exit 1; }
+            if grep -Eq '(^|/)(\.git|\.github|\.DS_Store)(/|$)' <<< "$entries"; then
+              echo "$archive contains repository-only metadata" >&2
+              exit 1
+            fi
+          done
+
+      - name: Upload WordPress themes
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordpress-themes
+          path: bundle/*.zip
+          if-no-files-found: error

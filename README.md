@@ -35,6 +35,39 @@ in the ignored `.env.import-local/<site-id>` file; a site-local
 [`docs/import-production.md`](docs/import-production.md) for prerequisites,
 configuration, safeguards, and recovery details.
 
+## Theme artifacts
+
+The root [theme packaging workflow](.github/workflows/build-themes.yml) builds
+the directly tracked `acro-agenda` and `circus-it` themes. Its matrix is the
+authoritative list of packaged themes; `sites.json` remains focused on site
+operations.
+
+Run the workflow manually, or let a push to `main` trigger it when the workflow
+or either configured theme changes. Documentation-only and unrelated changes
+do not trigger packaging. The workflow checks out submodules recursively, but
+review repository ownership before adding a submodule theme because
+independently maintained themes normally belong in their own repository.
+
+Successful runs publish one GitHub Actions artifact named
+`wordpress-themes`. GitHub downloads it as `wordpress-themes.zip`, containing:
+
+```text
+wordpress-themes.zip
+├── acro-agenda.zip
+└── circus-it.zip
+```
+
+Each inner ZIP is independently installable in WordPress and contains exactly
+one top-level directory matching its theme slug. Packaging fails when a source
+path is missing, empty, outside `sites/`, or lacks a readable `style.css` with
+a `Theme Name` header. It also rejects empty archives, unsafe paths, unexpected
+top-level entries, and repository-only metadata such as `.git`, `.github`, and
+`.DS_Store`.
+
+This workflow only turns committed source files into downloadable artifacts.
+It has no deployment step, production access, credentials, or production
+writes.
+
 ## Planned scope
 
 - Shared WordPress development workflows
