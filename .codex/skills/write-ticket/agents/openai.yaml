@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Ticket"
+  short_description: "Draft, confirm, and schedule GitHub issues"
+  default_prompt: "Use $write-ticket to draft a GitHub issue for the next sprint about the requested behavior."
