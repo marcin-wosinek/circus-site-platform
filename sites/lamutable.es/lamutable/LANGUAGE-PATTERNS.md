@@ -85,7 +85,9 @@ or a `theme.json` registration:
 - Record intentional structural differences in [`design.md`](../design.md).
 - Verify each variant on desktop and mobile.
 
-The current headers demonstrate this convention:
+The current headers and footers demonstrate this convention:
 
 - Spanish: `patterns/header.php` and `parts/header.html`
 - English: `patterns/header-en.php` and `parts/header-en.html`
+- Spanish: `patterns/footer.php` and `parts/footer.html`
+- English: `patterns/footer-en.php` and `parts/footer-en.html`
