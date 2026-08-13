@@ -2,11 +2,11 @@
 /**
  * Lamutable child theme.
  *
- * Block themes do not load style.css automatically — enqueue it explicitly.
+ * Load style.css in both the front end and block editor preview canvas.
  */
 
 add_action(
-	'wp_enqueue_scripts',
+	'enqueue_block_assets',
 	function () {
 		wp_enqueue_style(
 			'lamutable-style',
