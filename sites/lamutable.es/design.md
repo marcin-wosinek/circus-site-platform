@@ -112,28 +112,11 @@ document only the design rationale here.
   (1px `rule` / `rule-2`). The 2px ink weight belongs to the chrome slabs
   exclusively.
 
-## Front page (locked 2026-07-26)
-- Macrostructure · Ecosystem Index on the color journey: `hero-wash` hero →
-  `paper-2` events rail → `accent-tint` projects grid → `ink` inversion
-  (red de apoyo mutuo + Contacto CTA) → `paper` quiénes-somos teaser.
-- Copy · all sourced from the association's own pages (quienes-somos,
-  eventos, proyectos, colaboraciones) — nothing invented. Events rail
-  mirrors the live front page's five upcoming events; only Halloween has a
-  confirmed date, so it alone shows one.
-- Rails · rail head = h2 left + accent "Ver … →" edge link right (wraps and
-  stacks on mobile). Event rows are hairline-separated flex rows
-  (`.event-rail`); project cards are `paper` groups with 1px `rule` border
-  (`.project-card`) on the tint band.
-- Ink band exceptions (style.css) · CTA hover inverts to paper/ink (the
-  locked ink-bg hover would vanish); band links are `paper`, not accent.
-  Focus rings now cover `<main>` links/buttons, same 2px `focus` / 3px
-  offset as the chrome.
-- Files · pattern `lamutable/patterns/front-page.php` (dynamic URLs, i18n)
-  → template `lamutable/templates/front-page.html` (`<main>`, blockGap 0 so
-  bands touch); band CSS in `lamutable/style.css` § Front page.
-- Verified · 1280 + 375 px, no horizontal scroll; grid collapses to one
-  column; events list is theme-managed now — editors update it in the Site
-  Editor (template), not the old page 593 content.
+## Front page
+- Content is managed on the page assigned as the static homepage; there is no
+  theme-owned homepage pattern.
+- `lamutable/templates/front-page.html` provides the shared header and footer
+  and renders the page's post content inside `<main>`.
 
 ## Fair event document (locked 2026-08-05)
 - Template · `single-fair_event.html`, selected by WordPress only for the
