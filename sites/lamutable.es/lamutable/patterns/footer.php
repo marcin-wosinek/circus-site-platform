@@ -30,6 +30,7 @@
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Aviso legal', 'lamutable' ); ?>","url":"https://lamutable.es/aviso-legal/","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Política de privacidad', 'lamutable' ); ?>","url":"https://lamutable.es/politica-de-privacidad/","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Política de cookies', 'lamutable' ); ?>","url":"https://lamutable.es/politica-de-cookies/","kind":"custom"} /-->
+				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Términos y condiciones', 'lamutable' ); ?>","url":"<?php echo esc_url( home_url( '/terminos-y-condiciones/' ) ); ?>"} /-->
 				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Contacto', 'lamutable' ); ?>","url":"<?php echo esc_url( home_url( '/contacto/' ) ); ?>"} /-->
 			<!-- /wp:navigation -->
 		</div>
