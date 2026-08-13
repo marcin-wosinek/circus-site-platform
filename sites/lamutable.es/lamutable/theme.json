@@ -281,7 +281,13 @@
       }
     }
   },
-  "customTemplates": [],
+  "customTemplates": [
+    {
+      "name": "page-en",
+      "title": "Page (English)",
+      "postTypes": ["page"]
+    }
+  ],
   "templateParts": [
     { "name": "header", "title": "Header", "area": "header" },
     { "name": "header-en", "title": "Header (English)", "area": "header" },
