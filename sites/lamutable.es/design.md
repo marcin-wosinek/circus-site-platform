@@ -6,50 +6,26 @@ the narrative companion — genre, macrostructure, and rationale that raw JSON
 doesn't carry. Future design work reads this first; templates and patterns
 defer to it. Amend intentionally — the file is the rule.
 
+Return to the [documentation index](README.md). Localized pattern structure is
+documented separately in
+[LANGUAGE-PATTERNS.md](lamutable/LANGUAGE-PATTERNS.md).
+
 ## System
 - Genre · playful (Valencia movement/circus/dance mutual-support association)
 - Macrostructure · Ecosystem Index (front page)
 - Theme · custom (vibe: "sun-warmed sand, playful movement, communal ease")
 - Axes · light / geometric-sans / warm
 
-## Tokens (canonical · `lamutable/theme.json` is the source of truth)
-```css
-:root {
-  --wp--preset--color--paper:    oklch(93% 0.030 75);  /* background */
-  --wp--preset--color--paper-2:  oklch(90% 0.032 75);
-  --wp--preset--color--paper-3:  oklch(87% 0.034 75);
-  --wp--preset--color--rule:     oklch(78% 0.020 72);
-  --wp--preset--color--rule-2:   oklch(84% 0.018 73);
-  --wp--preset--color--muted:    oklch(48% 0.016 45);
-  --wp--preset--color--neutral:  oklch(42% 0.014 45);
-  --wp--preset--color--ink-2:    oklch(38% 0.014 42);
-  --wp--preset--color--ink:      oklch(20% 0.015 40);  /* text */
-  --wp--preset--color--accent-tint: oklch(87% 0.055 45); /* warm section band */
-  --wp--preset--color--accent:   oklch(60% 0.150 38);  /* warm terracotta */
-  --wp--preset--color--focus:    oklch(58% 0.190 38);
+## Tokens
 
-  /* Gradient presets (settings.color.gradients), static CSS only:          */
-  /* hero-wash · 160deg paper → paper-3                                      */
-  /* warm-wash · 160deg accent-tint → paper                                  */
+[`lamutable/theme.json`](lamutable/theme.json) is the only canonical list of
+token names and values. The system uses warm paper and ink neutrals, a
+terracotta accent, Bricolage Grotesque for display text, Geist for body text,
+a modular type scale, and a named spacing scale.
 
-  --wp--preset--font-family--display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --wp--preset--font-family--body:    "Geist", ui-sans-serif, system-ui, sans-serif;
-
-  /* Type scale, ~1.25 ratio, fluid on the top two steps: */
-  /* xs .75rem · sm .875rem · base 1rem · md 1.25rem · lg 1.5625rem ·        */
-  /* xl 1.9531rem · 2xl 1.9531–2.4414rem (fluid) · display 2.25–3.5rem (fluid) */
-
-  /* Spacing scale (settings.spacing.spacingSizes):                         */
-  /* 3xs .125rem · 2xs .25rem · xs .5rem · sm .75rem · md 1rem · lg 1.5rem  */
-  /* xl 2.5rem · 2xl 4rem · 3xl 6rem · 4xl 9rem                             */
-
-  /* Layout: contentSize 48rem · wideSize 80rem */
-}
-```
-No raw hex/px values are permitted in templates or patterns — every color and
-size must trace back to one of the presets above (`var:preset|color|accent`,
-`var:preset|spacing|lg`). If a pattern needs a value that doesn't exist yet,
-add it to `theme.json` first, then reference it.
+Do not copy token values into documentation or patterns. Reference presets by
+name. If a required preset does not exist, add it to `theme.json` first and
+document only the design rationale here.
 
 ## CTA voice
 - Primary · `core/button` default — filled accent background, ink text, pill
@@ -83,8 +59,11 @@ add it to `theme.json` first, then reference it.
 - Mobile · core/navigation overlay menu (paper background, ink text) below
   600px; slab border carried onto the open overlay's edge.
 - Files · Spanish pattern `lamutable/patterns/header.php` →
-  `parts/header.html`; English pattern `patterns/header-en.php` →
-  `parts/header-en.html`; slab CSS in `lamutable/style.css` § Header slab.
+  `lamutable/parts/header.html`; English pattern
+  `lamutable/patterns/header-en.php` → `lamutable/parts/header-en.html`;
+  slab CSS in `lamutable/style.css` § Header slab.
+  See [LANGUAGE-PATTERNS.md](lamutable/LANGUAGE-PATTERNS.md) for the convention
+  used by all localized patterns.
 - Fonts now self-hosted: latin-subset variable woff2 for both families in
   `lamutable/assets/fonts/`, registered via `fontFace` in `theme.json` —
   no Google Fonts request at runtime.
@@ -181,8 +160,9 @@ DTCG export is needed unless a non-WordPress consumer of this brand system
 shows up later.
 
 ## Notes
-- No designer on the team — the enforced project rule is zero raw hex/px in
-  templates or patterns, presets only (see `README.md` § Design workflow).
+- No designer on the team — the enforced implementation rules are maintained
+  in [AGENTS.md](AGENTS.md); this file records design decisions rather than
+  repeating those rules.
 - Style variations (`lamutable/styles/*.json`) may explore alternate
   palettes/pairings, but the palette above is the default, locked look.
 - Source brief: 2026-07-25 front-page redesign for La Mutable, a Valencia
