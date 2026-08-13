@@ -74,14 +74,17 @@ add it to `theme.json` first, then reference it.
   (`oklch(20% 0.015 40)`) so it sits directly on any paper tone. 5.5rem tall
   on desktop, 4rem ≤ 781px. Links home.
 - Nav voice · Bricolage Grotesque 600, `sm`, uppercase, 0.08em tracking
-  (set in `theme.json` → `styles.blocks.core/navigation`). Links: Quiénes
-  somos · Proyectos · Eventos; "Contacto" is the filled-pill CTA.
+  (set in `theme.json` → `styles.blocks.core/navigation`). Spanish header:
+  Quiénes somos · Proyectos · Eventos; "Contacto" is the filled-pill CTA.
+  The separate English header uses About us · Projects · Events with
+  "Contact" as its CTA, and its logo links to `/en/` (added 2026-08-13).
 - States · hover/focus/current = accent underline (0.14em thick, 0.4em
   offset); active = accent text; focus ring = 2px `focus`, 3px offset.
 - Mobile · core/navigation overlay menu (paper background, ink text) below
   600px; slab border carried onto the open overlay's edge.
-- Files · pattern `lamutable/patterns/header.php` (dynamic URLs, i18n) →
-  `parts/header.html`; slab CSS in `lamutable/style.css` § Header slab.
+- Files · Spanish pattern `lamutable/patterns/header.php` →
+  `parts/header.html`; English pattern `patterns/header-en.php` →
+  `parts/header-en.html`; slab CSS in `lamutable/style.css` § Header slab.
 - Fonts now self-hosted: latin-subset variable woff2 for both families in
   `lamutable/assets/fonts/`, registered via `fontFace` in `theme.json` —
   no Google Fonts request at runtime.
