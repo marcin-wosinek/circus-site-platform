@@ -2,7 +2,9 @@
   "core": null,
   "port": 9790,
   "testsEnvironment": false,
-  "themes": ["./lamutable"],
+  "themes": [
+    "./lamutable"
+  ],
   "config": {
     "WP_DEBUG": true,
     "SCRIPT_DEBUG": true,
@@ -11,5 +13,24 @@
   "mappings": {
     "wp-content/uploads": "./import/uploads",
     "wp-content/import": "./import/db"
-  }
+  },
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/polylang.zip",
+    "https://downloads.wordpress.org/plugin/contact-form-7.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-audience.1.13.0-32-g73f91e19.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-events.1.14.0-1-g73f91e19.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-finance.1.0.5-91-g73f91e19.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-form.1.4.1-1-g73f91e19.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-payments-connector.2.0.0-32-g73f91e19.zip",
+    "https://downloads.wordpress.org/plugin/flamingo.zip",
+    "https://downloads.wordpress.org/plugin/hostinger.zip",
+    "https://downloads.wordpress.org/plugin/magic-login.zip",
+    "https://downloads.wordpress.org/plugin/plausible-analytics.zip",
+    "https://downloads.wordpress.org/plugin/redirection.zip",
+    "https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
+    "https://downloads.wordpress.org/plugin/wp-mail-smtp.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-audience-experimental.1.1.1.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-events-experimental.1.6.0-1-g73f91e19.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.14.0-1-g73f91e19/fair-payments-connector-experimental.0.3.1-91-g73f91e19.zip"
+  ]
 }
