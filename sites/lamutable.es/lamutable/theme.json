@@ -283,9 +283,14 @@
   },
   "customTemplates": [
     {
+      "name": "page",
+      "title": "Page",
+      "postTypes": ["page", "fair_event"]
+    },
+    {
       "name": "page-en",
       "title": "Page (English)",
-      "postTypes": ["page"]
+      "postTypes": ["page", "fair_event"]
     }
   ],
   "templateParts": [
