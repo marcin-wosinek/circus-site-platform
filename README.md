@@ -25,8 +25,12 @@ site. `update` is shorthand for `wp-env start --update`.
 Use these root commands instead of invoking `wp-env` directly. Before starting
 or updating a site, the shared command generates an ignored
 `.wp-env.override.json` that maps versioned Fair plugin releases to the local,
-ignored `.wp-env-plugins/` cache. The tracked `.wp-env.json` remains the
-canonical environment configuration.
+ignored `.wp-env-plugins/` cache. The override also mounts a platform-owned
+must-use plugin that prevents every managed local WordPress environment from
+sending email through `wp_mail()`. The tracked `.wp-env.json` remains the
+canonical environment configuration, and production is unaffected. Because
+the safeguard is mounted from the filesystem rather than stored in WordPress's
+database, importing production data cannot disable it.
 
 The import command is destructive only to the selected local wp-env instance
 and requires `--apply`. Production is read-only. Put each site's SSH settings

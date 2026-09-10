@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { writeJsonFile } from './lib/json-file.mjs';
 import { stageWpEnvPluginSources } from './lib/wp-env-plugin-sources.mjs';
+import { createWpEnvOverride } from './lib/wp-env-override.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const [command, siteId, ...extraArgs] = process.argv.slice(2);
@@ -35,7 +36,10 @@ const wpEnvArgs = command === 'update' ? ['start', '--update', ...extraArgs] : [
 if (command !== 'stop') {
 	const config = JSON.parse(readFileSync(resolve(siteDir, '.wp-env.json'), 'utf8'));
 	const plugins = await stageWpEnvPluginSources(config.plugins ?? [], siteDir, { refresh: command === 'update' });
-	writeJsonFile(resolve(siteDir, '.wp-env.override.json'), { plugins });
+	writeJsonFile(
+		resolve(siteDir, '.wp-env.override.json'),
+		createWpEnvOverride(config, siteDir, platformDir, plugins),
+	);
 }
 console.log(`Site: ${siteId} (${site.folder})`);
 console.log(`+ npx @wordpress/env ${wpEnvArgs.join(' ')}`);

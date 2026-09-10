@@ -8,6 +8,7 @@ import test from 'node:test';
 import { writeJsonFile } from '../scripts/lib/json-file.mjs';
 import { resolvePluginDownloads } from '../scripts/lib/plugin-downloads.mjs';
 import { fairPluginSlug, stageWpEnvPluginSources } from '../scripts/lib/wp-env-plugin-sources.mjs';
+import { createWpEnvOverride } from '../scripts/lib/wp-env-override.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -45,6 +46,24 @@ test('generated JSON files use the repository formatting', (context) => {
 	assert.equal(
 		readFileSync(path, 'utf8'),
 		'{\n  "plugins": [\n    "example"\n  ],\n  "config": {\n    "WP_DEBUG": true\n  }\n}\n',
+	);
+});
+
+test('local wp-env overrides mount the email-blocking must-use plugin', () => {
+	assert.deepEqual(
+		createWpEnvOverride(
+			{ mappings: { 'wp-content/uploads': './import/uploads' } },
+			resolve(platformDir, 'sites/example.test'),
+			platformDir,
+			['./plugin'],
+		),
+		{
+			plugins: ['./plugin'],
+			mappings: {
+				'wp-content/uploads': './import/uploads',
+				'wp-content/mu-plugins': '../../wp-env/mu-plugins',
+			},
+		},
 	);
 });
 
