@@ -35,7 +35,7 @@ add_action(
 		s.parentNode.insertBefore(t,s)}(window,document,'script',
 		'https://connect.facebook.net/en_US/fbevents.js');
 
-		fbq('init', '1710336696711601');
+		fbq('init', '1642066550767859');
 		fbq('track', 'PageView');
 		</script>
 		<!-- End Meta Pixel Code -->
