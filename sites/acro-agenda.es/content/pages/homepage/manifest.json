@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "homepage",
+  "type": "page",
+  "title": "Página de inicio",
+  "slug": "pagina-de-inicio",
+  "status": "publish",
+  "template": "page-no-title",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "metadata": {},
+  "baselineHash": "5d7cef457b114313eb797308fcb9e3810d5b7c94c6cbb051480159a6d1a9aee5"
+}
