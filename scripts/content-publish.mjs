@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { CliError } from './lib/cli-error.mjs';
 import { runCli } from './lib/run-cli.mjs';
 import { loadSiteRegistry, requireProjectDir, requireWpEnvJson, resolveRegisteredSite } from './lib/site-registry.mjs';
-import { defaultContentKey, loadContentPublishConfig, resolveContentPublishItem } from './lib/content-publish-config.mjs';
+import { loadContentPublishConfig, resolveContentPublishItem, selectedContentKeys } from './lib/content-publish-config.mjs';
 import {
 	assertUrlsTokenized,
 	computeSha256,
@@ -91,35 +91,32 @@ function exportFeaturedImage({ projectDir, wpEnvFile, pageId }) {
 	};
 }
 
-async function runExport({ siteId, key, refreshBaseline }) {
-	if (!siteId) throw new CliError('Pass a registered site ID.');
-
-	const registry = loadSiteRegistry(platformDir);
-	const { site, projectDir } = resolveRegisteredSite(registry, siteId, platformDir);
-	requireProjectDir(projectDir, site);
-	const wpEnvFile = requireWpEnvJson(projectDir, siteId);
-
-	const config = loadContentPublishConfig(projectDir, siteId);
-	const contentKey = key ?? defaultContentKey(config);
-	const item = resolveContentPublishItem(config, contentKey);
-
-	const localUrl = process.env.LOCAL_URL ?? `http://localhost:${site.port}`;
-	const siteUrls = [site.productionUrl, localUrl];
-
-	console.log(`Export source: ${projectDir} (${localUrl}, local wp-env)`);
-	console.log(`Export destination: ${relative(platformDir, item.artifactDirAbsolute)} (committed artifact)`);
-
-	runWpCliText(projectDir, ['core', 'is-installed']);
-
-	let pageId;
+function resolvePageId(projectDir, item, siteId) {
 	if (item.selector.type === 'page_on_front') {
-		pageId = runWpCliText(projectDir, ['option', 'get', 'page_on_front']);
+		const pageId = runWpCliText(projectDir, ['option', 'get', 'page_on_front']);
 		if (!pageId || pageId === '0') {
 			throw new CliError(`Site "${siteId}" has no static front page configured (page_on_front is unset).`);
 		}
-	} else {
-		throw new CliError(`Unsupported selector type: ${item.selector.type}`);
+		return pageId;
 	}
+
+	if (item.selector.type === 'page_path') {
+		const pagePath = item.selector.path.replace(/^\//, '').replace(/\/$/, '');
+		const matches = runWpCliJson(projectDir, [
+			'post', 'list', '--post_type=page', '--post_status=any', `--pagename=${pagePath}`, '--fields=ID', '--format=json',
+		]);
+		if (matches.length !== 1) {
+			throw new CliError(`Site "${siteId}" page path "${item.selector.path}" resolved to ${matches.length} pages; expected exactly one.`);
+		}
+		return String(matches[0].ID);
+	}
+
+	throw new CliError(`Unsupported selector type: ${item.selector.type}`);
+}
+
+function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls, refreshBaseline }) {
+	console.log(`Export destination: ${relative(platformDir, item.artifactDirAbsolute)} (committed artifact)`);
+	const pageId = resolvePageId(projectDir, item, siteId);
 
 	const post = runWpCliJson(projectDir, [
 		'post',
@@ -197,6 +194,25 @@ async function runExport({ siteId, key, refreshBaseline }) {
 	console.log(`Target hash: ${targetHash}`);
 	console.log(`Baseline hash: ${baselineHash}${existing && !refreshBaseline ? ' (preserved; pass --refresh-baseline to adopt the current state)' : ''}`);
 	console.log('Review the artifact diff before committing.');
+}
+
+async function runExport({ siteId, key, refreshBaseline }) {
+	if (!siteId) throw new CliError('Pass a registered site ID.');
+
+	const registry = loadSiteRegistry(platformDir);
+	const { site, projectDir } = resolveRegisteredSite(registry, siteId, platformDir);
+	requireProjectDir(projectDir, site);
+	const wpEnvFile = requireWpEnvJson(projectDir, siteId);
+	const config = loadContentPublishConfig(projectDir, siteId);
+	const contentKeys = selectedContentKeys(config, key);
+	const localUrl = process.env.LOCAL_URL ?? `http://localhost:${site.port}`;
+	const siteUrls = [site.productionUrl, localUrl];
+
+	console.log(`Export source: ${projectDir} (${localUrl}, local wp-env)`);
+	runWpCliText(projectDir, ['core', 'is-installed']);
+	for (const contentKey of contentKeys) {
+		exportItem({ siteId, projectDir, wpEnvFile, item: resolveContentPublishItem(config, contentKey), contentKey, siteUrls, refreshBaseline });
+	}
 }
 
 await runCli(async () => {

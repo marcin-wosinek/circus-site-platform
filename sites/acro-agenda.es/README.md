@@ -83,11 +83,10 @@ requires.
 
 ## Content publishing
 
-The homepage (the page assigned to **Settings → Reading → Your homepage
-displays**) is managed as a committed artifact under
-[`content-publish.json`](content-publish.json), content key `homepage`,
-artifact directory `content/pages/homepage`. Edit the page in the local block
-editor as usual, then export the local state into the committed artifact:
+The homepage and `/valencia/` page are managed as committed artifacts under
+[`content-publish.json`](content-publish.json), with content keys `homepage`
+and `valencia`. Edit either page in the local block editor as usual, then
+export both local states into their committed artifacts:
 
 ```sh
 npm run content:export -- acro-agenda.es

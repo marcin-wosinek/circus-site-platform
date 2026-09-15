@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "valencia",
+  "type": "page",
+  "title": "Agenda de acroyoga, acrobacia y jams en Valencia",
+  "slug": "valencia",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "metadata": {},
+  "baselineHash": "930e68e0e977aeb3dd1935816099e409ee8dbd438f059bdb256bd203c5a34698"
+}

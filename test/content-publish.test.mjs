@@ -6,7 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { parseJsonNoDuplicateKeys } from '../scripts/lib/strict-json.mjs';
-import { loadContentPublishConfig, resolveContentPublishItem, defaultContentKey } from '../scripts/lib/content-publish-config.mjs';
+import { loadContentPublishConfig, resolveContentPublishItem, selectedContentKeys } from '../scripts/lib/content-publish-config.mjs';
 import {
 	ARTIFACT_SCHEMA_VERSION,
 	assertUrlsTokenized,
@@ -61,13 +61,23 @@ function writeConfig(siteDir, config) {
 	writeFileSync(resolve(siteDir, 'content-publish.json'), JSON.stringify(config, null, 2));
 }
 
-test('loadContentPublishConfig accepts the acro-agenda.es homepage configuration', () => {
+test('loadContentPublishConfig accepts the acro-agenda.es page configurations', () => {
 	const config = loadContentPublishConfig(resolve(platformDir, 'sites/acro-agenda.es'), 'acro-agenda.es');
 	const item = resolveContentPublishItem(config, 'homepage');
 	assert.equal(item.type, 'page');
 	assert.equal(item.selector.type, 'page_on_front');
 	assert.deepEqual(item.allowedStatuses, ['draft', 'publish']);
-	assert.equal(defaultContentKey(config), 'homepage');
+	assert.deepEqual(resolveContentPublishItem(config, 'valencia').selector, { type: 'page_path', path: '/valencia/' });
+	assert.deepEqual(selectedContentKeys(config), ['homepage', 'valencia']);
+	assert.deepEqual(selectedContentKeys(config, 'valencia'), ['valencia']);
+});
+
+test('loadContentPublishConfig rejects a malformed page path', (context) => {
+	const siteDir = tempDir(context);
+	writeConfig(siteDir, {
+		items: { valencia: { type: 'page', selector: { type: 'page_path', path: 'valencia' }, artifactDir: 'content/valencia', allowedStatuses: ['publish'], metadata: [] } },
+	});
+	assert.throws(() => loadContentPublishConfig(siteDir, 'test-site'), /absolute, trailing-slash page path/);
 });
 
 test('loadContentPublishConfig rejects an artifactDir outside the site directory', (context) => {
@@ -130,7 +140,7 @@ test('loadContentPublishConfig rejects an unknown top-level item field', (contex
 	assert.throws(() => loadContentPublishConfig(siteDir, 'test-site'), /unsupported field "unexpected"/);
 });
 
-test('loadContentPublishConfig requires --key equivalent when multiple items are configured', (context) => {
+test('selectedContentKeys returns every configured key when no key is specified', (context) => {
 	const siteDir = tempDir(context);
 	writeConfig(siteDir, {
 		items: {
@@ -139,7 +149,7 @@ test('loadContentPublishConfig requires --key equivalent when multiple items are
 		},
 	});
 	const config = loadContentPublishConfig(siteDir, 'test-site');
-	assert.throws(() => defaultContentKey(config), /Pass --key/);
+	assert.deepEqual(selectedContentKeys(config), ['a', 'b']);
 });
 
 // --- content-artifact ---

@@ -39,8 +39,13 @@
           "properties": {
             "type": {
               "type": "string",
-              "enum": ["page_on_front"],
-              "description": "How the production item is located. `page_on_front` is permitted only for the initial adoption of a site's front page."
+              "enum": ["page_on_front", "page_path"],
+              "description": "How the local item is located."
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/[a-z0-9-]+(?:/[a-z0-9-]+)*/$",
+              "description": "Absolute trailing-slash path required by the `page_path` selector."
             }
           }
         },

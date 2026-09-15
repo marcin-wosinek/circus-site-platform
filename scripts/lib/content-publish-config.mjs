@@ -4,7 +4,7 @@ import { CliError } from './cli-error.mjs';
 import { parseJsonNoDuplicateKeys } from './strict-json.mjs';
 
 const SUPPORTED_TYPES = new Set(['page']);
-const SUPPORTED_SELECTOR_TYPES = new Set(['page_on_front']);
+const SUPPORTED_SELECTOR_TYPES = new Set(['page_on_front', 'page_path']);
 const SUPPORTED_STATUSES = new Set(['draft', 'publish']);
 const CONTENT_KEY_PATTERN = /^[a-z][a-z0-9-]*$/;
 const METADATA_KEY_PATTERN = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
@@ -39,9 +39,16 @@ function validateItem(key, item, siteDir) {
 	if (!item.selector || typeof item.selector !== 'object' || Array.isArray(item.selector)) {
 		throw new CliError(`${label} must declare a selector object.`);
 	}
-	assertOnlyKeys(item.selector, ['type'], `${label} selector`);
+	assertOnlyKeys(item.selector, ['type', 'path'], `${label} selector`);
 	if (!SUPPORTED_SELECTOR_TYPES.has(item.selector.type)) {
 		throw new CliError(`${label} has an unsupported selector type "${item.selector.type}". Supported selectors: ${[...SUPPORTED_SELECTOR_TYPES].join(', ')}.`);
+	}
+	if (item.selector.type === 'page_path') {
+		if (typeof item.selector.path !== 'string' || !/^\/[a-z0-9-]+(?:\/[a-z0-9-]+)*\/$/.test(item.selector.path)) {
+			throw new CliError(`${label} selector path must be an absolute, trailing-slash page path.`);
+		}
+	} else if ('path' in item.selector) {
+		throw new CliError(`${label} selector path is only supported for selector type "page_path".`);
 	}
 
 	const artifactDirAbsolute = assertSafeRelativePath(item.artifactDir, siteDir, `${label} artifactDir`);
@@ -73,7 +80,7 @@ function validateItem(key, item, siteDir) {
 
 	return {
 		type: item.type,
-		selector: { type: item.selector.type },
+		selector: { ...item.selector },
 		artifactDir: item.artifactDir,
 		artifactDirAbsolute,
 		allowedStatuses: [...item.allowedStatuses],
@@ -116,10 +123,8 @@ export function resolveContentPublishItem(config, contentKey) {
 	return item;
 }
 
-export function defaultContentKey(config) {
-	const keys = Object.keys(config.items);
-	if (keys.length !== 1) {
-		throw new CliError(`Pass --key <content-key>. Configured keys: ${keys.join(', ')}`);
-	}
-	return keys[0];
+export function selectedContentKeys(config, contentKey) {
+	if (!contentKey) return Object.keys(config.items);
+	resolveContentPublishItem(config, contentKey);
+	return [contentKey];
 }

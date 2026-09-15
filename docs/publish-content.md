@@ -49,7 +49,8 @@ production write) are a follow-up; running them today is not yet possible.
    npm run content:export -- <site-id> [--key <content-key>]
    ```
 
-   `--key` can be omitted when the site has exactly one configured item.
+   Without `--key`, export processes every configured item. Pass `--key` to
+   export only one item.
    Export reads only the site's local `wp-env`; production is never
    contacted.
 3. Review the resulting diff under the item's `artifactDir` before
@@ -77,10 +78,10 @@ npm run content:export -- <site-id> --key <content-key> --refresh-baseline
 `content-publish.json` declares one object per managed content key:
 
 - `type`: WordPress content type. Only `page` is supported.
-- `selector.type`: how the production item is located. Only
-  `page_on_front` is supported, and only for a site's first managed item —
-  every later item is expected to be located by its `_circus_content_key`
-  once the shared `plan`/`apply` operations exist.
+- `selector.type`: how the local item is located. `page_on_front` selects the
+  static front page; `page_path` selects a page by its site-relative path.
+- `selector.path`: required for `page_path`; an absolute path with a trailing
+  slash, such as `/valencia/`.
 - `artifactDir`: site-relative directory for this item's artifact. Must stay
   inside the site directory and must not be shared with another item.
 - `allowedStatuses`: subset of `draft` and `publish`.
