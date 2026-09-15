@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circus-it.eu/schemas/content-artifact.schema.json",
+  "title": "Circus Site Platform content artifact manifest",
+  "description": "Deterministic manifest for one explicitly managed WordPress content item. Structural validation only; scripts/lib/content-artifact.mjs performs the full boundary validation, including file existence and hash verification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contentKey", "type", "title", "slug", "status", "template", "content", "featuredImage", "metadata", "baselineHash"],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "contentKey": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Stable identity marker, independent of the WordPress database ID or slug."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["page"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "publish"]
+    },
+    "template": {
+      "type": "string",
+      "description": "The `_wp_page_template` value, or an empty string for the default template."
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file"],
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "Bare filename, relative to this manifest, holding exact Gutenberg markup with site URLs replaced by the {{SITE_URL}} token."
+        }
+      }
+    },
+    "featuredImage": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["file", "sha256", "mimeType", "basename", "alt", "caption", "title"],
+          "properties": {
+            "file": {
+              "type": "string",
+              "description": "Bare filename, relative to this manifest, holding the exact attachment bytes."
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "mimeType": {
+              "type": "string",
+              "enum": ["image/jpeg", "image/png", "image/webp", "image/gif"]
+            },
+            "basename": {
+              "type": "string",
+              "minLength": 1
+            },
+            "alt": { "type": "string" },
+            "caption": { "type": "string" },
+            "title": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Only keys allowlisted by the site's content-publish.json.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "baselineHash": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      ],
+      "description": "Normalized hash of the production state this artifact was last reconciled against. Null before the first export."
+    }
+  }
+}

@@ -81,6 +81,24 @@ REST publishing credentials, if needed for a separate editorial workflow,
 must be provisioned independently with the least privileges that workflow
 requires.
 
+## Content publishing
+
+The homepage (the page assigned to **Settings → Reading → Your homepage
+displays**) is managed as a committed artifact under
+[`content-publish.json`](content-publish.json), content key `homepage`,
+artifact directory `content/pages/homepage`. Edit the page in the local block
+editor as usual, then export the local state into the committed artifact:
+
+```sh
+npm run content:export -- acro-agenda.es
+```
+
+Export reads only the local `wp-env`; production is untouched. Review the
+artifact diff before committing. See
+[`../../docs/publish-content.md`](../../docs/publish-content.md) for the
+authoring workflow, the artifact format, and current scope — planning and
+applying an artifact to production do not exist yet.
+
 ## Screenshots
 
 Install the site-level development dependencies and run the screenshot command

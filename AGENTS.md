@@ -99,3 +99,12 @@ operations run from the repository root with `npm run start -- <site-id>`,
 access, remote WP-CLI, and a gitignored `.env.import-local/<site-id>` file. It
 reads production and destructively replaces only the selected local wp-env
 database and uploads; `--apply` remains mandatory.
+
+For sites with a `content-publish.json` configuration, export an explicitly
+managed item's local wp-env state into a committed artifact with
+`npm run content:export -- <site-id> [--key <content-key>]`. This is separate
+from import: it manages one configured item at a time, reads only the local
+wp-env, and never touches production. See
+[`docs/publish-content.md`](docs/publish-content.md) for the current scope —
+planning and applying an artifact to production are follow-up work, not yet
+implemented.

@@ -60,3 +60,16 @@ These can be overridden with `PRODUCTION_URL` and `LOCAL_URL` in
 See [`../docs/import-production.md`](../docs/import-production.md) for the
 complete import workflow. Keep hosting details and other site-only prerequisites
 in the README inside the relevant site directory.
+
+## Content publishing
+
+A site may additionally declare a `content-publish.json` file selecting a
+small set of explicitly managed WordPress content items and where their
+committed artifacts live. This is a separate capability from import: import
+replaces an entire local site from production; content publishing manages one
+configured item at a time, treating its committed artifact as the deployable
+source of truth. Ownership boundary: shared validation, normalization, and
+commands live in this repository under `scripts/lib/`; each site owns its own
+`content-publish.json` selection and artifacts. See
+[`../docs/publish-content.md`](../docs/publish-content.md) for the current
+scope (export only) and the artifact format.

@@ -1,0 +1,17 @@
+{
+  "$schema": "../../schemas/content-publish.schema.json",
+  "items": {
+    "homepage": {
+      "type": "page",
+      "selector": {
+        "type": "page_on_front"
+      },
+      "artifactDir": "content/pages/homepage",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    }
+  }
+}

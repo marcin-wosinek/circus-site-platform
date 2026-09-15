@@ -39,6 +39,22 @@ in the ignored `.env.import-local/<site-id>` file; a site-local
 [`docs/import-production.md`](docs/import-production.md) for prerequisites,
 configuration, safeguards, and recovery details.
 
+## Content publishing
+
+For sites with a `content-publish.json` configuration, export the configured
+item's local `wp-env` state into a committed, deterministic artifact:
+
+```sh
+npm run content:export -- <site-id> [--key <content-key>]
+```
+
+This is distinct from production import: import copies an entire site
+one-way from production into local `wp-env`, while content publishing manages
+one explicitly configured item at a time, with the committed artifact as its
+source of truth. Only export (local wp-env → committed artifact) exists
+today; planning and applying an artifact to production are follow-up work.
+See [`docs/publish-content.md`](docs/publish-content.md).
+
 ## Theme artifacts
 
 The root [theme packaging workflow](.github/workflows/build-themes.yml) builds
