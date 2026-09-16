@@ -107,11 +107,13 @@ item's type, across all core statuses including `trash`:
 - **More than one match** — a `conflict` ("ambiguous identity marker"); plan
   never guesses which one is authoritative.
 
-Only the `homepage` item (`selector.type: "page_on_front"`) gets a
-first-adoption fallback when no marker is found: plan resolves production's
-current `page_on_front`. If that page already carries a *different*
-`_circus_content_key`, it is a `conflict`, not a silent skip. Every other
-selector type never falls back — no marker means `create`, full stop.
+For `page_on_front`, plan can adopt production's current static front page when
+there is no marker. For `page_path` and `post_path`, plan checks the configured
+permalink path before classifying an item as `create`. One unmarked post at that
+path can be adopted only after its normalized state matches the baseline or
+target. A path claimed by another key, ambiguous path, or marker on a post at
+a different path is a conflict. This prevents a duplicate post from receiving
+a suffixed WordPress slug while the intended URL stays unchanged.
 
 ### Classification
 

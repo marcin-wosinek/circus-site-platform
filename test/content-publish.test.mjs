@@ -408,6 +408,21 @@ test('resolveProductionMatch falls back to the front page only for page_on_front
 	);
 });
 
+test('resolveProductionMatch adopts one unmarked post at the configured path', () => {
+	assert.deepEqual(resolveProductionMatch({ markerMatches: [], contentKey: 'festival', selectorType: 'post_path', pathMatches: [{ id: '1087', status: 'publish', contentKey: null }] }), { outcome: 'matched', postId: '1087' });
+});
+
+test('resolveProductionMatch rejects a marked duplicate at a different path', () => {
+	const match = resolveProductionMatch({ markerMatches: [{ id: '1125', status: 'publish' }], contentKey: 'festival', selectorType: 'post_path', markerAtPath: false, pathMatches: [{ id: '1087', status: 'publish', contentKey: null }] });
+	assert.equal(match.outcome, 'conflict');
+	assert.match(match.reason, /does not own the configured production path/);
+});
+
+test('resolveProductionMatch rejects a path claimed by another key', () => {
+	const match = resolveProductionMatch({ markerMatches: [], contentKey: 'festival', selectorType: 'post_path', pathMatches: [{ id: '1087', status: 'publish', contentKey: 'other' }] });
+	assert.equal(match.outcome, 'conflict');
+});
+
 test('resolveProductionMatch does not fall back for non-front-page selectors', () => {
 	assert.deepEqual(
 		resolveProductionMatch({ markerMatches: [], contentKey: 'valencia', selectorType: 'page_path', frontPage: { id: '7', contentKey: null } }),

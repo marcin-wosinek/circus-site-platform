@@ -30,7 +30,7 @@ export function validatePlanRecord(record, { siteId, destination, commit, conten
 // first-adoption fallback. Never touches a hash; classification against the
 // artifact's baseline/target hashes happens separately in `classifyByHash`
 // once the caller has fetched the matched post's current state.
-export function resolveProductionMatch({ markerMatches, contentKey, selectorType, frontPage }) {
+export function resolveProductionMatch({ markerMatches, contentKey, selectorType, frontPage, pathMatches = [], markerAtPath = true }) {
 	if (markerMatches.length > 1) {
 		return {
 			outcome: 'conflict',
@@ -40,6 +40,9 @@ export function resolveProductionMatch({ markerMatches, contentKey, selectorType
 
 	if (markerMatches.length === 1) {
 		const [match] = markerMatches;
+		if ((selectorType === 'page_path' || selectorType === 'post_path') && (!markerAtPath || pathMatches.some((pathMatch) => pathMatch.id !== match.id))) {
+			return { outcome: 'conflict', reason: `Identity marker post (ID ${match.id}) does not own the configured production path.` };
+		}
 		if (match.status === 'trash') {
 			return {
 				outcome: 'conflict',
@@ -58,6 +61,15 @@ export function resolveProductionMatch({ markerMatches, contentKey, selectorType
 			};
 		}
 		return { outcome: 'matched', postId: frontPage.id };
+	}
+	if (selectorType === 'page_path' || selectorType === 'post_path') {
+		if (pathMatches.length > 1) return { outcome: 'conflict', reason: `Ambiguous production path: ${pathMatches.length} posts match the configured path.` };
+		if (pathMatches.length === 1) {
+			const [match] = pathMatches;
+			if (match.status === 'trash') return { outcome: 'conflict', reason: `Configured path belongs to a trashed production post (ID ${match.id}).` };
+			if (match.contentKey && match.contentKey !== contentKey) return { outcome: 'conflict', reason: `Configured path belongs to content key "${match.contentKey}" (ID ${match.id}).` };
+			return { outcome: 'matched', postId: match.id };
+		}
 	}
 
 	return { outcome: 'create' };

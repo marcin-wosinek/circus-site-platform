@@ -336,6 +336,7 @@ function planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls })
 	]).map((row) => ({ id: String(row.ID), status: row.post_status }));
 
 	let frontPage = null;
+	let pathMatches = [];
 	if (item.selector.type === 'page_on_front' && markerMatches.length === 0) {
 		const frontPageId = runRemoteWpCliText(sshArgs, remotePath, ['option', 'get', 'page_on_front']);
 		if (frontPageId && frontPageId !== '0') {
@@ -343,8 +344,30 @@ function planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls })
 			frontPage = { id: frontPageId, contentKey: frontPageKey || null };
 		}
 	}
+	let markerAtPath = true;
+	if (item.selector.type !== 'page_on_front') {
+		const slug = item.selector.path.split('/').filter(Boolean).at(-1);
+		const expectedPath = item.selector.path.replace(/\/$/, '');
+		const permalinkPath = (id) => {
+			if (!/^[1-9]\d*$/.test(id)) throw new CliError('Production path lookup returned an invalid post ID.');
+			const permalink = runRemoteWpCliText(sshArgs, remotePath, ['eval', `echo get_permalink(${id});`]);
+			try { return new URL(permalink).pathname.replace(/\/$/, ''); } catch { throw new CliError(`Production post ${id} has an invalid permalink.`); }
+		};
+		const candidates = runRemoteWpCliJson(sshArgs, remotePath, [
+			'post', 'list', `--post_type=${item.type}`, `--post_status=${PRODUCTION_LOOKUP_STATUSES}`,
+			`--name=${slug}`, '--fields=ID,post_status', '--format=json',
+		]);
+		for (const candidate of candidates) {
+			const id = String(candidate.ID);
+			if (permalinkPath(id) === expectedPath) {
+				const marker = runRemoteWpCliTextOptional(sshArgs, remotePath, ['post', 'meta', 'get', id, PRODUCTION_MARKER_META_KEY]);
+				pathMatches.push({ id, status: candidate.post_status, contentKey: marker || null });
+			}
+		}
+		if (markerMatches.length === 1) markerAtPath = permalinkPath(markerMatches[0].id) === expectedPath;
+	}
 
-	const resolution = resolveProductionMatch({ markerMatches, contentKey, selectorType: item.selector.type, frontPage });
+	const resolution = resolveProductionMatch({ markerMatches, contentKey, selectorType: item.selector.type, frontPage, pathMatches, markerAtPath });
 
 	if (resolution.outcome === 'create') {
 		return { contentKey, classification: 'create', reason: null, postId: null, productionHash: null, artifact };
