@@ -42,18 +42,22 @@ configuration, safeguards, and recovery details.
 ## Content publishing
 
 For sites with a `content-publish.json` configuration, export the configured
-item's local `wp-env` state into a committed, deterministic artifact:
+item's local `wp-env` state into a committed, deterministic artifact, then
+plan its deployment by comparing the artifact against current production
+state (read-only):
 
 ```sh
 npm run content:export -- <site-id> [--key <content-key>]
+npm run content:plan -- <site-id> [--key <content-key>]
 ```
 
 This is distinct from production import: import copies an entire site
 one-way from production into local `wp-env`, while content publishing manages
 one explicitly configured item at a time, with the committed artifact as its
-source of truth. Only export (local wp-env → committed artifact) exists
-today; planning and applying an artifact to production are follow-up work.
-See [`docs/publish-content.md`](docs/publish-content.md).
+source of truth. Export and plan (local wp-env → committed artifact →
+read-only comparison against production) exist today; applying an artifact to
+production is follow-up work. See
+[`docs/publish-content.md`](docs/publish-content.md).
 
 ## Theme artifacts
 

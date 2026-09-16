@@ -1,26 +1,35 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { basename, dirname, extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CliError } from './lib/cli-error.mjs';
 import { runCli } from './lib/run-cli.mjs';
 import { loadSiteRegistry, requireProjectDir, requireWpEnvJson, resolveRegisteredSite } from './lib/site-registry.mjs';
+import { loadEnvFile, resolveEnvFilePath } from './lib/env-file.mjs';
 import { loadContentPublishConfig, resolveContentPublishItem, selectedContentKeys } from './lib/content-publish-config.mjs';
 import {
 	assertUrlsTokenized,
 	computeSha256,
 	mimeTypeForExtension,
 	readExistingArtifact,
+	validateArtifactFiles,
 	validateManifestShape,
 	writeArtifact,
 	ARTIFACT_SCHEMA_VERSION,
 } from './lib/content-artifact.mjs';
 import { canonicalizePageState, hashPageState, tokenizeSiteUrl } from './lib/page-normalization.mjs';
 import { runWpCliJson, runWpCliText, runWpCliTextOptional } from './lib/wp-cli.mjs';
+import { runRemoteWpCliJson, runRemoteWpCliText, runRemoteWpCliTextOptional, readRemoteFileBytes } from './lib/remote-wp-cli.mjs';
+import { buildSshArgs, loadProductionSshConfig, validateUrl } from './lib/ssh-config.mjs';
+import { assertPathsCommittedAndClean, getCurrentCommit } from './lib/git-status.mjs';
+import { classifyByHash, computePlanHash, resolveProductionMatch } from './lib/content-plan.mjs';
+import { writeJsonFileAtomic } from './lib/json-file.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SUPPORTED_OPERATIONS = new Set(['export']);
+const SUPPORTED_OPERATIONS = new Set(['export', 'plan']);
+const PRODUCTION_MARKER_META_KEY = '_circus_content_key';
+const PRODUCTION_LOOKUP_STATUSES = 'publish,future,draft,pending,private,trash';
 
 function parseArgs(argv) {
 	const [operation, siteId, ...rest] = argv;
@@ -43,6 +52,8 @@ function usage() {
 	console.log(`Usage: node ${process.argv[1]} export <site-id> [--key <content-key>] [--refresh-baseline]`);
 	console.log('Exports the configured local wp-env content as a committed artifact.');
 	console.log('Reads only the local wp-env of the selected site; production is untouched.');
+	console.log(`       node ${process.argv[1]} plan <site-id> [--key <content-key>]`);
+	console.log('Compares committed artifacts against current production state (read-only) and reports create/update/unchanged/conflict.');
 }
 
 function resolveUploadsDir(projectDir, wpEnvFile) {
@@ -226,12 +237,219 @@ async function runExport({ siteId, key, refreshBaseline }) {
 	}
 }
 
+function recomputeTargetHash(manifest, artifactDirAbsolute) {
+	const contentText = readFileSync(resolve(artifactDirAbsolute, manifest.content.file), 'utf8');
+	const canonicalState = canonicalizePageState({
+		contentKey: manifest.contentKey,
+		type: manifest.type,
+		title: manifest.title,
+		slug: manifest.slug,
+		status: manifest.status,
+		template: manifest.template,
+		content: contentText,
+		featuredImage: manifest.featuredImage,
+		metadata: manifest.metadata,
+	});
+	return hashPageState(canonicalState);
+}
+
+function fetchProductionFeaturedImage({ sshArgs, remotePath, postId }) {
+	const thumbnailId = runRemoteWpCliTextOptional(sshArgs, remotePath, ['post', 'meta', 'get', postId, '_thumbnail_id']);
+	if (!thumbnailId || thumbnailId === '0') return null;
+
+	const attachedFile = runRemoteWpCliText(sshArgs, remotePath, ['post', 'meta', 'get', thumbnailId, '_wp_attached_file']);
+	if (!attachedFile || attachedFile.startsWith('/') || attachedFile.split('/').includes('..')) {
+		throw new CliError(`Production featured image attachment path is unsafe: ${attachedFile}`);
+	}
+	const mimeType = runRemoteWpCliText(sshArgs, remotePath, ['post', 'get', thumbnailId, '--field=post_mime_type']);
+	const alt = runRemoteWpCliTextOptional(sshArgs, remotePath, ['post', 'meta', 'get', thumbnailId, '_wp_attachment_image_alt']);
+	const caption = runRemoteWpCliText(sshArgs, remotePath, ['post', 'get', thumbnailId, '--field=post_excerpt']);
+	const title = runRemoteWpCliText(sshArgs, remotePath, ['post', 'get', thumbnailId, '--field=post_title']);
+
+	const remoteImagePath = `${remotePath.replace(/\/$/, '')}/wp-content/uploads/${attachedFile}`;
+	const bytes = readRemoteFileBytes(sshArgs, remoteImagePath);
+
+	return { sha256: computeSha256(bytes), mimeType, alt, caption, title };
+}
+
+function fetchProductionHash({ sshArgs, remotePath, postId, item, contentKey, siteUrls }) {
+	const post = runRemoteWpCliJson(sshArgs, remotePath, [
+		'post', 'get', postId, '--format=json',
+		'--fields=post_title,post_name,post_status,post_content,post_type',
+	]);
+	if (post.post_type !== item.type) {
+		throw new CliError(`Production post ${postId} has type "${post.post_type}", expected "${item.type}" for "${contentKey}".`);
+	}
+
+	const template = runRemoteWpCliTextOptional(sshArgs, remotePath, ['post', 'meta', 'get', postId, '_wp_page_template']);
+	const metadata = {};
+	for (const metadataKey of item.metadata) {
+		metadata[metadataKey] = runRemoteWpCliTextOptional(sshArgs, remotePath, ['post', 'meta', 'get', postId, metadataKey]);
+	}
+
+	const featuredImage = fetchProductionFeaturedImage({ sshArgs, remotePath, postId });
+
+	let content = post.post_content;
+	for (const url of siteUrls) content = tokenizeSiteUrl(content, url);
+
+	const canonicalState = canonicalizePageState({
+		contentKey,
+		type: post.post_type,
+		title: post.post_title,
+		slug: post.post_name,
+		status: post.post_status,
+		template,
+		content,
+		featuredImage,
+		metadata,
+	});
+	return hashPageState(canonicalState);
+}
+
+function planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls }) {
+	const targetHash = recomputeTargetHash(manifest, item.artifactDirAbsolute);
+	const artifact = { baselineHash: manifest.baselineHash, targetHash };
+
+	const markerMatches = runRemoteWpCliJson(sshArgs, remotePath, [
+		'post', 'list',
+		`--post_type=${item.type}`,
+		`--post_status=${PRODUCTION_LOOKUP_STATUSES}`,
+		`--meta_key=${PRODUCTION_MARKER_META_KEY}`,
+		`--meta_value=${contentKey}`,
+		'--fields=ID,post_status',
+		'--format=json',
+	]).map((row) => ({ id: String(row.ID), status: row.post_status }));
+
+	let frontPage = null;
+	if (item.selector.type === 'page_on_front' && markerMatches.length === 0) {
+		const frontPageId = runRemoteWpCliText(sshArgs, remotePath, ['option', 'get', 'page_on_front']);
+		if (frontPageId && frontPageId !== '0') {
+			const frontPageKey = runRemoteWpCliTextOptional(sshArgs, remotePath, ['post', 'meta', 'get', frontPageId, PRODUCTION_MARKER_META_KEY]);
+			frontPage = { id: frontPageId, contentKey: frontPageKey || null };
+		}
+	}
+
+	const resolution = resolveProductionMatch({ markerMatches, contentKey, selectorType: item.selector.type, frontPage });
+
+	if (resolution.outcome === 'create') {
+		return { contentKey, classification: 'create', reason: null, postId: null, productionHash: null, artifact };
+	}
+	if (resolution.outcome === 'conflict') {
+		return { contentKey, classification: 'conflict', reason: resolution.reason, postId: null, productionHash: null, artifact };
+	}
+
+	const postId = resolution.postId;
+	const productionHash = fetchProductionHash({ sshArgs, remotePath, postId, item, contentKey, siteUrls });
+	const { classification, reason } = classifyByHash({ baselineHash: manifest.baselineHash, targetHash, productionHash });
+	return { contentKey, classification, reason: reason ?? null, postId, productionHash, artifact };
+}
+
+function printPlanReport(results) {
+	console.log('');
+	console.log('Plan report:');
+	for (const result of results) {
+		const parts = [`- ${result.contentKey}: ${result.classification}`];
+		if (result.postId) parts.push(`(production ID ${result.postId})`);
+		if (result.reason) parts.push(`— ${result.reason}`);
+		console.log(parts.join(' '));
+	}
+	console.log('');
+}
+
+function writePlanRecord({ siteId, commit, results }) {
+	const items = {};
+	for (const result of results) {
+		items[result.contentKey] = {
+			artifact: result.artifact,
+			production: { postId: result.postId, hash: result.productionHash },
+			classification: result.classification,
+			reason: result.reason,
+		};
+	}
+	const record = {
+		schemaVersion: 1,
+		siteId,
+		commit,
+		generatedAt: new Date().toISOString(),
+		items,
+	};
+	const planHash = computePlanHash(record);
+
+	const planDir = resolve(platformDir, '.content-publish', 'plans', siteId);
+	mkdirSync(planDir, { recursive: true });
+	const planPath = resolve(planDir, 'plan.json');
+	writeJsonFileAtomic(planPath, { ...record, planHash });
+	console.log(`Plan record written to ${relative(platformDir, planPath)}`);
+}
+
+async function runPlan({ siteId, key }) {
+	if (!siteId) throw new CliError('Pass a registered site ID.');
+
+	const registry = loadSiteRegistry(platformDir);
+	const { site, projectDir } = resolveRegisteredSite(registry, siteId, platformDir);
+	requireProjectDir(projectDir, site);
+	const config = loadContentPublishConfig(projectDir, siteId);
+	const contentKeys = selectedContentKeys(config, key);
+	const items = contentKeys.map((contentKey) => ({ contentKey, item: resolveContentPublishItem(config, contentKey) }));
+
+	const manifests = new Map();
+	for (const { contentKey, item } of items) {
+		const existing = readExistingArtifact(item.artifactDirAbsolute);
+		if (!existing) {
+			throw new CliError(`Content key "${contentKey}" has no exported artifact yet. Run "npm run content:export -- ${siteId} --key ${contentKey}" first.`);
+		}
+		validateManifestShape(existing.manifest, { contentKey, item });
+		validateArtifactFiles(existing.manifest, item.artifactDirAbsolute);
+		manifests.set(contentKey, existing.manifest);
+	}
+
+	// Everything above is local, offline validation. Only after it passes do
+	// we touch Git state or contact production.
+	const pathsToCheck = [config.configPath, ...items.map(({ item }) => item.artifactDirAbsolute)];
+	assertPathsCommittedAndClean(platformDir, pathsToCheck);
+	const commit = getCurrentCommit(platformDir);
+
+	loadEnvFile(resolveEnvFilePath(platformDir, projectDir, siteId));
+	const { sshTarget, sshPort, sshKey, remotePath } = loadProductionSshConfig();
+	// Must match export's tokenization source exactly (site.productionUrl,
+	// never an env override) so the production and artifact hashes are
+	// comparable.
+	const productionUrl = site.productionUrl;
+	const localUrl = process.env.LOCAL_URL ?? `http://localhost:${site.port}`;
+	validateUrl(productionUrl, 'productionUrl');
+	validateUrl(localUrl, 'localUrl');
+	const siteUrls = [productionUrl, localUrl];
+	const sshArgs = buildSshArgs({ sshTarget, sshPort, sshKey });
+
+	console.log(`Plan source: ${sshTarget}:${remotePath} (production, read-only)`);
+	console.log('Plan destination: report and saved plan record only; production is never written.');
+	runRemoteWpCliText(sshArgs, remotePath, ['core', 'is-installed']);
+
+	const results = [];
+	let hasConflict = false;
+	for (const { contentKey, item } of items) {
+		const result = planItem({ sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
+		results.push(result);
+		if (result.classification === 'conflict') hasConflict = true;
+	}
+
+	printPlanReport(results);
+	writePlanRecord({ siteId, commit, results });
+
+	if (hasConflict) process.exitCode = 1;
+}
+
 await runCli(async () => {
 	const { operation, siteId, key, refreshBaseline } = parseArgs(process.argv.slice(2));
 	if (!SUPPORTED_OPERATIONS.has(operation)) {
 		usage();
 		if (!operation) return;
 		throw new CliError(`Unsupported operation: ${operation}`);
+	}
+	if (operation === 'plan') {
+		if (refreshBaseline) throw new CliError('--refresh-baseline is only supported for the export operation.');
+		await runPlan({ siteId, key });
+		return;
 	}
 	await runExport({ siteId, key, refreshBaseline });
 });

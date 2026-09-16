@@ -17,6 +17,8 @@ import {
 	mimeTypeForExtension,
 } from '../scripts/lib/content-artifact.mjs';
 import { canonicalizePageState, hashPageState, materializeSiteUrl, tokenizeSiteUrl } from '../scripts/lib/page-normalization.mjs';
+import { classifyByHash, computePlanHash, resolveProductionMatch } from '../scripts/lib/content-plan.mjs';
+import { assertPathsCommittedAndClean, getCurrentCommit } from '../scripts/lib/git-status.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -334,6 +336,150 @@ test('hashPageState changes when content changes', () => {
 	assert.notEqual(hashPageState(state('<p>x</p>')), hashPageState(state('<p>y</p>')));
 });
 
+// --- content-plan ---
+
+test('resolveProductionMatch returns create when there is no marker and no fallback', () => {
+	assert.deepEqual(
+		resolveProductionMatch({ markerMatches: [], contentKey: 'valencia', selectorType: 'page_path', frontPage: null }),
+		{ outcome: 'create' },
+	);
+});
+
+test('resolveProductionMatch matches a single non-trashed marker', () => {
+	assert.deepEqual(
+		resolveProductionMatch({ markerMatches: [{ id: '42', status: 'publish' }], contentKey: 'homepage', selectorType: 'page_on_front', frontPage: null }),
+		{ outcome: 'matched', postId: '42' },
+	);
+});
+
+test('resolveProductionMatch treats a trashed marker as a conflict', () => {
+	const result = resolveProductionMatch({ markerMatches: [{ id: '42', status: 'trash' }], contentKey: 'homepage', selectorType: 'page_on_front', frontPage: null });
+	assert.equal(result.outcome, 'conflict');
+	assert.match(result.reason, /trashed production post \(ID 42\)/);
+});
+
+test('resolveProductionMatch treats multiple markers as an ambiguous conflict', () => {
+	const result = resolveProductionMatch({
+		markerMatches: [{ id: '1', status: 'publish' }, { id: '2', status: 'draft' }],
+		contentKey: 'valencia',
+		selectorType: 'page_path',
+		frontPage: null,
+	});
+	assert.equal(result.outcome, 'conflict');
+	assert.match(result.reason, /Ambiguous identity marker: 2/);
+});
+
+test('resolveProductionMatch falls back to the front page only for page_on_front', () => {
+	assert.deepEqual(
+		resolveProductionMatch({ markerMatches: [], contentKey: 'homepage', selectorType: 'page_on_front', frontPage: { id: '7', contentKey: null } }),
+		{ outcome: 'matched', postId: '7' },
+	);
+});
+
+test('resolveProductionMatch does not fall back for non-front-page selectors', () => {
+	assert.deepEqual(
+		resolveProductionMatch({ markerMatches: [], contentKey: 'valencia', selectorType: 'page_path', frontPage: { id: '7', contentKey: null } }),
+		{ outcome: 'create' },
+	);
+});
+
+test('resolveProductionMatch treats a front page claimed by another key as a conflict', () => {
+	const result = resolveProductionMatch({
+		markerMatches: [],
+		contentKey: 'homepage',
+		selectorType: 'page_on_front',
+		frontPage: { id: '7', contentKey: 'other-key' },
+	});
+	assert.equal(result.outcome, 'conflict');
+	assert.match(result.reason, /already carries content key "other-key"/);
+});
+
+test('resolveProductionMatch treats an unset front page as create', () => {
+	assert.deepEqual(
+		resolveProductionMatch({ markerMatches: [], contentKey: 'homepage', selectorType: 'page_on_front', frontPage: null }),
+		{ outcome: 'create' },
+	);
+});
+
+test('classifyByHash reports unchanged when production matches the target', () => {
+	assert.deepEqual(
+		classifyByHash({ baselineHash: 'a'.repeat(64), targetHash: 'b'.repeat(64), productionHash: 'b'.repeat(64) }),
+		{ classification: 'unchanged' },
+	);
+});
+
+test('classifyByHash reports update when production matches only the baseline', () => {
+	assert.deepEqual(
+		classifyByHash({ baselineHash: 'a'.repeat(64), targetHash: 'b'.repeat(64), productionHash: 'a'.repeat(64) }),
+		{ classification: 'update' },
+	);
+});
+
+test('classifyByHash reports conflict when production matches neither baseline nor target', () => {
+	const result = classifyByHash({ baselineHash: 'a'.repeat(64), targetHash: 'b'.repeat(64), productionHash: 'c'.repeat(64) });
+	assert.equal(result.classification, 'conflict');
+	assert.match(result.reason, /drifted/);
+});
+
+test('computePlanHash is stable regardless of item key insertion order', () => {
+	const a = { siteId: 's', items: { a: 1, b: 2 } };
+	const b = { siteId: 's', items: { b: 2, a: 1 } };
+	assert.equal(computePlanHash(a), computePlanHash(b));
+});
+
+// --- git-status ---
+
+function initGitRepo(context) {
+	const directory = tempDir(context);
+	spawnSync('git', ['init', '--quiet', '--initial-branch=main'], { cwd: directory });
+	spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: directory });
+	spawnSync('git', ['config', 'user.name', 'Test'], { cwd: directory });
+	spawnSync('git', ['commit', '--allow-empty', '--quiet', '-m', 'init'], { cwd: directory });
+	return directory;
+}
+
+function commitFile(repo, name, content) {
+	const filePath = resolve(repo, name);
+	writeFileSync(filePath, content);
+	spawnSync('git', ['add', name], { cwd: repo });
+	spawnSync('git', ['commit', '--quiet', '-m', `add ${name}`], { cwd: repo });
+	return filePath;
+}
+
+test('assertPathsCommittedAndClean accepts a clean tracked path', (context) => {
+	const repo = initGitRepo(context);
+	const filePath = commitFile(repo, 'tracked.txt', 'hello');
+	assert.doesNotThrow(() => assertPathsCommittedAndClean(repo, [filePath]));
+});
+
+test('assertPathsCommittedAndClean rejects a modified tracked path', (context) => {
+	const repo = initGitRepo(context);
+	const filePath = commitFile(repo, 'tracked.txt', 'hello');
+	writeFileSync(filePath, 'changed');
+	assert.throws(() => assertPathsCommittedAndClean(repo, [filePath]), /tracked\.txt/);
+});
+
+test('assertPathsCommittedAndClean rejects a staged path', (context) => {
+	const repo = initGitRepo(context);
+	const filePath = commitFile(repo, 'tracked.txt', 'hello');
+	writeFileSync(filePath, 'changed');
+	spawnSync('git', ['add', 'tracked.txt'], { cwd: repo });
+	assert.throws(() => assertPathsCommittedAndClean(repo, [filePath]), /tracked\.txt/);
+});
+
+test('assertPathsCommittedAndClean rejects an untracked path', (context) => {
+	const repo = initGitRepo(context);
+	const filePath = resolve(repo, 'untracked.txt');
+	writeFileSync(filePath, 'hello');
+	assert.throws(() => assertPathsCommittedAndClean(repo, [filePath]), /untracked\.txt/);
+});
+
+test('getCurrentCommit returns the repo HEAD sha', (context) => {
+	const repo = initGitRepo(context);
+	const expected = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).stdout.trim();
+	assert.equal(getCurrentCommit(repo), expected);
+});
+
 // --- content-publish.mjs CLI (argument/config validation only; no live wp-env needed) ---
 
 test('content-publish export rejects an unknown site before touching wp-env', () => {
@@ -358,4 +504,22 @@ test('content-publish rejects an unsupported operation', () => {
 	const result = run('scripts/content-publish.mjs', ['delete', 'acro-agenda.es']);
 	assert.equal(result.status, 1);
 	assert.match(result.stderr, /Unsupported operation: delete/);
+});
+
+test('content-publish plan rejects an unknown site before contacting production', () => {
+	const result = run('scripts/content-publish.mjs', ['plan', 'not-managed']);
+	assert.equal(result.status, 1);
+	assert.match(result.stderr, /Unknown site "not-managed"/);
+});
+
+test('content-publish plan rejects an unknown content key before contacting production', () => {
+	const result = run('scripts/content-publish.mjs', ['plan', 'acro-agenda.es', '--key', 'bogus']);
+	assert.equal(result.status, 1);
+	assert.match(result.stderr, /Unknown content key "bogus"/);
+});
+
+test('content-publish plan rejects --refresh-baseline instead of silently ignoring it', () => {
+	const result = run('scripts/content-publish.mjs', ['plan', 'acro-agenda.es', '--refresh-baseline']);
+	assert.equal(result.status, 1);
+	assert.match(result.stderr, /--refresh-baseline is only supported for the export operation/);
 });

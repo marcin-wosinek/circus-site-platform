@@ -1,3 +1,4 @@
 .env.import-local/
 .wp-env-plugins/
 .wp-env.override.json
+.content-publish/

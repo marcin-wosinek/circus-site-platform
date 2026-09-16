@@ -20,7 +20,7 @@ export function materializeSiteUrl(text, siteUrl) {
 	return text.split(SITE_URL_TOKEN).join(withoutTrailingSlash(siteUrl));
 }
 
-function stableStringify(value) {
+export function stableStringify(value) {
 	if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`;
 	if (value && typeof value === 'object') {
 		const keys = Object.keys(value).sort();

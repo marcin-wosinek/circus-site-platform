@@ -8,6 +8,7 @@
     "stop": "node scripts/site-command.mjs stop",
     "update": "node scripts/site-command.mjs update",
     "import": "node scripts/import-production.mjs",
-    "content:export": "node scripts/content-publish.mjs export"
+    "content:export": "node scripts/content-publish.mjs export",
+    "content:plan": "node scripts/content-publish.mjs plan"
   }
 }

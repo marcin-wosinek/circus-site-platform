@@ -102,9 +102,11 @@ database and uploads; `--apply` remains mandatory.
 
 For sites with a `content-publish.json` configuration, export an explicitly
 managed item's local wp-env state into a committed artifact with
-`npm run content:export -- <site-id> [--key <content-key>]`. This is separate
-from import: it manages one configured item at a time, reads only the local
-wp-env, and never touches production. See
-[`docs/publish-content.md`](docs/publish-content.md) for the current scope —
-planning and applying an artifact to production are follow-up work, not yet
-implemented.
+`npm run content:export -- <site-id> [--key <content-key>]`, then compare that
+artifact against current production state, read-only, with
+`npm run content:plan -- <site-id> [--key <content-key>]`. This is separate
+from import: it manages one configured item at a time, and plan never writes
+to production — it only reports create/update/unchanged/conflict per item and
+saves a plan record. See [`docs/publish-content.md`](docs/publish-content.md)
+for the current scope — applying an artifact to production is follow-up work,
+not yet implemented.
