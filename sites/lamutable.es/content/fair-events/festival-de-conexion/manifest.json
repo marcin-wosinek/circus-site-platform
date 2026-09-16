@@ -9,7 +9,15 @@
   "content": {
     "file": "content.html"
   },
-  "featuredImage": null,
+  "featuredImage": {
+    "file": "featured-image.jpg",
+    "sha256": "535d2a5e7a1067a0d7bca713ba401a42ebc4dd51e4145dce69911e2e6e9f3235",
+    "mimeType": "image/jpeg",
+    "basename": "villaarcangel.jpg",
+    "alt": "VillaArcángel, el espacio del Festival de Conexión",
+    "caption": "",
+    "title": "VillaArcángel"
+  },
   "metadata": {},
   "baselineHash": "a13be2ac03199b6cff63beea94a390d5775aa6d6eb18a97ef301360028e318dd"
 }
