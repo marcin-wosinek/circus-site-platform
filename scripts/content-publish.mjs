@@ -28,6 +28,8 @@ import { writeJsonFileAtomic } from './lib/json-file.mjs';
 import { parseJsonNoDuplicateKeys } from './lib/strict-json.mjs';
 import { createProductionBackup } from './lib/content-production-backup.mjs';
 import { ensureProductionMedia, writeProductionPost } from './lib/content-production-write.mjs';
+import { collectInlineImages, referencedUploadPaths } from './lib/content-inline-images.mjs';
+import { inspectProductionInlineImage, ensureProductionInlineImage } from './lib/content-production-write.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SUPPORTED_OPERATIONS = new Set(['export', 'plan', 'apply']);
@@ -182,6 +184,7 @@ function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls,
 
 	assertUrlsTokenized(content, siteUrls, 'Exported content');
 	assertUrlsTokenized(post.post_title, siteUrls, 'Exported title');
+	const inlineImages = collectInlineImages(content, resolveUploadsDir(projectDir, wpEnvFile));
 
 	const canonicalState = canonicalizePageState({
 		contentKey,
@@ -216,6 +219,7 @@ function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls,
 		template,
 		content: { file: 'content.html' },
 		featuredImage: featuredImage?.manifestEntry ?? null,
+		inlineImages: inlineImages.map((image) => image.entry),
 		metadata,
 		baselineHash,
 	};
@@ -225,6 +229,7 @@ function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls,
 		manifest,
 		contentText: content,
 		featuredImageBytes: featuredImage?.bytes,
+		inlineImages,
 	});
 
 	console.log(`Exported "${contentKey}" (post ${pageId}) to ${relative(platformDir, item.artifactDirAbsolute)}`);
@@ -254,6 +259,7 @@ async function runExport({ siteId, key, refreshBaseline }) {
 
 function recomputeTargetHash(manifest, artifactDirAbsolute) {
 	const contentText = readFileSync(resolve(artifactDirAbsolute, manifest.content.file), 'utf8');
+	assertInlineImageReferences(manifest, contentText);
 	const canonicalState = canonicalizePageState({
 		contentKey: manifest.contentKey,
 		type: manifest.type,
@@ -266,6 +272,24 @@ function recomputeTargetHash(manifest, artifactDirAbsolute) {
 		metadata: manifest.metadata,
 	});
 	return hashPageState(canonicalState);
+}
+
+function assertInlineImageReferences(manifest, content) {
+	const referenced = referencedUploadPaths(content);
+	const packaged = (manifest.inlineImages ?? []).map((image) => image.path).sort();
+	if (JSON.stringify(referenced) !== JSON.stringify(packaged)) {
+		throw new CliError(`Artifact "${manifest.contentKey}" does not package every referenced upload image. Re-export it.`);
+	}
+}
+
+function inspectInlineImages(sshArgs, remotePath, manifest) {
+	let missing = 0;
+	for (const image of manifest.inlineImages ?? []) {
+		const result = inspectProductionInlineImage(sshArgs, remotePath, image);
+		if (result.status === 'conflict') throw new CliError(`Production inline image differs at ${image.path}; refusing to overwrite it.`);
+		if (result.status === 'missing') missing += 1;
+	}
+	return missing;
 }
 
 function fetchProductionFeaturedImage({ sshArgs, remotePath, postId }) {
@@ -388,6 +412,7 @@ function printPlanReport(results) {
 	for (const result of results) {
 		const parts = [`- ${result.contentKey}: ${result.classification}`];
 		if (result.postId) parts.push(`(production ID ${result.postId})`);
+		if (result.missingInlineImages) parts.push(`(${result.missingInlineImages} referenced upload images missing)`);
 		if (result.reason) parts.push(`— ${result.reason}`);
 		console.log(parts.join(' '));
 	}
@@ -439,6 +464,7 @@ async function runPlan({ siteId, key }) {
 		}
 		validateManifestShape(existing.manifest, { contentKey, item });
 		validateArtifactFiles(existing.manifest, item.artifactDirAbsolute);
+		assertInlineImageReferences(existing.manifest, readFileSync(resolve(item.artifactDirAbsolute, existing.manifest.content.file), 'utf8'));
 		manifests.set(contentKey, existing.manifest);
 	}
 
@@ -468,6 +494,7 @@ async function runPlan({ siteId, key }) {
 	let hasConflict = false;
 	for (const { contentKey, item } of items) {
 		const result = planItem({ sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
+		result.missingInlineImages = inspectInlineImages(sshArgs, remotePath, manifests.get(contentKey));
 		results.push(result);
 		if (result.classification === 'conflict') hasConflict = true;
 	}
@@ -496,6 +523,7 @@ async function runApply({ siteId, planPath }) {
 		if (!existing) throw new CliError(`Artifact missing for ${contentKey}.`);
 		validateManifestShape(existing.manifest, { contentKey, item });
 		validateArtifactFiles(existing.manifest, item.artifactDirAbsolute);
+		assertInlineImageReferences(existing.manifest, readFileSync(resolve(item.artifactDirAbsolute, existing.manifest.content.file), 'utf8'));
 		manifests.set(contentKey, existing.manifest);
 	}
 	assertPathsCommittedAndClean(platformDir, [config.configPath, ...items.map(({ item }) => item.artifactDirAbsolute)]);
@@ -525,6 +553,7 @@ async function runApply({ siteId, planPath }) {
 		const starting = current.postId === saved.production.postId && current.productionHash === saved.production.hash && current.classification !== 'conflict';
 		const complete = current.postId !== null && current.productionHash === saved.artifact.targetHash && current.classification !== 'conflict' && (!saved.production.postId || current.postId === saved.production.postId);
 		if (!starting && !complete) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped before mutation.`);
+		inspectInlineImages(sshArgs, remotePath, manifests.get(contentKey));
 	}
 	const journalDir = resolve(platformDir, '.content-publish', 'journals', siteId);
 	mkdirSync(journalDir, { recursive: true, mode: 0o700 });
@@ -537,14 +566,17 @@ async function runApply({ siteId, planPath }) {
 			const manifest = manifests.get(contentKey);
 			const saved = record.items[contentKey];
 			const current = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
-			const alreadyDone = current.productionHash === saved.artifact.targetHash && current.postId !== null;
+			const missingInlineImages = inspectInlineImages(sshArgs, remotePath, manifest);
+			const alreadyDone = current.productionHash === saved.artifact.targetHash && current.postId !== null && missingInlineImages === 0;
 			if (alreadyDone) {
 				if (saved.production.postId && current.postId !== saved.production.postId) throw new CliError(`Production identity changed for ${contentKey}.`);
 				journal.items[contentKey] = { phase: 'verified', action: 'skipped', postId: current.postId, hash: current.productionHash }; save();
 				console.log(`${contentKey}: skipped (ID ${current.postId}, ${current.productionHash})`);
 				continue;
 			}
-			if (current.classification === 'conflict' || current.postId !== saved.production.postId || current.productionHash !== saved.production.hash) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped.`);
+			const atStart = current.postId === saved.production.postId && current.productionHash === saved.production.hash;
+			const atTarget = current.postId !== null && current.productionHash === saved.artifact.targetHash && (!saved.production.postId || current.postId === saved.production.postId);
+			if (current.classification === 'conflict' || (!atStart && !atTarget)) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped.`);
 			if (!backup) {
 				backup = createProductionBackup({ platformDir, siteId, sshArgs, remotePath });
 				journal.backup = backup; save();
@@ -552,7 +584,13 @@ async function runApply({ siteId, planPath }) {
 			}
 			// Re-read after the backup, immediately before this item's first mutation.
 			const beforeWrite = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
-			if (beforeWrite.postId !== saved.production.postId || beforeWrite.productionHash !== saved.production.hash || beforeWrite.classification === 'conflict') throw new CliError(`Production changed during backup for ${contentKey}.`);
+			if (beforeWrite.postId !== current.postId || beforeWrite.productionHash !== current.productionHash || beforeWrite.classification === 'conflict') throw new CliError(`Production changed during backup for ${contentKey}.`);
+			for (const image of manifest.inlineImages ?? []) {
+				const bytes = readFileSync(resolve(item.artifactDirAbsolute, image.file));
+				const result = ensureProductionInlineImage(sshArgs, remotePath, image, bytes);
+				if (result.status === 'conflict') throw new CliError(`Production inline image differs at ${image.path}; refusing to overwrite it.`);
+				journal.items[contentKey] = { phase: 'inline-images', lastImage: image.path, status: result.status }; save();
+			}
 			let thumbnailId = null;
 			if (manifest.featuredImage) {
 				const bytes = readFileSync(resolve(item.artifactDirAbsolute, manifest.featuredImage.file));
@@ -561,9 +599,11 @@ async function runApply({ siteId, planPath }) {
 				journal.items[contentKey] = { phase: 'media', mediaId: media.id, uploaded: media.uploaded }; save();
 			}
 			const beforePost = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
-			if (beforePost.postId !== saved.production.postId || beforePost.productionHash !== saved.production.hash || beforePost.classification === 'conflict') throw new CliError(`Production changed before page write for ${contentKey}.`);
+			if (beforePost.postId !== current.postId || beforePost.productionHash !== current.productionHash || beforePost.classification === 'conflict') throw new CliError(`Production changed before page write for ${contentKey}.`);
 			const content = materializeSiteUrl(readFileSync(resolve(item.artifactDirAbsolute, manifest.content.file), 'utf8'), productionUrl);
-			const written = writeProductionPost(sshArgs, remotePath, { postId: saved.production.postId, contentKey, manifest, content, thumbnailId });
+			const written = atTarget
+				? { id: Number(current.postId) }
+				: writeProductionPost(sshArgs, remotePath, { postId: saved.production.postId, contentKey, manifest, content, thumbnailId });
 			journal.items[contentKey] = { phase: 'page', postId: String(written.id), mediaId: thumbnailId }; save();
 			const after = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
 			if (after.postId !== String(written.id) || after.productionHash !== saved.artifact.targetHash) throw new CliError(`Post-write readback hash mismatch for ${contentKey}; deployment failed. Restore the backup manually if needed.`);

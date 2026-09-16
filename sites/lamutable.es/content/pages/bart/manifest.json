@@ -10,6 +10,13 @@
     "file": "content.html"
   },
   "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/dsc01636-1024x819.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "0ce5be8e843f0859e7207e2d981075544fc5de0f6453a5a43be1be7dde845ec9"
+    }
+  ],
   "metadata": {},
   "baselineHash": "cf2e7987cca0c5d31aa8a377e977993e469e62abffa0a45016de6769f014dbb8"
 }

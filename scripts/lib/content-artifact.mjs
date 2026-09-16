@@ -27,6 +27,7 @@ const TOP_LEVEL_FIELDS = [
 	'template',
 	'content',
 	'featuredImage',
+	'inlineImages',
 	'metadata',
 	'baselineHash',
 ];
@@ -102,6 +103,22 @@ export function validateManifestShape(manifest, { contentKey, item }) {
 		}
 		if (!image.basename.trim()) throw new CliError('Artifact manifest featuredImage.basename must not be empty.');
 	}
+	if (manifest.inlineImages !== undefined) {
+		if (!Array.isArray(manifest.inlineImages)) throw new CliError('Artifact manifest inlineImages must be an array.');
+		const paths = new Set();
+		const files = new Set();
+		for (const image of manifest.inlineImages) {
+			if (!image || typeof image !== 'object' || Array.isArray(image)) throw new CliError('Artifact inline image must be an object.');
+			assertOnlyKeys(image, ['path', 'file', 'sha256'], 'Artifact inline image');
+			if (typeof image.path !== 'string' || !image.path || image.path.startsWith('/') || image.path.includes('\\') || image.path.split('/').some((part) => !part || part === '.' || part === '..') || !mimeTypeForExtension(image.path)) throw new CliError(`Artifact inline image path is invalid: ${image.path}`);
+			assertArtifactFilename(image.file, 'Artifact inline image file');
+			if (mimeTypeForExtension(image.file) !== mimeTypeForExtension(image.path)) throw new CliError(`Artifact inline image extension does not match: ${image.file}`);
+			if (!SHA256_PATTERN.test(image.sha256)) throw new CliError('Artifact inline image sha256 is invalid.');
+			if (paths.has(image.path) || files.has(image.file)) throw new CliError('Artifact inline images contain a duplicate path or file.');
+			paths.add(image.path);
+			files.add(image.file);
+		}
+	}
 
 	if (!manifest.metadata || typeof manifest.metadata !== 'object' || Array.isArray(manifest.metadata)) {
 		throw new CliError('Artifact manifest metadata must be an object.');
@@ -141,6 +158,11 @@ export function validateArtifactFiles(manifest, artifactDirAbsolute) {
 			throw new CliError(`Artifact featured image sha256 mismatch for ${imagePath}: declared ${manifest.featuredImage.sha256}, computed ${actualSha256}`);
 		}
 	}
+	for (const image of manifest.inlineImages ?? []) {
+		const imagePath = assertWithinDirectory(artifactDirAbsolute, image.file, 'Artifact inline image file');
+		if (!existsSync(imagePath)) throw new CliError(`Artifact inline image file is missing: ${imagePath}`);
+		if (computeSha256(readFileSync(imagePath)) !== image.sha256) throw new CliError(`Artifact inline image sha256 mismatch: ${imagePath}`);
+	}
 }
 
 export function assertUrlsTokenized(text, siteUrls, label) {
@@ -175,12 +197,13 @@ function writeFileAtomic(path, data) {
 
 // Writes manifest.json, the content file, and an optional featured image
 // atomically, so a crash mid-write cannot leave a half-updated artifact.
-export function writeArtifact(artifactDirAbsolute, { manifest, contentText, featuredImageBytes }) {
+export function writeArtifact(artifactDirAbsolute, { manifest, contentText, featuredImageBytes, inlineImages = [] }) {
 	mkdirSync(artifactDirAbsolute, { recursive: true });
 	writeFileAtomic(resolve(artifactDirAbsolute, manifest.content.file), contentText);
 	if (manifest.featuredImage && featuredImageBytes) {
 		writeFileAtomic(resolve(artifactDirAbsolute, manifest.featuredImage.file), featuredImageBytes);
 	}
+	for (const image of inlineImages) writeFileAtomic(resolve(artifactDirAbsolute, image.entry.file), image.bytes);
 	writeFileAtomic(resolve(artifactDirAbsolute, 'manifest.json'), serializeManifest(manifest));
 }
 

@@ -10,6 +10,53 @@
     "file": "content.html"
   },
   "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/05/1906-L-034-1024x684.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "a29f0913f35aba68ad20e276fecefbed520b33d013e0f028d78c5dc4663fd476"
+    },
+    {
+      "path": "2026/05/image-819x1024.png",
+      "file": "inline-image-2.png",
+      "sha256": "c8ce212808a80436625cdf2993aa1f380f9f4e86e9ad407869ab43ba7259d47e"
+    },
+    {
+      "path": "2026/06/DSC5132-Large-682x1024.jpeg",
+      "file": "inline-image-3.jpeg",
+      "sha256": "c6cf117faa8c1747fbf2227ca02920eb06ea3b3e7ff525b7f190ddaea0f605b5"
+    },
+    {
+      "path": "2026/06/IMG_3488-1024x768.jpeg",
+      "file": "inline-image-4.jpeg",
+      "sha256": "3c35187f7338e4e44a3fa4d0c2bf7fba77bfd23673ff222589d5cfb8587d426e"
+    },
+    {
+      "path": "2026/06/WhatsApp-Image-2026-01-22-at-16.16.10-1-666x1024.jpeg",
+      "file": "inline-image-5.jpeg",
+      "sha256": "b942383832fd8a2d62bae396f60262dbeedc55e8705095f12d7706e636a254b4"
+    },
+    {
+      "path": "2026/06/WhatsApp-Image-2026-03-31-at-13.55.42-1024x736.jpeg",
+      "file": "inline-image-6.jpeg",
+      "sha256": "5a1af82957ffe07fc483a49c38f3ff0e7f3ac0eb14e72c648eac95cbb7dd8eb2"
+    },
+    {
+      "path": "2026/08/theme-1024x576.jpg",
+      "file": "inline-image-7.jpg",
+      "sha256": "a449b2c23254bf54edbf39b30d677f2d0c6ffd1051326d5bfb7f369041c3fc48"
+    },
+    {
+      "path": "2026/09/arancha-yoga-768x1024-1.jpg",
+      "file": "inline-image-8.jpg",
+      "sha256": "0557e78977fdcb34a991431547d89779955d4823052b6b532e12673b886a081d"
+    },
+    {
+      "path": "2026/09/banner-web-26-Sept-1024x576.jpg",
+      "file": "inline-image-9.jpg",
+      "sha256": "2fd26d001c959e7740c1455b90871766da86d01ece56b384608712c821c77958"
+    }
+  ],
   "metadata": {},
   "baselineHash": "f00d5a4260be69f8c0d1479f0a1bcc2065b02e5f5cfbc43265fb1de39eeb8ff6"
 }

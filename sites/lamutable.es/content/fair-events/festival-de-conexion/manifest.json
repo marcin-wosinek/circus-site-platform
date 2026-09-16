@@ -18,6 +18,28 @@
     "caption": "",
     "title": "VillaArcángel"
   },
+  "inlineImages": [
+    {
+      "path": "2026/09/festival-cocina-1024x768.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "ad62b26da33e7c143a84eba230422a1836b42265a3d34d894cfa5d2023818a60"
+    },
+    {
+      "path": "2026/09/festival-escritura-576x1024.jpg",
+      "file": "inline-image-2.jpg",
+      "sha256": "b3240f79c8d2ab4d59a3b874535702e2578e8a91ca6ed3bdae414631e9a3c645"
+    },
+    {
+      "path": "2026/09/festival-piscina-1024x768.jpg",
+      "file": "inline-image-3.jpg",
+      "sha256": "bb697f5090e80cc010d36968581bb700ebfb5fce48042e38faad51ef50e2d32e"
+    },
+    {
+      "path": "2026/09/festival-yoga-768x1024.jpg",
+      "file": "inline-image-4.jpg",
+      "sha256": "0d7dca9c7da6d1548b96c242572126c42f9db5ec311df1b2387814c5c76456cd"
+    }
+  ],
   "metadata": {},
   "baselineHash": "a13be2ac03199b6cff63beea94a390d5775aa6d6eb18a97ef301360028e318dd"
 }

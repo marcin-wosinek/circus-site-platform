@@ -9,7 +9,8 @@ publishing is a per-item, explicitly configured workflow that can write a
 reviewed, committed artifact to production after confirmation and backup.
 
 **Current scope:** export, read-only plan, and guarded apply manage configured
-items and their featured images. Production import remains separate.
+items, their featured images, and image files referenced in their content under
+`{{SITE_URL}}/wp-content/uploads/`. Production import remains separate.
 
 ## Concepts
 
@@ -22,7 +23,8 @@ items and their featured images. Production import remains separate.
   It is validated by [`schemas/content-publish.schema.json`](../schemas/content-publish.schema.json)
   and, at the code boundary, by `scripts/lib/content-publish-config.mjs`.
 - **Artifact**: a directory containing `manifest.json`, an exact Gutenberg
-  `content.html` file, and an optional featured-image file. Its shape is
+  `content.html` file, an optional featured-image file, and copies of referenced
+  upload images. Its shape is
   documented by [`schemas/content-artifact.schema.json`](../schemas/content-artifact.schema.json)
   and validated by `scripts/lib/content-artifact.mjs`.
 - **Site-URL token**: exported content and hashes replace the registered
@@ -53,6 +55,8 @@ items and their featured images. Production import remains separate.
 3. Review the resulting diff under the item's `artifactDir` before
    committing. Because export never writes timestamps or generated IDs,
    re-running it without further edits produces no diff.
+   Export fails if a referenced upload image is missing locally. Re-export
+   existing artifacts that predate inline-image packaging before planning them.
 4. Commit the artifact together with any related code changes.
 
 ### Adopting the current local state as the baseline
@@ -169,6 +173,10 @@ existing ignored `.env.import-local/<site-id>` provides `PRODUCTION_SSH`,
 `PRODUCTION_SSH_KEY`. Keep this file and backups private. A fresh backup is
 made on every retry that needs a write. Each page is read back and hashed after
 writing; a mismatch is a failed deployment even if WordPress accepted it.
+Apply also copies packaged inline images to their exact upload paths before
+writing the post. It reuses identical files and refuses to overwrite a file
+whose bytes differ. These copies make existing image URLs display; the block
+editor's original attachment IDs are not remapped into production media IDs.
 
 ### Recovery
 

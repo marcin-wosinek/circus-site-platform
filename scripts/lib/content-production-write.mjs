@@ -40,6 +40,37 @@ export function ensureProductionMedia(sshArgs, remotePath, image, bytes) {
 	return runPhp(sshArgs, remotePath, mediaPhp, { ...image, bytes: bytes.toString('base64') });
 }
 
+const inlineImagePhp = String.raw`
+$data = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
+$uploads = wp_get_upload_dir();
+$base = realpath($uploads['basedir']);
+if (!$base || !preg_match('~^[^/]+(?:/[^/]+)+$~', $data['path']) || in_array('..', explode('/', $data['path']), true)) { fwrite(STDERR, 'Unsafe upload path'); exit(2); }
+$path = $base . '/' . $data['path'];
+if (is_file($path)) {
+  $hash = hash_file('sha256', $path);
+  echo wp_json_encode(['status'=>$hash === $data['sha256'] ? 'exists' : 'conflict']); return;
+}
+if (file_exists($path)) { echo wp_json_encode(['status'=>'conflict']); return; }
+if (!$data['write']) { echo wp_json_encode(['status'=>'missing']); return; }
+$bytes = base64_decode($data['bytes'], true);
+if ($bytes === false || hash('sha256', $bytes) !== $data['sha256']) { fwrite(STDERR, 'Invalid inline image bytes'); exit(2); }
+$directory = dirname($path);
+if (!wp_mkdir_p($directory) || realpath($directory) !== $base . '/' . dirname($data['path'])) { fwrite(STDERR, 'Unsafe upload directory'); exit(2); }
+$handle = fopen($path, 'x');
+if (!$handle) { fwrite(STDERR, 'Inline image appeared during upload'); exit(2); }
+$written = fwrite($handle, $bytes);
+fclose($handle);
+if ($written !== strlen($bytes) || hash_file('sha256', $path) !== $data['sha256']) { fwrite(STDERR, 'Inline image upload failed'); exit(2); }
+echo wp_json_encode(['status'=>'uploaded']);`;
+
+export function inspectProductionInlineImage(sshArgs, remotePath, image) {
+	return runPhp(sshArgs, remotePath, inlineImagePhp, { path: image.path, sha256: image.sha256, write: false });
+}
+
+export function ensureProductionInlineImage(sshArgs, remotePath, image, bytes) {
+	return runPhp(sshArgs, remotePath, inlineImagePhp, { path: image.path, sha256: image.sha256, write: true, bytes: bytes.toString('base64') });
+}
+
 const postPhp = String.raw`
 $data = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
 $fields = $data['fields'];

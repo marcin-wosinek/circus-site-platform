@@ -77,6 +77,20 @@
         }
       ]
     },
+    "inlineImages": {
+      "type": "array",
+      "description": "Exact upload files referenced by the Gutenberg content. Paths are relative to wp-content/uploads.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "file", "sha256"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^[^/]+(?:/[^/]+)+\\.(?:jpg|jpeg|png|webp|gif)$" },
+          "file": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    },
     "metadata": {
       "type": "object",
       "description": "Only keys allowlisted by the site's content-publish.json.",

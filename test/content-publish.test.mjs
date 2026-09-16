@@ -20,6 +20,7 @@ import { canonicalizePageState, hashPageState, materializeSiteUrl, tokenizeSiteU
 import { classifyByHash, computePlanHash, resolveProductionMatch, validatePlanRecord } from '../scripts/lib/content-plan.mjs';
 import { assertPathsCommittedAndClean, getCurrentCommit } from '../scripts/lib/git-status.mjs';
 import { validateSqlDump } from '../scripts/lib/content-production-backup.mjs';
+import { collectInlineImages, referencedUploadPaths } from '../scripts/lib/content-inline-images.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -32,6 +33,35 @@ function tempDir(context) {
 	context.after(() => rmSync(directory, { recursive: true }));
 	return directory;
 }
+
+test('inline image export packages every distinct referenced upload at its exact path', (context) => {
+	const uploads = tempDir(context);
+	mkdirSync(resolve(uploads, '2026/09'), { recursive: true });
+	writeFileSync(resolve(uploads, '2026/09/yoga-768x1024.jpg'), 'image bytes');
+	const content = '<!-- wp:image {"url":"{{SITE_URL}}/wp-content/uploads/2026/09/yoga-768x1024.jpg"} --><img src="{{SITE_URL}}/wp-content/uploads/2026/09/yoga-768x1024.jpg">';
+	assert.deepEqual(referencedUploadPaths(content), ['2026/09/yoga-768x1024.jpg']);
+	const images = collectInlineImages(content, uploads);
+	assert.equal(images.length, 1);
+	assert.equal(images[0].entry.path, '2026/09/yoga-768x1024.jpg');
+	assert.equal(images[0].entry.file, 'inline-image-1.jpg');
+	assert.equal(images[0].entry.sha256.length, 64);
+	assert.throws(() => collectInlineImages('<img src="{{SITE_URL}}/wp-content/uploads/2026/09/missing.jpg">', uploads), /missing from local uploads/);
+});
+
+test('inline image manifest rejects unsafe paths and detects changed bytes', (context) => {
+	const directory = tempDir(context);
+	const manifest = {
+		schemaVersion: ARTIFACT_SCHEMA_VERSION, contentKey: 'homepage', type: 'page', title: 'Home', slug: 'home', status: 'publish', template: '',
+		content: { file: 'content.html' }, featuredImage: null, metadata: {}, baselineHash: null,
+		inlineImages: [{ path: '../other.jpg', file: 'inline-image-1.jpg', sha256: 'a'.repeat(64) }],
+	};
+	assert.throws(() => validateManifestShape(manifest, { contentKey: 'homepage', item: baseItem }), /path is invalid/);
+	manifest.inlineImages[0].path = '2026/09/photo.jpg';
+	validateManifestShape(manifest, { contentKey: 'homepage', item: baseItem });
+	writeFileSync(resolve(directory, 'content.html'), 'content');
+	writeFileSync(resolve(directory, 'inline-image-1.jpg'), 'different bytes');
+	assert.throws(() => validateArtifactFiles(manifest, directory), /sha256 mismatch/);
+});
 
 test('apply requires a saved plan and exact site confirmation before connecting', () => {
 	for (const args of [
