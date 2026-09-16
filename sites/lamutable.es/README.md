@@ -46,18 +46,58 @@ If the theme is not active, run wp-env from the site directory:
 
 ## Importing production content
 
-Create the ignored platform-root `.env.import-local/lamutable.es` file, then
-run:
+The shared importer reads production over SSH and destructively replaces only
+La Mutable's local `wp-env` database and uploads. Production remains read-only,
+and the tracked `lamutable` theme is never replaced.
+
+The import requires Docker, Node.js, SSH access to production, remote WP-CLI,
+and `mysqldump`. Copy `.env.import-local.example` to the ignored platform-root
+`.env.import-local/lamutable.es` file and fill in the SSH values. Keep that
+file, private keys, database exports, uploads, and logs containing production
+context out of version control.
+
+From the platform root, run:
 
 ```sh
+npm run start -- lamutable.es
 npm run import -- lamutable.es --apply
 ```
 
-Production is read-only. The command destructively replaces only La Mutable's
-local wp-env database and uploads, preserves a local backup, updates pinned
-plugin sources, and reactivates the tracked theme. See the
-[platform import guide](../../docs/import-production.md) for requirements,
-configuration, safeguards, and recovery.
+`--apply` is mandatory. Before replacing local data, the importer downloads and
+validates the production snapshots. It stores the previous local database and
+uploads under the ignored `sites/lamutable.es/import/` directory, updates the
+pinned plugin sources, reactivates the tracked theme, and prints the exact
+recovery paths. Recovery is manual; interrupted imports can be rerun safely.
+
+See the [platform import guide](../../docs/import-production.md) for the full
+configuration reference, operation sequence, safeguards, and recovery details.
+
+### Production plugin sources
+
+An import derives the active plugin list from production. The `fair-*` suite is
+resolved from one coherent `marcin-wosinek/fair-event-plugins` GitHub release;
+other active plugins must have matching WordPress.org directory slugs. The
+resolved URLs are written to `.wp-env.json`; run `npm run update -- lamutable.es`
+afterward to apply a changed plugin list.
+
+Importing does not create REST Application Passwords or write `.env.wp-rest`.
+Publishing credentials for any separate editorial workflow must be provisioned
+independently with the least privileges that workflow requires.
+
+## Content sync
+
+The WordPress front page is managed as a committed artifact through
+[`content-publish.json`](content-publish.json). Edit it in the local block
+editor, then export the local state from the platform root:
+
+```sh
+npm run content:export -- lamutable.es
+```
+
+The export reads only the local `wp-env`; production is untouched. Review the
+artifact diff before committing. See the
+[content publishing guide](../../docs/publish-content.md) for the artifact
+format and current scope. Applying artifacts to production is not implemented.
 
 ## Theme structure
 

@@ -72,6 +72,16 @@ test('loadContentPublishConfig accepts the acro-agenda.es page configurations', 
 	assert.deepEqual(selectedContentKeys(config, 'valencia'), ['valencia']);
 });
 
+test('loadContentPublishConfig accepts the lamutable.es homepage configuration', () => {
+	const config = loadContentPublishConfig(resolve(platformDir, 'sites/lamutable.es'), 'lamutable.es');
+	const item = resolveContentPublishItem(config, 'homepage');
+	assert.equal(item.type, 'page');
+	assert.equal(item.selector.type, 'page_on_front');
+	assert.equal(item.artifactDir, 'content/pages/homepage');
+	assert.deepEqual(item.allowedStatuses, ['draft', 'publish']);
+	assert.deepEqual(selectedContentKeys(config), ['homepage']);
+});
+
 test('loadContentPublishConfig rejects a malformed page path', (context) => {
 	const siteDir = tempDir(context);
 	writeConfig(siteDir, {
