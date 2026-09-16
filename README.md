@@ -49,14 +49,14 @@ state (read-only):
 ```sh
 npm run content:export -- <site-id> [--key <content-key>]
 npm run content:plan -- <site-id> [--key <content-key>]
+npm run content:apply -- <site-id> --plan .content-publish/plans/<site-id>/plan.json --confirm-production=<site-id>
 ```
 
 This is distinct from production import: import copies an entire site
 one-way from production into local `wp-env`, while content publishing manages
 one explicitly configured item at a time, with the committed artifact as its
-source of truth. Export and plan (local wp-env → committed artifact →
-read-only comparison against production) exist today; applying an artifact to
-production is follow-up work. See
+source of truth. Apply writes only a reviewed saved plan after verifying the
+destination, current production state, and a fresh full database backup. See
 [`docs/publish-content.md`](docs/publish-content.md).
 
 ## Theme artifacts

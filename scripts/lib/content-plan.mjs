@@ -1,5 +1,29 @@
 import { createHash } from 'node:crypto';
 import { stableStringify } from './page-normalization.mjs';
+import { CliError } from './cli-error.mjs';
+
+const sha = /^[a-f0-9]{64}$/;
+const commitSha = /^[a-f0-9]{40}$/;
+function exact(value, keys, label) {
+	if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).sort().join() !== [...keys].sort().join()) throw new CliError(`Invalid ${label} fields in saved plan.`);
+}
+
+export function validatePlanRecord(record, { siteId, destination, commit, contentKeys }) {
+	exact(record, ['schemaVersion', 'siteId', 'destination', 'commit', 'generatedAt', 'items', 'planHash'], 'plan');
+	if (record.schemaVersion !== 2 || record.siteId !== siteId || record.commit !== commit || !commitSha.test(record.commit) || !Number.isFinite(Date.parse(record.generatedAt))) throw new CliError('Saved plan version, site, or commit does not match. Regenerate the plan.');
+	exact(record.destination, ['productionUrl', 'sshTarget', 'sshPort', 'remotePath'], 'destination');
+	if (stableStringify(record.destination) !== stableStringify(destination)) throw new CliError('Production destination has changed since planning.');
+	if (!record.items || Object.keys(record.items).sort().join() !== [...contentKeys].sort().join()) throw new CliError('Saved plan items do not match selected configuration.');
+	for (const [key, item] of Object.entries(record.items)) {
+		exact(item, ['artifact', 'production', 'classification', 'reason'], `item ${key}`);
+		exact(item.artifact, ['baselineHash', 'targetHash'], `artifact ${key}`);
+		exact(item.production, ['postId', 'hash'], `production ${key}`);
+		if ((item.artifact.baselineHash !== null && !sha.test(item.artifact.baselineHash)) || !sha.test(item.artifact.targetHash) || (item.production.hash !== null && !sha.test(item.production.hash)) || (item.production.postId !== null && !/^[1-9]\d*$/.test(String(item.production.postId))) || !['create', 'update', 'unchanged', 'conflict'].includes(item.classification) || (item.reason !== null && typeof item.reason !== 'string')) throw new CliError(`Invalid saved plan item ${key}.`);
+		if ((item.production.postId === null) !== (item.production.hash === null)) throw new CliError(`Invalid saved production state for ${key}.`);
+	}
+	if (!sha.test(record.planHash) || computePlanHash(Object.fromEntries(Object.entries(record).filter(([key]) => key !== 'planHash'))) !== record.planHash) throw new CliError('Saved plan hash mismatch.');
+	return record;
+}
 
 // Resolves which production post (if any) corresponds to a content key,
 // purely from identity-marker matches and, for the front page only, the

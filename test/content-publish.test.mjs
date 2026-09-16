@@ -17,8 +17,9 @@ import {
 	mimeTypeForExtension,
 } from '../scripts/lib/content-artifact.mjs';
 import { canonicalizePageState, hashPageState, materializeSiteUrl, tokenizeSiteUrl } from '../scripts/lib/page-normalization.mjs';
-import { classifyByHash, computePlanHash, resolveProductionMatch } from '../scripts/lib/content-plan.mjs';
+import { classifyByHash, computePlanHash, resolveProductionMatch, validatePlanRecord } from '../scripts/lib/content-plan.mjs';
 import { assertPathsCommittedAndClean, getCurrentCommit } from '../scripts/lib/git-status.mjs';
+import { validateSqlDump } from '../scripts/lib/content-production-backup.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -31,6 +32,37 @@ function tempDir(context) {
 	context.after(() => rmSync(directory, { recursive: true }));
 	return directory;
 }
+
+test('apply requires a saved plan and exact site confirmation before connecting', () => {
+	for (const args of [
+		['apply', 'acro-agenda.es'],
+		['apply', 'acro-agenda.es', '--plan', 'plan.json', '--confirm-production=other-site'],
+		['apply', 'acro-agenda.es', '--plan', 'plan.json', '--confirm-production=acro-agenda.es', '--key', 'homepage'],
+	]) {
+		const result = run('scripts/content-publish.mjs', args);
+		assert.notEqual(result.status, 0);
+		assert.match(result.stderr, /Apply requires/);
+	}
+});
+
+test('saved plan binds destination, commit, item shape and hash', () => {
+	const destination = { productionUrl: 'https://example.test/', sshTarget: 'host', sshPort: null, remotePath: '/srv/wp' };
+	const record = { schemaVersion: 2, siteId: 'example.test', destination, commit: 'a'.repeat(40), generatedAt: new Date().toISOString(), items: { homepage: { artifact: { baselineHash: null, targetHash: 'b'.repeat(64) }, production: { postId: null, hash: null }, classification: 'create', reason: null } } };
+	const signed = { ...record, planHash: computePlanHash(record) };
+	const args = { siteId: 'example.test', destination, commit: record.commit, contentKeys: ['homepage'] };
+	assert.equal(validatePlanRecord(signed, args), signed);
+	assert.throws(() => validatePlanRecord({ ...signed, schemaVersion: 1 }, args), /version/);
+	assert.throws(() => validatePlanRecord(signed, { ...args, destination: { ...destination, remotePath: '/other' } }), /destination/);
+	assert.throws(() => validatePlanRecord(signed, { ...args, commit: 'c'.repeat(40) }), /commit/);
+	assert.throws(() => validatePlanRecord({ ...signed, items: { homepage: { ...signed.items.homepage, classification: 'update' } } }, args), /hash mismatch/);
+});
+
+test('backup validation rejects empty, malformed, and truncated dumps', () => {
+	for (const dump of ['', 'CREATE TABLE t (id int);', '-- MySQL dump\nCREATE TABLE t (id int);']) {
+		assert.throws(() => validateSqlDump(Buffer.from(dump)), /malformed or incomplete/);
+	}
+	assert.match(validateSqlDump(Buffer.from('-- MySQL dump\nCREATE TABLE t (id int);\n-- Dump completed on 2026-01-01')), /^[a-f0-9]{64}$/);
+});
 
 // --- strict-json ---
 

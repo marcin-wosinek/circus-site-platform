@@ -95,8 +95,19 @@ npm run content:export -- acro-agenda.es
 Export reads only the local `wp-env`; production is untouched. Review the
 artifact diff before committing. See
 [`../../docs/publish-content.md`](../../docs/publish-content.md) for the
-authoring workflow, the artifact format, and current scope — planning and
-applying an artifact to production do not exist yet.
+authoring workflow and artifact format. To plan and apply the homepage alone:
+
+```sh
+npm run content:plan -- acro-agenda.es --key homepage
+npm run content:apply -- acro-agenda.es --plan .content-publish/plans/acro-agenda.es/plan.json --confirm-production=acro-agenda.es
+```
+
+Review the plan first. Apply uses the ignored `.env.import-local/acro-agenda.es`
+SSH configuration, verifies a full production database backup, and reports its
+path and hash. Retry with the same plan after an interruption; investigate a
+conflict or readback failure before replanning. Recovery is the explicit manual
+database restore described in the shared guide. Old plan records must be
+regenerated with the read-only plan command.
 
 ## Screenshots
 

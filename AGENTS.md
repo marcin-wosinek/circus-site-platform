@@ -108,5 +108,6 @@ artifact against current production state, read-only, with
 from import: it manages one configured item at a time, and plan never writes
 to production — it only reports create/update/unchanged/conflict per item and
 saves a plan record. See [`docs/publish-content.md`](docs/publish-content.md)
-for the current scope — applying an artifact to production is follow-up work,
-not yet implemented.
+for the guarded apply workflow. Apply requires an explicit saved plan path and
+`--confirm-production=<site-id>`, verifies a full database backup before any
+write, and leaves recovery as a manual operator action.

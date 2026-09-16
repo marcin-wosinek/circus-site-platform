@@ -5,15 +5,11 @@ source of truth for a small, explicitly configured set of WordPress content,
 while the local `wp-env` database remains the authoring environment. It is
 separate from [production imports](import-production.md): importing is a
 one-way, destructive-to-local copy of an entire site from production;
-publishing is a per-item, explicitly configured workflow that will (in a
-follow-up) write a reviewed, committed artifact to production.
+publishing is a per-item, explicitly configured workflow that can write a
+reviewed, committed artifact to production after confirmation and backup.
 
-**Current scope:** this repository currently implements authoring, **export**,
-and **plan** — turning the local `wp-env` state of a configured item into a
-committed artifact, then comparing that artifact against the *current*
-production state without ever writing to production. Applying an artifact to
-production (backups and the guarded production write) is a follow-up; running
-it today is not yet possible.
+**Current scope:** export, read-only plan, and guarded apply manage configured
+items and their featured images. Production import remains separate.
 
 ## Concepts
 
@@ -142,9 +138,54 @@ Plan writes an ignored JSON record to
 commit SHA the plan was computed against, each item's artifact hashes
 (baseline/target), each item's observed production state (post ID,
 normalized hash, classification), and a `planHash` over the record. A later
-`apply` step will require this record to match the current commit, artifact
-hashes, and production state before writing anything, so that applying
-against a different commit or drifted production is impossible.
+`apply` step requires version 2 of this record, which also binds the registered
+production URL, SSH target and port, and WordPress path. Regenerate older plans
+with `content:plan`. Apply checks the record shape and hash, current commit,
+clean configuration and artifacts, destination, and live production state.
+
+## Applying a saved plan
+
+Review the plan report and then run, from the repository root:
+
+```sh
+npm run content:apply -- <site-id> --plan .content-publish/plans/<site-id>/plan.json --confirm-production=<site-id>
+```
+
+The site name must match exactly. Apply displays the production URL, SSH target,
+WordPress path, keys, and artifact-to-production direction. It rejects a
+changed destination, commit, artifact, identity, or production state. It accepts
+the planned starting state or an item already at the target; completed items are
+skipped on retry. A conflict requires investigation of the direct production
+edit before any new plan is made. Missing configuration or artifacts cause an
+error and never delete or unpublish production content.
+
+Immediately before the first mutation, apply streams a full database dump to
+`.content-publish/backups/<site-id>/`, checks its structure and completion
+marker, and records its SHA-256. Backups and journals are ignored by Git. The
+existing ignored `.env.import-local/<site-id>` provides `PRODUCTION_SSH`,
+`PRODUCTION_WP_PATH`, and optional `PRODUCTION_SSH_PORT` and
+`PRODUCTION_SSH_KEY`. Keep this file and backups private. A fresh backup is
+made on every retry that needs a write. Each page is read back and hashed after
+writing; a mismatch is a failed deployment even if WordPress accepted it.
+
+### Recovery
+
+The journal at `.content-publish/journals/<site-id>/<plan-hash>.json` contains
+the backup path and SHA-256, item IDs, and phase. Inspect the failure and the
+current production state first. If a database restore is needed, have an
+operator with production access verify the backup checksum, transfer the file
+securely, and restore it with WP-CLI from the WordPress installation:
+
+```sh
+shasum -a 256 /path/to/production-backup.sql
+wp --path=/absolute/wordpress/path db import /path/to/production-backup.sql
+```
+
+Use the exact path and hash reported by apply. This restore is a separate,
+explicit operator action and replaces the production database state. A newly
+uploaded but unreferenced image file may remain after restoring the database;
+apply never deletes existing uploads. Re-read production and plan again before
+the next deployment.
 
 ## Site configuration reference
 
@@ -163,10 +204,3 @@ against a different commit or drifted production is impossible.
 - `allowedStatuses`: subset of `draft` and `publish`.
 - `metadata`: additional allowlisted post-meta keys. Empty until a real item
   needs one; keys starting with `_circus_` are reserved for the platform.
-
-## Roadmap
-
-Applying a planned artifact to production (backups, the guarded production
-write, and post-write verification) is tracked as follow-up work and is
-intentionally not part of this repository yet. Do not build local automation
-that assumes an `apply` command exists.

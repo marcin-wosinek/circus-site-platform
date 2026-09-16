@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, chmodSync } from 'node:fs';
 import { basename, dirname, extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CliError } from './lib/cli-error.mjs';
@@ -18,33 +18,47 @@ import {
 	writeArtifact,
 	ARTIFACT_SCHEMA_VERSION,
 } from './lib/content-artifact.mjs';
-import { canonicalizePageState, hashPageState, tokenizeSiteUrl } from './lib/page-normalization.mjs';
+import { canonicalizePageState, hashPageState, tokenizeSiteUrl, materializeSiteUrl } from './lib/page-normalization.mjs';
 import { runWpCliJson, runWpCliText, runWpCliTextOptional } from './lib/wp-cli.mjs';
 import { runRemoteWpCliJson, runRemoteWpCliText, runRemoteWpCliTextOptional, readRemoteFileBytes } from './lib/remote-wp-cli.mjs';
 import { buildSshArgs, loadProductionSshConfig, validateUrl } from './lib/ssh-config.mjs';
 import { assertPathsCommittedAndClean, getCurrentCommit } from './lib/git-status.mjs';
-import { classifyByHash, computePlanHash, resolveProductionMatch } from './lib/content-plan.mjs';
+import { classifyByHash, computePlanHash, resolveProductionMatch, validatePlanRecord } from './lib/content-plan.mjs';
 import { writeJsonFileAtomic } from './lib/json-file.mjs';
+import { parseJsonNoDuplicateKeys } from './lib/strict-json.mjs';
+import { createProductionBackup } from './lib/content-production-backup.mjs';
+import { ensureProductionMedia, writeProductionPost } from './lib/content-production-write.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SUPPORTED_OPERATIONS = new Set(['export', 'plan']);
+const SUPPORTED_OPERATIONS = new Set(['export', 'plan', 'apply']);
 const PRODUCTION_MARKER_META_KEY = '_circus_content_key';
 const PRODUCTION_LOOKUP_STATUSES = 'publish,future,draft,pending,private,trash';
 
 function parseArgs(argv) {
 	const [operation, siteId, ...rest] = argv;
-	const flags = { key: undefined, refreshBaseline: false };
+	const flags = { key: undefined, refreshBaseline: false, planPath: undefined, confirmProduction: undefined };
+	const seen = new Set();
 	for (let index = 0; index < rest.length; index += 1) {
 		const argument = rest[index];
+		const [name, inlineValue] = argument.split(/=(.*)/s);
+		if (seen.has(name)) throw new CliError(`Duplicate option: ${name}`);
+		seen.add(name);
 		if (argument === '--key') {
 			flags.key = rest[index + 1];
 			index += 1;
+		} else if (argument === '--plan') {
+			flags.planPath = rest[index + 1];
+			index += 1;
+		} else if (name === '--confirm-production') {
+			flags.confirmProduction = inlineValue;
 		} else if (argument === '--refresh-baseline') {
 			flags.refreshBaseline = true;
 		} else {
 			throw new CliError(`Unknown option: ${argument}`);
 		}
 	}
+	if (operation === 'apply' && (flags.key || flags.refreshBaseline || !flags.planPath || !flags.confirmProduction || flags.confirmProduction !== siteId)) throw new CliError('Apply requires --plan <saved-plan.json> and --confirm-production=<site-id>; --key and --refresh-baseline are unsupported.');
+	if (operation !== 'apply' && (flags.planPath || flags.confirmProduction)) throw new CliError('--plan and --confirm-production are only supported for apply.');
 	return { operation, siteId, ...flags };
 }
 
@@ -54,6 +68,7 @@ function usage() {
 	console.log('Reads only the local wp-env of the selected site; production is untouched.');
 	console.log(`       node ${process.argv[1]} plan <site-id> [--key <content-key>]`);
 	console.log('Compares committed artifacts against current production state (read-only) and reports create/update/unchanged/conflict.');
+	console.log(`       node ${process.argv[1]} apply <site-id> --plan <saved-plan.json> --confirm-production=<site-id>`);
 }
 
 function resolveUploadsDir(projectDir, wpEnvFile) {
@@ -356,7 +371,7 @@ function printPlanReport(results) {
 	console.log('');
 }
 
-function writePlanRecord({ siteId, commit, results }) {
+function writePlanRecord({ siteId, commit, destination, results }) {
 	const items = {};
 	for (const result of results) {
 		items[result.contentKey] = {
@@ -367,8 +382,9 @@ function writePlanRecord({ siteId, commit, results }) {
 		};
 	}
 	const record = {
-		schemaVersion: 1,
+		schemaVersion: 2,
 		siteId,
+		destination,
 		commit,
 		generatedAt: new Date().toISOString(),
 		items,
@@ -434,13 +450,113 @@ async function runPlan({ siteId, key }) {
 	}
 
 	printPlanReport(results);
-	writePlanRecord({ siteId, commit, results });
+	writePlanRecord({ siteId, commit, destination: { productionUrl, sshTarget, sshPort: sshPort ?? null, remotePath }, results });
 
 	if (hasConflict) process.exitCode = 1;
 }
 
+async function runApply({ siteId, planPath }) {
+	if (!siteId) throw new CliError('Pass a registered site ID.');
+	const registry = loadSiteRegistry(platformDir);
+	const { site, projectDir } = resolveRegisteredSite(registry, siteId, platformDir);
+	requireProjectDir(projectDir, site);
+	const config = loadContentPublishConfig(projectDir, siteId);
+	const absolutePlanPath = resolve(planPath);
+	if (!existsSync(absolutePlanPath)) throw new CliError(`Saved plan is missing: ${absolutePlanPath}`);
+	const record = parseJsonNoDuplicateKeys(readFileSync(absolutePlanPath, 'utf8'), { label: 'saved content plan' });
+	const contentKeys = Object.keys(record.items ?? {});
+	if (!contentKeys.length) throw new CliError('Saved plan contains no items.');
+	const items = contentKeys.map((contentKey) => ({ contentKey, item: resolveContentPublishItem(config, contentKey) }));
+	const manifests = new Map();
+	for (const { contentKey, item } of items) {
+		const existing = readExistingArtifact(item.artifactDirAbsolute);
+		if (!existing) throw new CliError(`Artifact missing for ${contentKey}.`);
+		validateManifestShape(existing.manifest, { contentKey, item });
+		validateArtifactFiles(existing.manifest, item.artifactDirAbsolute);
+		manifests.set(contentKey, existing.manifest);
+	}
+	assertPathsCommittedAndClean(platformDir, [config.configPath, ...items.map(({ item }) => item.artifactDirAbsolute)]);
+	const commit = getCurrentCommit(platformDir);
+	loadEnvFile(resolveEnvFilePath(platformDir, projectDir, siteId));
+	const { sshTarget, sshPort, sshKey, remotePath } = loadProductionSshConfig();
+	const productionUrl = site.productionUrl;
+	validateUrl(productionUrl, 'productionUrl');
+	validatePlanRecord(record, { siteId, commit, contentKeys, destination: { productionUrl, sshTarget, sshPort: sshPort ?? null, remotePath } });
+	for (const { contentKey, item } of items) {
+		const manifest = manifests.get(contentKey);
+		const saved = record.items[contentKey];
+		if (saved.classification === 'conflict' || saved.artifact.baselineHash !== manifest.baselineHash || saved.artifact.targetHash !== recomputeTargetHash(manifest, item.artifactDirAbsolute)) throw new CliError(`Saved plan is conflicted or artifact changed for ${contentKey}.`);
+	}
+	const sshArgs = buildSshArgs({ sshTarget, sshPort, sshKey });
+	const localUrl = process.env.LOCAL_URL ?? `http://localhost:${site.port}`;
+	validateUrl(localUrl, 'localUrl');
+	const siteUrls = [productionUrl, localUrl];
+	console.log(`Apply source: committed artifacts at ${commit}`);
+	console.log(`Apply destination: ${productionUrl} via ${sshTarget}:${remotePath}`);
+	console.log(`Direction: artifacts -> production; keys: ${contentKeys.join(', ')}`);
+	console.log(`Plan hash: ${record.planHash}`);
+	runRemoteWpCliText(sshArgs, remotePath, ['core', 'is-installed']);
+	for (const { contentKey, item } of items) {
+		const saved = record.items[contentKey];
+		const current = planItem({ sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
+		const starting = current.postId === saved.production.postId && current.productionHash === saved.production.hash && current.classification !== 'conflict';
+		const complete = current.postId !== null && current.productionHash === saved.artifact.targetHash && current.classification !== 'conflict' && (!saved.production.postId || current.postId === saved.production.postId);
+		if (!starting && !complete) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped before mutation.`);
+	}
+	const journalDir = resolve(platformDir, '.content-publish', 'journals', siteId);
+	mkdirSync(journalDir, { recursive: true, mode: 0o700 });
+	const journalPath = resolve(journalDir, `${record.planHash}.json`);
+	const journal = { siteId, planHash: record.planHash, destination: record.destination, commit, backup: null, items: {}, result: 'running' };
+	const save = () => { writeJsonFileAtomic(journalPath, journal); chmodSync(journalPath, 0o600); };
+	let backup;
+	try {
+		for (const { contentKey, item } of items) {
+			const manifest = manifests.get(contentKey);
+			const saved = record.items[contentKey];
+			const current = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			const alreadyDone = current.productionHash === saved.artifact.targetHash && current.postId !== null;
+			if (alreadyDone) {
+				if (saved.production.postId && current.postId !== saved.production.postId) throw new CliError(`Production identity changed for ${contentKey}.`);
+				journal.items[contentKey] = { phase: 'verified', action: 'skipped', postId: current.postId, hash: current.productionHash }; save();
+				console.log(`${contentKey}: skipped (ID ${current.postId}, ${current.productionHash})`);
+				continue;
+			}
+			if (current.classification === 'conflict' || current.postId !== saved.production.postId || current.productionHash !== saved.production.hash) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped.`);
+			if (!backup) {
+				backup = createProductionBackup({ platformDir, siteId, sshArgs, remotePath });
+				journal.backup = backup; save();
+				console.log(`Verified backup: ${backup.path} (${backup.sha256})`);
+			}
+			// Re-read after the backup, immediately before this item's first mutation.
+			const beforeWrite = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			if (beforeWrite.postId !== saved.production.postId || beforeWrite.productionHash !== saved.production.hash || beforeWrite.classification === 'conflict') throw new CliError(`Production changed during backup for ${contentKey}.`);
+			let thumbnailId = null;
+			if (manifest.featuredImage) {
+				const bytes = readFileSync(resolve(item.artifactDirAbsolute, manifest.featuredImage.file));
+				const media = ensureProductionMedia(sshArgs, remotePath, manifest.featuredImage, bytes);
+				thumbnailId = media.id;
+				journal.items[contentKey] = { phase: 'media', mediaId: media.id, uploaded: media.uploaded }; save();
+			}
+			const beforePost = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			if (beforePost.postId !== saved.production.postId || beforePost.productionHash !== saved.production.hash || beforePost.classification === 'conflict') throw new CliError(`Production changed before page write for ${contentKey}.`);
+			const content = materializeSiteUrl(readFileSync(resolve(item.artifactDirAbsolute, manifest.content.file), 'utf8'), productionUrl);
+			const written = writeProductionPost(sshArgs, remotePath, { postId: saved.production.postId, contentKey, manifest, content, thumbnailId });
+			journal.items[contentKey] = { phase: 'page', postId: String(written.id), mediaId: thumbnailId }; save();
+			const after = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			if (after.postId !== String(written.id) || after.productionHash !== saved.artifact.targetHash) throw new CliError(`Post-write readback hash mismatch for ${contentKey}; deployment failed. Restore the backup manually if needed.`);
+			journal.items[contentKey] = { phase: 'verified', action: saved.classification, postId: after.postId, hash: after.productionHash, mediaId: thumbnailId }; save();
+			console.log(`${contentKey}: ${saved.classification} (ID ${after.postId}, ${after.productionHash})`);
+		}
+		journal.result = 'complete'; save();
+		console.log(`Apply complete. Commit ${commit}; plan ${record.planHash}; backup ${backup?.path ?? 'not needed'}; SHA-256 ${backup?.sha256 ?? 'n/a'}. Recovery: docs/publish-content.md#recovery`);
+	} catch (error) {
+		journal.result = 'failed'; journal.error = error instanceof CliError ? error.message : 'Unexpected local error'; save();
+		throw error;
+	}
+}
+
 await runCli(async () => {
-	const { operation, siteId, key, refreshBaseline } = parseArgs(process.argv.slice(2));
+	const { operation, siteId, key, refreshBaseline, planPath } = parseArgs(process.argv.slice(2));
 	if (!SUPPORTED_OPERATIONS.has(operation)) {
 		usage();
 		if (!operation) return;
@@ -451,5 +567,6 @@ await runCli(async () => {
 		await runPlan({ siteId, key });
 		return;
 	}
+	if (operation === 'apply') return runApply({ siteId, planPath });
 	await runExport({ siteId, key, refreshBaseline });
 });
