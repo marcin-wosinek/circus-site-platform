@@ -72,14 +72,19 @@ test('loadContentPublishConfig accepts the acro-agenda.es page configurations', 
 	assert.deepEqual(selectedContentKeys(config, 'valencia'), ['valencia']);
 });
 
-test('loadContentPublishConfig accepts the lamutable.es homepage configuration', () => {
+test('loadContentPublishConfig accepts the lamutable.es content configurations', () => {
 	const config = loadContentPublishConfig(resolve(platformDir, 'sites/lamutable.es'), 'lamutable.es');
 	const item = resolveContentPublishItem(config, 'homepage');
 	assert.equal(item.type, 'page');
 	assert.equal(item.selector.type, 'page_on_front');
 	assert.equal(item.artifactDir, 'content/pages/homepage');
 	assert.deepEqual(item.allowedStatuses, ['draft', 'publish']);
-	assert.deepEqual(selectedContentKeys(config), ['homepage']);
+	assert.deepEqual(resolveContentPublishItem(config, 'festival-de-conexion').selector, {
+		type: 'post_path', path: '/fair-events/festival-de-conexion/',
+	});
+	assert.equal(resolveContentPublishItem(config, 'festival-de-conexion').type, 'fair_event');
+	assert.deepEqual(resolveContentPublishItem(config, 'bart').selector, { type: 'page_path', path: '/bart/' });
+	assert.deepEqual(selectedContentKeys(config), ['homepage', 'festival-de-conexion', 'bart']);
 });
 
 test('loadContentPublishConfig rejects a malformed page path', (context) => {
@@ -87,7 +92,15 @@ test('loadContentPublishConfig rejects a malformed page path', (context) => {
 	writeConfig(siteDir, {
 		items: { valencia: { type: 'page', selector: { type: 'page_path', path: 'valencia' }, artifactDir: 'content/valencia', allowedStatuses: ['publish'], metadata: [] } },
 	});
-	assert.throws(() => loadContentPublishConfig(siteDir, 'test-site'), /absolute, trailing-slash page path/);
+	assert.throws(() => loadContentPublishConfig(siteDir, 'test-site'), /absolute, trailing-slash post path/);
+});
+
+test('loadContentPublishConfig keeps page-only selectors from targeting custom posts', (context) => {
+	const siteDir = tempDir(context);
+	writeConfig(siteDir, {
+		items: { event: { type: 'fair_event', selector: { type: 'page_path', path: '/fair-events/event/' }, artifactDir: 'content/event', allowedStatuses: ['publish'], metadata: [] } },
+	});
+	assert.throws(() => loadContentPublishConfig(siteDir, 'test-site'), /requires content type "page"/);
 });
 
 test('loadContentPublishConfig rejects an artifactDir outside the site directory', (context) => {

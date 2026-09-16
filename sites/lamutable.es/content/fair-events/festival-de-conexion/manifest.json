@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "festival-de-conexion",
+  "type": "fair_event",
+  "title": "Festival de Conexión",
+  "slug": "festival-de-conexion",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "metadata": {},
+  "baselineHash": "a13be2ac03199b6cff63beea94a390d5775aa6d6eb18a97ef301360028e318dd"
+}

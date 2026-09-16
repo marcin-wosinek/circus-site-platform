@@ -77,11 +77,14 @@ npm run content:export -- <site-id> --key <content-key> --refresh-baseline
 
 `content-publish.json` declares one object per managed content key:
 
-- `type`: WordPress content type. Only `page` is supported.
+- `type`: WordPress content type. `page` and `fair_event` are supported.
 - `selector.type`: how the local item is located. `page_on_front` selects the
-  static front page; `page_path` selects a page by its site-relative path.
-- `selector.path`: required for `page_path`; an absolute path with a trailing
-  slash, such as `/valencia/`.
+  static front page; `page_path` selects a page by its site-relative path; and
+  `post_path` selects a post of the configured type by the final slug in its
+  site-relative path.
+- `selector.path`: required for `page_path` and `post_path`; an absolute path
+  with a trailing slash, such as `/valencia/` or
+  `/fair-events/festival-de-conexion/`.
 - `artifactDir`: site-relative directory for this item's artifact. Must stay
   inside the site directory and must not be shared with another item.
 - `allowedStatuses`: subset of `draft` and `publish`.

@@ -91,7 +91,7 @@ function exportFeaturedImage({ projectDir, wpEnvFile, pageId }) {
 	};
 }
 
-function resolvePageId(projectDir, item, siteId) {
+function resolvePostId(projectDir, item, siteId) {
 	if (item.selector.type === 'page_on_front') {
 		const pageId = runWpCliText(projectDir, ['option', 'get', 'page_on_front']);
 		if (!pageId || pageId === '0') {
@@ -111,12 +111,23 @@ function resolvePageId(projectDir, item, siteId) {
 		return String(matches[0].ID);
 	}
 
+	if (item.selector.type === 'post_path') {
+		const slug = item.selector.path.split('/').filter(Boolean).at(-1);
+		const matches = runWpCliJson(projectDir, [
+			'post', 'list', `--post_type=${item.type}`, '--post_status=any', `--name=${slug}`, '--fields=ID', '--format=json',
+		]);
+		if (matches.length !== 1) {
+			throw new CliError(`Site "${siteId}" ${item.type} path "${item.selector.path}" resolved to ${matches.length} posts; expected exactly one.`);
+		}
+		return String(matches[0].ID);
+	}
+
 	throw new CliError(`Unsupported selector type: ${item.selector.type}`);
 }
 
 function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls, refreshBaseline }) {
 	console.log(`Export destination: ${relative(platformDir, item.artifactDirAbsolute)} (committed artifact)`);
-	const pageId = resolvePageId(projectDir, item, siteId);
+	const pageId = resolvePostId(projectDir, item, siteId);
 
 	const post = runWpCliJson(projectDir, [
 		'post',

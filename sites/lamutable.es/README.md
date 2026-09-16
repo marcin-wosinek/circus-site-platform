@@ -86,9 +86,10 @@ independently with the least privileges that workflow requires.
 
 ## Content sync
 
-The WordPress front page is managed as a committed artifact through
-[`content-publish.json`](content-publish.json). Edit it in the local block
-editor, then export the local state from the platform root:
+The WordPress front page, `/bart/` page, and
+`/fair-events/festival-de-conexion/` event are managed as committed artifacts
+through [`content-publish.json`](content-publish.json). Edit them in the local
+block editor, then export their local state from the platform root:
 
 ```sh
 npm run content:export -- lamutable.es

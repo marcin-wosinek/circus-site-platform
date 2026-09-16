@@ -30,7 +30,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["page"]
+          "enum": ["page", "fair_event"]
         },
         "selector": {
           "type": "object",
@@ -39,13 +39,13 @@
           "properties": {
             "type": {
               "type": "string",
-              "enum": ["page_on_front", "page_path"],
+              "enum": ["page_on_front", "page_path", "post_path"],
               "description": "How the local item is located."
             },
             "path": {
               "type": "string",
               "pattern": "^/[a-z0-9-]+(?:/[a-z0-9-]+)*/$",
-              "description": "Absolute trailing-slash path required by the `page_path` selector."
+              "description": "Absolute trailing-slash path required by the `page_path` and `post_path` selectors."
             }
           }
         },

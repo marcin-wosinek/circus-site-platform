@@ -12,6 +12,32 @@
         "publish"
       ],
       "metadata": []
+    },
+    "festival-de-conexion": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/fair-events/festival-de-conexion/"
+      },
+      "artifactDir": "content/fair-events/festival-de-conexion",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "bart": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/bart/"
+      },
+      "artifactDir": "content/pages/bart",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }

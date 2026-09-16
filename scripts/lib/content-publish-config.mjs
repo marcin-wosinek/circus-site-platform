@@ -3,8 +3,8 @@ import { relative, resolve, sep } from 'node:path';
 import { CliError } from './cli-error.mjs';
 import { parseJsonNoDuplicateKeys } from './strict-json.mjs';
 
-const SUPPORTED_TYPES = new Set(['page']);
-const SUPPORTED_SELECTOR_TYPES = new Set(['page_on_front', 'page_path']);
+const SUPPORTED_TYPES = new Set(['page', 'fair_event']);
+const SUPPORTED_SELECTOR_TYPES = new Set(['page_on_front', 'page_path', 'post_path']);
 const SUPPORTED_STATUSES = new Set(['draft', 'publish']);
 const CONTENT_KEY_PATTERN = /^[a-z][a-z0-9-]*$/;
 const METADATA_KEY_PATTERN = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
@@ -43,12 +43,18 @@ function validateItem(key, item, siteDir) {
 	if (!SUPPORTED_SELECTOR_TYPES.has(item.selector.type)) {
 		throw new CliError(`${label} has an unsupported selector type "${item.selector.type}". Supported selectors: ${[...SUPPORTED_SELECTOR_TYPES].join(', ')}.`);
 	}
-	if (item.selector.type === 'page_path') {
+	if (item.selector.type === 'page_path' || item.selector.type === 'post_path') {
 		if (typeof item.selector.path !== 'string' || !/^\/[a-z0-9-]+(?:\/[a-z0-9-]+)*\/$/.test(item.selector.path)) {
-			throw new CliError(`${label} selector path must be an absolute, trailing-slash page path.`);
+			throw new CliError(`${label} selector path must be an absolute, trailing-slash post path.`);
 		}
 	} else if ('path' in item.selector) {
-		throw new CliError(`${label} selector path is only supported for selector type "page_path".`);
+		throw new CliError(`${label} selector path is only supported for path selectors.`);
+	}
+	if (item.selector.type === 'page_on_front' && item.type !== 'page') {
+		throw new CliError(`${label} selector type "page_on_front" requires content type "page".`);
+	}
+	if (item.selector.type === 'page_path' && item.type !== 'page') {
+		throw new CliError(`${label} selector type "page_path" requires content type "page".`);
 	}
 
 	const artifactDirAbsolute = assertSafeRelativePath(item.artifactDir, siteDir, `${label} artifactDir`);

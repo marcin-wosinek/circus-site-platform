@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "bart",
+  "type": "page",
+  "title": "Bart",
+  "slug": "bart",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "metadata": {},
+  "baselineHash": "cf2e7987cca0c5d31aa8a377e977993e469e62abffa0a45016de6769f014dbb8"
+}
