@@ -33,3 +33,17 @@ for prerequisites, safeguards, and recovery details.
 The active production theme and plugins were audited on 2026-09-21. Imports
 refresh the plugin sources from production; run the update command afterward
 when that tracked configuration changes.
+
+## Managed content
+
+The static homepage is configured for managed publishing through
+[`content-publish.json`](content-publish.json), using the content key
+`homepage`. Edit it in the local WordPress environment, then export its
+committed artifact from the platform root:
+
+```sh
+npm run content:export -- fair-event-plugins.com --key homepage
+```
+
+See [`../../docs/publish-content.md`](../../docs/publish-content.md) for the
+guarded plan and apply workflow.

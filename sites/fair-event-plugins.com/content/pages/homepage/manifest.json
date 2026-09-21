@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "homepage",
+  "type": "page",
+  "title": "Fair Event Plugins",
+  "slug": "fair-event-plugins",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "00902e0a2d6658465fd1901238c7d432d2b36fed36a8592f2b409d67bd67b5d5"
+}
