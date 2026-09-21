@@ -1,0 +1,28 @@
+{
+  "core": null,
+  "port": 9792,
+  "testsEnvironment": false,
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/polylang.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-audience.1.16.0-2-g09736415.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-events.1.18.0-2-g09736415.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-finance.1.1.0-2-g09736415.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-payments-connector.2.1.0-2-g09736415.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-platform.1.3.0-205-g09736415.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-timetable.0.7.1-146-g09736415.zip",
+    "https://downloads.wordpress.org/plugin/hostinger.zip",
+    "https://downloads.wordpress.org/plugin/plausible-analytics.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-2-g09736415/fair-events-experimental.1.8.0-2-g09736415.zip"
+  ],
+  "themes": [
+    "https://downloads.wordpress.org/theme/blockbase.zip"
+  ],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
+  }
+}

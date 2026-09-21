@@ -4,7 +4,7 @@ The shared import command retrieves a registered site's production database and
 uploads over SSH, then destructively replaces only that site's local `wp-env`
 database and uploads. Production is read-only: the command streams the database
 export and uploads archive without creating or changing remote files. Repository
-code and tracked themes are not replaced.
+code and configured themes are not replaced.
 
 ## Prerequisites
 
@@ -71,7 +71,7 @@ downloads both production snapshots and validates the uploads archive. It then:
    files. `fair-*` plugins resolve to versioned ZIP assets from one coherent
    [`fair-event-plugins`](https://github.com/marcin-wosinek/fair-event-plugins)
    GitHub prerelease; other plugins resolve to WordPress.org.
-5. Activates the single tracked theme configured by `.wp-env.json`.
+5. Activates the single theme configured by `.wp-env.json`.
 6. Creates or resets the configured local administrator.
 
 Active plugins outside the `fair-*` suite must be published in the WordPress.org

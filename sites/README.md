@@ -11,6 +11,7 @@ the platform itself can instead be tracked directly in this repository.
 | --- | --- | ---: | --- |
 | `acro-agenda.es` | `sites/acro-agenda.es` | 9788 | This repository |
 | `circus-it.eu` | `sites/circus-it.eu` | 9791 | This repository |
+| `fair-event-plugins.com` | `sites/fair-event-plugins.com` | 9792 | This repository |
 | `fusion-circus` | `sites/fusion-circus` | 9789 | [marcin-wosinek/fusion-circus-theme](https://github.com/marcin-wosinek/fusion-circus-theme) |
 | `lamutable.es` | `sites/lamutable.es` | 9790 | [marcin-wosinek/lamutable.es](https://github.com/marcin-wosinek/lamutable.es) |
 
@@ -52,7 +53,7 @@ npm run import -- <site-id> --apply
 ```
 
 For imports, the site's `.wp-env.json` must map `wp-content/uploads` and
-`wp-content/import` to local directories and define exactly one tracked theme.
+`wp-content/import` to local directories and define exactly one theme source.
 The command reads the default production URL and local port from the registry.
 These can be overridden with `PRODUCTION_URL` and `LOCAL_URL` in
 `.env.import-local/<site-id>` at the platform root.

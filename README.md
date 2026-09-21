@@ -109,6 +109,7 @@ The platform supports projects including:
 - [acro-agenda.es](https://acro-agenda.es/)
 - [acroyoga-club.es](https://acroyoga-club.es/)
 - [circus-it.eu](https://circus-it.eu/)
+- [fair-event-plugins.com](https://fair-event-plugins.com/)
 - [fusion-circus.com](https://fusion-circus.com/)
 - [lamutable.es](https://lamutable.es/)
 

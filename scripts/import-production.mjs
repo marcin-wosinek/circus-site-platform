@@ -14,6 +14,7 @@ import { shellQuote } from './lib/shell.mjs';
 import { loadSiteRegistry, requireProjectDir, requireWpEnvJson, resolveRegisteredSite } from './lib/site-registry.mjs';
 import { writeJsonFile } from './lib/json-file.mjs';
 import { resolvePluginDownloads } from './lib/plugin-downloads.mjs';
+import { themeSlugFromSource } from './lib/theme-source.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const siteId = process.argv.slice(2).find((argument) => !argument.startsWith('-'));
@@ -125,8 +126,7 @@ await runCli(async () => {
 	if (!Array.isArray(wpEnvThemes) || wpEnvThemes.length !== 1 || typeof wpEnvThemes[0] !== 'string') {
 		throw new CliError(`Site "${siteId}" must define exactly one theme in .wp-env.json.`);
 	}
-	const themeSlug = wpEnvThemes[0].replace(/^\.\//, '').split('/').filter(Boolean).at(-1);
-	if (!themeSlug || !/^[a-z0-9][a-z0-9-]*$/.test(themeSlug)) throw new CliError(`Cannot derive a theme slug from ${wpEnvThemes[0]}.`);
+	const themeSlug = themeSlugFromSource(wpEnvThemes[0]);
 	runWpCli(projectDir, ['theme', 'activate', themeSlug]);
 
 	const userCheck = spawnSync('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'user', 'get', adminUser, '--field=ID'], {

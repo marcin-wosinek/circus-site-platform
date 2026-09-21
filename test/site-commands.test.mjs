@@ -9,6 +9,7 @@ import { writeJsonFile } from '../scripts/lib/json-file.mjs';
 import { resolvePluginDownloads } from '../scripts/lib/plugin-downloads.mjs';
 import { fairPluginSlug, stageWpEnvPluginSources } from '../scripts/lib/wp-env-plugin-sources.mjs';
 import { createWpEnvOverride } from '../scripts/lib/wp-env-override.mjs';
+import { themeSlugFromSource } from '../scripts/lib/theme-source.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -47,6 +48,12 @@ test('generated JSON files use the repository formatting', (context) => {
 		readFileSync(path, 'utf8'),
 		'{\n  "plugins": [\n    "example"\n  ],\n  "config": {\n    "WP_DEBUG": true\n  }\n}\n',
 	);
+});
+
+test('theme slugs are derived from local folders and remote ZIP sources', () => {
+	assert.equal(themeSlugFromSource('./circus-it'), 'circus-it');
+	assert.equal(themeSlugFromSource('https://downloads.wordpress.org/theme/blockbase.zip'), 'blockbase');
+	assert.throws(() => themeSlugFromSource('https://example.test/theme.tar.gz'), /Cannot derive a theme slug/);
 });
 
 test('local wp-env overrides mount the email-blocking must-use plugin', () => {

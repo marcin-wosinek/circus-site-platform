@@ -11,6 +11,11 @@
       "port": 9791,
       "productionUrl": "https://circus-it.eu"
     },
+    "fair-event-plugins.com": {
+      "folder": "sites/fair-event-plugins.com",
+      "port": 9792,
+      "productionUrl": "https://fair-event-plugins.com"
+    },
     "fusion-circus": {
       "folder": "sites/fusion-circus",
       "port": 9789,
