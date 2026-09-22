@@ -55,8 +55,10 @@ npm run import -- <site-id> --apply
 ```
 
 Use `bootstrap` for initial setup: it prepares the ignored credentials file,
-then starts wp-env and runs the production import after credentials are filled
-in and `--apply` is supplied.
+then starts wp-env without plugins, runs the production import, and mounts the
+imported plugin set after credentials are filled in and `--apply` is supplied.
+This prevents plugin migrations from running against an empty first-start
+database.
 
 For imports, the site's `.wp-env.json` must map `wp-content/uploads` and
 `wp-content/import` to local directories and define exactly one theme source.

@@ -14,6 +14,8 @@ import { loadSiteRegistry, requireWpEnvJson, resolveRegisteredSite } from './lib
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const [command, siteId, ...extraArgs] = process.argv.slice(2);
 const supportedCommands = new Set(['start', 'stop', 'update']);
+const withoutPlugins = extraArgs.includes('--bootstrap-without-plugins');
+const wpEnvExtraArgs = extraArgs.filter((argument) => argument !== '--bootstrap-without-plugins');
 
 if (!supportedCommands.has(command) || !siteId) {
 	console.error(`Error: Usage: node ${process.argv[1]} <start|stop|update> <site-id> [wp-env options]`);
@@ -25,10 +27,12 @@ await runCli(async () => {
 	const { site, projectDir } = resolveRegisteredSite(registry, siteId, platformDir);
 	requireWpEnvJson(projectDir, siteId);
 
-	const wpEnvArgs = command === 'update' ? ['start', '--update', ...extraArgs] : [command, ...extraArgs];
+	const wpEnvArgs = command === 'update' ? ['start', '--update', ...wpEnvExtraArgs] : [command, ...wpEnvExtraArgs];
 	if (command !== 'stop') {
 		const config = JSON.parse(readFileSync(resolve(projectDir, '.wp-env.json'), 'utf8'));
-		const plugins = await stageWpEnvPluginSources(config.plugins ?? [], projectDir, { refresh: command === 'update' });
+		const plugins = withoutPlugins
+			? []
+			: await stageWpEnvPluginSources(config.plugins ?? [], projectDir, { refresh: command === 'update' });
 		writeJsonFile(
 			resolve(projectDir, '.wp-env.override.json'),
 			createWpEnvOverride(config, projectDir, platformDir, plugins),

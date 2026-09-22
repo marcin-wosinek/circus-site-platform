@@ -80,6 +80,23 @@ test('local wp-env overrides mount the email-blocking must-use plugin', () => {
 	);
 });
 
+test('bootstrap wp-env overrides can defer plugin mounting', () => {
+	assert.deepEqual(
+		createWpEnvOverride(
+			{ plugins: ['https://example.test/plugin.zip'] },
+			resolve(platformDir, 'sites/example.test'),
+			platformDir,
+			[],
+		),
+		{
+			plugins: [],
+			mappings: {
+				'wp-content/mu-plugins': '../../wp-env/mu-plugins',
+			},
+		},
+	);
+});
+
 test('plugin downloads use one fair release and WordPress.org for other plugins', async () => {
 	const requests = [];
 	const fetchImpl = async (url) => {

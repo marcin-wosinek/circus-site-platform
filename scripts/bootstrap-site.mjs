@@ -64,6 +64,10 @@ await runCli(async () => {
 		return;
 	}
 
-	runNodeScript('scripts/site-command.mjs', ['start', siteId]);
+	// Production plugins may run database migrations during wp-env's first-start
+	// activation. Start core without them so those migrations run only after the
+	// production database, including its plugin tables, has been imported.
+	runNodeScript('scripts/site-command.mjs', ['start', siteId, '--bootstrap-without-plugins']);
 	runNodeScript('scripts/import-production.mjs', [siteId, '--apply']);
+	runNodeScript('scripts/site-command.mjs', ['update', siteId]);
 });

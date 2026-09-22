@@ -28,8 +28,11 @@ credentials file is missing, the first run copies the site's
 `.env.import-local.example` to `.env.import-local/<site-id>` and stops so the
 credentials can be filled in. When a site has no example, it creates a generic
 SSH template instead. Run it again with `--apply` to start the local environment
-and import production. Like `import`, it requires the explicit flag before
-replacing local data and never writes to production.
+without production plugins, import production, and then mount the imported
+plugin set. Deferring plugin activation until after the database import avoids
+running production plugin migrations against an empty first-start database.
+Like `import`, it requires the explicit flag before replacing local data and
+never writes to production.
 
 Use these root commands instead of invoking `wp-env` directly. Before starting
 or updating a site, the shared command generates an ignored
