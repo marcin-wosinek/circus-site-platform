@@ -50,8 +50,13 @@ From the platform root, select a registered site with:
 npm run start -- <site-id>
 npm run stop -- <site-id>
 npm run update -- <site-id>
+npm run bootstrap -- <site-id> --apply
 npm run import -- <site-id> --apply
 ```
+
+Use `bootstrap` for initial setup: it prepares the ignored credentials file,
+then starts wp-env and runs the production import after credentials are filled
+in and `--apply` is supplied.
 
 For imports, the site's `.wp-env.json` must map `wp-content/uploads` and
 `wp-content/import` to local directories and define exactly one theme source.

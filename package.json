@@ -7,6 +7,7 @@
     "start": "node scripts/site-command.mjs start",
     "stop": "node scripts/site-command.mjs stop",
     "update": "node scripts/site-command.mjs update",
+    "bootstrap": "node scripts/bootstrap-site.mjs",
     "import": "node scripts/import-production.mjs",
     "content:export": "node scripts/content-publish.mjs export",
     "content:plan": "node scripts/content-publish.mjs plan",

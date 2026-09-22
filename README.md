@@ -16,11 +16,20 @@ site ID and any additional options through npm:
 npm run start -- circus-it.eu
 npm run stop -- circus-it.eu
 npm run update -- circus-it.eu
+npm run bootstrap -- circus-it.eu --apply
 npm run import -- circus-it.eu --apply
 ```
 
 `start`, `stop`, and `update` run `wp-env` in the folder registered for the
 site. `update` is shorthand for `wp-env start --update`.
+
+`bootstrap` prepares a registered site from scratch. If its ignored production
+credentials file is missing, the first run copies the site's
+`.env.import-local.example` to `.env.import-local/<site-id>` and stops so the
+credentials can be filled in. When a site has no example, it creates a generic
+SSH template instead. Run it again with `--apply` to start the local environment
+and import production. Like `import`, it requires the explicit flag before
+replacing local data and never writes to production.
 
 Use these root commands instead of invoking `wp-env` directly. Before starting
 or updating a site, the shared command generates an ignored

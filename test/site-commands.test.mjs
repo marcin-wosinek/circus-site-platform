@@ -38,6 +38,12 @@ test('site commands require a registered site', () => {
 	assert.match(result.stderr, /Unknown site "not-managed"/);
 });
 
+test('bootstrap requires a registered site', () => {
+	const result = run('scripts/bootstrap-site.mjs', ['not-managed']);
+	assert.equal(result.status, 1);
+	assert.match(result.stderr, /Unknown site "not-managed"/);
+});
+
 test('generated JSON files use the repository formatting', (context) => {
 	const directory = mkdtempSync(resolve(tmpdir(), 'circus-site-platform-'));
 	context.after(() => rmSync(directory, { recursive: true }));

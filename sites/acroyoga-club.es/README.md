@@ -23,6 +23,16 @@ this site's local wp-env database and uploads. Production remains read-only.
 The required credentials live in the ignored platform-root file
 `.env.import-local/acroyoga-club.es`.
 
+For a first-time setup, run:
+
+```sh
+npm run bootstrap -- acroyoga-club.es --apply
+```
+
+If the credentials file does not exist, the command creates it from this
+site's `.env.import-local.example` and stops. Fill in the SSH values, then run
+the same command again. It starts the local environment before importing.
+
 ```sh
 npm run start -- acroyoga-club.es
 npm run import -- acroyoga-club.es --apply
