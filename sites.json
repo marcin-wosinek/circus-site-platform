@@ -1,6 +1,11 @@
 {
   "$schema": "./schemas/sites.schema.json",
   "sites": {
+    "acroyoga-club.es": {
+      "folder": "sites/acroyoga-club.es",
+      "port": 9793,
+      "productionUrl": "https://acroyoga-club.es"
+    },
     "acro-agenda.es": {
       "folder": "sites/acro-agenda.es",
       "port": 9788,

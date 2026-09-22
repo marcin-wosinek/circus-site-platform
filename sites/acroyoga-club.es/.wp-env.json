@@ -1,0 +1,20 @@
+{
+  "core": null,
+  "port": 9793,
+  "testsEnvironment": false,
+  "plugins": [
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-9-g52ab256b/fair-audience.1.16.0-9-g52ab256b.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-9-g52ab256b/fair-events.1.18.0-9-g52ab256b.zip"
+  ],
+  "themes": [
+    "https://downloads.wordpress.org/theme/blockbase.zip"
+  ],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
+  }
+}

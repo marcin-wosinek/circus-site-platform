@@ -9,6 +9,7 @@ the platform itself can instead be tracked directly in this repository.
 
 | Site ID | Folder | Local port | Source repository |
 | --- | --- | ---: | --- |
+| `acroyoga-club.es` | `sites/acroyoga-club.es` | 9793 | This repository |
 | `acro-agenda.es` | `sites/acro-agenda.es` | 9788 | This repository |
 | `circus-it.eu` | `sites/circus-it.eu` | 9791 | This repository |
 | `fair-event-plugins.com` | `sites/fair-event-plugins.com` | 9792 | This repository |
