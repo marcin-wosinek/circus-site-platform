@@ -4,7 +4,7 @@
   "type": "fair_event",
   "title": "Festival de Conexión",
   "slug": "festival-de-conexion",
-  "status": "draft",
+  "status": "publish",
   "template": "",
   "content": {
     "file": "content.html"
@@ -41,5 +41,5 @@
     }
   ],
   "metadata": {},
-  "baselineHash": "8da92407a484f73d6997e3383597d04cd1df62c184c648f2bdb2b9721b0cee4e"
+  "baselineHash": "80c2794d0c799999b28d9950cbee9d56b7b336505add7ff61a6fe1fcdc381f19"
 }
