@@ -42,6 +42,10 @@ items, their featured images, and image files referenced in their content under
 1. Start the site locally and edit the configured item (for Acro Agenda,
    the page assigned to **Settings → Reading → homepage**) in the block
    editor as usual.
+   Path selectors include the item's explicitly configured `allowedStatuses`,
+   so saved drafts with a matching slug can be exported without publishing
+   them first. Export preserves the draft status; applying that artifact also
+   sets the production item to draft.
 2. Export the local state into the committed artifact:
 
    ```sh
