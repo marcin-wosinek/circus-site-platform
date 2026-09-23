@@ -13,5 +13,17 @@
   "mappings": {
     "wp-content/uploads": "./import/uploads",
     "wp-content/import": "./import/db"
-  }
+  },
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/autodescription.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-15-gc41124ae/fair-events.1.18.0-15-gc41124ae.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-15-gc41124ae/fair-form.1.4.3-59-gc41124ae.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-15-gc41124ae/fair-payments-connector.2.1.0-15-gc41124ae.zip",
+    "https://downloads.wordpress.org/plugin/hostinger.zip",
+    "https://downloads.wordpress.org/plugin/magic-login.zip",
+    "https://downloads.wordpress.org/plugin/plausible-analytics.zip",
+    "https://downloads.wordpress.org/plugin/simpletoc.zip",
+    "https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.18.0-15-gc41124ae/fair-payments-connector-experimental.0.4.0-15-gc41124ae.zip"
+  ]
 }
