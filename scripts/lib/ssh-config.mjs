@@ -4,6 +4,9 @@ export function validateSshTarget(sshTarget) {
 	if (!sshTarget || !/^[a-zA-Z0-9._@-]+$/.test(sshTarget)) {
 		throw new CliError('Set a valid PRODUCTION_SSH in .env.import-local.');
 	}
+	if (sshTarget === 'example-host' || sshTarget.endsWith('@example-host')) {
+		throw new CliError('Replace the example PRODUCTION_SSH value in .env.import-local with the real production SSH target.');
+	}
 }
 
 export function validateSshPort(sshPort) {

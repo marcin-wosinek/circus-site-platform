@@ -38,9 +38,10 @@ test('parseEnvFileContents rejects a line without an "="', () => {
 	assert.throws(() => parseEnvFileContents('NOT_VALID', 'test.env'), /Invalid line in test\.env/);
 });
 
-test('ssh-config validators accept good values and reject bad ones', () => {
-	assert.doesNotThrow(() => validateSshTarget('user@example-host'));
+test('ssh-config validators accept good values and reject bad or example values', () => {
+	assert.doesNotThrow(() => validateSshTarget('user@host.test'));
 	assert.throws(() => validateSshTarget(''), CliError);
+	assert.throws(() => validateSshTarget('user@example-host'), /Replace the example/);
 	assert.throws(() => validateSshTarget('user@host; rm -rf /'), CliError);
 
 	assert.doesNotThrow(() => validateSshPort(undefined));

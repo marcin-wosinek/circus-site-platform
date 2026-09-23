@@ -11,10 +11,16 @@ the platform itself can instead be tracked directly in this repository.
 | --- | --- | ---: | --- |
 | `acroyoga-club.es` | `sites/acroyoga-club.es` | 9793 | This repository |
 | `acro-agenda.es` | `sites/acro-agenda.es` | 9788 | This repository |
+| `brussels.fusion-circus.com` | `sites/brussels.fusion-circus.com` | 9794 | This repository |
 | `circus-it.eu` | `sites/circus-it.eu` | 9791 | This repository |
 | `fair-event-plugins.com` | `sites/fair-event-plugins.com` | 9792 | This repository |
 | `fusion-circus` | `sites/fusion-circus` | 9789 | [marcin-wosinek/fusion-circus-theme](https://github.com/marcin-wosinek/fusion-circus-theme) |
 | `lamutable.es` | `sites/lamutable.es` | 9790 | [marcin-wosinek/lamutable.es](https://github.com/marcin-wosinek/lamutable.es) |
+| `valencia.fusion-circus.com` | `sites/valencia.fusion-circus.com` | 9795 | This repository |
+
+Brussels and Valencia are registered with reserved local ports. Their local
+WordPress configurations are pending; start, update, bootstrap, and import
+require a site-specific `.wp-env.json` before use.
 
 After cloning the platform, initialize the site repositories with:
 

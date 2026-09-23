@@ -15,9 +15,18 @@ import { loadSiteRegistry, requireProjectDir, requireWpEnvJson, resolveRegistere
 import { writeJsonFile } from './lib/json-file.mjs';
 import { resolvePluginDownloads } from './lib/plugin-downloads.mjs';
 import { themeSlugFromSource } from './lib/theme-source.mjs';
+import {
+	parseSiteFingerprint,
+	siteFingerprintPhp,
+	verifyConfiguredTheme,
+	verifyImportedSite,
+} from './lib/import-verification.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const siteId = process.argv.slice(2).find((argument) => !argument.startsWith('-'));
+const apply = process.argv.includes('--apply');
+const preflight = process.argv.includes('--preflight');
+const verify = process.argv.includes('--verify');
 
 if (!siteId) {
 	console.error(`Usage: node ${process.argv[1]} <site-id> --apply`);
@@ -40,6 +49,19 @@ function remoteDatabaseExportCommand(wordpressPath) {
 		'esac',
 		'MYSQL_PWD="$db_password" mysqldump "$@" --user="$db_user" --single-transaction --skip-lock-tables --default-character-set=utf8mb4 "$db_name"',
 	].join('\n');
+}
+
+function productionFingerprint(projectDir, sshArgs, remotePath) {
+	const remoteCommand = `wp --path=${shellQuote(remotePath)} eval ${shellQuote(siteFingerprintPhp)} --skip-plugins --skip-themes`;
+	const result = spawnSync('ssh', [...sshArgs, remoteCommand], { cwd: projectDir, encoding: 'utf8' });
+	if (result.stderr) process.stderr.write(result.stderr);
+	if (result.error) throw new CliError(result.error.message);
+	if (result.status !== 0) throw new CliError(`Production fingerprint check exited with status ${result.status}.`);
+	return parseSiteFingerprint(result.stdout, 'Production WordPress');
+}
+
+function localFingerprint(projectDir) {
+	return runWpCliJson(projectDir, ['eval', siteFingerprintPhp, '--skip-plugins', '--skip-themes']);
 }
 
 async function syncWpEnvPlugins(projectDir, wpEnvFile) {
@@ -70,7 +92,7 @@ await runCli(async () => {
 
 	loadEnvFile(envFile);
 
-	if (!process.argv.includes('--apply')) {
+	if (!apply && !preflight && !verify) {
 		console.log(`Usage: node ${process.argv[1]} <site-id> --apply`);
 		console.log('Downloads production database/uploads, then replaces the local wp-env content.');
 		console.log('Production remains read-only. The current local database is backed up first.');
@@ -86,6 +108,28 @@ await runCli(async () => {
 
 	validateUrl(productionUrl, 'productionUrl');
 	validateUrl(localUrl, 'localUrl');
+	const sshArgs = buildSshArgs({ sshTarget, sshPort, sshKey });
+	console.log(`Checking production source: ${sshTarget}:${remotePath} (read-only)`);
+	runInherit('ssh', [...sshArgs, `wp --path=${shellQuote(remotePath)} core is-installed`], { cwd: projectDir });
+	const expectedSite = productionFingerprint(projectDir, sshArgs, remotePath);
+	const wpEnv = JSON.parse(readFileSync(wpEnvFile, 'utf8'));
+	const wpEnvThemes = wpEnv.themes;
+	if (!Array.isArray(wpEnvThemes) || wpEnvThemes.length !== 1 || typeof wpEnvThemes[0] !== 'string') {
+		throw new CliError(`Site "${siteId}" must define exactly one theme in .wp-env.json.`);
+	}
+	const themeSlug = themeSlugFromSource(wpEnvThemes[0]);
+	verifyConfiguredTheme(expectedSite, themeSlug, siteId);
+
+	if (preflight) {
+		console.log(`Preflight complete. Production uses ${themeSlug} and has ${expectedSite.published_pages} published page(s).`);
+		return;
+	}
+
+	if (verify) {
+		verifyImportedSite(expectedSite, localFingerprint(projectDir), siteId);
+		console.log(`Verified local ${siteId} against production.`);
+		return;
+	}
 
 	mkdirSync(dbDir, { recursive: true });
 	mkdirSync(uploadsDir, { recursive: true });
@@ -93,8 +137,6 @@ await runCli(async () => {
 	console.log(`Import source: ${sshTarget}:${remotePath} (production, read-only)`);
 	console.log(`Import target: ${projectDir} (${localUrl}, destructive local update)`);
 
-	const sshArgs = buildSshArgs({ sshTarget, sshPort, sshKey });
-	runInherit('ssh', [...sshArgs, `wp --path=${shellQuote(remotePath)} core is-installed`], { cwd: projectDir });
 	runInherit('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'core', 'is-installed'], { cwd: projectDir });
 
 	captureToFile('ssh', [...sshArgs, remoteDatabaseExportCommand(remotePath)], databaseFile, { cwd: projectDir });
@@ -122,11 +164,6 @@ await runCli(async () => {
 	runWpCli(projectDir, ['option', 'update', 'siteurl', localUrl]);
 	await syncWpEnvPlugins(projectDir, wpEnvFile);
 
-	const wpEnvThemes = JSON.parse(readFileSync(wpEnvFile, 'utf8')).themes;
-	if (!Array.isArray(wpEnvThemes) || wpEnvThemes.length !== 1 || typeof wpEnvThemes[0] !== 'string') {
-		throw new CliError(`Site "${siteId}" must define exactly one theme in .wp-env.json.`);
-	}
-	const themeSlug = themeSlugFromSource(wpEnvThemes[0]);
 	runWpCli(projectDir, ['theme', 'activate', themeSlug]);
 
 	const userCheck = spawnSync('npx', ['@wordpress/env', 'run', 'cli', 'wp', 'user', 'get', adminUser, '--field=ID'], {
@@ -141,6 +178,7 @@ await runCli(async () => {
 
 	runWpCli(projectDir, ['cache', 'flush']);
 	runWpCli(projectDir, ['rewrite', 'flush']);
+	verifyImportedSite(expectedSite, localFingerprint(projectDir), siteId);
 
 	const previousUploads = join(importDir, `uploads-before-${timestamp}`);
 	cpSync(uploadsDir, previousUploads, { recursive: true });

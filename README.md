@@ -31,6 +31,11 @@ SSH template instead. Run it again with `--apply` to start the local environment
 without production plugins, import production, and then mount the imported
 plugin set. Deferring plugin activation until after the database import avoids
 running production plugin migrations against an empty first-start database.
+Creating the credentials template is reported as an incomplete bootstrap, not
+as success. Before changing the local environment, bootstrap checks production
+access and confirms that the configured theme matches production. It finishes
+by comparing key site identity, front-page, theme, and page-count values with
+production so a pristine or partial local install cannot be reported as done.
 Like `import`, it requires the explicit flag before replacing local data and
 never writes to production.
 
@@ -120,10 +125,12 @@ The platform supports projects including:
 
 - [acro-agenda.es](https://acro-agenda.es/)
 - [acroyoga-club.es](https://acroyoga-club.es/)
+- [brussels.fusion-circus.com](https://brussels.fusion-circus.com/)
 - [circus-it.eu](https://circus-it.eu/)
 - [fair-event-plugins.com](https://fair-event-plugins.com/)
 - [fusion-circus.com](https://fusion-circus.com/)
 - [lamutable.es](https://lamutable.es/)
+- [valencia.fusion-circus.com](https://valencia.fusion-circus.com/)
 
 ## Status
 

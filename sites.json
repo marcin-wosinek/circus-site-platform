@@ -11,6 +11,11 @@
       "port": 9788,
       "productionUrl": "https://acro-agenda.es"
     },
+    "brussels.fusion-circus.com": {
+      "folder": "sites/brussels.fusion-circus.com",
+      "port": 9794,
+      "productionUrl": "https://brussels.fusion-circus.com"
+    },
     "circus-it.eu": {
       "folder": "sites/circus-it.eu",
       "port": 9791,
@@ -30,6 +35,11 @@
       "folder": "sites/lamutable.es",
       "port": 9790,
       "productionUrl": "https://lamutable.es"
+    },
+    "valencia.fusion-circus.com": {
+      "folder": "sites/valencia.fusion-circus.com",
+      "port": 9795,
+      "productionUrl": "https://valencia.fusion-circus.com"
     }
   }
 }

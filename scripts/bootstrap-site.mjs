@@ -53,8 +53,7 @@ await runCli(async () => {
 		}
 		chmodSync(envFile, 0o600);
 		console.log(`Created ${envFile}`);
-		console.log('Fill in its production SSH values, then run this command again with --apply.');
-		return;
+		throw new CliError('Bootstrap is incomplete. Fill in the production SSH values, then run this command again with --apply.');
 	}
 
 	if (!apply) {
@@ -64,10 +63,16 @@ await runCli(async () => {
 		return;
 	}
 
+	// Validate credentials, remote WordPress, and the configured theme before
+	// starting or changing the local wp-env instance.
+	runNodeScript('scripts/import-production.mjs', [siteId, '--preflight']);
+
 	// Production plugins may run database migrations during wp-env's first-start
 	// activation. Start core without them so those migrations run only after the
 	// production database, including its plugin tables, has been imported.
 	runNodeScript('scripts/site-command.mjs', ['start', siteId, '--bootstrap-without-plugins']);
 	runNodeScript('scripts/import-production.mjs', [siteId, '--apply']);
 	runNodeScript('scripts/site-command.mjs', ['update', siteId]);
+	runNodeScript('scripts/import-production.mjs', [siteId, '--verify']);
+	console.log(`Bootstrap complete and verified: http://localhost:${site.port}`);
 });

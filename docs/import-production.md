@@ -74,6 +74,12 @@ downloads both production snapshots and validates the uploads archive. It then:
 5. Activates the single theme configured by `.wp-env.json`.
 6. Creates or resets the configured local administrator.
 
+Before replacing local data, the importer checks production access and rejects
+a configured theme that does not match the active production theme. After the
+import it compares the local site identity, active theme, front-page settings,
+front-page status, and published-page count with production. Bootstrap repeats
+this verification after its final wp-env update.
+
 Active plugins outside the `fair-*` suite must be published in the WordPress.org
 Plugin Directory under the same slug as their production plugin directory. The
 selected fair plugin release URL is written into `.wp-env.json`, so subsequent

@@ -10,6 +10,11 @@ import { resolvePluginDownloads } from '../scripts/lib/plugin-downloads.mjs';
 import { fairPluginSlug, stageWpEnvPluginSources } from '../scripts/lib/wp-env-plugin-sources.mjs';
 import { createWpEnvOverride } from '../scripts/lib/wp-env-override.mjs';
 import { themeSlugFromSource } from '../scripts/lib/theme-source.mjs';
+import {
+	parseSiteFingerprint,
+	verifyConfiguredTheme,
+	verifyImportedSite,
+} from '../scripts/lib/import-verification.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -60,6 +65,28 @@ test('theme slugs are derived from local folders and remote ZIP sources', () => 
 	assert.equal(themeSlugFromSource('./circus-it'), 'circus-it');
 	assert.equal(themeSlugFromSource('https://downloads.wordpress.org/theme/blockbase.zip'), 'blockbase');
 	assert.throws(() => themeSlugFromSource('https://example.test/theme.tar.gz'), /Cannot derive a theme slug/);
+});
+
+test('import verification rejects a configured theme that differs from production', () => {
+	assert.throws(
+		() => verifyConfiguredTheme({ stylesheet: 'blockbase' }, 'twentytwentyfive', 'example.test'),
+		/Production uses theme "blockbase"/,
+	);
+});
+
+test('import verification reports local values that differ from production', () => {
+	const production = { stylesheet: 'blockbase', published_pages: 8 };
+	assert.doesNotThrow(() => verifyImportedSite(production, { ...production }, 'example.test'));
+	assert.throws(
+		() => verifyImportedSite(production, { stylesheet: 'blockbase', published_pages: 1 }, 'example.test'),
+		/published_pages: production=8, local=1/,
+	);
+});
+
+test('site fingerprints must be valid JSON objects', () => {
+	assert.deepEqual(parseSiteFingerprint('{"stylesheet":"blockbase"}\n', 'WordPress'), { stylesheet: 'blockbase' });
+	assert.deepEqual(parseSiteFingerprint('status\n{"stylesheet":"blockbase"}\ndone\n', 'WordPress'), { stylesheet: 'blockbase' });
+	assert.throws(() => parseSiteFingerprint('not json', 'WordPress'), /valid site fingerprint/);
 });
 
 test('local wp-env overrides mount the email-blocking must-use plugin', () => {
