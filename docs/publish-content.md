@@ -115,6 +115,11 @@ item's type, across all core statuses including `trash`:
 - **More than one match** — a `conflict` ("ambiguous identity marker"); plan
   never guesses which one is authoritative.
 
+For draft, pending, and scheduled posts, path checks use WordPress's sample
+permalink to resolve the intended public path instead of the query-string
+preview URL. This is read-only and does not publish the post. WordPress's
+slug-uniqueness checks still apply, as do the identity and path-conflict guards.
+
 For `page_on_front`, plan can adopt production's current static front page when
 there is no marker. For `page_path` and `post_path`, plan checks the configured
 permalink path before classifying an item as `create`. One unmarked post at that

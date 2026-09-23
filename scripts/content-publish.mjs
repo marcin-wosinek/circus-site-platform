@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { resolvePostId } from './lib/content-local-selector.mjs';
+import { productionPermalinkPath } from './lib/content-production-path.mjs';
 
 import { existsSync, mkdirSync, readFileSync, chmodSync } from 'node:fs';
 import { basename, dirname, extname, relative, resolve } from 'node:path';
@@ -339,11 +340,7 @@ function planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls })
 	if (item.selector.type !== 'page_on_front') {
 		const slug = item.selector.path.split('/').filter(Boolean).at(-1);
 		const expectedPath = item.selector.path.replace(/\/$/, '');
-		const permalinkPath = (id) => {
-			if (!/^[1-9]\d*$/.test(id)) throw new CliError('Production path lookup returned an invalid post ID.');
-			const permalink = runRemoteWpCliText(sshArgs, remotePath, ['eval', `echo get_permalink(${id});`]);
-			try { return new URL(permalink).pathname.replace(/\/$/, ''); } catch { throw new CliError(`Production post ${id} has an invalid permalink.`); }
-		};
+		const permalinkPath = (id) => productionPermalinkPath(sshArgs, remotePath, id);
 		const candidates = runRemoteWpCliJson(sshArgs, remotePath, [
 			'post', 'list', `--post_type=${item.type}`, `--post_status=${PRODUCTION_LOOKUP_STATUSES}`,
 			`--name=${slug}`, '--fields=ID,post_status', '--format=json',
