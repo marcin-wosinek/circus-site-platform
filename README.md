@@ -121,6 +121,9 @@ writes.
 
 ## Websites
 
+See [Adding a managed website](docs/adding-sites.md) for the complete registry,
+local WordPress, and import setup workflow.
+
 The platform supports projects including:
 
 - [acro-agenda.es](https://acro-agenda.es/)

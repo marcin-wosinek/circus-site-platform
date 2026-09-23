@@ -83,6 +83,12 @@ Before changing code, inspect the repository for existing conventions and use
 its documented commands. Avoid generating broad scaffolding that is unrelated
 to the current task.
 
+When adding a managed website, follow [Adding a managed website](docs/adding-sites.md).
+Include `.wp-env.json`, import mappings, ignore rules, a credential example,
+and site documentation alongside the registry entry; registration alone does
+not make bootstrap usable. Verify the production theme and WordPress path
+read-only before choosing the local theme source.
+
 For each change:
 
 1. Keep the scope narrow and preserve unrelated work.

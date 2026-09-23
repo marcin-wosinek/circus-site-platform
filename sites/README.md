@@ -18,9 +18,8 @@ the platform itself can instead be tracked directly in this repository.
 | `lamutable.es` | `sites/lamutable.es` | 9790 | [marcin-wosinek/lamutable.es](https://github.com/marcin-wosinek/lamutable.es) |
 | `valencia.fusion-circus.com` | `sites/valencia.fusion-circus.com` | 9795 | This repository |
 
-Brussels and Valencia are registered with reserved local ports. Their local
-WordPress configurations are pending; start, update, bootstrap, and import
-require a site-specific `.wp-env.json` before use.
+Follow [Adding a managed website](../docs/adding-sites.md) when registering a
+site, including its local WordPress configuration and import setup.
 
 After cloning the platform, initialize the site repositories with:
 

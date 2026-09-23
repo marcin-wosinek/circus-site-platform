@@ -1,0 +1,17 @@
+{
+  "core": null,
+  "port": 9795,
+  "testsEnvironment": false,
+  "themes": [
+    "../fusion-circus/fusion-circus"
+  ],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true,
+    "WP_DEVELOPMENT_MODE": "theme"
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
+  }
+}
