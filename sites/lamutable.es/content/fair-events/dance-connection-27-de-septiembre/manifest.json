@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "dance-connection-27-de-septiembre",
+  "type": "fair_event",
+  "title": "Dance Connection, 27 de septiembre",
+  "slug": "dance-connection-27-de-septiembre",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/WhatsApp-Image-2026-03-31-at-10.37.14-1-1024x976.jpeg",
+      "file": "inline-image-1.jpeg",
+      "sha256": "9e2b3e5c4383cb0d8524271aa0d162756b67db3146493b400769ac941102a4c2"
+    },
+    {
+      "path": "2026/09/WhatsApp-Image-2026-03-31-at-10.37.24-1024x768.jpeg",
+      "file": "inline-image-2.jpeg",
+      "sha256": "f76d80e3442c89277b18bb9c98fb6a07e234f9d6f489b81923ed12a2ef4bdbc8"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "4a651c3c449a29504ed20f6fe89f1f650a1053799e2923e0718489e11c4aa576"
+}

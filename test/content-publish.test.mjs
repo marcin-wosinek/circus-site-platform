@@ -151,8 +151,12 @@ test('loadContentPublishConfig accepts the lamutable.es content configurations',
 		type: 'post_path', path: '/fair-events/minifesti-la-mutable-26-de-septiembre/',
 	});
 	assert.equal(resolveContentPublishItem(config, 'minifesti-la-mutable-26-de-septiembre').type, 'fair_event');
+	assert.deepEqual(resolveContentPublishItem(config, 'dance-connection-27-de-septiembre').selector, {
+		type: 'post_path', path: '/fair-events/dance-connection-27-de-septiembre/',
+	});
+	assert.equal(resolveContentPublishItem(config, 'dance-connection-27-de-septiembre').type, 'fair_event');
 	assert.deepEqual(resolveContentPublishItem(config, 'bart').selector, { type: 'page_path', path: '/bart/' });
-	assert.deepEqual(selectedContentKeys(config), ['homepage', 'festival-de-conexion', 'minifesti-la-mutable-26-de-septiembre', 'bart']);
+	assert.deepEqual(selectedContentKeys(config), ['homepage', 'festival-de-conexion', 'minifesti-la-mutable-26-de-septiembre', 'dance-connection-27-de-septiembre', 'bart']);
 });
 
 test('loadContentPublishConfig rejects a malformed page path', (context) => {

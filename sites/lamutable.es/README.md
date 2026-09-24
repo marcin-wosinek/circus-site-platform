@@ -87,8 +87,9 @@ independently with the least privileges that workflow requires.
 ## Content sync
 
 The WordPress front page, `/bart/` page,
-`/fair-events/festival-de-conexion/` event, and
-`/fair-events/minifesti-la-mutable-26-de-septiembre/` event are managed as committed artifacts
+`/fair-events/festival-de-conexion/`,
+`/fair-events/minifesti-la-mutable-26-de-septiembre/`, and
+`/fair-events/dance-connection-27-de-septiembre/` events are managed as committed artifacts
 through [`content-publish.json`](content-publish.json). Edit them in the local
 block editor, then export their local state from the platform root:
 
@@ -99,7 +100,7 @@ npm run content:export -- lamutable.es
 The export reads only the local `wp-env`; production is untouched. Review the
 artifact diff before committing. See the
 [content publishing guide](../../docs/publish-content.md) for the artifact
-format and current scope. Applying artifacts to production is not implemented.
+format and guarded production planning and apply workflow.
 
 ## Theme structure
 
