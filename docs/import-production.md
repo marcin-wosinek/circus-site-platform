@@ -9,7 +9,8 @@ code and configured themes are not replaced.
 ## Prerequisites
 
 - Docker and Node.js on the local machine
-- A running local site started with `npm run start -- <site-id>`
+- For the import-only command, a running local site started with
+  `npm run start -- <site-id>`; `pull` starts it for you
 - SSH key access to the production host
 - WP-CLI and `mysqldump` on the production host
 - Internet access to GitHub when production has active `fair-*` plugins
@@ -52,10 +53,21 @@ and path placeholders.
 
 ## Run the import
 
-From the platform root:
+For the full production-to-local workflow, including starting or updating
+local WordPress and verifying the final result, run from the platform root:
 
 ```sh
-npm run start -- <site-id>
+npm run pull -- <site-id> --apply
+```
+
+`pull` also works on an existing local environment. `bootstrap` is an alias.
+Both require `--apply` because they replace the selected local database and
+uploads. If the credentials file is missing, the first run creates an ignored
+template and stops so you can fill it in.
+
+To run only the import against an already running local site:
+
+```sh
 npm run import -- <site-id> --apply
 ```
 

@@ -16,6 +16,7 @@ site ID and any additional options through npm:
 npm run start -- circus-it.eu
 npm run stop -- circus-it.eu
 npm run update -- circus-it.eu
+npm run pull -- circus-it.eu --apply
 npm run bootstrap -- circus-it.eu --apply
 npm run import -- circus-it.eu --apply
 ```
@@ -23,16 +24,19 @@ npm run import -- circus-it.eu --apply
 `start`, `stop`, and `update` run `wp-env` in the folder registered for the
 site. `update` is shorthand for `wp-env start --update`.
 
-`bootstrap` prepares a registered site from scratch. If its ignored production
-credentials file is missing, the first run copies the site's
+`pull` runs the complete production-to-local workflow for a registered site,
+whether the local environment is new or already exists. It preflights the
+production connection and theme, starts local WordPress without production
+plugins, imports the database and uploads, updates the plugin mounts, and
+verifies the resulting site. `bootstrap` is an alias for the same workflow.
+If the ignored production credentials file is missing, the first run copies the site's
 `.env.import-local.example` to `.env.import-local/<site-id>` and stops so the
 credentials can be filled in. When a site has no example, it creates a generic
-SSH template instead. Run it again with `--apply` to start the local environment
-without production plugins, import production, and then mount the imported
-plugin set. Deferring plugin activation until after the database import avoids
+SSH template instead. Run it again with `--apply` to complete the pull.
+Deferring plugin activation until after the database import avoids
 running production plugin migrations against an empty first-start database.
-Creating the credentials template is reported as an incomplete bootstrap, not
-as success. Before changing the local environment, bootstrap checks production
+Creating the credentials template is reported as an incomplete pull, not
+as success. Before changing the local environment, pull checks production
 access and confirms that the configured theme matches production. It finishes
 by comparing key site identity, front-page, theme, and page-count values with
 production so a pristine or partial local install cannot be reported as done.

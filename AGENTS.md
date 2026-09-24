@@ -101,7 +101,10 @@ For each change:
 The repository-wide shared-tooling tests run with `npm test`. Shared site
 operations run from the repository root with `npm run start -- <site-id>`,
 `npm run stop -- <site-id>`, `npm run update -- <site-id>`, and
-`npm run import -- <site-id> --apply`. The import requires Docker, Node.js, SSH
+`npm run pull -- <site-id> --apply`. Pull runs the production preflight, local
+start, import, plugin update, and final verification; `bootstrap` is an alias.
+`npm run import -- <site-id> --apply` remains available for an already running
+local site. The import requires Docker, Node.js, SSH
 access, remote WP-CLI, and a gitignored `.env.import-local/<site-id>` file. It
 reads production and destructively replaces only the selected local wp-env
 database and uploads; `--apply` remains mandatory.

@@ -11,6 +11,7 @@ import { loadSiteRegistry, requireProjectDir, requireWpEnvJson, resolveRegistere
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const siteId = process.argv.slice(2).find((argument) => !argument.startsWith('-'));
 const apply = process.argv.includes('--apply');
+const commandName = process.env.npm_lifecycle_event === 'pull' ? 'pull' : 'bootstrap';
 
 function runNodeScript(script, args) {
 	const result = spawnSync(process.execPath, [resolve(platformDir, script), ...args], {
@@ -53,12 +54,12 @@ await runCli(async () => {
 		}
 		chmodSync(envFile, 0o600);
 		console.log(`Created ${envFile}`);
-		throw new CliError('Bootstrap is incomplete. Fill in the production SSH values, then run this command again with --apply.');
+		throw new CliError('Pull is incomplete. Fill in the production SSH values, then run this command again with --apply.');
 	}
 
 	if (!apply) {
-		console.log(`Ready to bootstrap ${siteId} from production.`);
-		console.log(`Run: npm run bootstrap -- ${siteId} --apply`);
+		console.log(`Ready to pull ${siteId} from production.`);
+		console.log(`Run: npm run ${commandName} -- ${siteId} --apply`);
 		console.log('This replaces only the selected local wp-env database and uploads; production remains read-only.');
 		return;
 	}
@@ -74,5 +75,5 @@ await runCli(async () => {
 	runNodeScript('scripts/import-production.mjs', [siteId, '--apply']);
 	runNodeScript('scripts/site-command.mjs', ['update', siteId]);
 	runNodeScript('scripts/import-production.mjs', [siteId, '--verify']);
-	console.log(`Bootstrap complete and verified: http://localhost:${site.port}`);
+	console.log(`Pull complete and verified: http://localhost:${site.port}`);
 });
