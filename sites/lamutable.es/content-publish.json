@@ -52,6 +52,19 @@
       ],
       "metadata": []
     },
+    "dance-connection-27th-of-september": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/en/fair-events/dance-connection-27th-of-september/"
+      },
+      "artifactDir": "content/fair-events/dance-connection-27th-of-september",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
     "bart": {
       "type": "page",
       "selector": {

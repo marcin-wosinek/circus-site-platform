@@ -17,6 +17,27 @@ add_action(
 	}
 );
 
+/** Translate shared ticket names on the English Dance Connection event. */
+add_filter(
+	'render_block_fair-events/event-signup',
+	function ( $content ) {
+		if (
+			! is_singular( 'fair_event' ) ||
+			'dance-connection-27th-of-september' !== get_post_field( 'post_name', get_queried_object_id() ) ||
+			! function_exists( 'pll_get_post_language' ) ||
+			'en' !== pll_get_post_language( get_queried_object_id() )
+		) {
+			return $content;
+		}
+
+		return str_replace(
+			array( 'Todo —', 'Solo jam —' ),
+			array( 'Full event —', 'Jam only —' ),
+			$content
+		);
+	}
+);
+
 /**
  * Add the Meta Pixel after targeting consent is granted.
  */

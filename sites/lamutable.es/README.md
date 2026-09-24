@@ -89,7 +89,8 @@ independently with the least privileges that workflow requires.
 The WordPress front page, `/bart/` page,
 `/fair-events/festival-de-conexion/`,
 `/fair-events/minifesti-la-mutable-26-de-septiembre/`, and
-`/fair-events/dance-connection-27-de-septiembre/` events are managed as committed artifacts
+`/fair-events/dance-connection-27-de-septiembre/` events, along with the
+`/en/fair-events/dance-connection-27th-of-september/` translation, are managed as committed artifacts
 through [`content-publish.json`](content-publish.json). Edit them in the local
 block editor, then export their local state from the platform root:
 
@@ -101,6 +102,9 @@ The export reads only the local `wp-env`; production is untouched. Review the
 artifact diff before committing. See the
 [content publishing guide](../../docs/publish-content.md) for the artifact
 format and guarded production planning and apply workflow.
+The Dance Connection translations share one event date and ticket IDs. The
+English signup block translates its two ticket labels in `lamutable/functions.php`;
+the Spanish signup labels remain unchanged.
 
 ## Theme structure
 
