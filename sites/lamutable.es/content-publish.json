@@ -26,6 +26,19 @@
       ],
       "metadata": []
     },
+    "minifesti-la-mutable-26-de-septiembre": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/fair-events/minifesti-la-mutable-26-de-septiembre/"
+      },
+      "artifactDir": "content/fair-events/minifesti-la-mutable-26-de-septiembre",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
     "bart": {
       "type": "page",
       "selector": {

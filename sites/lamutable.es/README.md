@@ -86,8 +86,9 @@ independently with the least privileges that workflow requires.
 
 ## Content sync
 
-The WordPress front page, `/bart/` page, and
-`/fair-events/festival-de-conexion/` event are managed as committed artifacts
+The WordPress front page, `/bart/` page,
+`/fair-events/festival-de-conexion/` event, and
+`/fair-events/minifesti-la-mutable-26-de-septiembre/` event are managed as committed artifacts
 through [`content-publish.json`](content-publish.json). Edit them in the local
 block editor, then export their local state from the platform root:
 

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "minifesti-la-mutable-26-de-septiembre",
+  "type": "fair_event",
+  "title": "Minifesti \"La Mutable\", 26 de septiembre",
+  "slug": "minifesti-la-mutable-26-de-septiembre",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/08/Bano-Sonoro-y-Relajacion-Guiada-con-Melinda-1024x870.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "0eb781464e9a1edbd0fd238620a2586f6f1c5111d8706846a3746e7486905224"
+    },
+    {
+      "path": "2026/08/Contact-Impro-Miguel-Horacio-Large-1024x682.jpeg",
+      "file": "inline-image-2.jpeg",
+      "sha256": "322fad4d6656af85d7e82b7b784ce1f917d1ab80c42aabdd91852e458f2adee8"
+    },
+    {
+      "path": "2026/08/Emuna-Yoga-con-Yesica-Large-1024x682.jpeg",
+      "file": "inline-image-3.jpeg",
+      "sha256": "89f213a8616dceb2badec153d34d029731b29433b0aa1c4880754aad0d1a6cdf"
+    },
+    {
+      "path": "2026/08/Ignasi-y-Andrea.jpeg",
+      "file": "inline-image-4.jpeg",
+      "sha256": "c1a08c5a02d9bf8eb96231cd34c980eb0d5a11b4ac1229271d3dbe928b381657"
+    },
+    {
+      "path": "2026/08/Masaje-Thai-con-Alix-Large-1024x768.jpeg",
+      "file": "inline-image-5.jpeg",
+      "sha256": "adc2b1857b3e40bd7713935f3bbf7f7bcec606eb75f33f996cf168078dd46089"
+    },
+    {
+      "path": "2026/08/WhatsApp-Image-2026-09-11-at-13.13.42-1-683x1024.jpeg",
+      "file": "inline-image-6.jpeg",
+      "sha256": "a89f4c3939b642f41dfd64d36346c42c68b03386b6a308baeec0c89f055f7ee0"
+    },
+    {
+      "path": "2026/09/banner-web-26-Sept-1024x576.jpg",
+      "file": "inline-image-7.jpg",
+      "sha256": "2fd26d001c959e7740c1455b90871766da86d01ece56b384608712c821c77958"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "364f86a8372815564c2334d69080474a58d0e26b25e5626ee506c76571ea3481"
+}
