@@ -143,6 +143,9 @@ test('loadContentPublishConfig accepts the lamutable.es content configurations',
 	assert.equal(item.selector.type, 'page_on_front');
 	assert.equal(item.artifactDir, 'content/pages/homepage');
 	assert.deepEqual(item.allowedStatuses, ['draft', 'publish']);
+	assert.deepEqual(resolveContentPublishItem(config, 'homepage-en').selector, {
+		type: 'post_path', path: '/en/la-mutable-english/',
+	});
 	assert.deepEqual(resolveContentPublishItem(config, 'festival-de-conexion').selector, {
 		type: 'post_path', path: '/fair-events/festival-de-conexion/',
 	});
@@ -160,7 +163,7 @@ test('loadContentPublishConfig accepts the lamutable.es content configurations',
 	});
 	assert.equal(resolveContentPublishItem(config, 'dance-connection-27th-of-september').type, 'fair_event');
 	assert.deepEqual(resolveContentPublishItem(config, 'bart').selector, { type: 'page_path', path: '/bart/' });
-	assert.deepEqual(selectedContentKeys(config), ['homepage', 'festival-de-conexion', 'minifesti-la-mutable-26-de-septiembre', 'dance-connection-27-de-septiembre', 'dance-connection-27th-of-september', 'bart']);
+	assert.deepEqual(selectedContentKeys(config), ['homepage', 'homepage-en', 'festival-de-conexion', 'minifesti-la-mutable-26-de-septiembre', 'dance-connection-27-de-septiembre', 'dance-connection-27th-of-september', 'bart']);
 });
 
 test('loadContentPublishConfig rejects a malformed page path', (context) => {

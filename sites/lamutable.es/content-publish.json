@@ -13,6 +13,19 @@
       ],
       "metadata": []
     },
+    "homepage-en": {
+      "type": "page",
+      "selector": {
+        "type": "post_path",
+        "path": "/en/la-mutable-english/"
+      },
+      "artifactDir": "content/pages/homepage-en",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
     "festival-de-conexion": {
       "type": "fair_event",
       "selector": {

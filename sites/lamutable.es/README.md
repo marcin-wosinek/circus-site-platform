@@ -86,7 +86,8 @@ independently with the least privileges that workflow requires.
 
 ## Content sync
 
-The WordPress front page, `/bart/` page,
+The Spanish front page and its English translation at
+`/en/la-mutable-english/`, the `/bart/` page,
 `/fair-events/festival-de-conexion/`,
 `/fair-events/minifesti-la-mutable-26-de-septiembre/`, and
 `/fair-events/dance-connection-27-de-septiembre/` events, along with the

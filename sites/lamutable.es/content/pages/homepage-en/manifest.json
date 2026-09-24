@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentKey": "homepage",
+  "contentKey": "homepage-en",
   "type": "page",
   "title": "La Mutable",
-  "slug": "eventos-de-la-mutable",
+  "slug": "la-mutable-english",
   "status": "publish",
-  "template": "",
+  "template": "page-en",
   "content": {
     "file": "content.html"
   },
@@ -63,5 +63,5 @@
     }
   ],
   "metadata": {},
-  "baselineHash": "f00d5a4260be69f8c0d1479f0a1bcc2065b02e5f5cfbc43265fb1de39eeb8ff6"
+  "baselineHash": "cb6f75289496de4028a889327bce714b9f0ebec8a3dd6854d9e477dfcbba6f1c"
 }
