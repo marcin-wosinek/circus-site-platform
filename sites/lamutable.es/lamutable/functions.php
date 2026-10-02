@@ -38,6 +38,45 @@ add_filter(
 	}
 );
 
+/** Translate shared ticket and activity names on the English October Minifesti. */
+function lamutable_translate_october_minifesti_tickets( $content ) {
+	if (
+		! is_singular( 'fair_event' ) ||
+		'minifesti-la-mutable-10th-of-october' !== get_post_field( 'post_name', get_queried_object_id() ) ||
+		! function_exists( 'pll_get_post_language' ) ||
+		'en' !== pll_get_post_language( get_queried_object_id() )
+	) {
+		return $content;
+	}
+
+	return str_replace(
+		array(
+			'Entrada regular | Regular ticket',
+			'Entrada completa | Full pass',
+			'Emuná Yoga con Yesica',
+			'Lillah el juego de la vida con Eu G',
+			'Slow Flow con Muriel',
+			'Tai Chi con Nataliia',
+			'Danza con Sayil',
+			'Danza con Julia',
+		),
+		array(
+			'Regular ticket',
+			'Full pass',
+			'Emuná Yoga with Yesica',
+			'Lillah: The Game of Life with Eu G',
+			'Slow Flow with Muriel',
+			'Tai Chi with Nataliia',
+			'Fusion Dance with Sayil',
+			'Motion and Emotion with Julia',
+		),
+		$content
+	);
+}
+
+add_filter( 'render_block_fair-events/event-prices', 'lamutable_translate_october_minifesti_tickets' );
+add_filter( 'render_block_fair-events/event-signup', 'lamutable_translate_october_minifesti_tickets' );
+
 /**
  * Add the Meta Pixel after targeting consent is granted.
  */
