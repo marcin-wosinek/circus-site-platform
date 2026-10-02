@@ -52,6 +52,19 @@
       ],
       "metadata": []
     },
+    "minifesti-la-mutable-10th-of-october": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/en/fair-events/minifesti-la-mutable-10th-of-october/"
+      },
+      "artifactDir": "content/fair-events/minifesti-la-mutable-10th-of-october",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
     "dance-connection-27-de-septiembre": {
       "type": "fair_event",
       "selector": {

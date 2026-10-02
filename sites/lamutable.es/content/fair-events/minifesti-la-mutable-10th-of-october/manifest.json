@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "minifesti-la-mutable-10th-of-october",
+  "type": "fair_event",
+  "title": "Minifesti \"La Mutable\", 10th of October",
+  "slug": "minifesti-la-mutable-10th-of-october",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/12-819x1024.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "74ca8cda2e53fc8d9fd6abe67ca5c0c213422355dde615c7fb09e720184aeffd"
+    },
+    {
+      "path": "2026/09/Eu-G-—-Lillah-1-683x1024.jpg",
+      "file": "inline-image-2.jpg",
+      "sha256": "da47cd3dd72bad8f36713e04d4878c8866ff53db5a8fa6aa6d7d7dbdd9f2dee2"
+    },
+    {
+      "path": "2026/09/Julia-–-Motion-Emotion-1024x682.jpg",
+      "file": "inline-image-3.jpg",
+      "sha256": "020ae9efbe14a289068a8292f89d536d526736a3c3a8a07fb527a4ddc04549d6"
+    },
+    {
+      "path": "2026/09/Muriel-–-Slow-Flow-683x1024.jpeg",
+      "file": "inline-image-4.jpeg",
+      "sha256": "b0271f2c9b2c7a09f81759d03abca8e6f917d23546cd6ce60631f4dddc904bda"
+    },
+    {
+      "path": "2026/09/Nataliia-–-Tai-Chi-755x1024.jpg",
+      "file": "inline-image-5.jpg",
+      "sha256": "50ffea8f4e8a0ac087712149135ffbf19b1a907bc8c74b3013055f089f139f02"
+    },
+    {
+      "path": "2026/09/Sayil-–-Danza-730x1024.jpg",
+      "file": "inline-image-6.jpg",
+      "sha256": "d9fbb4ed06d3f738bf66c6a67835a31aea2fc3786c38e238a8fbc18b3df2aeb0"
+    },
+    {
+      "path": "2026/09/Yesica-–-Emuna-Yoga-768x1024-1.jpg",
+      "file": "inline-image-7.jpg",
+      "sha256": "6e1c7ad02e15a8e1dac1168240f6089160cec64bc6ff5c2c32636b34269f8686"
+    },
+    {
+      "path": "2026/10/banner-web-10-ocy-1024x576.png",
+      "file": "inline-image-8.png",
+      "sha256": "6bb6edde32b6a77ea9a71d8fce06f630b8f00d6e32ae292a8d7bcd641508e226"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "ebdf0555e54830d3fac1e5d43e432215a2b1ab09d4d2ccf646818ec69dd4d04c"
+}

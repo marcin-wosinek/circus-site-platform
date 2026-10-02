@@ -47,21 +47,16 @@
       "sha256": "a449b2c23254bf54edbf39b30d677f2d0c6ffd1051326d5bfb7f369041c3fc48"
     },
     {
-      "path": "2026/09/WhatsApp-Image-2026-03-31-at-10.37.24-1024x768.jpeg",
-      "file": "inline-image-8.jpeg",
-      "sha256": "f76d80e3442c89277b18bb9c98fb6a07e234f9d6f489b81923ed12a2ef4bdbc8"
-    },
-    {
       "path": "2026/09/arancha-yoga-768x1024-1.jpg",
-      "file": "inline-image-9.jpg",
+      "file": "inline-image-8.jpg",
       "sha256": "0557e78977fdcb34a991431547d89779955d4823052b6b532e12673b886a081d"
     },
     {
-      "path": "2026/09/banner-web-26-Sept-1024x576.jpg",
-      "file": "inline-image-10.jpg",
-      "sha256": "2fd26d001c959e7740c1455b90871766da86d01ece56b384608712c821c77958"
+      "path": "2026/10/banner-web-10-ocy-1024x576.png",
+      "file": "inline-image-9.png",
+      "sha256": "6bb6edde32b6a77ea9a71d8fce06f630b8f00d6e32ae292a8d7bcd641508e226"
     }
   ],
   "metadata": {},
-  "baselineHash": "cb6f75289496de4028a889327bce714b9f0ebec8a3dd6854d9e477dfcbba6f1c"
+  "baselineHash": "6cb4ed558fa5d02f388365a6ad6aa079afbafe1725a382d2621b7f00177f124b"
 }
