@@ -13,6 +13,19 @@
         "publish"
       ],
       "metadata": []
+    },
+    "halloween-fusion-valencia-2026-en": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/en/fair-events/halloween-fusion-valencia-2026-en/"
+      },
+      "artifactDir": "content/fair-events/halloween-fusion-valencia-2026-en",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }

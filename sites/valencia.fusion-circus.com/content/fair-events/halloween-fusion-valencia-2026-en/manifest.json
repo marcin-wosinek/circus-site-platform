@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "halloween-fusion-valencia-2026-en",
+  "type": "fair_event",
+  "title": "Halloween Fusion Valencia 2026",
+  "slug": "halloween-fusion-valencia-2026-en",
+  "status": "publish",
+  "template": "default",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": {
+    "file": "featured-image.jpg",
+    "sha256": "af6ee6bc9665897bbd14e18e5c786d492892289982f25bb04b74b1db15ba242c",
+    "mimeType": "image/jpeg",
+    "basename": "DSC5013-scaled.jpg",
+    "alt": "",
+    "caption": "",
+    "title": "_DSC5013"
+  },
+  "inlineImages": [
+    {
+      "path": "2026/08/Alix-768x1024-1.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "2821e26086bda85f14134f9c9f5bc844e4596f8d1276798ea7aa22ec6576f4fd"
+    },
+    {
+      "path": "2026/08/Cristian-683x1024.jpg",
+      "file": "inline-image-2.jpg",
+      "sha256": "0137f5172c8a0a5477a0d715453e2c59d0ae79e1e97fa2c29cf6612c5da44fa1"
+    },
+    {
+      "path": "2026/08/Dj-Jordi-656x1024.jpg",
+      "file": "inline-image-3.jpg",
+      "sha256": "59935a20380b5b32fa728a2ecf07dba9862cd61a445d93f3c454feaffb2469c2"
+    },
+    {
+      "path": "2026/08/Dj-Juanma-692x1024.jpg",
+      "file": "inline-image-4.jpg",
+      "sha256": "f6ffa6f26b32cee3e75c832144d40fca0958230096e06bdfd610c41ee6c2313d"
+    },
+    {
+      "path": "2026/08/image-1-768x1024-1.jpeg",
+      "file": "inline-image-5.jpeg",
+      "sha256": "9fd74171714548fccc5b53c61f71de12a8bf1512744749e6d3f7d2795dc014d5"
+    },
+    {
+      "path": "2026/08/image-683x1024.jpeg",
+      "file": "inline-image-6.jpeg",
+      "sha256": "e0cfd35f8aa9b088798dd482bc243a6ecd3dc48b6ab68734bf55acdb674d7090"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "e7c6f049e26ecf529d792969dd64fe9a9d40ef900a72478b3b723c0a4d6620f1"
+}

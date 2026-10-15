@@ -33,9 +33,10 @@ and recovery, and [adding sites](../../docs/adding-sites.md) for setup guidance.
 
 ## Content sync
 
-The `/fair-events/halloween-fusion-valencia-2026/` event is managed as a
-committed artifact through [`content-publish.json`](content-publish.json). Edit
-it in the local block editor, then export its local state from the platform
+The `/fair-events/halloween-fusion-valencia-2026/` event and its English
+translation at `/en/fair-events/halloween-fusion-valencia-2026-en/` are managed
+as committed artifacts through [`content-publish.json`](content-publish.json). Edit
+them in the local block editor, then export their local state from the platform
 root:
 
 ```sh
