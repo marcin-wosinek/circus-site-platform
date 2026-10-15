@@ -2,6 +2,10 @@ import { spawnSync } from 'node:child_process';
 import { CliError } from './cli-error.mjs';
 import { shellQuote } from './shell.mjs';
 
+// Large enough for full-size featured images and long post content; the
+// spawnSync default of 1 MiB fails with ENOBUFS on scaled photos.
+const MAX_BUFFER = 64 * 1024 * 1024;
+
 // Mirrors wp-cli.mjs, but runs WP-CLI over an existing read-only SSH
 // connection instead of local wp-env. Only read-only subcommands are ever
 // issued here; no post create/update, option update, or similar write calls.
@@ -12,7 +16,7 @@ function remoteWpCommand(remotePath, args) {
 export function runRemoteWpCliJson(sshArgs, remotePath, args) {
 	const command = remoteWpCommand(remotePath, args);
 	console.log(`+ ssh ${sshArgs.join(' ')} ${command}`);
-	const result = spawnSync('ssh', [...sshArgs, command], { encoding: 'utf8' });
+	const result = spawnSync('ssh', [...sshArgs, command], { encoding: 'utf8', maxBuffer: MAX_BUFFER });
 	if (result.error) throw new CliError(result.error.message);
 	if (result.status !== 0) {
 		if (result.stderr) process.stderr.write(result.stderr);
@@ -30,7 +34,7 @@ export function runRemoteWpCliJson(sshArgs, remotePath, args) {
 
 export function runRemoteWpCliText(sshArgs, remotePath, args) {
 	const command = remoteWpCommand(remotePath, args);
-	const result = spawnSync('ssh', [...sshArgs, command], { encoding: 'utf8' });
+	const result = spawnSync('ssh', [...sshArgs, command], { encoding: 'utf8', maxBuffer: MAX_BUFFER });
 	if (result.error) throw new CliError(result.error.message);
 	if (result.status !== 0) {
 		if (result.stderr) process.stderr.write(result.stderr);
@@ -44,7 +48,7 @@ export function runRemoteWpCliText(sshArgs, remotePath, args) {
 // unset post meta.
 export function runRemoteWpCliTextOptional(sshArgs, remotePath, args) {
 	const command = remoteWpCommand(remotePath, args);
-	const result = spawnSync('ssh', [...sshArgs, command], { encoding: 'utf8' });
+	const result = spawnSync('ssh', [...sshArgs, command], { encoding: 'utf8', maxBuffer: MAX_BUFFER });
 	if (result.error || result.status !== 0) return '';
 	return result.stdout.trim();
 }
@@ -53,7 +57,7 @@ export function runRemoteWpCliTextOptional(sshArgs, remotePath, args) {
 // memory. Never writes a temp file, local or remote.
 export function readRemoteFileBytes(sshArgs, remotePath) {
 	const command = `cat ${shellQuote(remotePath)}`;
-	const result = spawnSync('ssh', [...sshArgs, command]);
+	const result = spawnSync('ssh', [...sshArgs, command], { maxBuffer: MAX_BUFFER });
 	if (result.error) throw new CliError(result.error.message);
 	if (result.status !== 0) {
 		throw new CliError(`Unable to read remote file: ${remotePath}`);
