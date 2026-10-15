@@ -30,3 +30,18 @@ The production theme was confirmed as `fusion-circus` on 2026-09-23. Theme
 changes in the shared submodule affect every local site using that source.
 See [production imports](../../docs/import-production.md) for prerequisites
 and recovery, and [adding sites](../../docs/adding-sites.md) for setup guidance.
+
+## Content sync
+
+The `/fair-events/halloween-fusion-valencia-2026/` event is managed as a
+committed artifact through [`content-publish.json`](content-publish.json). Edit
+it in the local block editor, then export its local state from the platform
+root:
+
+```sh
+npm run content:export -- valencia.fusion-circus.com
+```
+
+The export reads only the local `wp-env`; production is untouched. See the
+[content publishing guide](../../docs/publish-content.md) for the guarded
+production plan and apply workflow.

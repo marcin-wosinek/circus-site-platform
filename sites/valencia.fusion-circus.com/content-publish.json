@@ -1,0 +1,18 @@
+{
+  "$schema": "../../schemas/content-publish.schema.json",
+  "items": {
+    "halloween-fusion-valencia-2026": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/fair-events/halloween-fusion-valencia-2026/"
+      },
+      "artifactDir": "content/fair-events/halloween-fusion-valencia-2026",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    }
+  }
+}
