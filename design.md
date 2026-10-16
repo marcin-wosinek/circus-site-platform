@@ -154,6 +154,9 @@ badge-split nav from Signature moves.
 - v1 contrast fix applied · white Jost `md` links with ≥44 px hit targets
   (token `custom.size.tap` = 2.75rem), hover underline, `accent-ink`
   focus-visible ring (tokens `custom.focus.width/offset`).
+- Submenus (2026-10-16) · dropdown panels use `card` ground, `rule` border
+  and `ink` text with `accent-deep` hover, instead of inheriting the band's
+  white link color onto core's white panel.
 - Nav URLs point at `/events/`, `/blog/`, `/collaborations/` — those pages don't exist yet; create them as content
   work proceeds.
 - `functions.php` now also loads `style.css` as editor style so the Site

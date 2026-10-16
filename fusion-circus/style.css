@@ -39,6 +39,22 @@ Text Domain: fusion-circus
 	outline-offset: var(--wp--custom--focus--offset);
 }
 
+/* Submenus: the nav's white (accent-ink) text would otherwise inherit onto
+ * core's white dropdown panel — give the panel card ground and ink text. */
+.fc-header .wp-block-navigation .wp-block-navigation__submenu-container.wp-block-navigation__submenu-container {
+	background-color: var(--wp--preset--color--card);
+	border-color: var(--wp--preset--color--rule);
+	color: var(--wp--preset--color--ink);
+}
+
+.fc-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover {
+	color: var(--wp--preset--color--accent-deep);
+}
+
+.fc-header .wp-block-navigation__submenu-container a:focus-visible {
+	outline-color: var(--wp--preset--color--accent);
+}
+
 /* ---------------------------------------------------------------------------
  * Footer — policy links and copyright over the flood band (design.md).
  * Sticky-footer: on short pages (404, Code of Conduct) the band must still
