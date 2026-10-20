@@ -54,6 +54,8 @@ document only the design rationale here.
   Quiénes somos · Proyectos · Eventos; "Contacto" is the filled-pill CTA.
   The separate English header uses About us · Projects · Events with
   "Contact" as its CTA, and its logo links to `/en/` (added 2026-08-13).
+- Contact CTA · preserve the button group's natural width in the header flex
+  row and keep its label on one line in both languages.
 - States · hover/focus/current = accent underline (0.14em thick, 0.4em
   offset); active = accent text; focus ring = 2px `focus`, 3px offset.
 - Mobile · core/navigation overlay menu (paper background, ink text) below
