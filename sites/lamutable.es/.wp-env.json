@@ -17,12 +17,12 @@
   "plugins": [
     "https://downloads.wordpress.org/plugin/polylang.zip",
     "https://downloads.wordpress.org/plugin/contact-form-7.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-audience.1.17.0-36-g037bb4dc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-events.1.19.0-36-g037bb4dc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-finance.1.1.0-76-g037bb4dc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-form.1.4.4-36-g037bb4dc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-payments-connector.2.2.0-36-g037bb4dc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-timetable.0.7.1-220-g037bb4dc.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-audience.1.20.0-51-g2ac0db4d.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-events.1.22.0-51-g2ac0db4d.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-finance.1.3.0-51-g2ac0db4d.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-form.1.6.0-51-g2ac0db4d.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-payments-connector.2.5.0-51-g2ac0db4d.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-timetable.0.7.1-367-g2ac0db4d.zip",
     "https://downloads.wordpress.org/plugin/flamingo.zip",
     "https://downloads.wordpress.org/plugin/hostinger.zip",
     "https://downloads.wordpress.org/plugin/magic-login.zip",
@@ -32,8 +32,8 @@
     "https://downloads.wordpress.org/plugin/wp-consent-api.zip",
     "https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
     "https://downloads.wordpress.org/plugin/wp-mail-smtp.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-audience-experimental.1.2.0.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-events-experimental.1.9.0-36-g037bb4dc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.19.0-36-g037bb4dc/fair-payments-connector-experimental.0.4.1-36-g037bb4dc.zip"
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-audience-experimental.1.4.0.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-events-experimental.1.12.0-51-g2ac0db4d.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.22.0-51-g2ac0db4d/fair-payments-connector-experimental.0.6.1-51-g2ac0db4d.zip"
   ]
 }
