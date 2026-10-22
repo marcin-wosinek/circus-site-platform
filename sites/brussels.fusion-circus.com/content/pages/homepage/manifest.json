@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "contentKey": "homepage",
   "type": "page",
-  "title": "",
+  "title": "Movement, dance and bodywork in Brussels.",
   "slug": "home-page",
   "status": "publish",
   "template": "page-no-title",
@@ -48,5 +48,5 @@
     }
   ],
   "metadata": {},
-  "baselineHash": "db5e6fe026c02116c7145748e0691bc8522a27c5c3c8d16a7d833f381142404a"
+  "baselineHash": "cb06028a19e9d697249a3278f7027215cac2b07a4c663a3d1ed491998dbac29a"
 }

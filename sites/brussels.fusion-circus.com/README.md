@@ -53,7 +53,7 @@ It becomes available on production when that theme file is deployed.
 
 The static front page is managed by `content-publish.json`; its block markup
 and referenced images live in `content/pages/homepage/`. The exported artifact
-preserves the page's intentionally empty WordPress title. Edit locally, then:
+preserves the current production page title. Edit locally, then:
 
 ```sh
 npm run content:export -- brussels.fusion-circus.com --key homepage
