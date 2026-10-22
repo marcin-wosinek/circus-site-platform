@@ -1,5 +1,14 @@
 # Design — Fusion Circus
 
+## FAQ pattern (2026-10-22)
+
+The FAQ section uses a constrained, single-column group with the existing `lg`
+vertical spacing preset, an H2 section heading, H3 question headings and native
+Accordion blocks. It inherits the theme typography and colors without adding
+decoration. Questions are sibling Accordion Items within one Accordion; answers
+contain editable paragraphs, never nested Accordions. Three example questions
+provide an editable starting point, and each insertion is independent.
+
 Locked design system. Future design work (Hallmark runs, templates, patterns)
 reads this file first and defers to it. Amend intentionally — the file is the
 rule. In this repo `theme.json` is canonical for tokens (WordPress reads it);
