@@ -1,0 +1,11 @@
+{
+  "apiVersion": 3,
+  "name": "fusion-circus/event-card",
+  "title": "Fusion Circus Event Card",
+  "category": "widgets",
+  "description": "An upcoming event card for a Fair Events Query Loop.",
+  "usesContext": ["postId", "postType"],
+  "supports": {"html": false, "inserter": false},
+  "editorScript": "fusion-circus-event-card-editor",
+  "render": "file:./render.php"
+}

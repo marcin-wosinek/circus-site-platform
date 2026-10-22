@@ -235,3 +235,16 @@ DTCG `tokens.json`, ask to extend design.md with that export.
   focused on the event rather than exposing editorial-blog metadata or exits.
 - Spacing uses the locked `lg` and `xl` presets; the template introduces no new
   visual tokens or CSS.
+
+## Upcoming event cards (2026-10-22)
+
+The Brussels homepage retains its existing section heading and calendar link.
+Fair Events Events List selects upcoming posts through a four-item Query Loop
+in `fusion-circus/upcoming-event-cards`. A server-rendered theme card presents
+the next occurrence's date badge, time, location, title, image and registration
+link. Presentation belongs to the theme; filtering and recurrence stay in
+Fair Events. The image uses featured artwork, falling back to the first event
+body image for existing entries. Missing metadata is omitted. Cards reuse the
+violet/magenta accents, card radius, type and spacing presets; the shadow is
+recorded in `settings.custom.eventCard.shadow`. Four/two/one columns adapt to
+available space. This pattern is opt-in and does not change other site pages.

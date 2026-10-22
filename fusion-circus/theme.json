@@ -244,6 +244,9 @@
 			"duration": {
 				"fast": "180ms",
 				"base": "240ms"
+			},
+			"eventCard": {
+				"shadow": "0 0.75rem 1.5rem #17141e26"
 			}
 		}
 	},

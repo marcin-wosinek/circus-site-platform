@@ -24,3 +24,14 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_get_theme()->get( 'Version' )
 	);
 } );
+
+add_action( 'init', function () {
+	wp_register_script(
+		'fusion-circus-event-card-editor',
+		get_stylesheet_directory_uri() . '/blocks/event-card/editor.js',
+		array( 'wp-blocks', 'wp-element', 'wp-server-side-render' ),
+		filemtime( get_stylesheet_directory() . '/blocks/event-card/editor.js' ),
+		true
+	);
+	register_block_type( __DIR__ . '/blocks/event-card' );
+} );
