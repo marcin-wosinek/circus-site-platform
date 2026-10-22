@@ -223,3 +223,6 @@ the next deployment.
 - `allowedStatuses`: subset of `draft` and `publish`.
 - `metadata`: additional allowlisted post-meta keys. Empty until a real item
   needs one; keys starting with `_circus_` are reserved for the platform.
+
+WordPress items may have an empty title (for example, the Brussels homepage).
+Artifacts preserve that empty string; a title must still be a string.

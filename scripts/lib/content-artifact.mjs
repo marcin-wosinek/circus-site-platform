@@ -66,8 +66,8 @@ export function validateManifestShape(manifest, { contentKey, item }) {
 	if (manifest.type !== item.type) {
 		throw new CliError(`Artifact manifest type "${manifest.type}" does not match configured type "${item.type}".`);
 	}
-	if (typeof manifest.title !== 'string' || !manifest.title.trim()) {
-		throw new CliError('Artifact manifest title must be a non-empty string.');
+	if (typeof manifest.title !== 'string') {
+		throw new CliError('Artifact manifest title must be a string.');
 	}
 	if (typeof manifest.slug !== 'string' || !SLUG_PATTERN.test(manifest.slug)) {
 		throw new CliError(`Artifact manifest slug is invalid: ${manifest.slug}`);

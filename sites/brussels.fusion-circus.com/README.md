@@ -48,3 +48,33 @@ collapsed, then open each answer before publishing.
 The pattern is provided by the shared theme at
 `fusion-circus/patterns/faq.php` and requires WordPress's native Accordion blocks.
 It becomes available on production when that theme file is deployed.
+
+## Managed homepage and upcoming events
+
+The static front page is managed by `content-publish.json`; its block markup
+and referenced images live in `content/pages/homepage/`. The exported artifact
+preserves the page's intentionally empty WordPress title. Edit locally, then:
+
+```sh
+npm run content:export -- brussels.fusion-circus.com --key homepage
+```
+
+The upcoming section uses Fair Events' **Events List** with the theme pattern
+`fusion-circus/upcoming-event-cards`: at most four published event posts,
+soonest first, excluding past events. Recurring entries use the next upcoming
+occurrence. Cards show the event title, date, time, venue and event-page link.
+Images use the featured image, falling back to the first image in event content;
+set a featured image to explicitly choose the card artwork. An event without
+an image retains a plain coloured image area. Layout changes from four columns
+to two and then one on narrow screens. An empty list uses Fair Events' standard
+no-events message.
+
+Local preview: <http://localhost:9794/>. The card block and pattern are provided
+by the live-mounted shared theme, so no plugin upgrade is needed. Deploying
+later requires both the shared theme changes and the managed homepage artifact;
+no production content is changed by local testing or export. See
+[publish content](../../docs/publish-content.md) for plan and guarded apply.
+A production pull replaces local authoring changes; export them first. To
+restore this committed homepage after a pull, materialize `{{SITE_URL}}` in
+`content.html` as `http://localhost:9794` and update the local static front page
+with WP-CLI or paste the markup into its code editor.

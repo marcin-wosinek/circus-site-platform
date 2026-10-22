@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "homepage",
+  "type": "page",
+  "title": "",
+  "slug": "home-page",
+  "status": "publish",
+  "template": "page-no-title",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-01_23_21-AM-1024x683.png",
+      "file": "inline-image-1.png",
+      "sha256": "7a1c4345ab4513d415f7ae6ac6db3ead31d38fb76996eb6c73d0e1d3d0f064fa"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-01_24_06-AM-1024x683.png",
+      "file": "inline-image-2.png",
+      "sha256": "28d6f14e01b457c93f14bce36cb43584cff9e6564055247dff3f36e06476e5a3"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-01_24_54-AM-1024x683.png",
+      "file": "inline-image-3.png",
+      "sha256": "d3be40c0f4f8421adfdc877beadff83a03fdf6766406c03e5004e50e6d1dae44"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-01_25_41-AM-1024x512.png",
+      "file": "inline-image-4.png",
+      "sha256": "6fa3bd98ec4b2e7a1893359bcad300b2520e4e310fbce15e4a22e988fc5e2789"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-02_15_29-AM.png",
+      "file": "inline-image-5.png",
+      "sha256": "41bce49bbfe210cde5358cf1a7972cabf53ff204dc40479653fedb3fbfedbf44"
+    },
+    {
+      "path": "2026/09/me-for-the-web.png",
+      "file": "inline-image-6.png",
+      "sha256": "d9eb9f3e3d1aa8d777118050beb82271ac1c384d74c742fb6999517af1916904"
+    },
+    {
+      "path": "2026/10/Sunlit-Studio-Bodywork-Session-short-1-1024x629.png",
+      "file": "inline-image-7.png",
+      "sha256": "5666c99206d28b4d24786fdb223853ca8361fb5cc719495e23c91c582c40ccca"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "db5e6fe026c02116c7145748e0691bc8522a27c5c3c8d16a7d833f381142404a"
+}

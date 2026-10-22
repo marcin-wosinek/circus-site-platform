@@ -619,3 +619,8 @@ test('content-publish plan rejects --refresh-baseline instead of silently ignori
 	assert.equal(result.status, 1);
 	assert.match(result.stderr, /--refresh-baseline is only supported for the export operation/);
 });
+
+test('manifest preserves an untitled WordPress homepage but rejects non-string titles', () => {
+	assert.doesNotThrow(() => validateManifestShape(baseManifest({ title: '' }), { contentKey: 'homepage', item: baseItem }));
+	assert.throws(() => validateManifestShape(baseManifest({ title: null }), { contentKey: 'homepage', item: baseItem }), /title must be a string/);
+});

@@ -20,8 +20,7 @@
       "enum": ["page", "fair_event"]
     },
     "title": {
-      "type": "string",
-      "minLength": 1
+      "type": "string"
     },
     "slug": {
       "type": "string",
