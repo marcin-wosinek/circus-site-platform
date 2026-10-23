@@ -24,7 +24,14 @@ $event = $upcoming_cards[ $post_id ] ?? null;
 if ( ! $event ) {
 	return;
 }
-$timing = $event['timing'];
+// Older Fair Events releases expose site-local start/end strings without
+// the canonical timing array. Keep cards compatible with those DTOs too.
+$timing = $event['timing'] ?? array(
+	'start_date' => ! empty( $event['start'] ) ? substr( $event['start'], 0, 10 ) : null,
+	'start_time' => ! empty( $event['start'] ) ? substr( $event['start'], 11, 8 ) : null,
+	'end_date'   => ! empty( $event['end'] ) ? substr( $event['end'], 0, 10 ) : null,
+	'end_time'   => ! empty( $event['end'] ) ? substr( $event['end'], 11, 8 ) : null,
+);
 $stamp = ! empty( $timing['start_date'] ) ? strtotime( $timing['start_date'] . ' 12:00:00 UTC' ) : false;
 $time = '';
 if ( ! empty( $event['all_day'] ) ) {
