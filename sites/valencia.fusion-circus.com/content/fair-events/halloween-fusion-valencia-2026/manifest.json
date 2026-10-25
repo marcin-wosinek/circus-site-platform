@@ -40,13 +40,43 @@
       "sha256": "f6ffa6f26b32cee3e75c832144d40fca0958230096e06bdfd610c41ee6c2313d"
     },
     {
+      "path": "2026/08/Julia-Happymiaow-dj-673x1024.jpg",
+      "file": "inline-image-5.jpg",
+      "sha256": "4e76620c1c0b4a10cf91607fb139b0c4b194267ce8fa1ac2f91d9dcfbbc99a4f"
+    },
+    {
+      "path": "2026/08/Natalia-Dj--768x1024.jpg",
+      "file": "inline-image-6.jpg",
+      "sha256": "eaf9538e951055086fb4dc5b64f9abd7f477962a585b93e807765c87f76d31d6"
+    },
+    {
+      "path": "2026/08/Sayil.jpg",
+      "file": "inline-image-7.jpg",
+      "sha256": "1227d75a8d002e3cb0324af538df92c240bf974c470db01d068f227023ea59fd"
+    },
+    {
+      "path": "2026/08/andrea-1024x1024.jpg",
+      "file": "inline-image-8.jpg",
+      "sha256": "da3eb59630f7a1c25d37d7207a1414aa6111cf26e9361dea6a8997f4647cad9b"
+    },
+    {
       "path": "2026/08/image-1-768x1024-1.jpeg",
-      "file": "inline-image-5.jpeg",
+      "file": "inline-image-9.jpeg",
       "sha256": "9fd74171714548fccc5b53c61f71de12a8bf1512744749e6d3f7d2795dc014d5"
     },
     {
+      "path": "2026/08/image-2-809x1024.jpeg",
+      "file": "inline-image-10.jpeg",
+      "sha256": "8fd6054668defd6343661d869581d5216a0c94ccfc882b81393fbcffac73b3d5"
+    },
+    {
+      "path": "2026/08/image-3-777x1024.jpeg",
+      "file": "inline-image-11.jpeg",
+      "sha256": "1dd4c0c22bb3b2eb907d993bd95602c7ab12e956b4b9ea6016a76f26638c72af"
+    },
+    {
       "path": "2026/08/image-683x1024.jpeg",
-      "file": "inline-image-6.jpeg",
+      "file": "inline-image-12.jpeg",
       "sha256": "e0cfd35f8aa9b088798dd482bc243a6ecd3dc48b6ab68734bf55acdb674d7090"
     }
   ],
