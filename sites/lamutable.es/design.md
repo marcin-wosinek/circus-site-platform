@@ -132,6 +132,24 @@ document only the design rationale here.
 - Tokens · existing `paper` and spacing presets only; no new visual token or
   CSS rule was introduced.
 
+## Past events grid (locked 2026-10-25)
+- Source · `fair-events/events-list` block with `timeFilter: "past"` and
+  `displayPattern: "lamutable/past-events"`, placed on both homepages under
+  the "Eventos pasados" / "Past Events" heading. The list is dynamic; the
+  former hand-built cover grid (overlay titles on tinted photos) is retired.
+- Card · photo, title, muted date — no overlay, tint, border, or card chrome.
+  Photos are 16:9 so event banners with text on their edges stay legible;
+  they don't need to be square.
+- Title · `md`, weight 600 (lighter than the locked 700 heading voice so the
+  grid reads quietly), ink, accent underline on hover/focus only.
+- Layout · content width, aligned with the section heading; grid with a
+  16rem minimum column (two columns on desktop, one on mobile), 6 most recent.
+- Image source · featured image; when an event has none, the first content
+  image (`wp-image-<id>`) via a filter scoped to `past-events__image`, so the
+  single event document is unaffected.
+- Files · `lamutable/patterns/past-events.php`, fallback in
+  `lamutable/functions.php`, CSS in `lamutable/style.css` § Past events grid.
+
 ## Motion stance
 - None yet. Static block theme, no build step, no JS animation layer.
 - If motion is introduced later, keep it CSS-only (`transform`/`opacity`),

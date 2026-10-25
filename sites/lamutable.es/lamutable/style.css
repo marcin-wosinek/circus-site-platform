@@ -142,6 +142,36 @@ Text Domain: lamutable
 	border: 1px solid var(--wp--preset--color--rule);
 }
 
+/* Past events grid (fair-events/events-list + patterns/past-events.php):
+   photo, quiet title, muted date — no overlays, no card chrome. */
+.past-events__image {
+	margin: 0;
+}
+
+.past-events__title {
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.past-events__title a {
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+}
+
+.past-events__title a:hover,
+.past-events__title a:focus-visible {
+	text-decoration: underline;
+	text-decoration-color: var(--wp--preset--color--accent);
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.2em;
+}
+
+.past-events__date {
+	margin-top: var(--wp--preset--spacing--2-xs);
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--sm);
+}
+
 /* Ink inversion band: the locked CTA hover (ink bg) would vanish on the ink
    ground — invert to paper instead. Focus ring color already passes on ink. */
 .band-ink .wp-block-button__link:hover {

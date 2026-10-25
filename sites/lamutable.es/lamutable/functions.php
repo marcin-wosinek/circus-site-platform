@@ -17,6 +17,47 @@ add_action(
 	}
 );
 
+/**
+ * Let past-event cards fall back to the event's first content image.
+ *
+ * Scoped to featured-image blocks with the `past-events__image` class, so
+ * single event documents keep showing only an explicitly set featured image.
+ */
+function lamutable_past_event_thumbnail_id( $thumbnail_id, $post ) {
+	if ( $thumbnail_id || 'fair_event' !== get_post_type( $post ) ) {
+		return $thumbnail_id;
+	}
+
+	if ( preg_match( '/wp-image-(\d+)/', get_post_field( 'post_content', $post ), $matches ) ) {
+		return (int) $matches[1];
+	}
+
+	return $thumbnail_id;
+}
+
+add_filter(
+	'render_block_data',
+	function ( $parsed_block ) {
+		if (
+			'core/post-featured-image' === $parsed_block['blockName'] &&
+			str_contains( $parsed_block['attrs']['className'] ?? '', 'past-events__image' )
+		) {
+			add_filter( 'post_thumbnail_id', 'lamutable_past_event_thumbnail_id', 10, 2 );
+		}
+
+		return $parsed_block;
+	}
+);
+
+add_filter(
+	'render_block_core/post-featured-image',
+	function ( $content ) {
+		remove_filter( 'post_thumbnail_id', 'lamutable_past_event_thumbnail_id', 10 );
+
+		return $content;
+	}
+);
+
 /** Translate shared ticket names on the English Dance Connection event. */
 add_filter(
 	'render_block_fair-events/event-signup',
