@@ -248,3 +248,11 @@ body image for existing entries. Missing metadata is omitted. Cards reuse the
 violet/magenta accents, card radius, type and spacing presets; the shadow is
 recorded in `settings.custom.eventCard.shadow`. Four/two/one columns adapt to
 available space. This pattern is opt-in and does not change other site pages.
+
+### Fewer than four upcoming events (2026-10-26)
+
+On wide screens the column count follows the number of cards instead of
+leaving empty tracks: three cards share three columns, two cards share two
+columns with a 16:9 image, and a single card switches to a horizontal layout
+with the image on the left half. The two-column and one-column breakpoints are
+unchanged.
