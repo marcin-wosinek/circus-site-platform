@@ -1,0 +1,209 @@
+/*
+Theme Name: Fusion Circus
+Theme URI: https://fusion-circus.example
+Description: Child theme of Twenty Twenty-Five for fusion-circus.example
+Template: twentytwentyfive
+Version: 0.1.3
+Requires at least: 6.7
+Requires PHP: 7.4
+Text Domain: fusion-circus
+*/
+
+/* ---------------------------------------------------------------------------
+ * Header — round badge splitting the nav row over the flood gradient band.
+ * Spec: design.md § Signature moves (locked 2026-07-26).
+ * ------------------------------------------------------------------------- */
+
+.fc-header .fc-header__badge img {
+	display: block;
+	width: var(--wp--custom--size--badge);
+	height: auto;
+}
+
+/* Contrast + hit-target fix carried over from the v1 audit (design.md § Notes):
+ * every nav link gets a ≥44px tap area on the scrim band. */
+.fc-header .wp-block-navigation-item__content {
+	display: inline-flex;
+	align-items: center;
+	min-height: var(--wp--custom--size--tap);
+	padding: var(--wp--preset--spacing--2-xs) var(--wp--preset--spacing--xs);
+}
+
+.fc-header .wp-block-navigation-item__content:hover {
+	text-decoration: underline;
+	text-underline-offset: var(--wp--preset--spacing--2-xs);
+}
+
+.fc-header a:focus-visible {
+	outline: var(--wp--custom--focus--width) solid var(--wp--preset--color--accent-ink);
+	outline-offset: var(--wp--custom--focus--offset);
+}
+
+/* Submenus: the nav's white (accent-ink) text would otherwise inherit onto
+ * core's white dropdown panel — give the panel card ground and ink text. */
+.fc-header .wp-block-navigation .wp-block-navigation__submenu-container.wp-block-navigation__submenu-container {
+	background-color: var(--wp--preset--color--card);
+	border-color: var(--wp--preset--color--rule);
+	color: var(--wp--preset--color--ink);
+}
+
+.fc-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover {
+	color: var(--wp--preset--color--accent-deep);
+}
+
+.fc-header .wp-block-navigation__submenu-container a:focus-visible {
+	outline-color: var(--wp--preset--color--accent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer — policy links and copyright over the flood band (design.md).
+ * Sticky-footer: on short pages (404, Code of Conduct) the band must still
+ * meet the bottom of the viewport instead of floating above bare paper.
+ * ------------------------------------------------------------------------- */
+
+.wp-site-blocks {
+	display: flex;
+	flex-direction: column;
+	min-height: 100svh;
+}
+
+.wp-site-blocks > main {
+	flex-grow: 1;
+}
+
+.fc-footer .wp-block-navigation-item__content {
+	display: inline-flex;
+	align-items: center;
+	min-height: var(--wp--custom--size--tap);
+}
+
+.fc-footer .wp-block-navigation-item__content:hover {
+	text-decoration: underline;
+	text-underline-offset: var(--wp--preset--spacing--2-xs);
+}
+
+.fc-footer a:focus-visible {
+	outline: var(--wp--custom--focus--width) solid var(--wp--preset--color--accent-ink);
+	outline-offset: var(--wp--custom--focus--offset);
+}
+
+/* ---------------------------------------------------------------------------
+ * Buttons — CTA voice (design.md § CTA voice, locked 2026-07-26).
+ * Hallmark · component: core/button + 2 block styles · genre: atmospheric ·
+ * theme: studied-DNA · states: default · hover · focus-visible · active
+ * (core/button renders a plain link — no disabled/loading/error/success
+ * semantics exist for it) · contrast: pass (4.75:1 worst, fill label)
+ *
+ * Default (Fill) = primary CTA: magenta pill, Jost label; hover/active
+ * colors come from theme.json. This file adds shape, motion
+ * and the two alternates: "On photo (white)" and "Ghost (outline)".
+ * ------------------------------------------------------------------------- */
+
+.wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: var(--wp--custom--size--tap);
+	padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--md);
+	transition:
+		background-color var(--wp--custom--duration--fast) var(--wp--custom--ease--out),
+		color var(--wp--custom--duration--fast) var(--wp--custom--ease--out),
+		border-color var(--wp--custom--duration--fast) var(--wp--custom--ease--out);
+}
+
+/* Tactile press — instant (no transition), transform-only. */
+.wp-block-button__link:active {
+	transform: translateY(var(--wp--custom--press));
+}
+
+.wp-block-button__link:focus-visible {
+	outline: var(--wp--custom--focus--width) solid var(--wp--preset--color--accent);
+	outline-offset: var(--wp--custom--focus--offset);
+}
+
+/* Alternate 1 · On photo (white) — the locked secondary CTA for busy imagery:
+ * card fill, ink text, lavender hover, white focus ring (violet would vanish
+ * against dark scrims). */
+.wp-block-button.is-style-on-photo .wp-block-button__link {
+	background-color: var(--wp--preset--color--card);
+	color: var(--wp--preset--color--ink);
+}
+
+.wp-block-button.is-style-on-photo .wp-block-button__link:hover,
+.wp-block-button.is-style-on-photo .wp-block-button__link:active {
+	background-color: var(--wp--preset--color--paper-2);
+	color: var(--wp--preset--color--ink);
+}
+
+.wp-block-button.is-style-on-photo .wp-block-button__link:focus-visible {
+	outline-color: var(--wp--preset--color--accent-ink);
+}
+
+/* Alternate 2 · Ghost (outline) — quieter sibling for paper/card grounds
+ * only (not photos); fills magenta on hover. */
+.wp-block-button.is-style-ghost .wp-block-button__link {
+	background-color: transparent;
+	color: var(--wp--preset--color--accent-deep);
+	border: var(--wp--custom--border--width) solid var(--wp--preset--color--accent-deep);
+}
+
+.wp-block-button.is-style-ghost .wp-block-button__link:hover,
+.wp-block-button.is-style-ghost .wp-block-button__link:active {
+	background-color: var(--wp--preset--color--accent-deep);
+	color: var(--wp--preset--color--accent-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-button__link {
+		transition-duration: 1ms;
+	}
+}
+
+/* Desktop: equal-flex nav halves keep the badge dead-centre even though the
+ * left cluster has 3 links and the right has 2. */
+@media (min-width: 782px) {
+	.fc-header .fc-header__nav {
+		flex: 1 1 0;
+	}
+}
+
+/* Mobile: badge on top, link clusters centred beneath it. */
+@media (max-width: 781.98px) {
+	.fc-header {
+		flex-direction: column;
+		gap: var(--wp--preset--spacing--xs);
+	}
+
+	.fc-header .fc-header__badge {
+		order: -1;
+	}
+
+	.fc-header .fc-header__nav .wp-block-navigation__container {
+		justify-content: center;
+	}
+}
+
+/* Upcoming events: four cards, then two and one as space permits. */
+.fc-upcoming-events .wp-block-post-template { gap: var(--wp--preset--spacing--md); }
+.fc-upcoming-events .wp-block-post { min-width: 0; display: flex; }
+.fc-event-card { width: 100%; overflow: hidden; border-radius: var(--wp--custom--radius--card); background: var(--wp--preset--color--card); color: var(--wp--preset--color--accent-2-deep); box-shadow: var(--wp--custom--event-card--shadow); display: flex; flex-direction: column; }
+.fc-event-card__media { position: relative; aspect-ratio: 1.1; background: var(--wp--preset--color--paper-2); }
+.fc-event-card__image { width: 100%; height: 100%; object-fit: cover; }
+.fc-event-card__badge { position: absolute; bottom: var(--wp--preset--spacing--md); left: var(--wp--preset--spacing--md); display: flex; flex-direction: column; align-items: center; padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--sm); background: var(--wp--preset--color--accent-2); color: var(--wp--preset--color--accent-ink); font-weight: 800; text-transform: uppercase; line-height: 1.1; }
+.fc-event-card__badge strong { font-size: var(--wp--preset--font-size--3-xl); }
+.fc-upcoming-events .wp-block-post:nth-child(2n) .fc-event-card__badge { background: var(--wp--preset--color--accent); }
+.fc-event-card__body { display: flex; flex: 1; flex-direction: column; gap: var(--wp--preset--spacing--md); padding: var(--wp--preset--spacing--md); }
+.fc-event-card__body h3 { margin: 0; font-size: var(--wp--preset--font-size--xl); font-weight: 400; line-height: 1.3; }
+.fc-event-card__body p { margin: 0; font-size: var(--wp--preset--font-size--md); font-weight: 700; overflow-wrap: anywhere; }
+.fc-event-card__register { margin-top: auto; padding-top: var(--wp--preset--spacing--md); text-transform: uppercase; font-weight: 800; }
+/* Fewer than four cards share the full row instead of leaving empty columns. */
+@media (width > 65rem) {
+	.fc-upcoming-events .wp-block-post-template:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.fc-upcoming-events .wp-block-post-template:has(> :nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.fc-upcoming-events .wp-block-post-template:has(> :only-child) { grid-template-columns: minmax(0, 1fr); }
+	.fc-upcoming-events .wp-block-post-template:has(> :nth-child(2):last-child) .fc-event-card__media { aspect-ratio: 16 / 9; }
+	.fc-upcoming-events .wp-block-post-template:has(> :only-child) .fc-event-card { flex-direction: row; }
+	.fc-upcoming-events .wp-block-post-template:has(> :only-child) .fc-event-card__media { flex: 0 0 50%; }
+}
+@media (max-width: 65rem) { .fc-upcoming-events .wp-block-post-template { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 38rem) { .fc-upcoming-events .wp-block-post-template { grid-template-columns: minmax(0, 1fr); } }

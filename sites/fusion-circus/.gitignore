@@ -1,0 +1,5 @@
+node_modules/
+import/
+.DS_Store
+.playwright-mcp
+.wp-env.override.json
