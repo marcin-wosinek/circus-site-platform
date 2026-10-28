@@ -135,7 +135,6 @@ The platform supports projects including:
 - [brussels.fusion-circus.com](https://brussels.fusion-circus.com/)
 - [circus-it.eu](https://circus-it.eu/)
 - [fair-event-plugins.com](https://fair-event-plugins.com/)
-- [fusion-circus.com](https://fusion-circus.com/)
 - [lamutable.es](https://lamutable.es/)
 - [valencia.fusion-circus.com](https://valencia.fusion-circus.com/)
 

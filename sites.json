@@ -26,11 +26,6 @@
       "port": 9792,
       "productionUrl": "https://fair-event-plugins.com"
     },
-    "fusion-circus": {
-      "folder": "sites/fusion-circus",
-      "port": 9789,
-      "productionUrl": "https://fusion-circus.com"
-    },
     "lamutable.es": {
       "folder": "sites/lamutable.es",
       "port": 9790,
