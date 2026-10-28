@@ -49,7 +49,26 @@ if ( ! $location_text && is_array( $location ) && 'online' === ( $location['mode
 	$location_text = __( 'Online', 'fusion-circus' );
 }
 $url = get_permalink( $post_id );
-$image = get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'fc-event-card__image' ) );
+if ( 'row' === ( $attributes['layout'] ?? 'card' ) ) :
+	$meta = implode( ' · ', array_filter( array( $time, $location_text ) ) );
+	?>
+<article class="fc-event-row">
+	<?php if ( $stamp ) : ?>
+	<time class="fc-event-row__date" datetime="<?php echo esc_attr( $timing['start_date'] ); ?>" aria-label="<?php echo esc_attr( wp_date( 'j F Y', $stamp, new DateTimeZone( 'UTC' ) ) ); ?>">
+		<strong><?php echo esc_html( wp_date( 'd', $stamp, new DateTimeZone( 'UTC' ) ) ); ?></strong>
+		<span><?php echo esc_html( wp_date( 'M', $stamp, new DateTimeZone( 'UTC' ) ) ); ?></span>
+	</time>
+	<?php endif; ?>
+	<div class="fc-event-row__body">
+		<h3><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
+		<?php if ( $meta ) : ?><p><?php echo esc_html( $meta ); ?></p><?php endif; ?>
+	</div>
+	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $url ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'View event: %s', 'fusion-circus' ), get_the_title( $post_id ) ) ); ?>"><?php esc_html_e( 'View event', 'fusion-circus' ); ?></a></div>
+</article>
+	<?php
+	return;
+endif;
+$image =get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'fc-event-card__image' ) );
 // Existing Brussels entries keep their artwork in the event body. Prefer a
 // featured image, then reuse the first content image without changing the post.
 if ( ! $image ) {

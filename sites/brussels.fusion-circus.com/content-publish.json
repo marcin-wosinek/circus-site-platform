@@ -3,9 +3,27 @@
   "items": {
     "homepage": {
       "type": "page",
-      "selector": { "type": "page_on_front" },
+      "selector": {
+        "type": "page_on_front"
+      },
       "artifactDir": "content/pages/homepage",
-      "allowedStatuses": ["draft", "publish"],
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "events-calendar": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/events-calendar/"
+      },
+      "artifactDir": "content/pages/events-calendar",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
       "metadata": []
     }
   }

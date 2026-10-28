@@ -77,3 +77,19 @@ A production pull replaces local authoring changes; export them first. To
 restore this committed homepage after a pull, materialize `{{SITE_URL}}` in
 `content.html` as `http://localhost:9794` and update the local static front page
 with WP-CLI or paste the markup into its code editor.
+
+## Workshops page
+
+The `/events-calendar/` page ("Workshops") is managed by `content-publish.json`
+under the `events-calendar` key, with its markup in
+`content/pages/events-calendar/`. Its list is Fair Events' **Events List**
+with the theme pattern `fusion-circus/upcoming-event-rows`: every published
+upcoming event, soonest first, rendered as a row with date, title, time,
+venue and a "View event" link. New events appear without editing the page.
+Deploying requires the shared theme (0.1.4 or later) before the page artifact;
+otherwise the list reports that the display pattern is unavailable.
+
+```sh
+npm run content:export -- brussels.fusion-circus.com --key events-calendar
+npm run content:plan -- brussels.fusion-circus.com --key events-calendar
+```

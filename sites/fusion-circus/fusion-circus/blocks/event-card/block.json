@@ -5,6 +5,9 @@
   "category": "widgets",
   "description": "An upcoming event card for a Fair Events Query Loop.",
   "usesContext": ["postId", "postType"],
+  "attributes": {
+    "layout": {"type": "string", "enum": ["card", "row"], "default": "card"}
+  },
   "supports": {"html": false, "inserter": false},
   "editorScript": "fusion-circus-event-card-editor",
   "render": "file:./render.php"

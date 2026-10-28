@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "events-calendar",
+  "type": "page",
+  "title": "Workshops",
+  "slug": "events-calendar",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "08fa87101cd8980335eccb473d3dbc2fb9fd1fa97c23dd7095e6c5b4b4a0a79d"
+}

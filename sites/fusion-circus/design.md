@@ -256,3 +256,14 @@ leaving empty tracks: three cards share three columns, two cards share two
 columns with a 16:9 image, and a single card switches to a horizontal layout
 with the image on the left half. The two-column and one-column breakpoints are
 unchanged.
+
+## Upcoming event rows (2026-10-28)
+
+The Brussels workshops page (`/events-calendar/`) lists every upcoming event
+through Fair Events Events List with `fusion-circus/upcoming-event-rows`
+instead of hand-maintained rows. The pattern reuses the theme event card block
+with `layout: row`, so selection, recurrence and timing match the homepage
+cards. Each row shows the date badge, title, time · location and a
+"View event" button, using the card surface, radius, shadow and the
+alternating violet/magenta badge. Below 38rem the badge, text and a full-width
+button stack vertically.
