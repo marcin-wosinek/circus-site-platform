@@ -15,7 +15,7 @@ local WordPress configuration so the shared bootstrap command can run.
 3. Add `sites/<site-id>/.wp-env.json` with `core: null`, the registered `port`,
    `testsEnvironment: false`, and exactly one confirmed theme source. Local
    theme paths are relative to the site folder. Brussels and Valencia use
-   `../fusion-circus/fusion-circus`; initialize that submodule before use.
+   `../fusion-circus/fusion-circus`, tracked in this repository.
    Include these import mappings:
 
    ```json

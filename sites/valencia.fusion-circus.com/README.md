@@ -4,11 +4,9 @@ Production: <https://valencia.fusion-circus.com/>
 
 This website is tracked directly in the platform repository. Local WordPress
 runs at <http://localhost:9795> and mounts the shared Fusion Circus theme
-from a separate checkout at `sites/fusion-circus` (ignored by this repository).
-If that checkout is missing, clone it before starting:
+from `sites/fusion-circus`, which is tracked in this repository. Start with:
 
 ```sh
-git clone https://github.com/marcin-wosinek/fusion-circus-theme.git sites/fusion-circus
 npm run bootstrap -- valencia.fusion-circus.com --apply
 ```
 
@@ -28,7 +26,7 @@ npm run update -- valencia.fusion-circus.com
 ```
 
 The production theme was confirmed as `fusion-circus` on 2026-09-23. Theme
-changes in the separate theme checkout affect every local site using that source.
+changes in the shared theme affect every local site using that source.
 See [production imports](../../docs/import-production.md) for prerequisites
 and recovery, and [adding sites](../../docs/adding-sites.md) for setup guidance.
 

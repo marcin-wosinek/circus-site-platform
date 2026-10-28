@@ -1,9 +1,9 @@
 # Sites
 
 This directory contains the WordPress site projects managed by the platform.
-Most projects are kept as Git submodules so they retain their own repository
-and history while the platform pins the version it uses. Sites that belong to
-the platform itself can instead be tracked directly in this repository.
+Projects are tracked directly in this repository unless they are listed in
+`.gitmodules`. A project kept as a Git submodule retains its own repository
+and history while the platform pins the version it uses.
 
 ## Included sites
 
@@ -19,12 +19,6 @@ the platform itself can instead be tracked directly in this repository.
 
 Follow [Adding a managed website](../docs/adding-sites.md) when registering a
 site, including its local WordPress configuration and import setup.
-
-After cloning the platform, initialize the site repositories with:
-
-```sh
-git submodule update --init --recursive
-```
 
 ## Registry
 

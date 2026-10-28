@@ -83,15 +83,15 @@ destination, current production state, and a fresh full database backup. See
 ## Theme artifacts
 
 The root [theme packaging workflow](.github/workflows/build-themes.yml) builds
-the directly tracked `acro-agenda` and `circus-it` themes. Its matrix is the
+the directly tracked `acro-agenda`, `circus-it`, `fusion-circus`, and
+`lamutable` themes. Its matrix is the
 authoritative list of packaged themes; `sites.json` remains focused on site
 operations.
 
 Run the workflow manually, or let a push to `main` trigger it when the workflow
-or either configured theme changes. Documentation-only and unrelated changes
-do not trigger packaging. The workflow checks out submodules recursively, but
-review repository ownership before adding a submodule theme because
-independently maintained themes normally belong in their own repository.
+or a configured theme changes. Documentation-only and unrelated changes
+do not trigger packaging. Only directly tracked themes can be packaged; review
+repository ownership before adding a theme maintained in its own repository.
 
 Successful runs publish one GitHub Actions artifact named
 `wordpress-themes`. GitHub downloads it as `wordpress-themes.zip`, containing:
@@ -99,7 +99,9 @@ Successful runs publish one GitHub Actions artifact named
 ```text
 wordpress-themes.zip
 ├── acro-agenda.zip
-└── circus-it.zip
+├── circus-it.zip
+├── fusion-circus.zip
+└── lamutable.zip
 ```
 
 Each inner ZIP is independently installable in WordPress and contains exactly
