@@ -164,6 +164,23 @@ test('plugin downloads use one fair release and WordPress.org for other plugins'
 	assert.equal(requests.length, 1);
 });
 
+test('plugin downloads accept PHP arrays encoded as objects with numeric keys', async () => {
+	assert.deepEqual(
+		await resolvePluginDownloads({ 0: 'akismet/akismet.php', 3: 'hello.php' }),
+		[
+			'https://downloads.wordpress.org/plugin/akismet.zip',
+			'https://downloads.wordpress.org/plugin/hello.zip',
+		],
+	);
+	assert.deepEqual(await resolvePluginDownloads({}), []);
+});
+
+test('plugin downloads reject malformed active plugin options', async () => {
+	for (const value of [null, false, 'akismet/akismet.php', { plugin: 'akismet/akismet.php' }, { 2: false }, [42]]) {
+		await assert.rejects(resolvePluginDownloads(value), /not a list of plugin entry files/);
+	}
+});
+
 test('plugin downloads can pin a fair release tag', async () => {
 	let requestedUrl;
 	const fetchImpl = async (url) => {

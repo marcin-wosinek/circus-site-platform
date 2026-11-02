@@ -61,6 +61,11 @@ export async function resolvePluginDownloads(activePlugins, {
 	githubToken = process.env.GITHUB_TOKEN,
 	fairRelease = process.env.FAIR_PLUGIN_RELEASE,
 } = {}) {
+	// PHP encodes arrays with gaps in their numeric keys as JSON objects.
+	if (activePlugins !== null && typeof activePlugins === 'object' && !Array.isArray(activePlugins) &&
+		Object.keys(activePlugins).every((key) => /^(0|[1-9][0-9]*)$/.test(key))) {
+		activePlugins = Object.values(activePlugins);
+	}
 	if (!Array.isArray(activePlugins) || activePlugins.some((plugin) => typeof plugin !== 'string')) {
 		throw new Error('The imported active_plugins option is not a list of plugin entry files.');
 	}
