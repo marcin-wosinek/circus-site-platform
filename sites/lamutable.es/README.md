@@ -92,7 +92,8 @@ The Spanish front page and its English translation at
 `/fair-events/minifesti-la-mutable-26-de-septiembre/`, and
 `/fair-events/dance-connection-27-de-septiembre/` events, along with the
 `/en/fair-events/dance-connection-27th-of-september/` and
-`/en/fair-events/minifesti-la-mutable-10th-of-october/` translations, are managed as committed artifacts
+`/en/fair-events/minifesti-la-mutable-10th-of-october/` and
+`/en/fair-events/minifesti-la-mutable-22th-of-november/` translations, are managed as committed artifacts
 through [`content-publish.json`](content-publish.json). Edit them in the local
 block editor, then export their local state from the platform root:
 
@@ -107,9 +108,9 @@ format and guarded production planning and apply workflow.
 The Dance Connection translations share one event date and ticket IDs. The
 English signup block translates its two ticket labels in `lamutable/functions.php`;
 the Spanish signup labels remain unchanged.
-The October Minifesti English page also shares ticket IDs with its Spanish
-source. Its ticket and activity labels are translated at render time in
-`lamutable/functions.php`. Deploy that theme file alongside the two committed
+The October and November Minifesti English pages also share ticket IDs with their Spanish
+sources. Their ticket and activity labels are translated at render time in
+`lamutable/functions.php`. Deploy that theme file alongside the corresponding committed
 English content artifacts; the content publishing command does not deploy
 theme files.
 

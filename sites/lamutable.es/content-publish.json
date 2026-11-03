@@ -103,6 +103,19 @@
         "publish"
       ],
       "metadata": []
+    },
+    "minifesti-la-mutable-22th-of-november": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/en/fair-events/minifesti-la-mutable-22th-of-november/"
+      },
+      "artifactDir": "content/fair-events/minifesti-la-mutable-22th-of-november",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }

@@ -143,3 +143,31 @@ add_action(
 		<?php
 	}
 );
+
+/** Translate shared signup labels only on the English November Minifesti. */
+function lamutable_translate_november_minifesti_tickets( $content ) {
+	if (
+		! is_singular( 'fair_event' ) ||
+		'minifesti-la-mutable-22th-of-november' !== get_post_field( 'post_name', get_queried_object_id() ) ||
+		! function_exists( 'pll_get_post_language' ) ||
+		'en' !== pll_get_post_language( get_queried_object_id() )
+	) {
+		return $content;
+	}
+
+	return strtr(
+		$content,
+		array(
+			'Early bird (minimo 2 actividades)' => 'Early bird (minimum 2 activities)',
+			'A la carta' => 'Individual activities',
+			'Entrada completa (todas las actividades)' => 'Full pass (all activities)',
+			'Thai Yoga Massage con Bart (15:00 – 16:30, en ingles)' => 'Thai Yoga Massage with Bart (15:00 – 16:30, in English)',
+			'Dance Lift: Sostenernos en Movimiento con Emanuela &amp; Tavi (17:00 – 18:30, en castellano)' => 'Dance Lift: Supporting Each Other in Movement with Emanuela &amp; Tavi (17:00 – 18:30, in Spanish)',
+			'Danza Contact Improvisación · Corpo Sutil con Diana Flor (19:00 – 20:30, en castellano)' => 'Contact Improvisation Dance · Corpo Sutil with Diana Flor (19:00 – 20:30, in Spanish)',
+			'INWARD — Yin Yoga &amp; Guided Meditation con Arancha (21:00 – 22:00, en ingles)' => 'INWARD — Yin Yoga &amp; Guided Meditation with Arancha (21:00 – 22:00, in English)',
+			'Contact Improvisación' => 'Contact Improvisation',
+		)
+	);
+}
+add_filter( 'render_block_fair-events/event-signup', 'lamutable_translate_november_minifesti_tickets' );
+add_filter( 'render_block_fair-events/event-prices', 'lamutable_translate_november_minifesti_tickets' );

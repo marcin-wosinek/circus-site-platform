@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "minifesti-la-mutable-22th-of-november",
+  "type": "fair_event",
+  "title": "Minifesti \"La Mutable\", 22nd of November",
+  "slug": "minifesti-la-mutable-22th-of-november",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/11/Arancha-Yin-Yoga-819x1024.jpeg",
+      "file": "inline-image-1.jpeg",
+      "sha256": "1a7fcd7851dc158d00f0d6edbe976d1b7307cdc4dfb1534fb9edfbc76db4885b"
+    },
+    {
+      "path": "2026/11/Bart-Thai-Yoga-Massage-819x1024.jpg",
+      "file": "inline-image-2.jpg",
+      "sha256": "ca6c8010018c70447efa920ea3ff78d740e304375a538dbeb4c9ea42ddab7dd6"
+    },
+    {
+      "path": "2026/11/Diana-Flor-Contact-Improvisation.jpg",
+      "file": "inline-image-3.jpg",
+      "sha256": "0f17ee2012e13cd79d57e0b3720f2d166e86a747c3a1d1671d6c5f4d8c494391"
+    },
+    {
+      "path": "2026/11/Emanuela-y-Tavi-Dance-Lift-683x1024.jpg",
+      "file": "inline-image-4.jpg",
+      "sha256": "4513535b8426ff9a03b2fb9487f69e13618ebc48840a6a7044c515ab617c1fe8"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "4f0e01cc9bcdc19bf5174e33ba9fa678cdb22a480bd8e1782c8387f28eae984d"
+}
