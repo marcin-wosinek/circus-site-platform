@@ -16,16 +16,16 @@
   },
   "plugins": [
     "https://downloads.wordpress.org/plugin/polylang.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-8-ga38ffabc/fair-audience.1.22.0-8-ga38ffabc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-8-ga38ffabc/fair-events.2.1.0-8-ga38ffabc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-8-ga38ffabc/fair-finance.1.4.1-8-ga38ffabc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-8-ga38ffabc/fair-form.1.8.0-8-ga38ffabc.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-8-ga38ffabc/fair-payments-connector.2.7.0-8-ga38ffabc.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-23-gfce09a7f/fair-audience.1.22.0-23-gfce09a7f.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-23-gfce09a7f/fair-events.2.1.0-23-gfce09a7f.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-23-gfce09a7f/fair-finance.1.4.1-23-gfce09a7f.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-23-gfce09a7f/fair-form.1.8.0-23-gfce09a7f.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-23-gfce09a7f/fair-payments-connector.2.7.0-23-gfce09a7f.zip",
     "https://downloads.wordpress.org/plugin/hostinger.zip",
     "https://downloads.wordpress.org/plugin/plausible-analytics.zip",
     "https://downloads.wordpress.org/plugin/redirection.zip",
     "https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
     "https://downloads.wordpress.org/plugin/wp-mail-smtp.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-8-ga38ffabc/fair-audience-experimental.1.6.0.zip"
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.1.0-23-gfce09a7f/fair-audience-experimental.1.6.0.zip"
   ]
 }
