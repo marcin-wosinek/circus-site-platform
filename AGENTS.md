@@ -57,6 +57,11 @@ preserve its Git history and verify the imported tree.
 
 ## Development guidelines
 
+- Site brand kits live in `sites/<site-id>/brand/`; read the kit before writing
+  site copy or designing site and social visuals. Follow `docs/brand-kits.md`.
+  Keep brand-specific guidance out of shared skills. A brand-only folder does
+  not imply operational registration in `sites.json`.
+
 - Treat production systems as read-only unless a task explicitly authorizes a
   write operation.
 - Never commit credentials, application passwords, private keys, production
