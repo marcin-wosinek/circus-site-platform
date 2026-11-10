@@ -118,7 +118,8 @@ writes.
 ## Brand kits
 
 Site-owned voice, visual guidance, and design tokens live in
-`sites/<site-id>/brand/`. See [Brand kits](docs/brand-kits.md) for the shared
+`sites/<site-id>/brand/`. Shared output presets are defined in
+[Media formats](docs/media-formats.md). See [Brand kits](docs/brand-kits.md) for the shared
 convention and future skill integration. The first draft is
 [Ahora que hacemos](sites/ahoraquehacemos.com/brand/README.md), a website with a fresh local WordPress environment.
 

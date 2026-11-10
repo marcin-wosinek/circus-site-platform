@@ -20,6 +20,10 @@ is usable for prototypes but must not be described as approved.
 
 ## Future shared skills
 
+Shared canvas sizes and content requirements live in the draft
+[Media formats catalogue](media-formats.md). Use its format IDs alongside the
+site's brand version; keep logos, font choices, and voice in the brand kit.
+
 Text and image skills should accept a site ID, task brief, destination, and
 output requirements. They should read that site's complete brand README and
 tokens, then any referenced assets needed for the task. Do not silently use
