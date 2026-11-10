@@ -3,6 +3,13 @@
 Registering a URL is only part of setup. A new managed site must also have a
 local WordPress configuration so the shared bootstrap command can run.
 
+For a new website without production WordPress, use `npm run start -- <site-id>`
+to create a fresh local installation. Keep the registry, local configuration,
+ignore rules, credential example, and documentation described below, but defer
+production checks and credentials until a production installation exists. Choose
+an explicit starter theme and document it as a local choice. Do not run
+`bootstrap` / `pull` for this case: those commands require a production source.
+
 1. Inspect `sites.json`, `.gitmodules`, and a comparable site's configuration.
    Choose a stable site ID, a unique `sites/<site-id>` folder, and an unused
    local port. Add `folder`, `port`, and the canonical HTTPS `productionUrl`

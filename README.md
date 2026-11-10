@@ -120,8 +120,7 @@ writes.
 Site-owned voice, visual guidance, and design tokens live in
 `sites/<site-id>/brand/`. See [Brand kits](docs/brand-kits.md) for the shared
 convention and future skill integration. The first draft is
-[Ahora que hacemos](sites/ahoraquehacemos.com/brand/README.md), a planned
-website that is not yet registered for WordPress operations.
+[Ahora que hacemos](sites/ahoraquehacemos.com/brand/README.md), a website with a fresh local WordPress environment.
 
 ## Planned scope
 
@@ -142,6 +141,7 @@ The platform supports projects including:
 
 - [acro-agenda.es](https://acro-agenda.es/)
 - [acroyoga-club.es](https://acroyoga-club.es/)
+- [ahoraquehacemos.com](https://ahoraquehacemos.com/)
 - [brussels.fusion-circus.com](https://brussels.fusion-circus.com/)
 - [circus-it.eu](https://circus-it.eu/)
 - [fair-event-plugins.com](https://fair-event-plugins.com/)
