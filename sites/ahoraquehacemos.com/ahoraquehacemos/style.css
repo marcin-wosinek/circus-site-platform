@@ -1,0 +1,29 @@
+/*
+Theme Name: Ahora que hacemos
+Description: An open, earthy block theme based on the Ahora que hacemos draft brand kit 0.1.0.
+Version: 0.1.0
+Requires at least: 6.7
+Requires PHP: 7.4
+Text Domain: ahoraquehacemos
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+*/
+:where(.wp-site-blocks) { padding-inline: clamp(1.25rem, 4vw, 4rem); }
+.site-header { padding-block: 1.75rem; border-bottom: 1px solid var(--wp--preset--color--sand); }
+.site-header a, .site-footer a { text-underline-offset: .25em; }
+.site-header nav { font-size: .95rem; }
+.site-hero { padding-block: var(--wp--preset--spacing--x-large); }
+.site-hero h1 { max-width: 17ch; text-wrap: balance; margin-block: 0 2rem; }
+.site-hero p { max-width: 40rem; }
+.site-introduction { padding-block: var(--wp--preset--spacing--large); border-top: 1px solid var(--wp--preset--color--sand); }
+.site-encounters { padding: clamp(2rem, 5vw, 5rem); border-radius: 5rem 0 5rem 0; margin-block: var(--wp--preset--spacing--large); }
+.site-footer { padding-block: 2rem; border-top: 1px solid var(--wp--preset--color--sand); font-size: .9rem; }
+.site-main { padding-block: var(--wp--preset--spacing--large); }
+:where(a, button, input, textarea, select):focus-visible { outline: 3px solid var(--wp--preset--color--olive); outline-offset: 5px; }
+.wp-block-button__link:hover { text-decoration: underline; text-underline-offset: .2em; }
+:where(img) { max-width: 100%; height: auto; }
+@media (max-width: 600px) {
+ .site-header > .wp-block-group { align-items: flex-start; gap: 1rem; }
+ .site-header .wp-block-navigation { width: 100%; }
+ .site-encounters { border-radius: 3rem 0 3rem 0; }
+}

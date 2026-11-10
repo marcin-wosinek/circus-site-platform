@@ -5,9 +5,10 @@ Planned production URL: https://ahoraquehacemos.com/
 Local WordPress: http://localhost:9796/ (admin: http://localhost:9796/wp-admin/).
 Default local credentials: `admin` / `password`.
 
-This is a fresh local installation using the WordPress.org Twenty Twenty-Five
-theme, with no additional plugins or production content. The brand kit remains
-the starting point for future design and copy: [brand kit](brand/README.md).
+This is a fresh local installation using the local
+[Ahora que hacemos block theme](ahoraquehacemos/), with no additional plugins
+or production content. The theme follows the draft
+[brand kit](brand/README.md) version 0.1.0; it does not imply brand approval.
 
 Run from the platform root:
 
@@ -34,3 +35,33 @@ path, and active theme have not been verified. Before enabling imports, follow
 [Adding a managed website](../../docs/adding-sites.md), verify the production
 theme matches the local configuration, and fill the ignored
 `.env.import-local/ahoraquehacemos.com` using the provided example.
+
+## Theme
+
+The `ahoraquehacemos/` theme requires WordPress 6.7+ and PHP 7.4+ and has no
+build step, external fonts, JavaScript, or plugin dependencies. `theme.json`
+exposes the brand palette, system font stacks, spacing, and type scale in the
+Site Editor. `style.css` supplies responsive layout and keyboard focus styles
+and is loaded on the frontend and in the editors.
+
+After starting the environment, activate the theme locally if needed:
+
+```sh
+cd sites/ahoraquehacemos.com
+npx @wordpress/env run cli wp theme activate ahoraquehacemos
+```
+
+The front-page template contains the introduction headline, an anchor link to
+upcoming encounters, and the brand kit's empty state. It renders the existing
+homepage body through the Post Content block; that content remains managed by
+`content-publish.json`. Edit theme sections in Appearance → Editor and page
+copy in Pages. Site Editor overrides are stored in the local database and can
+mask later file changes; clear the relevant template customization to return
+to the version in Git. Theme templates are separate from content export.
+
+Page, single, archive/index, and 404 templates share the header and footer.
+Navigation points to the homepage sections. The provisional JPEG logo is not
+used; the site title is the text identity. There are no invented event details,
+booking links, or contact addresses. Add verified encounters and contact details
+when supplied, replacing the empty state in the Site Editor or template.
+Production has not been changed.

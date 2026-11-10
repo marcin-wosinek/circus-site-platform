@@ -1,0 +1,219 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "44rem",
+      "wideSize": "76rem"
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#30352B"
+        },
+        {
+          "slug": "olive",
+          "name": "Olive",
+          "color": "#555B3F"
+        },
+        {
+          "slug": "sage",
+          "name": "Sage",
+          "color": "#92977A"
+        },
+        {
+          "slug": "ochre",
+          "name": "Ochre",
+          "color": "#D5A34F"
+        },
+        {
+          "slug": "terracotta",
+          "name": "Terracotta",
+          "color": "#C8886C"
+        },
+        {
+          "slug": "sand",
+          "name": "Sand",
+          "color": "#E8D6BE"
+        },
+        {
+          "slug": "paper",
+          "name": "Paper",
+          "color": "#FAF8F3"
+        },
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#FFFFFF"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "slug": "heading",
+          "name": "Serif",
+          "fontFamily": "Georgia, 'Times New Roman', serif"
+        },
+        {
+          "slug": "body",
+          "name": "Sans serif",
+          "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "small",
+          "name": "Small",
+          "size": "0.9rem"
+        },
+        {
+          "slug": "body",
+          "name": "Body",
+          "size": "1.125rem"
+        },
+        {
+          "slug": "lead",
+          "name": "Lead",
+          "size": "clamp(1.25rem, 2vw, 1.5rem)"
+        },
+        {
+          "slug": "display",
+          "name": "Display",
+          "size": "clamp(2.7rem, 6.5vw, 6rem)"
+        }
+      ]
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "vw",
+        "%"
+      ],
+      "spacingSizes": [
+        {
+          "slug": "small",
+          "name": "Small",
+          "size": "1rem"
+        },
+        {
+          "slug": "medium",
+          "name": "Medium",
+          "size": "2rem"
+        },
+        {
+          "slug": "large",
+          "name": "Large",
+          "size": "clamp(3rem, 6vw, 5rem)"
+        },
+        {
+          "slug": "x-large",
+          "name": "Extra large",
+          "size": "clamp(4rem, 9vw, 8rem)"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--paper)",
+      "text": "var(--wp--preset--color--ink)"
+    },
+    "spacing": {
+      "blockGap": "1.5rem"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--body)",
+      "fontSize": "var(--wp--preset--font-size--body)",
+      "lineHeight": "1.75"
+    },
+    "elements": {
+      "heading": {
+        "color": {
+          "text": "var(--wp--preset--color--olive)"
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--heading)",
+          "fontWeight": "400",
+          "lineHeight": "1.12"
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--display)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "clamp(2rem, 4vw, 3.5rem)"
+        }
+      },
+      "link": {
+        "color": {
+          "text": "var(--wp--preset--color--olive)"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var(--wp--preset--color--olive)",
+          "text": "var(--wp--preset--color--paper)"
+        },
+        "border": {
+          "radius": "2rem"
+        },
+        "spacing": {
+          "padding": {
+            "top": "0.85rem",
+            "bottom": "0.85rem",
+            "left": "1.5rem",
+            "right": "1.5rem"
+          }
+        },
+        "typography": {
+          "fontSize": "1rem",
+          "fontWeight": "500"
+        }
+      }
+    },
+    "blocks": {
+      "core/site-title": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--heading)",
+          "fontSize": "1.6rem",
+          "fontWeight": "400"
+        },
+        "elements": {
+          "link": {
+            "typography": {
+              "textDecoration": "none"
+            }
+          }
+        }
+      },
+      "core/post-title": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--heading)"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Cabecera",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Pie de página",
+      "area": "footer"
+    }
+  ]
+}

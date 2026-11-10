@@ -4,7 +4,7 @@
   "testsEnvironment": false,
   "plugins": [],
   "themes": [
-    "https://downloads.wordpress.org/theme/twentytwentyfive.zip"
+    "./ahoraquehacemos"
   ],
   "config": {
     "WP_DEBUG": true,
