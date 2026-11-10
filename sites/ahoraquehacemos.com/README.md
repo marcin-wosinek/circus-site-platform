@@ -20,6 +20,14 @@ npm run update -- ahoraquehacemos.com
 `start` creates the local installation on first use. The shared local email
 safeguard is mounted automatically. Local uploads and import data are ignored.
 
+The homepage is managed in `content-publish.json`. Its three-paragraph Spanish
+introduction is exported to `content/pages/homepage/`. After editing the local
+page, refresh the tracked artifact from the platform root:
+
+```sh
+npm run content:export -- ahoraquehacemos.com --key homepage
+```
+
 The shared `bootstrap` / `pull` commands import an existing production site;
 they are not needed for this fresh installation. Production hosting, WordPress
 path, and active theme have not been verified. Before enabling imports, follow

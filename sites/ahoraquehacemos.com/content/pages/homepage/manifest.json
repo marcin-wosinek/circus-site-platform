@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "homepage",
+  "type": "page",
+  "title": "Ahora que hacemos",
+  "slug": "ahora-que-hacemos",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "a9e3a0b70ab5737ffeba8a7e55aa12ccacfd48be2de16f26263aa69d17bccab8"
+}
