@@ -22,6 +22,10 @@ site, including its local WordPress configuration and import setup.
 
 ## Registry
 
+Brand preparation may precede operational registration. The planned
+[Ahora que hacemos](ahoraquehacemos.com/README.md) site currently contains a
+brand kit only and is not available to the shared site commands.
+
 The root [`sites.json`](../sites.json) file is the machine-readable site
 registry. Each entry is keyed by a stable site ID and currently requires:
 

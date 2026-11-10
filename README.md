@@ -115,6 +115,14 @@ This workflow only turns committed source files into downloadable artifacts.
 It has no deployment step, production access, credentials, or production
 writes.
 
+## Brand kits
+
+Site-owned voice, visual guidance, and design tokens live in
+`sites/<site-id>/brand/`. See [Brand kits](docs/brand-kits.md) for the shared
+convention and future skill integration. The first draft is
+[Ahora que hacemos](sites/ahoraquehacemos.com/brand/README.md), a planned
+website that is not yet registered for WordPress operations.
+
 ## Planned scope
 
 - Shared WordPress development workflows
