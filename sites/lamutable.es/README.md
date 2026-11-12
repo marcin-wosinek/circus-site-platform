@@ -142,3 +142,9 @@ npm test
 Also validate affected PHP and JSON, then inspect the rendered result at
 desktop and mobile widths. The complete definition of done and WordPress
 block-theme caveats live in [AGENTS.md](AGENTS.md).
+
+## Event image campaigns
+
+[Minifesti campaign instructions](campaigns/minifesti/README.md) describe the
+reusable 3–8 workshop structure and the initial November edition. Visual
+direction is pending; this preparation introduces no generation or publishing command.

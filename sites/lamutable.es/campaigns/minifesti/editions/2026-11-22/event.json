@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "status": "awaiting-visual-input",
+  "editionId": "2026-11-22",
+  "date": "2026-11-22",
+  "dateVerification": "pending; edition date inferred from example and export context",
+  "sourceUrl": "https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/",
+  "factsRepositorySource": "sites/lamutable.es/content/fair-events/minifesti-la-mutable-22th-of-november/content.html",
+  "title": "Minifesti La Mutable",
+  "venue": null,
+  "outputLanguage": null,
+  "brand": {
+    "kit": null,
+    "version": null
+  },
+  "variant": {
+    "palette": null,
+    "shapes": null
+  },
+  "workshops": [
+    {
+      "id": "thai-yoga-massage",
+      "title": "Thai Yoga Massage",
+      "instructors": [
+        "Bart"
+      ],
+      "start": "15:00",
+      "end": "16:30",
+      "language": "en",
+      "photo": "sources/thai-yoga-massage.jpg",
+      "focalPoint": null
+    },
+    {
+      "id": "dance-lift",
+      "title": "Dance Lift: Supporting Each Other in Movement",
+      "instructors": [
+        "Emanuela",
+        "Tavi"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "language": "es",
+      "photo": "sources/dance-lift.jpg",
+      "focalPoint": null
+    },
+    {
+      "id": "contact-improvisation",
+      "title": "Contact Improvisation Dance · Corpo Sutil",
+      "instructors": [
+        "Diana Flor"
+      ],
+      "start": "19:00",
+      "end": "20:30",
+      "language": "es",
+      "photo": "sources/contact-improvisation.jpg",
+      "focalPoint": null
+    },
+    {
+      "id": "inward-yin-yoga",
+      "title": "INWARD — Yin Yoga & Guided Meditation",
+      "instructors": [
+        "Arancha"
+      ],
+      "start": "21:00",
+      "end": "22:00",
+      "language": "en",
+      "photo": "sources/inward-yin-yoga.jpeg",
+      "focalPoint": null
+    }
+  ]
+}

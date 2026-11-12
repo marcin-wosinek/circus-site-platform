@@ -1,0 +1,50 @@
+{
+  "formatVersion": 1,
+  "status": "draft",
+  "mediaCatalogue": "../../../../docs/media-formats.md",
+  "mediaCatalogueVersion": "0.2.0",
+  "workshopCount": {
+    "min": 3,
+    "max": 8
+  },
+  "layoutGroups": [
+    [
+      3,
+      4
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      7,
+      8
+    ]
+  ],
+  "outputs": [
+    {
+      "role": "event",
+      "formatId": "instagram-feed-portrait",
+      "filename": "instagram-event.png",
+      "photos": "all-balanced"
+    },
+    {
+      "role": "event",
+      "formatId": "facebook-event-cover",
+      "filename": "facebook-event.png",
+      "photos": "all-balanced"
+    },
+    {
+      "role": "workshop",
+      "formatId": "instagram-feed-portrait",
+      "filename": "instagram-{workshopId}.png",
+      "photos": "featured-dominant-all-others-visible"
+    },
+    {
+      "role": "workshop",
+      "formatId": "meetup-cover",
+      "filename": "meetup-{workshopId}.png",
+      "photos": null
+    }
+  ]
+}

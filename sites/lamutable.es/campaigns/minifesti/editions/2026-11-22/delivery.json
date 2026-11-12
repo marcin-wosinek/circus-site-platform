@@ -1,0 +1,10 @@
+{
+  "formatVersion": 1,
+  "status": "not-generated",
+  "brandVersion": null,
+  "recipe": "../../recipe.json",
+  "mediaCatalogueVersion": "0.2.0",
+  "expectedOutputCount": 10,
+  "deliverables": [],
+  "instructions": "For each deliverable record file, formatId, dimensions, fileType, workshopId if applicable, source assets, fonts, optional elements, deviations, altText and review status."
+}

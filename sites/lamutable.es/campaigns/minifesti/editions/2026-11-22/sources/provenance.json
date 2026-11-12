@@ -1,0 +1,37 @@
+{
+  "formatVersion": 1,
+  "assets": [
+    {
+      "workshopId": "thai-yoga-massage",
+      "file": "thai-yoga-massage.jpg",
+      "repositorySource": "sites/lamutable.es/content/fair-events/minifesti-la-mutable-22th-of-november/inline-image-2.jpg",
+      "sourceUrl": "https://lamutable.es/wp-content/uploads/2026/11/Bart-Thai-Yoga-Massage-819x1024.jpg",
+      "sha256": "ca6c8010018c70447efa920ea3ff78d740e304375a538dbeb4c9ea42ddab7dd6",
+      "status": "existing-content-export-not-visually-reviewed"
+    },
+    {
+      "workshopId": "dance-lift",
+      "file": "dance-lift.jpg",
+      "repositorySource": "sites/lamutable.es/content/fair-events/minifesti-la-mutable-22th-of-november/inline-image-4.jpg",
+      "sourceUrl": "https://lamutable.es/wp-content/uploads/2026/11/Emanuela-y-Tavi-Dance-Lift-683x1024.jpg",
+      "sha256": "4513535b8426ff9a03b2fb9487f69e13618ebc48840a6a7044c515ab617c1fe8",
+      "status": "existing-content-export-not-visually-reviewed"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "file": "contact-improvisation.jpg",
+      "repositorySource": "sites/lamutable.es/content/fair-events/minifesti-la-mutable-22th-of-november/inline-image-3.jpg",
+      "sourceUrl": "https://lamutable.es/wp-content/uploads/2026/11/Diana-Flor-Contact-Improvisation.jpg",
+      "sha256": "0f17ee2012e13cd79d57e0b3720f2d166e86a747c3a1d1671d6c5f4d8c494391",
+      "status": "existing-content-export-not-visually-reviewed"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "file": "inward-yin-yoga.jpeg",
+      "repositorySource": "sites/lamutable.es/content/fair-events/minifesti-la-mutable-22th-of-november/inline-image-1.jpeg",
+      "sourceUrl": "https://lamutable.es/wp-content/uploads/2026/11/Arancha-Yin-Yoga-819x1024.jpeg",
+      "sha256": "1a7fcd7851dc158d00f0d6edbe976d1b7307cdc4dfb1534fb9edfbc76db4885b",
+      "status": "existing-content-export-not-visually-reviewed"
+    }
+  ]
+}
