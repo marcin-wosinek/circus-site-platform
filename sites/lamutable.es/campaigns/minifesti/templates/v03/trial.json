@@ -1,0 +1,60 @@
+{
+  "templateVersion": "0.3.0",
+  "edition": "../../editions/2026-11-22",
+  "status": "two-examples-pending-user-review",
+  "organizer": "La Mutable",
+  "heading": "MINIFESTI",
+  "featuredWorkshopId": "contact-improvisation",
+  "displayTitleLines": [
+    "IMPROVISACIÓN",
+    "DE CONTACTO"
+  ],
+  "displaySubtitle": "Corpo Sutil · con Diana Flor",
+  "addressLines": "C/ de Sant Columbà, 11, bajo · Benimaclet · València",
+  "overviewCrops": {
+    "dance-lift": [
+      40,
+      230,
+      620,
+      680
+    ],
+    "thai-yoga-massage": [
+      0,
+      170,
+      819,
+      850
+    ],
+    "contact-improvisation": [
+      0,
+      0,
+      1000,
+      671
+    ],
+    "inward-yin-yoga": [
+      260,
+      350,
+      470,
+      355
+    ]
+  },
+  "supportingCrops": {
+    "dance-lift": [
+      0,
+      240,
+      683,
+      660
+    ],
+    "thai-yoga-massage": [
+      0,
+      230,
+      819,
+      680
+    ],
+    "inward-yin-yoga": [
+      260,
+      350,
+      470,
+      355
+    ]
+  }
+}

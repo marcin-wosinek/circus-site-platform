@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <rect width="1080" height="1350" fill="{{cream}}"/>
+  <g id="overview-photos">{{photos}}</g>
+  <path id="information-wave" d="M0 550 C180 580 255 510 440 535 S790 595 1080 530 L1080 870 C850 820 750 900 535 865 S190 830 0 885Z" fill="{{cream}}"/>
+  <g id="event-title" fill="{{ink}}" font-family="Barlow Condensed" font-weight="800">
+    <text x="65" y="605" font-family="Arial" font-weight="400" font-size="31">{{organizer}}</text>
+    <text x="58" y="750" font-size="183">{{heading}}</text>
+  </g>
+  <g id="botanical-accent" fill="{{olive}}">
+    <path d="M870 735 Q890 665 935 610" fill="none" stroke="{{olive}}" stroke-width="3"/>
+    <path d="M883 697 Q851 670 861 647 Q892 656 883 697Z M895 672 Q888 633 905 621 Q919 647 895 672Z M906 651 Q929 648 940 620 Q913 618 906 651Z M874 722 Q903 718 918 691 Q885 688 874 722Z"/>
+  </g>
+  <text id="date" x="65" y="818" font-family="Barlow Condensed" font-weight="800" font-size="53" fill="{{burgundy}}">{{date}}</text>
+  <text id="hours" x="1015" y="818" text-anchor="end" font-family="Arial" font-size="34" fill="{{ink}}">{{hours}}</text>
+  <g id="venue" font-family="Arial" fill="{{ink}}">
+    <text x="65" y="1231" font-size="30">{{venue}}</text>
+    <text x="65" y="1274" font-size="26">{{address}}</text>
+  </g>
+</svg>

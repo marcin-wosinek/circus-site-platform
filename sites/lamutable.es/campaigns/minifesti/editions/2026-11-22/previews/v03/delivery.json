@@ -1,0 +1,186 @@
+{
+  "templateVersion": "0.3.0",
+  "status": "two-examples-pending-user-review",
+  "brandVersion": "0.1.0",
+  "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
+  "fonts": [
+    {
+      "family": "Barlow Condensed ExtraBold",
+      "file": "templates/v03/fonts/BarlowCondensed-ExtraBold.ttf",
+      "sha256": "724c9c25952d5f4a2d87185d9767aa006144c5f0d944dc05bf7d5d603551c260",
+      "license": "SIL OFL 1.1; fonts/OFL.txt"
+    },
+    {
+      "family": "Arial",
+      "file": "/System/Library/Fonts/Supplemental/Arial.ttf",
+      "license": "System font; not redistributed"
+    }
+  ],
+  "inputHashes": {
+    "event.json": "65efe72bad19e9906aa9223ccc8b1de072968d50a0db9ec541766811a05d6bcd",
+    "brief.md": "6335780afe357c8df8a8d233495b3686272b24b95580ad744421e274ee867678",
+    "art-direction.md": "695a27fe82cf96b97d00597cdb8e203d71f738fe7668594930dc700ac2bd149c"
+  },
+  "templateHashes": {
+    "overview.svg": "a1a69b747d812967c5c0af930edf5c29d6c5a727a8086472ae68849bb2e7fe79",
+    "workshop.svg": "8e0fcc8b1b08bdc502dc3ab3934115e2fb730d8106d4774edb959686df523f51",
+    "trial.json": "8e3741519710543ce0bcb1816a03831dc6901810490d3273f5e55b4b68263111",
+    "render.mjs": "d60b88b6837575c0aa755ffc5b7685fd098af84697665c2a3620a2fc94902bd0"
+  },
+  "sourceHashes": {
+    "sources/thai-yoga-massage.jpg": "ca6c8010018c70447efa920ea3ff78d740e304375a538dbeb4c9ea42ddab7dd6",
+    "sources/dance-lift.jpg": "4513535b8426ff9a03b2fb9487f69e13618ebc48840a6a7044c515ab617c1fe8",
+    "sources/contact-improvisation.jpg": "0f17ee2012e13cd79d57e0b3720f2d166e86a747c3a1d1671d6c5f4d8c494391",
+    "sources/inward-yin-yoga.jpeg": "1a7fcd7851dc158d00f0d6edbe976d1b7307cdc4dfb1534fb9edfbc76db4885b"
+  },
+  "photoPlacements": [
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        40,
+        230,
+        620,
+        680
+      ],
+      "placement": [
+        28,
+        28,
+        506,
+        550
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        170,
+        819,
+        850
+      ],
+      "placement": [
+        546,
+        28,
+        506,
+        550
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": [
+        0,
+        0,
+        1000,
+        671
+      ],
+      "placement": [
+        28,
+        850,
+        506,
+        345
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        546,
+        850,
+        506,
+        345
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        28,
+        28,
+        1024,
+        660
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        230,
+        819,
+        680
+      ],
+      "placement": [
+        28,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        0,
+        240,
+        683,
+        660
+      ],
+      "placement": [
+        373,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        718,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "previews/v03/instagram-event.png",
+      "composition": "compositions/v03/instagram-event.svg",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "status": "draft-pending-user-review"
+    },
+    {
+      "file": "previews/v03/instagram-contact-improvisation.png",
+      "composition": "compositions/v03/instagram-contact-improvisation.svg",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "status": "draft-pending-user-review"
+    }
+  ],
+  "unresolved": [
+    "User visual review before designing remaining variants",
+    "Photo usage permissions",
+    "Destination export checks before final delivery"
+  ]
+}
