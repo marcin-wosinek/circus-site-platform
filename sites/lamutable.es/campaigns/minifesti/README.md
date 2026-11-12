@@ -21,6 +21,12 @@ These JSON documents are planning conventions, not an implemented renderer or sc
 
 ## Prepare an edition
 
+Follow the [SVG template workflow](template-workflow.md) for the proposed
+design, review, and deterministic production process. Record trial findings
+there as described before extracting a reusable skill. The existing edition
+scripts remain draft implementations, not the reusable renderer proposed by
+that playbook.
+
 1. Create editions/YYYY-MM-DD/ with event.json, brief.md, sources/,
    compositions/, previews/v01/, exports/v01/ and delivery.json, following the
    example edition. Copy the structure, not another edition's facts or exports.
