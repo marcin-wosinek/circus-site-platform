@@ -49,3 +49,19 @@ delivery record leaves the older ten-output delivery record untouched.
   delivery record intact; landscape has its own delivery record.
 - Remaining: landscape user review, other workshop examples, photo permissions
   and destination export checks before publication.
+
+## Complete workshop set
+
+- User requested all relevant workshop files after reviewing the landscape pair.
+- Generated four Instagram portrait and four Meetup landscape SVG/PNG pairs,
+  mobile previews, channel contact sheets, per-workshop caption/alt-text notes
+  and a complete workshop delivery record. Existing event-wide files preserved.
+- Adaptations: Dance Lift split into two title lines; its longer subtitle uses
+  two lines on Meetup. Featured Thai Yoga/Dance Lift crops preserve the bodies
+  and supports; INWARD crop avoids the original's baked-in lettering. Contact
+  improvisation keeps its whole source image. Each Instagram includes all four
+  workshop photographs, while Meetup shows its featured practice only.
+- Validation: eight unique workshop/format combinations, expected dimensions,
+  actual-font width checks and visual inspection of both channel contact sheets.
+- Together with the existing overview and Facebook cover, v03 has all ten recipe
+  outputs. Final review, photo permissions and destination checks remain pending.

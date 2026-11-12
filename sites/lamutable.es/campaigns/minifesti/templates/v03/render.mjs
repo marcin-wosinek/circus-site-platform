@@ -52,6 +52,8 @@ measure(config.addressLines, 26, bodyFont, 950);
 const common = Object.fromEntries(Object.entries({ ...brand.colors, venue, address: config.addressLines }).map(([k,v]) => [k, xml(v)]));
 const outputs = [];
 const landscapeOnly = process.argv.includes('--landscape-only');
+const workshopsOnly = process.argv.includes('--workshops');
+if (landscapeOnly && workshopsOnly) throw Error('Select either --landscape-only or --workshops');
 function render(name, template, slots, dimensions = [1080,1350]) {
   const values = { ...common, ...slots };
   const svg = readFileSync(resolve(root, `${template}.svg`), 'utf8').replace(/\{\{(\w+)\}\}/g, (_, key) => {
@@ -72,7 +74,7 @@ function render(name, template, slots, dimensions = [1080,1350]) {
   outputs.push({ file: `previews/v03/${name}.png`, composition: `compositions/v03/${name}.svg`, formatId: template === 'facebook' ? 'facebook-event-cover' : template === 'meetup' ? 'meetup-cover' : 'instagram-feed-portrait', dimensions, status: 'draft-pending-user-review' });
 }
 const hours = `${event.workshops[0].start}–${event.workshops.at(-1).end}`;
-if (!landscapeOnly) {
+if (!landscapeOnly && !workshopsOnly) {
 measure(config.heading, 183, font, 957);
 measure(config.organizer, 31, bodyFont, 950);
 const dateWidth = measure(date, 53, font, 650);
@@ -156,4 +158,59 @@ if (landscapeOnly) {
     photoPlacements:records, outputs, unresolved:['Landscape visual review','Photo usage permissions','Destination export checks before publication'],
   },null,2)+'\n');
   console.log('Rendered Facebook and Meetup landscape review examples; portrait outputs preserved.');
+}
+
+if (workshopsOnly) {
+  const layouts = JSON.parse(readFileSync(resolve(root,'workshops.json')));
+  const identity = `${event.title} · Movimiento en común.`;
+  const street = 'C/ de Sant Columbà, 11, bajo';
+  const district = 'Benimaclet · València';
+  for (const workshop of event.workshops) {
+    const layout = layouts[workshop.id];
+    if (!layout || layout.titleLines.length !== 2) throw Error(`Missing title layout: ${workshop.id}`);
+    layout.titleLines.filter(Boolean).forEach(line => { measure(line,99,font,950); measure(line,64,font,420); });
+    measure(layout.subtitle,32,bodyFont,950);
+    const dateTime = `${date} · ${workshop.start}–${workshop.end}`;
+    measure(dateTime,44,font,950);
+    render(`instagram-${workshop.id}`,'workshop',{
+      featuredPhoto:photo(workshop.id,28,28,1024,660,layout.crop),
+      titleLines:layout.titleLines.map((line,i) => `<text x="65" y="${754+i*92}">${xml(line)}</text>`).join(''),
+      teacher:xml(layout.subtitle),dateTime:xml(dateTime),identity:xml(identity),
+      supportingPhotos:event.workshops.filter(w => w.id !== workshop.id).map((w,i) => photo(w.id,28+i*345,1033,334,162,config.supportingCrops[w.id])).join(''),
+    });
+    const subtitleLines = layout.meetupSubtitleLines || [layout.subtitle];
+    subtitleLines.forEach(line => measure(line,25,bodyFont,420));
+    measure(date,38,font,420);
+    measure(`${workshop.start}–${workshop.end}`,44,font,420);
+    render(`meetup-${workshop.id}`,'meetup',{
+      featuredPhoto:photo(workshop.id,28,28,570,552,layout.crop),
+      titleLines:layout.titleLines.map((line,i) => `<text x="620" y="${140+i*62}">${xml(line)}</text>`).join(''),
+      teacher:subtitleLines.map((line,i) => `<tspan x="620" dy="${i ? 29 : 0}">${xml(line)}</tspan>`).join(''),
+      date:xml(date),hours:xml(`${workshop.start}–${workshop.end}`),identity:xml(event.title),
+      venueLine1:xml('Asociación Samadhi'),venueLine2:xml('de Salud Integral'),street:xml(street),district:xml(district),
+    },[1080,608]);
+  }
+  if (outputs.length !== 8) throw Error('Expected eight workshop outputs');
+  for (const workshop of event.workshops) {
+    const caption = `${workshop.title}\nCon ${workshop.instructors.join(' y ')}\n22 noviembre 2026 · ${workshop.start}–${workshop.end}\n${event.venue.name}\n${event.venue.address}\nMinifesti La Mutable`;
+    const alt = `${workshop.title}, con ${workshop.instructors.join(' y ')}. 22 noviembre 2026, ${workshop.start}–${workshop.end}. ${event.venue.name}.`;
+    writeFileSync(resolve(base,`previews/v03/${workshop.id}.md`),`# ${workshop.title}\n\nDraft assets; visual review and photo usage confirmation remain pending.\n\n- [Instagram PNG](instagram-${workshop.id}.png) (1080 × 1350)\n- [Instagram editable SVG](../../compositions/v03/instagram-${workshop.id}.svg)\n- [Meetup PNG](meetup-${workshop.id}.png) (1080 × 608)\n- [Meetup editable SVG](../../compositions/v03/meetup-${workshop.id}.svg)\n\n## Caption\n\n${caption.split('\n').join('  \n')}\n\n## Alt text\n\n${alt}\n`);
+  }
+  for (const output of outputs) run([resolve(base,output.file),'-resize',output.formatId === 'meetup-cover' ? '540x' : '360x',resolve(base,output.file.replace('.png','-mobile.png'))]);
+  for (const format of ['instagram','meetup']) {
+    execFileSync('magick',['montage',...outputs.filter(o => o.file.includes(`/${format}-`)).map(o => resolve(base,o.file.replace('.png','-mobile.png'))),'-tile','2x2','-geometry','+12+12','-background',brand.colors.cream,resolve(base,`previews/v03/${format}-workshops-contact-sheet.png`)],{env});
+  }
+  const hash = path => createHash('sha256').update(readFileSync(path)).digest('hex');
+  writeFileSync(resolve(base,'previews/v03/workshops-delivery.json'),JSON.stringify({
+    templateVersion:'0.3.2',status:'complete-workshop-set-pending-review',brandVersion:brand.brandVersion,mediaCatalogueVersion:'0.2.0',
+    renderer:run(['-version']).toString().split('\n')[0],fonts:['Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)','Arial (local macOS system font)'],
+    inputHashes:Object.fromEntries(['workshop.svg','meetup.svg','render.mjs','workshops.json'].map(p => [p,hash(resolve(root,p))])),
+    sourceHashes:Object.fromEntries(['event.json',...event.workshops.map(w => w.photo)].map(p => [p,hash(resolve(base,p))])),
+    photoPlacements:records,outputs:outputs.map(o => {
+      const workshop = event.workshops.find(w => o.file.includes(w.id));
+      return {...o,workshopId:workshop.id,altText:`${workshop.title}, con ${workshop.instructors.join(' y ')}. ${date.toLowerCase()}, ${workshop.start}–${workshop.end}. ${venue}.`,caption:`${workshop.title}\nCon ${workshop.instructors.join(' y ')}\n22 noviembre 2026 · ${workshop.start}–${workshop.end}\n${event.venue.name}\n${event.venue.address}\nMinifesti La Mutable`};
+    }),
+    unresolved:['Final visual review','Photo usage permissions','Destination export checks before publication'],
+  },null,2)+'\n');
+  console.log('Rendered all eight workshop SVG/PNG pairs, mobile previews, contact sheets and workshop delivery record.');
 }

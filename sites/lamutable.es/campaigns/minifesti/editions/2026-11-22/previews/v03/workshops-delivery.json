@@ -1,0 +1,432 @@
+{
+  "templateVersion": "0.3.2",
+  "status": "complete-workshop-set-pending-review",
+  "brandVersion": "0.1.0",
+  "mediaCatalogueVersion": "0.2.0",
+  "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
+  "fonts": [
+    "Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)",
+    "Arial (local macOS system font)"
+  ],
+  "inputHashes": {
+    "workshop.svg": "8e0fcc8b1b08bdc502dc3ab3934115e2fb730d8106d4774edb959686df523f51",
+    "meetup.svg": "fc5ee6b4b2b6794a8148e582e6f52c916aea50cf98708e325868784a4cdc1880",
+    "render.mjs": "eca14073de55ef201c97e50efcece069df4b0a41076c5e5704369d791fb05606",
+    "workshops.json": "ec2a9587b6cc9d160519985d7c07a6e552176ef275c42d4b0fccfb0c54adb0b7"
+  },
+  "sourceHashes": {
+    "event.json": "65efe72bad19e9906aa9223ccc8b1de072968d50a0db9ec541766811a05d6bcd",
+    "sources/thai-yoga-massage.jpg": "ca6c8010018c70447efa920ea3ff78d740e304375a538dbeb4c9ea42ddab7dd6",
+    "sources/dance-lift.jpg": "4513535b8426ff9a03b2fb9487f69e13618ebc48840a6a7044c515ab617c1fe8",
+    "sources/contact-improvisation.jpg": "0f17ee2012e13cd79d57e0b3720f2d166e86a747c3a1d1671d6c5f4d8c494391",
+    "sources/inward-yin-yoga.jpeg": "1a7fcd7851dc158d00f0d6edbe976d1b7307cdc4dfb1534fb9edfbc76db4885b"
+  },
+  "photoPlacements": [
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        170,
+        819,
+        850
+      ],
+      "placement": [
+        28,
+        28,
+        1024,
+        660
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        0,
+        240,
+        683,
+        660
+      ],
+      "placement": [
+        28,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        373,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        718,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        170,
+        819,
+        850
+      ],
+      "placement": [
+        28,
+        28,
+        570,
+        552
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        40,
+        230,
+        620,
+        680
+      ],
+      "placement": [
+        28,
+        28,
+        1024,
+        660
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        230,
+        819,
+        680
+      ],
+      "placement": [
+        28,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        373,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        718,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        40,
+        230,
+        620,
+        680
+      ],
+      "placement": [
+        28,
+        28,
+        570,
+        552
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        28,
+        28,
+        1024,
+        660
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        230,
+        819,
+        680
+      ],
+      "placement": [
+        28,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        0,
+        240,
+        683,
+        660
+      ],
+      "placement": [
+        373,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        718,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        28,
+        28,
+        570,
+        552
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        28,
+        28,
+        1024,
+        660
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        230,
+        819,
+        680
+      ],
+      "placement": [
+        28,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        0,
+        240,
+        683,
+        660
+      ],
+      "placement": [
+        373,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        718,
+        1033,
+        334,
+        162
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        28,
+        28,
+        570,
+        552
+      ],
+      "policy": "contain"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "previews/v03/instagram-thai-yoga-massage.png",
+      "composition": "compositions/v03/instagram-thai-yoga-massage.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "thai-yoga-massage",
+      "altText": "Masaje Thai Yoga, con Bart. 22 noviembre 2026, 15:00–16:30. Asociación Samadhi de Salud Integral.",
+      "caption": "Masaje Thai Yoga\nCon Bart\n22 noviembre 2026 · 15:00–16:30\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/meetup-thai-yoga-massage.png",
+      "composition": "compositions/v03/meetup-thai-yoga-massage.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "thai-yoga-massage",
+      "altText": "Masaje Thai Yoga, con Bart. 22 noviembre 2026, 15:00–16:30. Asociación Samadhi de Salud Integral.",
+      "caption": "Masaje Thai Yoga\nCon Bart\n22 noviembre 2026 · 15:00–16:30\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/instagram-dance-lift.png",
+      "composition": "compositions/v03/instagram-dance-lift.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "dance-lift",
+      "altText": "Dance Lift: apoyándonos en movimiento, con Emanuela y Tavi. 22 noviembre 2026, 17:00–18:30. Asociación Samadhi de Salud Integral.",
+      "caption": "Dance Lift: apoyándonos en movimiento\nCon Emanuela y Tavi\n22 noviembre 2026 · 17:00–18:30\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/meetup-dance-lift.png",
+      "composition": "compositions/v03/meetup-dance-lift.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "dance-lift",
+      "altText": "Dance Lift: apoyándonos en movimiento, con Emanuela y Tavi. 22 noviembre 2026, 17:00–18:30. Asociación Samadhi de Salud Integral.",
+      "caption": "Dance Lift: apoyándonos en movimiento\nCon Emanuela y Tavi\n22 noviembre 2026 · 17:00–18:30\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/instagram-contact-improvisation.png",
+      "composition": "compositions/v03/instagram-contact-improvisation.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "contact-improvisation",
+      "altText": "Improvisación de contacto · Corpo Sutil, con Diana Flor. 22 noviembre 2026, 19:00–20:30. Asociación Samadhi de Salud Integral.",
+      "caption": "Improvisación de contacto · Corpo Sutil\nCon Diana Flor\n22 noviembre 2026 · 19:00–20:30\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/meetup-contact-improvisation.png",
+      "composition": "compositions/v03/meetup-contact-improvisation.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "contact-improvisation",
+      "altText": "Improvisación de contacto · Corpo Sutil, con Diana Flor. 22 noviembre 2026, 19:00–20:30. Asociación Samadhi de Salud Integral.",
+      "caption": "Improvisación de contacto · Corpo Sutil\nCon Diana Flor\n22 noviembre 2026 · 19:00–20:30\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/instagram-inward-yin-yoga.png",
+      "composition": "compositions/v03/instagram-inward-yin-yoga.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "inward-yin-yoga",
+      "altText": "INWARD — Yin Yoga y meditación guiada, con Arancha. 22 noviembre 2026, 21:00–22:00. Asociación Samadhi de Salud Integral.",
+      "caption": "INWARD — Yin Yoga y meditación guiada\nCon Arancha\n22 noviembre 2026 · 21:00–22:00\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    },
+    {
+      "file": "previews/v03/meetup-inward-yin-yoga.png",
+      "composition": "compositions/v03/meetup-inward-yin-yoga.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "status": "draft-pending-user-review",
+      "workshopId": "inward-yin-yoga",
+      "altText": "INWARD — Yin Yoga y meditación guiada, con Arancha. 22 noviembre 2026, 21:00–22:00. Asociación Samadhi de Salud Integral.",
+      "caption": "INWARD — Yin Yoga y meditación guiada\nCon Arancha\n22 noviembre 2026 · 21:00–22:00\nAsociación Samadhi de Salud Integral\nC/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\nMinifesti La Mutable"
+    }
+  ],
+  "unresolved": [
+    "Final visual review",
+    "Photo usage permissions",
+    "Destination export checks before publication"
+  ]
+}

@@ -4,7 +4,7 @@
   <path id="information-wave" d="M578 0 C540 130 605 230 574 350 S549 520 578 608 H1080 V0Z" fill="#F9E9D4"/>
   <g fill="#262122" font-family="Arial">
     <g id="workshop-title" font-family="Barlow Condensed" font-weight="800" font-size="64"><text x="620" y="140">IMPROVISACIÓN</text><text x="620" y="202">DE CONTACTO</text></g>
-    <text id="teacher" x="620" y="242" font-size="25">Corpo Sutil · con Diana Flor</text>
+    <text id="teacher" x="620" y="242" font-size="25"><tspan x="620" dy="0">Corpo Sutil · con Diana Flor</tspan></text>
     <text id="date" x="620" y="306" font-family="Barlow Condensed" font-weight="800" font-size="38" fill="#AE184D">22 NOVIEMBRE 2026</text>
     <text id="hours" x="620" y="356" font-family="Barlow Condensed" font-weight="800" font-size="44" fill="#AE184D">19:00–20:30</text>
     <text id="identity" x="620" y="417" font-size="25">Minifesti La Mutable</text>

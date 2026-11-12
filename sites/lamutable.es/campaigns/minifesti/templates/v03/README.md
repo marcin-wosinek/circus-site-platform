@@ -144,3 +144,27 @@ drafts. Landscape outputs have their own `landscape-delivery.json` and
 previews. Both were visually inspected at native size and mobile size. Font,
 dimensions, crop and text-width checks passed. Portrait images and their original
 delivery record were preserved. Landscape visual approval remains pending.
+
+## Complete workshop set v0.3.2
+
+`workshops.json` records the four short title layouts, teacher/subtitle copy and
+inspected featured crops. Dance Lift uses two title lines and a two-line Meetup
+subtitle so the full Spanish display phrase and both teachers remain legible.
+INWARD uses a crop that removes baked-in source lettering while preserving the
+person. No workshop facts or image paths are embedded in the SVG templates.
+
+```sh
+node sites/lamutable.es/campaigns/minifesti/templates/v03/render.mjs --workshops
+```
+
+Use `--replace-drafts` deliberately when updating the current review set. This
+pass renders all four Instagram and all four Meetup SVG/PNG pairs. It also writes
+mobile previews, one contact sheet per channel, per-workshop Markdown files with
+asset links, caption and alt text, and `workshops-delivery.json` with input hashes,
+photo placements and dimensions. The event overview and Facebook files are not
+rewritten. The two contact-improvisation examples are included in the complete
+workshop pass; their reviewed text and photo composition are retained.
+
+The four-workshop result plus the existing Instagram overview and Facebook cover
+now covers all ten recipe outputs. Files remain in versioned compositions and
+previews pending final review; no publishing or final export approval is implied.

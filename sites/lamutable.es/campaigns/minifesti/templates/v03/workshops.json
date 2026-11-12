@@ -1,0 +1,23 @@
+{
+  "thai-yoga-massage": {
+    "titleLines": ["MASAJE", "THAI YOGA"],
+    "subtitle": "con Bart",
+    "crop": [0, 170, 819, 850]
+  },
+  "dance-lift": {
+    "titleLines": ["DANCE", "LIFT"],
+    "subtitle": "Apoyándonos en movimiento · Emanuela y Tavi",
+    "meetupSubtitleLines": ["Apoyándonos en movimiento", "con Emanuela y Tavi"],
+    "crop": [40, 230, 620, 680]
+  },
+  "contact-improvisation": {
+    "titleLines": ["IMPROVISACIÓN", "DE CONTACTO"],
+    "subtitle": "Corpo Sutil · con Diana Flor",
+    "crop": null
+  },
+  "inward-yin-yoga": {
+    "titleLines": ["INWARD", "YIN YOGA"],
+    "subtitle": "Meditación guiada · con Arancha",
+    "crop": [260, 350, 470, 355]
+  }
+}
