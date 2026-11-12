@@ -1,6 +1,9 @@
 # Minifesti art direction — awaiting visual input
 
-Do not generate imagery from this placeholder.
+For the November edition, use the concrete
+[22 November 2026 direction](editions/2026-11-22/art-direction.md), based on the
+user's supplied poster and La Mutable's draft brand kit v0.1.0. The notes below
+remain series-level planning guidance, not a replacement for that edition brief.
 
 Pending: intended brand kit and version, supplied visual references, approved
 palette, shape vocabulary, typography, logo use, photo treatment and example layout.
