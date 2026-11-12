@@ -8,7 +8,7 @@ assets. A campaign brief supplies verified facts. Future top-level skills
 should combine these three inputs using the stable format IDs below.
 
 Source: [Graphics dimensions](https://docs.google.com/document/d/14A9x4oL8E2MGg6mEYitx4o51q2Km0tmESiKGyf83Scg/edit),
-read on 2026-11-10. Dimensions and content rules below transcribe that document;
+read on 2026-11-10. Dimensions and content rules below transcribe selected formats from that document;
 they are project presets, not independently verified current platform limits.
 Check destination requirements before final delivery. Do not silently change a
 preset when a platform changes: record the discrepancy and revise it explicitly.
@@ -22,26 +22,11 @@ accompanying post text or publishing metadata.
 
 | Format ID | Destination | Canvas | Required | Optional | Prohibited |
 | --- | --- | --- | --- | --- | --- |
-| `facebook-event-cover` | Facebook Event | 1920 × 1080 | Event name, visuals | Logo, dates | QR code, link |
 | `meetup-cover` | Meetup | 1080 × 608 | Unspecified | Unspecified | Unspecified |
-| `whatsapp-group-avatar` | WhatsApp group | Square, at least 600 × 600 | Event name, visuals | Logo, dates | QR code, link |
-| `homepage-background` | Home page background | 1206 × 322 | Visuals | None specified | Event name, logo, dates, QR code, link |
-| `whatsapp-chat-image` | WhatsApp chat | 1125 × 600 | Visuals, event name, logo, dates | None specified | QR code, link |
-| `event-page-image` | Event page | 1200 × 254 | Unspecified | Unspecified | Unspecified |
-
-For `whatsapp-group-avatar`, keep all meaningful content within the centred
-inscribed circle; backgrounds may extend to the square edges. Preview the
-circular crop and small-size rendering. The source gives no numerical inset;
-choose and record a comfortable inner margin in each composition. Use 600 × 600
-as the initial working size unless the brief requests a larger square.
-
-For `homepage-background`, compose a visual-only background. Any page heading,
-logo, or dates belong in the page's separate content layers. Check the actual
-responsive crop and overlaid text before accepting it for a website.
+| `facebook-event-cover` | Facebook Event | 1920 × 1080 | Event name, visuals | Logo, dates | QR code, link |
 
 The source also contains an empty **Event banner** heading. Reserve
-`event-banner` as unresolved; do not infer its dimensions or merge it with
-`event-page-image`. Meetup and event-page content rules also need definition
+`event-banner` as unresolved; do not infer its dimensions. Meetup content rules also need definition
 before a reusable template can be considered complete. A specific brief may
 resolve these for a one-off draft; record that decision without presenting it
 as a source rule.
@@ -73,8 +58,8 @@ canvas and content rules:
    appropriate and accepted by the destination. File type, byte limits, and
    safe areas beyond those above remain delivery-time decisions.
 6. Inspect exact dimensions, required/forbidden elements, factual accuracy,
-   spelling, font rendering, contrast, crop, and mobile readability. Review
-   the avatar in a circular mask. Generation does not authorize publication.
+   spelling, font rendering, contrast, crop, and mobile readability.
+   Generation does not authorize publication.
 
 Alongside each deliverable record: site ID, brand version, format ID and
 catalogue version, actual dimensions and file type, brief/fact sources,
@@ -86,14 +71,13 @@ not an implemented metadata schema or generation command.
 
 Use [its brand kit](../sites/ahoraquehacemos.com/brand/README.md) for expression.
 The current JPEG logo is a work-in-progress reference, not an approved master.
-Formats with optional logos can omit it; `whatsapp-chat-image` requires an
-approved logo for final delivery. A text-name prototype must remain labelled
-as a draft with that requirement unresolved. The kit currently specifies system
+Formats with optional logos can omit it. Prototypes using the reference logo
+must remain labelled as drafts pending approval of a logo master. The kit currently specifies system
 font stacks; record the resolved fonts when creating reproducible compositions.
 
 ## Remaining decisions
 
-- Define content rules for Meetup and the event-page image.
+- Define content rules for Meetup.
 - Define the purpose, dimensions, and content of Event banner.
 - Confirm export constraints and destination-specific safe areas during the
   first real delivery.
