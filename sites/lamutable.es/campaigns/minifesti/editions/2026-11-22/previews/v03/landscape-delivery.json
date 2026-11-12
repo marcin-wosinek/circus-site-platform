@@ -1,0 +1,129 @@
+{
+  "templateVersion": "0.3.1",
+  "status": "landscape-examples-pending-user-review",
+  "portraitDirection": "Accepted by user; landscape extension requested",
+  "brandVersion": "0.1.0",
+  "mediaCatalogueVersion": "0.2.0",
+  "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
+  "fonts": [
+    "Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)",
+    "Arial (local macOS system font)"
+  ],
+  "templateHashes": {
+    "facebook.svg": "6e04d5e2ce8c6a5c009c73a931a9f228eb52e4f44b23ca67d9aceba25900be2c",
+    "meetup.svg": "fc5ee6b4b2b6794a8148e582e6f52c916aea50cf98708e325868784a4cdc1880",
+    "render.mjs": "3c918a1800c48479f990095a1343434596d322b38cd32c18b62be04d7b75e786",
+    "trial.json": "8e3741519710543ce0bcb1816a03831dc6901810490d3273f5e55b4b68263111"
+  },
+  "sourceHashes": {
+    "event.json": "65efe72bad19e9906aa9223ccc8b1de072968d50a0db9ec541766811a05d6bcd",
+    "sources/thai-yoga-massage.jpg": "ca6c8010018c70447efa920ea3ff78d740e304375a538dbeb4c9ea42ddab7dd6",
+    "sources/dance-lift.jpg": "4513535b8426ff9a03b2fb9487f69e13618ebc48840a6a7044c515ab617c1fe8",
+    "sources/contact-improvisation.jpg": "0f17ee2012e13cd79d57e0b3720f2d166e86a747c3a1d1671d6c5f4d8c494391",
+    "sources/inward-yin-yoga.jpeg": "1a7fcd7851dc158d00f0d6edbe976d1b7307cdc4dfb1534fb9edfbc76db4885b"
+  },
+  "photoPlacements": [
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        40,
+        230,
+        620,
+        680
+      ],
+      "placement": [
+        28,
+        28,
+        490,
+        605
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": [
+        0,
+        0,
+        1000,
+        671
+      ],
+      "placement": [
+        28,
+        665,
+        490,
+        387
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": [
+        0,
+        170,
+        819,
+        850
+      ],
+      "placement": [
+        1402,
+        28,
+        490,
+        605
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        1402,
+        665,
+        490,
+        387
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        28,
+        28,
+        570,
+        552
+      ],
+      "policy": "contain"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "previews/v03/facebook-event.png",
+      "composition": "compositions/v03/facebook-event.svg",
+      "formatId": "facebook-event-cover",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "status": "draft-pending-user-review"
+    },
+    {
+      "file": "previews/v03/meetup-contact-improvisation.png",
+      "composition": "compositions/v03/meetup-contact-improvisation.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "status": "draft-pending-user-review"
+    }
+  ],
+  "unresolved": [
+    "Landscape visual review",
+    "Photo usage permissions",
+    "Destination export checks before publication"
+  ]
+}

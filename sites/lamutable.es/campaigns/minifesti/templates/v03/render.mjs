@@ -51,7 +51,8 @@ measure(venue, 30, bodyFont, 950);
 measure(config.addressLines, 26, bodyFont, 950);
 const common = Object.fromEntries(Object.entries({ ...brand.colors, venue, address: config.addressLines }).map(([k,v]) => [k, xml(v)]));
 const outputs = [];
-function render(name, template, slots) {
+const landscapeOnly = process.argv.includes('--landscape-only');
+function render(name, template, slots, dimensions = [1080,1350]) {
   const values = { ...common, ...slots };
   const svg = readFileSync(resolve(root, `${template}.svg`), 'utf8').replace(/\{\{(\w+)\}\}/g, (_, key) => {
     if (!(key in values)) throw Error(`Unbound slot: ${key}`);
@@ -67,13 +68,14 @@ function render(name, template, slots) {
   writeFileSync(source, svg);
   run(['-background', brand.colors.cream, `MSVG:${source}`, output]);
   const size = run([output, '-format', '%wx%h', 'info:']).toString();
-  if (size !== '1080x1350') throw Error(`Unexpected output size: ${size}`);
-  outputs.push({ file: `previews/v03/${name}.png`, composition: `compositions/v03/${name}.svg`, dimensions: [1080,1350], status: 'draft-pending-user-review' });
+  if (size !== dimensions.join('x')) throw Error(`Unexpected output size: ${size}`);
+  outputs.push({ file: `previews/v03/${name}.png`, composition: `compositions/v03/${name}.svg`, formatId: template === 'facebook' ? 'facebook-event-cover' : template === 'meetup' ? 'meetup-cover' : 'instagram-feed-portrait', dimensions, status: 'draft-pending-user-review' });
 }
+const hours = `${event.workshops[0].start}–${event.workshops.at(-1).end}`;
+if (!landscapeOnly) {
 measure(config.heading, 183, font, 957);
 measure(config.organizer, 31, bodyFont, 950);
 const dateWidth = measure(date, 53, font, 650);
-const hours = `${event.workshops[0].start}–${event.workshops.at(-1).end}`;
 if (dateWidth + measure(hours, 34, bodyFont, 280) + 35 > 950) throw Error('Date and hours collide');
 render('instagram-event', 'overview', {
   organizer: xml(config.organizer), heading: xml(config.heading), date: xml(date), hours: xml(hours),
@@ -105,4 +107,53 @@ writeFileSync(resolve(base,'previews/v03/delivery.json'), JSON.stringify({
   photoPlacements: records, outputs,
   unresolved: ['User visual review before designing remaining variants', 'Photo usage permissions', 'Destination export checks before final delivery'],
 },null,2)+'\n');
-console.log('Rendered two v03 review examples, editable SVGs, mobile previews, and a separate delivery record.');
+console.log('Rendered two v03 portrait examples.');
+}
+
+// Separate landscape pass preserves the reviewed portrait examples and record.
+if (landscapeOnly) {
+  const street = 'C/ de Sant Columbà, 11, bajo';
+  const district = 'Benimaclet · València';
+  const venueLine1 = 'Asociación Samadhi';
+  const venueLine2 = 'de Salud Integral';
+  for (const part of ['C/ de Sant Columbà, 11, bajo','Benimaclet','València',venueLine1,venueLine2]) {
+    if (!event.venue.address.includes(part) && !venue.includes(part)) throw Error(`Display copy does not match confirmed venue: ${part}`);
+  }
+  measure(config.heading,208,font,790);
+  measure(date,70,font,790);
+  measure(venue,34,bodyFont,790);
+  measure(street,30,bodyFont,790);
+  measure(config.organizer,42,bodyFont,790);
+  measure(hours,45,bodyFont,790);
+  measure(district,30,bodyFont,790);
+  render('facebook-event','facebook',{
+    organizer: xml(config.organizer), heading: xml(config.heading), date: xml(date), hours: xml(hours), street: xml(street), district: xml(district),
+    photos: photo('dance-lift',28,28,490,605,config.overviewCrops['dance-lift']) + photo('contact-improvisation',28,665,490,387,config.overviewCrops['contact-improvisation']) + photo('thai-yoga-massage',1402,28,490,605,config.overviewCrops['thai-yoga-massage']) + photo('inward-yin-yoga',1402,665,490,387,config.overviewCrops['inward-yin-yoga']),
+  },[1920,1080]);
+  config.displayTitleLines.forEach(line => measure(line,64,font,420));
+  measure(config.displaySubtitle,25,bodyFont,420);
+  measure(date,38,font,420);
+  measure(street,20,bodyFont,420);
+  measure(event.title,25,bodyFont,420);
+  measure(`${featured.start}–${featured.end}`,44,font,420);
+  measure(venueLine1,22,bodyFont,420);
+  measure(venueLine2,22,bodyFont,420);
+  measure(district,20,bodyFont,420);
+  render(`meetup-${featured.id}`,'meetup',{
+    featuredPhoto: photo(featured.id,28,28,570,552),
+    titleLines: config.displayTitleLines.map((line,i) => `<text x="620" y="${140+i*62}">${xml(line)}</text>`).join(''),
+    teacher: xml(config.displaySubtitle), date: xml(date), hours: xml(`${featured.start}–${featured.end}`), identity: xml(event.title),
+    venueLine1: xml(venueLine1), venueLine2: xml(venueLine2), street: xml(street), district: xml(district),
+  },[1080,608]);
+  for (const output of outputs) run([resolve(base,output.file),'-resize','540x',resolve(base,output.file.replace('.png','-mobile.png'))]);
+  execFileSync('magick',['montage',...outputs.map(o => resolve(base,o.file.replace('.png','-mobile.png'))),'-tile','1x2','-geometry','+12+12','-background',brand.colors.cream,resolve(base,'previews/v03/landscape-contact-sheet.png')],{env});
+  const hash = path => createHash('sha256').update(readFileSync(path)).digest('hex');
+  writeFileSync(resolve(base,'previews/v03/landscape-delivery.json'),JSON.stringify({
+    templateVersion: '0.3.1', status:'landscape-examples-pending-user-review', portraitDirection:'Accepted by user; landscape extension requested', brandVersion:brand.brandVersion, mediaCatalogueVersion:'0.2.0',
+    renderer:run(['-version']).toString().split('\n')[0],fonts:['Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)','Arial (local macOS system font)'],
+    templateHashes:Object.fromEntries(['facebook.svg','meetup.svg','render.mjs','trial.json'].map(p => [p,hash(resolve(root,p))])),
+    sourceHashes:Object.fromEntries(['event.json',...event.workshops.map(w => w.photo)].map(p => [p,hash(resolve(base,p))])),
+    photoPlacements:records, outputs, unresolved:['Landscape visual review','Photo usage permissions','Destination export checks before publication'],
+  },null,2)+'\n');
+  console.log('Rendered Facebook and Meetup landscape review examples; portrait outputs preserved.');
+}

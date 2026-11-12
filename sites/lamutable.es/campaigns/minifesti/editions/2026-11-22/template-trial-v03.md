@@ -32,3 +32,20 @@
 
 Status: draft review checkpoint, not approved for publication. Separate v03
 delivery record leaves the older ten-output delivery record untouched.
+
+## Landscape extension
+
+- User feedback: portrait direction accepted; Facebook and Meetup requested.
+- Added template variants: Facebook event cover 1920 × 1080, Meetup workshop
+  cover 1080 × 608. Template extension version 0.3.1.
+- Layout: four photos flank the Facebook central wave; Meetup uses one original
+  photo alongside a vertical wave and workshop-first text. No stretching of the
+  portrait composition. Existing deliberate crops reused only after inspecting
+  the landscape results; featured Meetup photo remains whole.
+- Reviewed: both native-size PNGs, both 540px mobile previews and landscape
+  contact sheet. Text, accents, hands/supports, dimensions and lack of Facebook
+  URLs/QR checked. Width validation passed with the actual fonts.
+- Preservation: `--landscape-only` leaves accepted portrait SVGs/PNGs and their
+  delivery record intact; landscape has its own delivery record.
+- Remaining: landscape user review, other workshop examples, photo permissions
+  and destination export checks before publication.

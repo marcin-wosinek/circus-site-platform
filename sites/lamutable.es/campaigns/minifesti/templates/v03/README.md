@@ -112,7 +112,35 @@ features are supported. Layout and crop review remains necessary beyond the
 font-width checks. Font substitution is rejected by file checks and explicit
 fontconfig; another machine must also verify its resolved font selection.
 
-Next review: visual direction, short title treatment and photo prominence.
-After acceptance, design the other workshop examples and separate landscape
-variants, review them, and only then produce all ten. Source photo permissions
+The user accepted the portrait direction and requested Facebook and Meetup
+formats. The landscape extension below is now available. Remaining workshop
+examples still require individual title/crop review before producing all ten. Source photo permissions
 and destination export checks remain unresolved. No final exports are approved.
+
+## Landscape extension v0.3.1
+
+`facebook.svg` is a separately composed 1920 × 1080 event cover. All four photos
+surround a central cream wave. Title, date, hours, venue and address remain in
+the central panel; no URLs or QR codes. Title: Barlow 208px within 790px; date:
+70px within 790px. Supporting data use Arial 30–45px within 790px.
+
+`meetup.svg` is a 1080 × 608 workshop cover, demonstrated with contact
+improvisation. The single original photo is contained in a 570 × 552 frame;
+a vertical cream wave introduces the right-hand text panel. Two title lines:
+Barlow 64px within 420px; date/time 38/44px; teacher 25px; identity 25px;
+venue 22px on two lines; street and district 20px. All widths are measured
+using the actual fonts. Missing values and overflow fail rather than shrink.
+Display venue/address fragments are checked against the confirmed event data.
+
+Generate only the landscape examples, preserving the accepted portrait files:
+
+```sh
+node sites/lamutable.es/campaigns/minifesti/templates/v03/render.mjs --landscape-only
+```
+
+The same explicit `--replace-drafts` option allows revisions of the landscape
+drafts. Landscape outputs have their own `landscape-delivery.json` and
+`landscape-contact-sheet.png` inside `previews/v03/`, plus 540px-wide mobile
+previews. Both were visually inspected at native size and mobile size. Font,
+dimensions, crop and text-width checks passed. Portrait images and their original
+delivery record were preserved. Landscape visual approval remains pending.

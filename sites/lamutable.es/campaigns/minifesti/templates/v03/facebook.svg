@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="{{cream}}"/>
+  <g id="overview-photos">{{photos}}</g>
+  <path id="information-wave" d="M505 0 C460 210 550 370 505 555 S455 865 505 1080 H1415 C1460 870 1370 695 1415 500 S1460 190 1415 0Z" fill="{{cream}}"/>
+  <g fill="{{ink}}" font-family="Arial">
+    <text id="organizer" x="570" y="305" font-size="42">{{organizer}}</text>
+    <text id="event-title" x="560" y="490" font-family="Barlow Condensed" font-weight="800" font-size="208">{{heading}}</text>
+    <text id="date" x="570" y="592" font-family="Barlow Condensed" font-weight="800" font-size="70" fill="{{burgundy}}">{{date}}</text>
+    <text id="hours" x="570" y="668" font-size="45">{{hours}}</text>
+    <text id="venue" x="570" y="788" font-size="34">{{venue}}</text>
+    <text id="address" x="570" y="840" font-size="30">{{street}}</text>
+    <text id="district" x="570" y="888" font-size="30">{{district}}</text>
+  </g>
+</svg>

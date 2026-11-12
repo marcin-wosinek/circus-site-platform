@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="608" viewBox="0 0 1080 608">
+  <rect width="1080" height="608" fill="{{cream}}"/>
+  <g id="featured-photo">{{featuredPhoto}}</g>
+  <path id="information-wave" d="M578 0 C540 130 605 230 574 350 S549 520 578 608 H1080 V0Z" fill="{{cream}}"/>
+  <g fill="{{ink}}" font-family="Arial">
+    <g id="workshop-title" font-family="Barlow Condensed" font-weight="800" font-size="64">{{titleLines}}</g>
+    <text id="teacher" x="620" y="242" font-size="25">{{teacher}}</text>
+    <text id="date" x="620" y="306" font-family="Barlow Condensed" font-weight="800" font-size="38" fill="{{burgundy}}">{{date}}</text>
+    <text id="hours" x="620" y="356" font-family="Barlow Condensed" font-weight="800" font-size="44" fill="{{burgundy}}">{{hours}}</text>
+    <text id="identity" x="620" y="417" font-size="25">{{identity}}</text>
+    <text id="venue" x="620" y="469" font-size="22">{{venueLine1}}</text>
+    <text x="620" y="498" font-size="22">{{venueLine2}}</text>
+    <text id="address" x="620" y="541" font-size="20">{{street}}</text>
+    <text id="district" x="620" y="571" font-size="20">{{district}}</text>
+  </g>
+</svg>
