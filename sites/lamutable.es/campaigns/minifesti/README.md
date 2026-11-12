@@ -1,6 +1,7 @@
 # Minifesti image campaigns
 
-Status: preparation only. No images have been generated and no publishing is authorized.
+Status: the 22 November edition has ten v01 draft previews and editable SVG
+compositions. Event facts and final review remain pending. No publishing is authorized.
 
 One reusable recipe supports editions with 3–8 workshops. Each edition produces
 one Instagram overview, one Facebook event cover, and one Instagram and one
@@ -26,7 +27,7 @@ These JSON documents are planning conventions, not an implemented renderer or sc
 2. Set the source URL and verify date, venue, language, workshop titles,
    instructors and times. Keep stable workshop IDs; array order is programme order.
 3. Select the intended brand kit explicitly and record its version. La Mutable
-   currently has no formal brand/ kit. Theme design guidance is not automatically
+   has a draft v0.1.0 brand kit. Theme design guidance is not automatically
    a social brand kit; do not silently substitute another site's kit.
 4. Add original photos and record their provenance. Set crop focal points only
    after inspecting the photos. Keep originals intact.

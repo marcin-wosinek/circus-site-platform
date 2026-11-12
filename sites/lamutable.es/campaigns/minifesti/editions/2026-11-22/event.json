@@ -1,26 +1,29 @@
 {
   "formatVersion": 1,
-  "status": "awaiting-visual-input",
+  "status": "facts-confirmed-drafts-in-review",
   "editionId": "2026-11-22",
   "date": "2026-11-22",
-  "dateVerification": "pending; edition date inferred from example and export context",
+  "dateVerification": "Confirmed by user: 22 November 2026",
   "sourceUrl": "https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/",
   "factsRepositorySource": "sites/lamutable.es/content/fair-events/minifesti-la-mutable-22th-of-november/content.html",
   "title": "Minifesti La Mutable",
-  "venue": null,
-  "outputLanguage": null,
+  "venue": {
+    "name": "Asociación Samadhi de Salud Integral",
+    "address": "C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia"
+  },
+  "outputLanguage": "es",
   "brand": {
-    "kit": null,
-    "version": null
+    "kit": "../../../../brand/README.md",
+    "version": "0.1.0"
   },
   "variant": {
-    "palette": null,
-    "shapes": null
+    "palette": "cream-ink-burgundy-olive",
+    "shapes": "organic-cream-wave"
   },
   "workshops": [
     {
       "id": "thai-yoga-massage",
-      "title": "Thai Yoga Massage",
+      "title": "Masaje Thai Yoga",
       "instructors": [
         "Bart"
       ],
@@ -32,7 +35,7 @@
     },
     {
       "id": "dance-lift",
-      "title": "Dance Lift: Supporting Each Other in Movement",
+      "title": "Dance Lift: apoyándonos en movimiento",
       "instructors": [
         "Emanuela",
         "Tavi"
@@ -45,7 +48,7 @@
     },
     {
       "id": "contact-improvisation",
-      "title": "Contact Improvisation Dance · Corpo Sutil",
+      "title": "Improvisación de contacto · Corpo Sutil",
       "instructors": [
         "Diana Flor"
       ],
@@ -57,7 +60,7 @@
     },
     {
       "id": "inward-yin-yoga",
-      "title": "INWARD — Yin Yoga & Guided Meditation",
+      "title": "INWARD — Yin Yoga y meditación guiada",
       "instructors": [
         "Arancha"
       ],
@@ -67,5 +70,6 @@
       "photo": "sources/inward-yin-yoga.jpeg",
       "focalPoint": null
     }
-  ]
+  ],
+  "programmeVerification": "Programme confirmed final by user"
 }

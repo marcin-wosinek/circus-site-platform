@@ -1,10 +1,272 @@
 {
   "formatVersion": 1,
-  "status": "not-generated",
-  "brandVersion": null,
-  "recipe": "../../recipe.json",
+  "status": "facts-confirmed-drafts-in-review",
+  "brandVersion": "0.1.0",
   "mediaCatalogueVersion": "0.2.0",
   "expectedOutputCount": 10,
-  "deliverables": [],
-  "instructions": "For each deliverable record file, formatId, dimensions, fileType, workshopId if applicable, source assets, fonts, optional elements, deviations, altText and review status."
+  "generationMode": "built-in image_gen for botanical decoration; deterministic SVG composition of original photographs and editable text",
+  "unresolved": [
+    "Visual review and photo usage confirmation",
+    "Destination requirements not independently reverified; project draft presets used"
+  ],
+  "deliverables": [
+    {
+      "file": "previews/v02/instagram-event.png",
+      "composition": "compositions/v02/instagram-event.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "workshopId": null,
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg",
+        "sources/dance-lift.jpg",
+        "sources/contact-improvisation.jpg",
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Minifesti La Mutable, 22 noviembre 2026, 15:00–22:00. Collage de las cuatro prácticas.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/facebook-event.png",
+      "composition": "compositions/v02/facebook-event.svg",
+      "formatId": "facebook-event-cover",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "fileType": "image/png",
+      "workshopId": null,
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg",
+        "sources/dance-lift.jpg",
+        "sources/contact-improvisation.jpg",
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Minifesti La Mutable, 22 noviembre 2026, 15:00–22:00. Collage de las cuatro prácticas.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/instagram-thai-yoga-massage.png",
+      "composition": "compositions/v02/instagram-thai-yoga-massage.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "workshopId": "thai-yoga-massage",
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg",
+        "sources/dance-lift.jpg",
+        "sources/contact-improvisation.jpg",
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Masaje Thai Yoga, con Bart, 22 noviembre 2026, 15:00–16:30.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/meetup-thai-yoga-massage.png",
+      "composition": "compositions/v02/meetup-thai-yoga-massage.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "fileType": "image/png",
+      "workshopId": "thai-yoga-massage",
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Masaje Thai Yoga, con Bart, 22 noviembre 2026, 15:00–16:30.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/instagram-dance-lift.png",
+      "composition": "compositions/v02/instagram-dance-lift.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "workshopId": "dance-lift",
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg",
+        "sources/dance-lift.jpg",
+        "sources/contact-improvisation.jpg",
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Dance Lift: apoyándonos en movimiento, con Emanuela y Tavi, 22 noviembre 2026, 17:00–18:30.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/meetup-dance-lift.png",
+      "composition": "compositions/v02/meetup-dance-lift.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "fileType": "image/png",
+      "workshopId": "dance-lift",
+      "sourceAssets": [
+        "sources/dance-lift.jpg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Dance Lift: apoyándonos en movimiento, con Emanuela y Tavi, 22 noviembre 2026, 17:00–18:30.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/instagram-contact-improvisation.png",
+      "composition": "compositions/v02/instagram-contact-improvisation.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "workshopId": "contact-improvisation",
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg",
+        "sources/dance-lift.jpg",
+        "sources/contact-improvisation.jpg",
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Improvisación de contacto · Corpo Sutil, con Diana Flor, 22 noviembre 2026, 19:00–20:30.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/meetup-contact-improvisation.png",
+      "composition": "compositions/v02/meetup-contact-improvisation.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "fileType": "image/png",
+      "workshopId": "contact-improvisation",
+      "sourceAssets": [
+        "sources/contact-improvisation.jpg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "Improvisación de contacto · Corpo Sutil, con Diana Flor, 22 noviembre 2026, 19:00–20:30.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/instagram-inward-yin-yoga.png",
+      "composition": "compositions/v02/instagram-inward-yin-yoga.svg",
+      "formatId": "instagram-feed-portrait",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "workshopId": "inward-yin-yoga",
+      "sourceAssets": [
+        "sources/thai-yoga-massage.jpg",
+        "sources/dance-lift.jpg",
+        "sources/contact-improvisation.jpg",
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "INWARD — Yin Yoga y meditación guiada, con Arancha, 22 noviembre 2026, 21:00–22:00.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    },
+    {
+      "file": "previews/v02/meetup-inward-yin-yoga.png",
+      "composition": "compositions/v02/meetup-inward-yin-yoga.svg",
+      "formatId": "meetup-cover",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "fileType": "image/png",
+      "workshopId": "inward-yin-yoga",
+      "sourceAssets": [
+        "sources/inward-yin-yoga.jpeg"
+      ],
+      "fonts": [
+        "Arial Narrow Bold",
+        "Arial"
+      ],
+      "reviewStatus": "draft-pending-visual-review",
+      "altText": "INWARD — Yin Yoga y meditación guiada, con Arancha, 22 noviembre 2026, 21:00–22:00.",
+      "deviations": [
+        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
+        "Original photographs fitted whole to preserve bodies."
+      ]
+    }
+  ]
 }
