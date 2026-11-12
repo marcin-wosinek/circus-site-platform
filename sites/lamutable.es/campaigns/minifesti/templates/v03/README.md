@@ -1,6 +1,6 @@
 # Minifesti template trial v03
 
-New SVG templates authored from scratch, using La Mutable draft brand v0.1.0
+New SVG templates authored from scratch, using La Mutable draft brand v0.1.1
 and the November edition direction. These are **two populated review examples**,
 not an approved template or final campaign. v01/v02 and their delivery record
 remain intact. Review these before expanding into other workshops or landscape.
@@ -8,8 +8,8 @@ remain intact. Review these before expanding into other workshops or landscape.
 ## Design plan
 
 Cream #F9E9D4 is the continuous surface, ink #262122 carries the title,
-burgundy #AE184D identifies the date, and olive #4F602D supplies one small
-botanical accent. Natural photographic colours remain untouched.
+burgundy #AE184D identifies the date, and the existing ink logo identifies the association. Natural photographic
+colours remain untouched.
 Barlow Condensed ExtraBold supplies the tall, heavy heading; Arial carries
 practical information. No synthetic letter compression or generated lettering.
 
@@ -24,7 +24,7 @@ Overview                     Workshop example
 │ Dance Lift │ Thai Yoga │   │ Contact photo, dominant │
 ├~~~~~ cream wave ~~~~~~~┤   ├~~~~~~~ cream wave ~~~~~~┤
 │ La Mutable            │   │ Workshop title          │
-│ MINIFESTI       sprig │   │ Teacher / date / event  │
+│ MINIFESTI        logo │   │ Teacher / date / event  │
 │ Date            Hours │   ├───────┬────────┬────────┤
 ├~~~~~~~~~~~┬~~~~~~~~~~~┤   │ Other │ Other  │ Other  │
 │ Contact   │ Yin Yoga  │   ├───────┴────────┴────────┤
@@ -35,8 +35,11 @@ Overview                     Workshop example
 
 Brief review: cream, condensed type and waves are specifically supplied brand
 and campaign requirements. The composition uses the actual photograph shapes;
-no generic cards, extra slogans, prices, registration links, or logo are added.
-The botanical detail is a small editable vector, rather than a generated bitmap.
+no generic cards, extra slogans, prices or registration links are added.
+The logo is embedded from `../../../../brand/assets/logo.png` as an unchanged
+transparent PNG, preserving its aspect ratio. It replaces the overview’s
+botanical accent; workshop footers and the landscape layouts reserve a separate
+cream area for it. The delivery records include its source path and SHA-256.
 
 ## Run
 
@@ -85,6 +88,7 @@ are emitted internally and are not accepted from event data.
 | identity | event title + existing brand signature | Arial 28px, fixed current-edition copy |
 | supportingPhotos | all remaining workshop files | Three 334 × 162 frames, crop then contain |
 | venue / address | event venue / brief-derived short address | Arial 30px / 26px, max 950px; postal code omitted for this display |
+| logo | brand/assets/logo.png | Embedded PNG, contained without cropping or recolouring; required in all four templates |
 | palette slots | brand tokens | Required cream, ink, burgundy, olive |
 
 All fact/photo slots are required for this trial. Missing photos, fonts, text,
@@ -168,3 +172,11 @@ workshop pass; their reviewed text and photo composition are retained.
 The four-workshop result plus the existing Instagram overview and Facebook cover
 now covers all ten recipe outputs. Files remain in versioned compositions and
 previews pending final review; no publishing or final export approval is implied.
+
+## Brand logo update · 12 November 2026
+
+All ten current v03 drafts and their mobile/contact-sheet previews use the
+brand v0.1.1 logo. Logo placements (x, y, width, height) are overview
+(905, 595, 65, 121), Instagram workshop (947, 1210, 48, 90), Facebook
+(1250, 170, 65, 121), and Meetup (620, 16, 32, 60). The original 258 × 480
+asset is never enlarged. Older v01/v02 compositions remain historical drafts.

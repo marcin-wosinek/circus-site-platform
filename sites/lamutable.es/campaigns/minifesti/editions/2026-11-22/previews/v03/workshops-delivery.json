@@ -1,7 +1,11 @@
 {
   "templateVersion": "0.3.2",
   "status": "complete-workshop-set-pending-review",
-  "brandVersion": "0.1.0",
+  "brandVersion": "0.1.1",
+  "brandAsset": {
+    "file": "brand/assets/logo.png",
+    "sha256": "a74250f4293506dc7f4ee733966b90b240bb278025c847036b55674b4c7418bf"
+  },
   "mediaCatalogueVersion": "0.2.0",
   "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
   "fonts": [
@@ -9,9 +13,9 @@
     "Arial (local macOS system font)"
   ],
   "inputHashes": {
-    "workshop.svg": "8e0fcc8b1b08bdc502dc3ab3934115e2fb730d8106d4774edb959686df523f51",
-    "meetup.svg": "fc5ee6b4b2b6794a8148e582e6f52c916aea50cf98708e325868784a4cdc1880",
-    "render.mjs": "eca14073de55ef201c97e50efcece069df4b0a41076c5e5704369d791fb05606",
+    "workshop.svg": "ea7fa613a4b4a4d86fb7261c3498262ab9362631493f590d9f97f010a060ce4d",
+    "meetup.svg": "d5ab6c7bce3192f7435a5799ea7ef411dfe5b74c0095a53e343ddf4cd0745e20",
+    "render.mjs": "b3dda0d6eae241bae8a228233a354a52db3f17c53985cec536bb49f137841af2",
     "workshops.json": "ec2a9587b6cc9d160519985d7c07a6e552176ef275c42d4b0fccfb0c54adb0b7"
   },
   "sourceHashes": {

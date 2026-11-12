@@ -11,4 +11,5 @@
     <text id="address" x="570" y="840" font-size="30">{{street}}</text>
     <text id="district" x="570" y="888" font-size="30">{{district}}</text>
   </g>
+  <image id="brand-logo" x="1250" y="170" width="65" height="121" preserveAspectRatio="xMidYMid meet" xlink:href="{{logo}}"/>
 </svg>

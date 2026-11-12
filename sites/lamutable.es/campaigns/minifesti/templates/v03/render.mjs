@@ -9,6 +9,10 @@ const config = JSON.parse(readFileSync(resolve(root, 'trial.json')));
 const base = resolve(root, config.edition);
 const event = JSON.parse(readFileSync(resolve(base, 'event.json')));
 const brand = JSON.parse(readFileSync(resolve(root, '../../../../brand/tokens.json')));
+const logoPath = resolve(root, '../../../../brand/assets/logo.png');
+const logoBytes = readFileSync(logoPath);
+const logo = `data:image/png;base64,${logoBytes.toString('base64')}`;
+const brandAsset = { file: 'brand/assets/logo.png', sha256: createHash('sha256').update(logoBytes).digest('hex') };
 const font = resolve(root, 'fonts/BarlowCondensed-ExtraBold.ttf');
 const bodyFont = '/System/Library/Fonts/Supplemental/Arial.ttf';
 const env = { ...process.env, FONTCONFIG_FILE: resolve(root, 'fontconfig.xml') };
@@ -55,7 +59,7 @@ const landscapeOnly = process.argv.includes('--landscape-only');
 const workshopsOnly = process.argv.includes('--workshops');
 if (landscapeOnly && workshopsOnly) throw Error('Select either --landscape-only or --workshops');
 function render(name, template, slots, dimensions = [1080,1350]) {
-  const values = { ...common, ...slots };
+  const values = { ...common, logo, ...slots };
   const svg = readFileSync(resolve(root, `${template}.svg`), 'utf8').replace(/\{\{(\w+)\}\}/g, (_, key) => {
     if (!(key in values)) throw Error(`Unbound slot: ${key}`);
     return values[key];
@@ -101,7 +105,7 @@ run([resolve(base,outputs[1].file), '-resize', '360x450', resolve(base,'previews
 execFileSync('magick', ['montage', resolve(base,'previews/v03/mobile-event.png'), resolve(base,'previews/v03/mobile-workshop.png'), '-tile','2x1','-geometry','+12+12','-background',brand.colors.cream,resolve(base,'previews/v03/contact-sheet.png')], { env });
 const hash = path => createHash('sha256').update(readFileSync(path)).digest('hex');
 writeFileSync(resolve(base,'previews/v03/delivery.json'), JSON.stringify({
-  templateVersion: config.templateVersion, status: 'two-examples-pending-user-review', brandVersion: brand.brandVersion,
+  templateVersion: config.templateVersion, status: 'two-examples-pending-user-review', brandVersion: brand.brandVersion, brandAsset,
   renderer: run(['-version']).toString().split('\n')[0], fonts: [{ family: 'Barlow Condensed ExtraBold', file: font.replace(root, 'templates/v03'), sha256: hash(font), license: 'SIL OFL 1.1; fonts/OFL.txt' }, { family: 'Arial', file: bodyFont, license: 'System font; not redistributed' }],
   inputHashes: Object.fromEntries(['event.json','brief.md','art-direction.md'].map(p => [p, hash(resolve(base,p))])),
   templateHashes: Object.fromEntries(['overview.svg','workshop.svg','trial.json','render.mjs'].map(p => [p, hash(resolve(root,p))])),
@@ -151,7 +155,7 @@ if (landscapeOnly) {
   execFileSync('magick',['montage',...outputs.map(o => resolve(base,o.file.replace('.png','-mobile.png'))),'-tile','1x2','-geometry','+12+12','-background',brand.colors.cream,resolve(base,'previews/v03/landscape-contact-sheet.png')],{env});
   const hash = path => createHash('sha256').update(readFileSync(path)).digest('hex');
   writeFileSync(resolve(base,'previews/v03/landscape-delivery.json'),JSON.stringify({
-    templateVersion: '0.3.1', status:'landscape-examples-pending-user-review', portraitDirection:'Accepted by user; landscape extension requested', brandVersion:brand.brandVersion, mediaCatalogueVersion:'0.2.0',
+    templateVersion: '0.3.1', status:'landscape-examples-pending-user-review', portraitDirection:'Accepted by user; landscape extension requested', brandVersion:brand.brandVersion,brandAsset, mediaCatalogueVersion:'0.2.0',
     renderer:run(['-version']).toString().split('\n')[0],fonts:['Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)','Arial (local macOS system font)'],
     templateHashes:Object.fromEntries(['facebook.svg','meetup.svg','render.mjs','trial.json'].map(p => [p,hash(resolve(root,p))])),
     sourceHashes:Object.fromEntries(['event.json',...event.workshops.map(w => w.photo)].map(p => [p,hash(resolve(base,p))])),
@@ -202,7 +206,7 @@ if (workshopsOnly) {
   }
   const hash = path => createHash('sha256').update(readFileSync(path)).digest('hex');
   writeFileSync(resolve(base,'previews/v03/workshops-delivery.json'),JSON.stringify({
-    templateVersion:'0.3.2',status:'complete-workshop-set-pending-review',brandVersion:brand.brandVersion,mediaCatalogueVersion:'0.2.0',
+    templateVersion:'0.3.2',status:'complete-workshop-set-pending-review',brandVersion:brand.brandVersion,brandAsset,mediaCatalogueVersion:'0.2.0',
     renderer:run(['-version']).toString().split('\n')[0],fonts:['Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)','Arial (local macOS system font)'],
     inputHashes:Object.fromEntries(['workshop.svg','meetup.svg','render.mjs','workshops.json'].map(p => [p,hash(resolve(root,p))])),
     sourceHashes:Object.fromEntries(['event.json',...event.workshops.map(w => w.photo)].map(p => [p,hash(resolve(base,p))])),

@@ -33,7 +33,7 @@ that playbook.
 2. Set the source URL and verify date, venue, language, workshop titles,
    instructors and times. Keep stable workshop IDs; array order is programme order.
 3. Select the intended brand kit explicitly and record its version. La Mutable
-   has a draft v0.1.0 brand kit. Theme design guidance is not automatically
+   has a draft v0.1.1 brand kit, including its logo. Theme design guidance is not automatically
    a social brand kit; do not silently substitute another site's kit.
 4. Add original photos and record their provenance. Set crop focal points only
    after inspecting the photos. Keep originals intact.

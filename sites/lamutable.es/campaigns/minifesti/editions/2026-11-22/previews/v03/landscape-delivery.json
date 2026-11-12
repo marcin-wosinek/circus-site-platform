@@ -2,7 +2,11 @@
   "templateVersion": "0.3.1",
   "status": "landscape-examples-pending-user-review",
   "portraitDirection": "Accepted by user; landscape extension requested",
-  "brandVersion": "0.1.0",
+  "brandVersion": "0.1.1",
+  "brandAsset": {
+    "file": "brand/assets/logo.png",
+    "sha256": "a74250f4293506dc7f4ee733966b90b240bb278025c847036b55674b4c7418bf"
+  },
   "mediaCatalogueVersion": "0.2.0",
   "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
   "fonts": [
@@ -10,9 +14,9 @@
     "Arial (local macOS system font)"
   ],
   "templateHashes": {
-    "facebook.svg": "6e04d5e2ce8c6a5c009c73a931a9f228eb52e4f44b23ca67d9aceba25900be2c",
-    "meetup.svg": "fc5ee6b4b2b6794a8148e582e6f52c916aea50cf98708e325868784a4cdc1880",
-    "render.mjs": "3c918a1800c48479f990095a1343434596d322b38cd32c18b62be04d7b75e786",
+    "facebook.svg": "7342e0281670dde7eeafece9612a224f5fd54447695d76c4cc0ca0c0bac15c75",
+    "meetup.svg": "d5ab6c7bce3192f7435a5799ea7ef411dfe5b74c0095a53e343ddf4cd0745e20",
+    "render.mjs": "b3dda0d6eae241bae8a228233a354a52db3f17c53985cec536bb49f137841af2",
     "trial.json": "8e3741519710543ce0bcb1816a03831dc6901810490d3273f5e55b4b68263111"
   },
   "sourceHashes": {

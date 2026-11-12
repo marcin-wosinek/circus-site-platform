@@ -1,7 +1,11 @@
 {
   "templateVersion": "0.3.0",
   "status": "two-examples-pending-user-review",
-  "brandVersion": "0.1.0",
+  "brandVersion": "0.1.1",
+  "brandAsset": {
+    "file": "brand/assets/logo.png",
+    "sha256": "a74250f4293506dc7f4ee733966b90b240bb278025c847036b55674b4c7418bf"
+  },
   "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
   "fonts": [
     {
@@ -22,10 +26,10 @@
     "art-direction.md": "695a27fe82cf96b97d00597cdb8e203d71f738fe7668594930dc700ac2bd149c"
   },
   "templateHashes": {
-    "overview.svg": "a1a69b747d812967c5c0af930edf5c29d6c5a727a8086472ae68849bb2e7fe79",
-    "workshop.svg": "8e0fcc8b1b08bdc502dc3ab3934115e2fb730d8106d4774edb959686df523f51",
+    "overview.svg": "c3c63cd8d19f04daf66ed0ee358082d020ab879dd57a99ed04e204329c4e6df4",
+    "workshop.svg": "ea7fa613a4b4a4d86fb7261c3498262ab9362631493f590d9f97f010a060ce4d",
     "trial.json": "8e3741519710543ce0bcb1816a03831dc6901810490d3273f5e55b4b68263111",
-    "render.mjs": "d60b88b6837575c0aa755ffc5b7685fd098af84697665c2a3620a2fc94902bd0"
+    "render.mjs": "b3dda0d6eae241bae8a228233a354a52db3f17c53985cec536bb49f137841af2"
   },
   "sourceHashes": {
     "sources/thai-yoga-massage.jpg": "ca6c8010018c70447efa920ea3ff78d740e304375a538dbeb4c9ea42ddab7dd6",
@@ -162,6 +166,7 @@
     {
       "file": "previews/v03/instagram-event.png",
       "composition": "compositions/v03/instagram-event.svg",
+      "formatId": "instagram-feed-portrait",
       "dimensions": [
         1080,
         1350
@@ -171,6 +176,7 @@
     {
       "file": "previews/v03/instagram-contact-improvisation.png",
       "composition": "compositions/v03/instagram-contact-improvisation.svg",
+      "formatId": "instagram-feed-portrait",
       "dimensions": [
         1080,
         1350

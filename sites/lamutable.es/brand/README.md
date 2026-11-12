@@ -1,6 +1,6 @@
 # La Mutable — kit de marca
 
-Versión **0.1.0 · borrador · 12 noviembre 2026**. Dirección propuesta para
+Versión **0.1.1 · borrador · 12 noviembre 2026**. Dirección propuesta para
 prototipos y nuevas piezas; no constituye una identidad aprobada. Los valores
 exactos viven en [tokens.json](tokens.json). No instala fuentes ni modifica la web.
 
@@ -70,10 +70,17 @@ estirando letras. Reservar mayúsculas para títulos y etiquetas breves.
 
 ## Nombre, fotografía y composición
 
-Escribir «La Mutable» en texto corrido. No hay un archivo maestro de logotipo
-verificado en este kit: usar el nombre como texto, sin presentarlo como logo
-oficial. Los logotipos de espacios o colaboradores en los carteles no son la
-marca de La Mutable; conservarlos solo cuando corresponda y exista autorización.
+Escribir «La Mutable» en texto corrido. Para identificar visualmente la
+asociación, usar el [logotipo existente](assets/logo.png), también utilizado en
+las cabeceras de la web. Esta copia en el kit procede de
+[`lamutable/assets/images/logo.png`](../lamutable/assets/images/logo.png).
+Es un PNG con transparencia de 258 × 480 píxeles: conservar sus proporciones,
+no deformarlo, recolorearlo ni recortarlo, y colocarlo sobre un fondo que permita
+leerlo con claridad. No ampliarlo por encima de su resolución disponible; para
+impresión de mayor tamaño, obtener un original de mayor resolución o vectorial.
+Si se actualiza el logo, mantener sincronizadas la copia del kit y la del tema.
+Los logotipos de espacios o colaboradores en los carteles no son la marca de
+La Mutable; conservarlos solo cuando corresponda y exista autorización.
 
 Preferir fotografías reales de prácticas, colaboración, aprendizaje y descanso,
 con permiso de uso. Mostrar diversidad sin convertirla en un reclamo vacío.
@@ -110,6 +117,7 @@ Inscripción: [canal confirmado]. Organiza [proyecto]. Movimiento en común.»
 
 - [Quiénes somos](https://lamutable.es/quienes-somos/): fuente principal del propósito, consultada el 12 noviembre 2026.
 - [Inicio](https://lamutable.es/): disciplinas, contexto local y firma existentes, consultado en la misma fecha.
+- [Logotipo](assets/logo.png): copia del PNG existente en el tema local, usado por las cabeceras en español e inglés; incorporado al kit el 12 noviembre 2026.
 - [Instagram](https://www.instagram.com/la_mutable/): solicitado como referencia, no accesible durante esta revisión.
 - Cuatro SVG locales: `Carteles Halloween LaMutable .svg`, `Copia de Minifesti.svg`, `Minifest 5 septiembre.svg` y `Minifesti 5 septiembre.svg`. Se inspeccionaron sus colores; se renderizó y revisó visualmente `Copia de Minifesti.svg`.
 - [Carpeta de referencia 1](https://drive.google.com/drive/folders/1bE1V_ZUnMXP242J2P0_SC4XZ0eKh77va) y [carpeta 2](https://drive.google.com/drive/folders/1-oXwpnjoNTGLK47V8fPCMUO0oqcMbXrs): estructura consultada; no se revisaron visualmente sus archivos. La primera devolvió una subcarpeta Meetup sin archivos visibles; la segunda contiene subcarpetas por formato.
@@ -125,4 +133,4 @@ La disponibilidad de una referencia no acredita derechos de publicación.
 - Validar fecha, lugar, nivel, precio, condiciones y enlace de inscripción.
 - Revisar contraste, lectura móvil, texto alternativo y datos fuera de imágenes.
 - Confirmar derechos de fotos, fuentes y marcas colaboradoras.
-- Aprobar paleta, tipografía y eventual logo maestro; incrementar versión en README y tokens cuando cambie la dirección creativa.
+- Aprobar paleta y tipografía; usar el logo incluido en el kit y comprobar su legibilidad y resolución. Incrementar versión en README y tokens cuando cambie la dirección creativa.
