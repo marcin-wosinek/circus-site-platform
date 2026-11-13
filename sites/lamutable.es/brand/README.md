@@ -1,6 +1,6 @@
 # La Mutable — kit de marca
 
-Versión **0.1.1 · borrador · 12 noviembre 2026**. Dirección propuesta para
+Versión **0.1.2 · borrador · 13 noviembre 2026**. Dirección propuesta para
 prototipos y nuevas piezas; no constituye una identidad aprobada. Los valores
 exactos viven en [tokens.json](tokens.json). No instala fuentes ni modifica la web.
 
@@ -108,6 +108,12 @@ Cartelería: título visible a distancia y bloque práctico sencillo. Verificar
 sangrado, resolución y legibilidad al tamaño final. Consultar el catálogo
 compartido [de formatos](../../../docs/media-formats.md); no deducir dimensiones
 válidas de los nombres de carpetas antiguas.
+
+Estados de WhatsApp: voz cercana, clara y participativa. Seguir las
+[instrucciones de formato del texto](../../../docs/media-formats.md#whatsapp-status-copy):
+una sola línea, negrita con asteriscos simples y enlace completo de reserva.
+Usar únicamente 📅 para fecha y horario y 📍 para el lugar; evitar otros
+emojis. Incluir una invitación clara a participar, sin urgencia inventada.
 
 Plantilla de pie de evento: «[Actividad] · [fecha] · [horario]. Nos encontramos
 en [lugar] para [práctica concreta]. [Nivel y condiciones]. [Precio y qué incluye].

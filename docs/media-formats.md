@@ -1,6 +1,6 @@
 # Media formats
 
-Status: draft catalogue, version 0.3.0.
+Status: draft catalogue, version 0.3.1.
 
 These shared presets describe the output canvas and its content. A site's
 [brand kit](brand-kits.md) supplies voice, colours, typography, and approved
@@ -44,6 +44,15 @@ logos away from the top and bottom edges to allow for interface controls;
 this preset does not define numeric safe margins. Preview in WhatsApp before
 posting to check cropping, overlays, and mobile readability. Confirm file-size
 limits and export constraints at delivery time.
+
+### WhatsApp Status copy
+
+For this project's WhatsApp status writing workflow, write one continuous
+line with no line breaks. Use single asterisks for bold text (`*event name*`).
+Separate sections with short sentences or `·` separators. Include a clear
+invitation to participate and the full booking URL, without Markdown link
+formatting. Apply the site's brand voice and emoji preferences from its kit.
+These are user-specified writing requirements, recorded on 2026-11-13.
 
 ### Instagram composition and margins
 
