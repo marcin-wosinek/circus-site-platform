@@ -1,6 +1,6 @@
 # Media formats
 
-Status: draft catalogue, version 0.2.0.
+Status: draft catalogue, version 0.3.0.
 
 These shared presets describe the output canvas and its content. A site's
 [brand kit](brand-kits.md) supplies voice, colours, typography, and approved
@@ -30,6 +30,20 @@ accompanying post text or publishing metadata.
 | `instagram-feed-landscape` | Instagram feed | 1080 × 566 (approximately 1.91:1) | Unspecified | Unspecified | Unspecified |
 | `instagram-story` | Instagram Story | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `instagram-reel-cover` | Instagram Reel cover | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
+| `whatsapp-status` | WhatsApp Status | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
+
+### WhatsApp Status composition
+
+The `whatsapp-status` project export preset was added on 2026-11-13.
+The 1080 × 1920 px portrait canvas is a common recommendation, not an
+official WhatsApp image specification. Reference:
+[WhatsApp Status image dimensions](https://www.w3schools.com/tools/tool_resize_whatsapp_status.php).
+
+Use JPEG for photos or PNG for graphics with text. Keep essential text and
+logos away from the top and bottom edges to allow for interface controls;
+this preset does not define numeric safe margins. Preview in WhatsApp before
+posting to check cropping, overlays, and mobile readability. Confirm file-size
+limits and export constraints at delivery time.
 
 ### Instagram composition and margins
 
