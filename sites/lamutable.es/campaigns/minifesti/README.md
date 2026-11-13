@@ -58,3 +58,10 @@ Facebook covers must not include visible URLs or QR codes.
 No automation or dependencies are introduced. Do not use content publishing
 commands for these campaign files. Production remains untouched.
 
+
+## Supplied 9:16 poster template
+
+The [supplied-9x16-v01 template](templates/supplied-9x16-v01/README.md) adapts
+the user's `minifesti_9x16.svg` into live text and photo slots, with populated
+22 November SVG and PNG previews. The original is preserved with provenance.
+This separate sand/orange draft keeps the supplied design; v03 remains intact.

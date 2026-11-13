@@ -1,0 +1,67 @@
+{
+  "status": "draft — supplied poster display copy",
+  "text": {
+    "heading": {
+      "value": "MINIFESTI",
+      "maxWidth": 580
+    },
+    "date": {
+      "value": "22 DE NOVIEMBRE",
+      "maxWidth": 470
+    },
+    "hours": {
+      "value": "15:00 — 22:00",
+      "maxWidth": 440
+    },
+    "teacher1": {
+      "value": "con Arancha",
+      "maxWidth": 430
+    },
+    "workshop1": {
+      "value": "YIN YOGA",
+      "maxWidth": 430
+    },
+    "teacher2": {
+      "value": "con Emanuela y Tavi",
+      "maxWidth": 430
+    },
+    "workshop2": {
+      "value": "DANCE LIFT",
+      "maxWidth": 430
+    },
+    "teacher3": {
+      "value": "con Bart",
+      "maxWidth": 430
+    },
+    "workshop3": {
+      "value": "THAI YOGA MASSAGE",
+      "maxWidth": 430
+    },
+    "teacher4": {
+      "value": "con Diana Flor",
+      "maxWidth": 430
+    },
+    "workshop4": {
+      "value": "CONTACT IMPROVISATION",
+      "maxWidth": 430
+    },
+    "venue": {
+      "value": "Asociación Samadhi de Salud Integral",
+      "maxWidth": 900
+    },
+    "address": {
+      "value": "C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València",
+      "maxWidth": 900
+    },
+    "booking": {
+      "value": "RESERVAR EN WWW.LAMUTABLE.ES",
+      "maxWidth": 680
+    }
+  },
+  "photos": {
+    "photo1": "../../sources/supplied-9x16/photo1.jpg",
+    "photo2": "../../sources/supplied-9x16/photo2.jpg",
+    "photo3": "../../sources/supplied-9x16/photo3.jpg",
+    "photo4": "../../sources/supplied-9x16/photo4.jpg"
+  }
+}
