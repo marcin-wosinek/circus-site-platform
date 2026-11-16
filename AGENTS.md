@@ -62,6 +62,18 @@ preserve its Git history and verify the imported tree.
   Keep brand-specific guidance out of shared skills. A brand-only folder does
   not imply operational registration in `sites.json`.
 
+- Before writing or translating copy, or preparing text for images, consult
+  the effective terminology glossary alongside the brand kit:
+  `npm run terminology:show -- --site <site-id> --language <language>`. Before
+  rendering or export, check final copy, captions, alt text, and exact image
+  lettering with `npm run terminology:check -- --site <site-id> --language
+  <language> [--concept <id> ...] <file> ...`, then inspect the wording in the
+  final rendered image. Shared terms live in `terminology.json`; project
+  additions and explicit overrides live in `sites/<site-id>/brand/terminology.json`.
+  Report missing translations instead of inventing them, and review findings
+  in context rather than rewriting quotations or unrelated uses. Follow
+  `docs/terminology.md`.
+
 - Treat production systems as read-only unless a task explicitly authorizes a
   write operation.
 - Never commit credentials, application passwords, private keys, production

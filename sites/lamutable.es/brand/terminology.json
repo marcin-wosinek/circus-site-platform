@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../schemas/terminology.schema.json",
+  "formatVersion": 1,
+  "concepts": {
+    "la-mutable": {
+      "context": "Name of the association. Write it as is in running text in every language; never translate it.",
+      "sources": ["sites/lamutable.es/brand/README.md#nombre-fotografía-y-composición"],
+      "invariant": "La Mutable"
+    }
+  }
+}

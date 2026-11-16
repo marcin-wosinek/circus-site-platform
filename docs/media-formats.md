@@ -1,6 +1,6 @@
 # Media formats
 
-Status: draft catalogue, version 0.3.1.
+Status: draft catalogue, version 0.3.2.
 
 These shared presets describe the output canvas and its content. A site's
 [brand kit](brand-kits.md) supplies voice, colours, typography, and approved
@@ -99,8 +99,10 @@ canvas and content rules:
 
 1. Accept a site ID, format ID, language, purpose, verified campaign facts, and
    requested optional elements. Read the complete brand README, tokens, and
-   relevant asset guidance. Explicit user instructions take precedence; record
-   any requested deviation from the preset.
+   relevant asset guidance, and consult the effective
+   [terminology](terminology.md) glossary for the site and language. Explicit
+   user instructions take precedence; record any requested deviation from the
+   preset.
 2. Resolve the format's required fields before producing a final asset. Missing
    facts or assets may be visibly marked in a prototype, but prevent final
    delivery. Do not invent event details, dates, or a logo.
@@ -119,9 +121,14 @@ canvas and content rules:
    appropriate and accepted by the destination. File type, byte limits, and
    safe areas beyond those above remain delivery-time decisions. Apply the
    Instagram margins above when composing those presets.
-6. Inspect exact dimensions, required/forbidden elements, factual accuracy,
-   spelling, font rendering, contrast, crop, and mobile readability.
-   Generation does not authorize publication.
+6. Before rendering or export, run `npm run terminology:check` on the final
+   copy, caption, alt text, and the exact text lettered on the image; review
+   each finding in context rather than rewriting blindly.
+7. Inspect exact dimensions, required/forbidden elements, factual accuracy,
+   spelling, font rendering, contrast, crop, and mobile readability. Read the
+   exact wording in the final rendered image, including uppercase
+   presentation, line wrapping, accents, and clipping; the terminology check
+   cannot see rendered images. Generation does not authorize publication.
 
 Alongside each deliverable record: site ID, brand version, format ID and
 catalogue version, actual dimensions and file type, brief/fact sources,

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circus-it.eu/schemas/terminology.schema.json",
+  "title": "Circus Site Platform terminology glossary",
+  "description": "Shared (terminology.json) or project (sites/<site-id>/brand/terminology.json) glossary. Structural validation only; scripts/lib/terminology.mjs performs the full boundary validation, including duplicate keys, conflicting wording, override declarations and the rule that a project may only change the language entries of a shared concept.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "concepts"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "formatVersion": { "const": 1 },
+    "concepts": {
+      "type": "object",
+      "description": "Concepts keyed by a stable ID. A project concept with the ID of a shared concept may contain only \"languages\".",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$" },
+      "additionalProperties": { "$ref": "#/$defs/concept" }
+    }
+  },
+  "$defs": {
+    "term": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\S(?:[^\\r\\n]*\\S)?$"
+    },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "context": { "type": "string", "minLength": 1, "description": "Where and how the concept applies. Required for a new concept." },
+        "sources": { "$ref": "#/$defs/sources", "minItems": 1, "description": "References supporting the wording. Required for a new concept." },
+        "invariant": { "$ref": "#/$defs/term", "description": "Do-not-translate name used as is in every language." },
+        "languages": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$" },
+          "additionalProperties": { "$ref": "#/$defs/entry" }
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preferred": { "$ref": "#/$defs/term", "description": "Approved wording. Not allowed for an invariant concept." },
+        "discouraged": { "type": "array", "items": { "$ref": "#/$defs/term" } },
+        "sources": { "$ref": "#/$defs/sources" },
+        "override": { "const": true, "description": "Required on a project entry that replaces a shared entry for the same concept and language." }
+      }
+    }
+  }
+}

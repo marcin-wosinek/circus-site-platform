@@ -11,6 +11,9 @@ Use this small, shared structure:
   `brandVersion`, `status`, `colors`, and `typography` fields. This is a proposed
   convention, not an enforced schema or a WordPress theme.json file.
 - `assets/`: source references and approved brand assets, clearly distinguished.
+- `terminology.json` (optional): project terminology additions, explicit
+  overrides of shared terminology, and do-not-translate names. See
+  [Terminology](terminology.md).
 
 The prose owns voice and usage rules; tokens own exact colour and font values.
 Keep site-specific rules here, rather than copying them into shared skills.
@@ -30,6 +33,15 @@ tokens, then any referenced assets needed for the task. Do not silently use
 another site's kit when one is missing. Brand instructions govern expression;
 the brief supplies verified event or product facts. Flag missing facts rather
 than inventing them. Explicit task instructions take precedence.
+
+Before writing or translating copy, also consult the effective
+[terminology](terminology.md) glossary for the site and language with
+`npm run terminology:show -- --site <site-id> --language <language>`. Use its
+preferred wording and do-not-translate names; flag missing translations for
+review instead of presenting new wording as approved. Before rendering or
+exporting, check the final copy, captions, alt text, and exact image lettering
+with `npm run terminology:check`, then inspect the wording in the final rendered
+image. A clean check does not approve unlisted wording.
 
 Keep channel dimensions and publishing mechanics in shared workflows and
 check them when producing an asset; keep a brand's channel tone in its kit.
