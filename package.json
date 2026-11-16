@@ -12,6 +12,8 @@
     "import": "node scripts/import-production.mjs",
     "content:export": "node scripts/content-publish.mjs export",
     "content:plan": "node scripts/content-publish.mjs plan",
-    "content:apply": "node scripts/content-publish.mjs apply"
+    "content:apply": "node scripts/content-publish.mjs apply",
+    "terminology:show": "node scripts/terminology.mjs show",
+    "terminology:check": "node scripts/terminology.mjs check"
   }
 }

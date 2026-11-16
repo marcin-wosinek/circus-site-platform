@@ -1,6 +1,6 @@
 # La Mutable — kit de marca
 
-Versión **0.1.2 · borrador · 13 noviembre 2026**. Dirección propuesta para
+Versión **0.1.3 · borrador · 16 noviembre 2026**. Dirección propuesta para
 prototipos y nuevas piezas; no constituye una identidad aprobada. Los valores
 exactos viven en [tokens.json](tokens.json). No instala fuentes ni modifica la web.
 
@@ -28,6 +28,17 @@ Español cercano, claro y participativo. Hablar de personas, prácticas y recurs
 concretos. Usar «compartimos», «participa», «organizamos» y «en común» cuando el
 sujeto sea realmente colectivo. Respetar el nombre propio de cada proyecto.
 Usar lenguaje inclusivo legible: comunidad, personas participantes, equipo.
+
+### Terminología
+
+Antes de escribir o traducir textos, consultar el glosario efectivo: el
+[compartido](../../../terminology.json) más el [de este proyecto](terminology.json)
+(`npm run terminology:show -- --site lamutable.es --language es`). Usar
+«Contact improvisación», no «Improvisación de contacto», también en mayúsculas.
+«La Mutable» no se traduce. Antes de renderizar o exportar, comprobar el texto
+final, pies, texto alternativo y rótulos de imagen con `npm run terminology:check`
+y revisar después la imagen final. Si falta una traducción, marcarla para
+revisión en lugar de inventarla. Ver [Terminología](../../../docs/terminology.md).
 
 Explicar cómo participar, qué nivel requiere una actividad y qué incluye el
 precio. Accesible es un compromiso, no una garantía universal: no afirmar
@@ -138,5 +149,6 @@ La disponibilidad de una referencia no acredita derechos de publicación.
 - Confirmar propósito, público y autonomía del proyecto organizador.
 - Validar fecha, lugar, nivel, precio, condiciones y enlace de inscripción.
 - Revisar contraste, lectura móvil, texto alternativo y datos fuera de imágenes.
+- Pasar `terminology:check` al texto final y leer la redacción exacta en cada imagen renderizada: mayúsculas, cortes de línea, tildes y recortes.
 - Confirmar derechos de fotos, fuentes y marcas colaboradoras.
 - Aprobar paleta y tipografía; usar el logo incluido en el kit y comprobar su legibilidad y resolución. Incrementar versión en README y tokens cuando cambie la dirección creativa.

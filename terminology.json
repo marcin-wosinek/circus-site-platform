@@ -1,0 +1,19 @@
+{
+  "$schema": "./schemas/terminology.schema.json",
+  "formatVersion": 1,
+  "concepts": {
+    "contact-improvisation": {
+      "context": "The movement practice and its classes, jams and workshops, as named in activity listings, captions, alt text and image lettering.",
+      "sources": [
+        "https://github.com/marcin-wosinek/circus-site-platform/issues/20",
+        "https://github.com/marcin-wosinek/circus-site-platform/issues/20#issuecomment-6927402256"
+      ],
+      "languages": {
+        "es": {
+          "preferred": "Contact improvisación",
+          "discouraged": ["Improvisación de contacto"]
+        }
+      }
+    }
+  }
+}

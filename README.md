@@ -123,6 +123,24 @@ Site-owned voice, visual guidance, and design tokens live in
 convention and future skill integration. The first draft is
 [Ahora que hacemos](sites/ahoraquehacemos.com/brand/README.md), a website with a fresh local WordPress environment.
 
+## Terminology
+
+Shared approved wording lives in [`terminology.json`](terminology.json);
+projects add terms, do-not-translate names, and explicit overrides in
+`sites/<site-id>/brand/terminology.json`. Consult the effective glossary with
+the brand kit before writing or translating copy, and check final copy and
+image text before rendering or export:
+
+```sh
+npm run terminology:show -- --site lamutable.es --language es
+npm run terminology:check -- --site lamutable.es --language es --concept contact-improvisation copy.txt
+```
+
+Both commands are read-only and offline; `check` reports discouraged wording
+with its location and preferred replacement, never rewrites files, and exits
+with `1` for findings or missing requested translations and `2` for invalid
+input. See [Terminology](docs/terminology.md).
+
 ## Planned scope
 
 - Shared WordPress development workflows

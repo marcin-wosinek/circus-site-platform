@@ -39,14 +39,22 @@ that playbook.
 2. Set the source URL and verify date, venue, language, workshop titles,
    instructors and times. Keep stable workshop IDs; array order is programme order.
 3. Select the intended brand kit explicitly and record its version. La Mutable
-   has a draft v0.1.1 brand kit, including its logo. Theme design guidance is not automatically
+   has a draft v0.1.3 brand kit, including its logo and
+   [terminology](../../brand/terminology.json). Theme design guidance is not automatically
    a social brand kit; do not silently substitute another site's kit.
 4. Add original photos and record their provenance. Set crop focal points only
    after inspecting the photos. Keep originals intact.
 5. Incorporate the user's visual references and resolve art-direction.md. Choose
    one palette/shape variant for the entire edition, within the selected brand.
 6. Resolve the edition brief before generating. Keep exact text and approved
-   logos separate from generated imagery in editable compositions.
+   logos separate from generated imagery in editable compositions. Write the
+   copy with the effective glossary
+   (`npm run terminology:show -- --site lamutable.es --language es`); it
+   requires «Contact improvisación», not «Improvisación de contacto».
+   Before rendering, put the final copy, captions, alt text, and exact image
+   lettering in plain text files and run
+   `npm run terminology:check -- --site lamutable.es --language es <file> ...`.
+   Review findings in context; do not rewrite quotations blindly.
 7. Produce versioned previews, review the complete set, then export approved
    final-size files. Record actual formats, fonts, source versions, deviations,
    alt text and review status in delivery.json. Do not overwrite reviewed versions.
@@ -59,6 +67,10 @@ Use count-aware layouts for 3–4, 5–6 and 7–8 photos; inspect readability r
 than shrinking one fixed collage. Adapt landscape compositions separately.
 Check dimensions against the media catalogue, current destination requirements,
 text accuracy, margins, contrast, photo crops, and mobile readability.
+Read the exact wording in every final rendered image, including uppercase
+labels, line wrapping, accents, and clipping; a clean terminology check does
+not cover rendered images. Existing reviewed versions stay intact: correct
+terminology in a new version.
 Facebook covers must not include visible URLs or QR codes.
 
 No automation or dependencies are introduced. Do not use content publishing
