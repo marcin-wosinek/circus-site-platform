@@ -180,3 +180,47 @@ brand v0.1.1 logo. Logo placements (x, y, width, height) are overview
 (905, 595, 65, 121), Instagram workshop (947, 1210, 48, 90), Facebook
 (1250, 170, 65, 121), and Meetup (620, 16, 32, 60). The original 258 × 480
 asset is never enlarged. Older v01/v02 compositions remain historical drafts.
+
+## WhatsApp Status portrait
+
+`whatsapp.svg` is a 1080 × 1920 featured-workshop template. Edit selection,
+short display title, source crops, supporting labels, venue and booking copy in
+`whatsapp.json`; date, workshop hours and teachers come from the edition's
+`event.json`. Four workshops are required. The example features Dance Lift.
+The top photo uses a deliberate crop then contain; supporting photos use the
+same policy. The Yin Yoga crop excludes baked-in source lettering.
+
+```sh
+node sites/lamutable.es/campaigns/minifesti/templates/v03/render-whatsapp.mjs
+```
+
+Uses the same local fonts and ImageMagick dependencies as v03. Existing drafts
+require `--replace-drafts`; preserve approved versions first. Outputs are the
+edition's `compositions/v03/whatsapp-<workshop>.svg` and corresponding full-size
+and mobile PNG previews, plus a delivery record. Named text/photo slots remain
+in the reusable SVG. Text width checks reject overflow; longer titles require
+an explicit layout revision. Review footer and supporting-label fit when changing
+copy. Essential text ends above the bottom 180px; the upper edge contains only
+photography to accommodate interface overlays. Device overlays still vary.
+This is a draft for review, not a published asset.
+
+## Instagram adaptation of the WhatsApp design
+
+`instagram-featured.svg` adapts the accepted WhatsApp hierarchy to the campaign's
+1080 × 1350 Instagram portrait format. The Dance Lift example uses a 480px-high
+featured-photo frame, a compact event/workshop block, three supporting images,
+and a venue/booking footer. Photos are contained after the same explicit source
+crops, preserving the full pose with cream margins. Mobile preview inspected at
+360 × 450. This is a separate draft; previous Instagram examples remain intact.
+
+Edit `instagram-featured.json` for workshop selection and display copy, then run:
+
+```sh
+node sites/lamutable.es/campaigns/minifesti/templates/v03/render-instagram-featured.mjs
+```
+
+Dependencies and draft protection match the WhatsApp renderer. Outputs use the
+`instagram-featured-<workshop>` prefix in the edition's v03 composition and preview
+folders. The template has named editable text and photo slots; hours and teachers
+come from event.json. Four workshops and a one-line display title are supported;
+overflow requires a deliberate copy/layout revision. No publishing is performed.

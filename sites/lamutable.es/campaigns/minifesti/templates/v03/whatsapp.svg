@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1920" viewBox="0 0 1080 1920">
+<rect width="1080" height="1920" fill="{{cream}}"/>
+{{featuredPhoto}}
+<path d="M0 640 C230 585 425 735 690 680 C870 640 980 620 1080 650 L1080 760 L0 760Z" fill="{{cream}}"/>
+<text id="event-name" x="60" y="830" fill="{{ink}}" font-family="Barlow Condensed" font-weight="800" font-size="158">{{heading}}</text>
+<text id="date" x="65" y="920" fill="{{burgundy}}" font-family="Barlow Condensed" font-weight="800" font-size="74">{{date}}</text>
+<text id="workshop-name" x="65" y="1050" fill="{{ink}}" font-family="Barlow Condensed" font-weight="800" font-size="96">{{title}}</text>
+<text id="hours" x="65" y="1130" fill="{{burgundy}}" font-family="Barlow Condensed" font-weight="800" font-size="64">{{hours}}</text>
+<text id="teachers" x="65" y="1190" fill="{{ink}}" font-family="Arial" font-size="34">{{teacher}}</text>
+{{supportingPhotos}}
+<g fill="{{ink}}" font-family="Barlow Condensed" font-weight="800" font-size="27">{{supportingLabels}}</g>
+<image x="65" y="1610" width="65" height="121" xlink:href="{{logo}}"/>
+<text id="venue" x="165" y="1655" fill="{{ink}}" font-family="Arial" font-size="31">{{venue}}</text>
+<text id="booking" x="165" y="1710" fill="{{burgundy}}" font-family="Arial" font-size="34">{{booking}}</text>
+</svg>

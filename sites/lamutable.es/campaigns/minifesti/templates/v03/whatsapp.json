@@ -1,0 +1,29 @@
+{
+  "edition": "../../editions/2026-11-22",
+  "heading": "MINIFESTI",
+  "featuredWorkshopId": "dance-lift",
+  "displayTitleLines": [
+    "DANCE LIFT"
+  ],
+  "featuredCrop": [
+    0,
+    240,
+    683,
+    660
+  ],
+  "venue": "Samadhi · Benimaclet · València",
+  "booking": "Reserva en lamutable.es",
+  "supportingCrops": {
+    "inward-yin-yoga": [
+      260,
+      350,
+      470,
+      355
+    ]
+  },
+  "labels": {
+    "thai-yoga-massage": "MASAJE THAI YOGA",
+    "contact-improvisation": "CONTACT IMPROVISATION",
+    "inward-yin-yoga": "YIN YOGA"
+  }
+}

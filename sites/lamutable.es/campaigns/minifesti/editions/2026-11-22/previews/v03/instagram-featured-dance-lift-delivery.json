@@ -1,0 +1,66 @@
+{
+  "status": "draft-pending-review",
+  "template": "v03/instagram-featured.svg",
+  "brandVersion": "0.1.2",
+  "dimensions": [
+    1080,
+    1350
+  ],
+  "featuredWorkshopId": "dance-lift",
+  "photos": [
+    {
+      "workshopId": "dance-lift",
+      "crop": [
+        0,
+        240,
+        683,
+        660
+      ],
+      "placement": [
+        0,
+        0,
+        1080,
+        480
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "thai-yoga-massage",
+      "crop": "whole-original",
+      "placement": [
+        60,
+        960,
+        310,
+        170
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "contact-improvisation",
+      "crop": "whole-original",
+      "placement": [
+        385,
+        960,
+        310,
+        170
+      ],
+      "policy": "contain"
+    },
+    {
+      "workshopId": "inward-yin-yoga",
+      "crop": [
+        260,
+        350,
+        470,
+        355
+      ],
+      "placement": [
+        710,
+        960,
+        310,
+        170
+      ],
+      "policy": "contain"
+    }
+  ]
+}
