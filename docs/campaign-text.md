@@ -144,16 +144,17 @@ approval record's path, hash, reviewer, and timestamp.
 - Text: `sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v01`.
   Migrated verbatim from event kit v07: copy from its `.txt` files, labels from
   its SVGs. Tests verify all ten copy files byte for byte, re-binding every
-  label into each v07 SVG, and the email drafts. The revision is unapproved,
-  and its glossary findings for «Improvisación de contacto» need either a
-  recorded preservation exception or a corrected new revision.
+  label into each v07 SVG, and the email drafts. The revision stays
+  unapproved as a historical record.
+- Corrected text: `text/v02`, created from v01 with «Contact improvisación»
+  and approved. Event kit v08 was rendered from it.
 - Bindings: `event-kit/text-bindings.json` maps label names to the v07
   baseline's `<text>` elements.
 - Builder:
 
   ```sh
   node sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/build.mjs \
-    --text sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v01 --version v08
+    --text sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v02 --version v09
   ```
 
   It requires ImageMagick and the campaign's fonts (Barlow Condensed is bundled;

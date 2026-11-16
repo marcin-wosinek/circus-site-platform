@@ -1,0 +1,15 @@
+{
+	"formatVersion": 1,
+	"revision": "v02",
+	"artifact": "text.json",
+	"sha256": "9e6d7ae40823acc820250de86fccc04f5348bd07055611b33b92c8890e9e84ae",
+	"reviewer": "Marcin",
+	"approvedAt": "2026-11-16T20:42:19.009Z",
+	"scope": "Campaign text only. Does not approve visuals, alt text, photo permissions, publication, or sending.",
+	"terminology": {
+		"site": "lamutable.es",
+		"language": "es",
+		"findings": [],
+		"exceptions": []
+	}
+}
