@@ -14,6 +14,9 @@
     "content:plan": "node scripts/content-publish.mjs plan",
     "content:apply": "node scripts/content-publish.mjs apply",
     "terminology:show": "node scripts/terminology.mjs show",
-    "terminology:check": "node scripts/terminology.mjs check"
+    "terminology:check": "node scripts/terminology.mjs check",
+    "campaign:text:create": "node scripts/campaign-text.mjs create",
+    "campaign:text:show": "node scripts/campaign-text.mjs show",
+    "campaign:text:approve": "node scripts/campaign-text.mjs approve"
   }
 }

@@ -9,6 +9,12 @@ email drafts. Facts are confirmed for that delivery; visual approval and photo
 permissions remain pending. See its
 [review record](editions/2026-11-22/event-kit/v07/review.md).
 
+That edition's wording is now a separately reviewed text revision,
+[text/v01](editions/2026-11-22/text/v01/text.json), migrated verbatim from v07
+and still awaiting approval. New kits come from
+[event-kit/build.mjs](editions/2026-11-22/event-kit/build.mjs) with an approved
+revision passed explicitly. See [Campaign text revisions](../../../../docs/campaign-text.md).
+
 One reusable recipe supports editions with 3–8 workshops. Each edition produces
 one Instagram overview, one Facebook event cover, and one Instagram and one
 Meetup image per workshop: 2 + 2 × workshop count outputs.
@@ -55,7 +61,12 @@ that playbook.
    lettering in plain text files and run
    `npm run terminology:check -- --site lamutable.es --language es <file> ...`.
    Review findings in context; do not rewrite quotations blindly.
-7. Produce versioned previews, review the complete set, then export approved
+7. Put every image label and all channel copy in a campaign text revision
+   (`editions/YYYY-MM-DD/text/vNN/text.json`). Review it with
+   `npm run campaign:text:show` and have the user approve it with
+   `npm run campaign:text:approve` before rendering. Visual-only reruns reuse
+   the same approved revision; wording changes need a new revision.
+8. Produce versioned previews, review the complete set, then export approved
    final-size files. Record actual formats, fonts, source versions, deviations,
    alt text and review status in delivery.json. Do not overwrite reviewed versions.
 

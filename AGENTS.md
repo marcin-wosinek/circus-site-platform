@@ -74,6 +74,14 @@ preserve its Git history and verify the imported tree.
   in context rather than rewriting quotations or unrelated uses. Follow
   `docs/terminology.md`.
 
+- Campaign images use reviewed text revisions. Prepare labels and channel copy
+  with `npm run campaign:text:create`, inspect them with
+  `npm run campaign:text:show`, and render only from a revision a human
+  approved with `npm run campaign:text:approve`. Do not approve text on a
+  user's behalf, and do not edit an approved revision: create a new one. Text
+  approval does not approve visuals, alt text, photo permissions, publishing,
+  or sending. Follow `docs/campaign-text.md`.
+
 - Treat production systems as read-only unless a task explicitly authorizes a
   write operation.
 - Never commit credentials, application passwords, private keys, production

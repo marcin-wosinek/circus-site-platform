@@ -141,6 +141,24 @@ with its location and preferred replacement, never rewrites files, and exits
 with `1` for findings or missing requested translations and `2` for invalid
 input. See [Terminology](docs/terminology.md).
 
+## Campaign text
+
+Campaign images are built in two stages. First, review and approve a text
+revision containing every image label and all channel copy. Then render images
+from that revision. No ImageMagick is needed to prepare or approve text:
+
+```sh
+npm run campaign:text:create -- --from <edition>/text/v01/text.json --output <edition>/text/v02
+npm run campaign:text:show -- <edition>/text/v02
+npm run campaign:text:approve -- <edition>/text/v02 --sha256 <digest> --reviewer "<name>"
+```
+
+Approval records the SHA-256 of the exact reviewed file. Any later change
+invalidates it, and image builders refuse unapproved or modified text.
+Glossary findings block approval until they are corrected or explicitly
+preserved with `--preserve-terminology <concept> --reason <text>`. See
+[Campaign text revisions](docs/campaign-text.md).
+
 ## Planned scope
 
 - Shared WordPress development workflows
