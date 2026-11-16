@@ -1,0 +1,117 @@
+{
+  "status": "draft-pending-user-review",
+  "brandVersion": "0.1.2",
+  "accentColor": "#E85E14",
+  "mediaCatalogueVersion": "0.3.1",
+  "bookingUrl": "https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+  "bookingChecked": "2026-11-16; HTTP GET only; form anchor inscripcion present; no checkout submitted",
+  "templates": [
+    "v03/overview.svg",
+    "v03/workshop.svg",
+    "v03/whatsapp.svg"
+  ],
+  "fonts": [
+    "Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)",
+    "Arial (macOS system font, not redistributed)"
+  ],
+  "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
+  "sourceHashes": {
+    "compositions/v03/instagram-event.svg": "484ab24dea89a347eb9a8cdc5944db976cbbf803b11f9563eeaeef2be66859dc",
+    "compositions/v03/instagram-thai-yoga-massage.svg": "04e2652507e6ee2eb5a0f3af48996092624ec98af685dfb8f2614bcedf543090",
+    "compositions/v03/whatsapp-thai-yoga-massage.svg": "932fb35f5fec3222973d408f311f318d65ef05981fbef667d89b627dd1f32c4a",
+    "compositions/v03/instagram-dance-lift.svg": "cf5a5677ab0edd47dc460ed9bdf3685f10627ca2ba76e7fbd63e16495c4772f0",
+    "compositions/v03/whatsapp-dance-lift.svg": "85a247b9eaac0888f753f622983f0b9ae6301152b191b3cda070e16573884f52",
+    "compositions/v03/instagram-contact-improvisation.svg": "fe696713f0b16902b0dfefe055ab0bdda6733be596f167960989a2cf8ed285fa",
+    "compositions/v03/whatsapp-contact-improvisation.svg": "05f5cd3b0f3e0000df396646f77e7bb1735b683d9fc5c229418a017d13e19cdd",
+    "compositions/v03/instagram-inward-yin-yoga.svg": "ee28ad5aa57f1b23870f94e0bbb6f0b66910232687a132f101ed38908c6ade9a",
+    "compositions/v03/whatsapp-inward-yin-yoga.svg": "e9578deeddee95c40d846dce0069b14478a758eb83d55b079dc502670cc75378"
+  },
+  "outputs": [
+    {
+      "file": "general/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "7d75c9ece356facf45b87c310ca395a2663d6af151029afcf217bce10a2c6a7f"
+    },
+    {
+      "file": "general/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "17f9b97e80fc26952293fbcbbba173c7ab38d734536bb937b0a455b3679510f4"
+    },
+    {
+      "file": "thai-yoga-massage/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "5eadb2878612fc847e74d2494460594427f4782d6a2bc0e328fc4a90cf565a24"
+    },
+    {
+      "file": "thai-yoga-massage/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "c06bf543da017edd0e81ce35c0ab0dc74b4c85d2602c191e34d4f857f67481d0"
+    },
+    {
+      "file": "dance-lift/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "4b6df2c38a57d1a8fda21b93f65f65a1a6bb4d9527bbdca2c566ec4dcadc30fc"
+    },
+    {
+      "file": "dance-lift/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "8f24913406f6750f27e02d15f333d2941150ccdda93fabc9de477379476a6fe1"
+    },
+    {
+      "file": "contact-improvisation/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "b6296f5a55f9721b486c003b7b02be7533810d7fc8b15e73bec0027ef0041329"
+    },
+    {
+      "file": "contact-improvisation/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "55b75a9dd99c971d2b54132d35252c4bdc212ccf993b5387682cf44a853a75b1"
+    },
+    {
+      "file": "inward-yin-yoga/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "7ef796928619e91c1f7d78fceec65606245677285a2ea6d6567a2c888a44466e"
+    },
+    {
+      "file": "inward-yin-yoga/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "1273d14a4541b749c10317af378cc55208db0ca321a83270ef35ff4b90259179"
+    }
+  ],
+  "revision": {
+    "base": "v05",
+    "date": "2026-11-16",
+    "change": "Move Thai Massage and Dance Lift featured crops to the top to preserve faces in both formats.",
+    "builder": "build-v06.mjs"
+  }
+}

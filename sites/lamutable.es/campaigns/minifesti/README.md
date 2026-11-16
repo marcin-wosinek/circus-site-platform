@@ -3,11 +3,11 @@
 Status: the 22 November edition has ten v01 draft previews and editable SVG
 compositions. Event facts and final review remain pending. No publishing is authorized.
 
-The [22 November Event Kit](editions/2026-11-22/event-kit/v05/index.html)
+The [22 November Event Kit](editions/2026-11-22/event-kit/v07/index.html)
 contains five WhatsApp/Instagram bundles with Spanish copy, editable SVGs and
 email drafts. Facts are confirmed for that delivery; visual approval and photo
 permissions remain pending. See its
-[review record](editions/2026-11-22/event-kit/v05/review.md).
+[review record](editions/2026-11-22/event-kit/v07/review.md).
 
 One reusable recipe supports editions with 3–8 workshops. Each edition produces
 one Instagram overview, one Facebook event cover, and one Instagram and one
