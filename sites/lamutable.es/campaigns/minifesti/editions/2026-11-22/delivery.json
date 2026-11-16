@@ -1,272 +1,188 @@
 {
   "formatVersion": 1,
-  "status": "facts-confirmed-drafts-in-review",
-  "brandVersion": "0.1.0",
-  "mediaCatalogueVersion": "0.2.0",
+  "status": "facts-confirmed-text-approved-visuals-pending",
+  "current": {
+    "kit": "event-kit/v08",
+    "index": "event-kit/v08/index.html",
+    "manifest": "event-kit/v08/manifest.json",
+    "review": "event-kit/v08/review.md",
+    "text": {
+      "revision": "text/v02",
+      "sha256": "9e6d7ae40823acc820250de86fccc04f5348bd07055611b33b92c8890e9e84ae",
+      "approval": "text/v02/approval.json",
+      "reviewer": "Marcin",
+      "approvedAt": "2026-11-16T20:42:19.009Z"
+    },
+    "emailDrafts": "event-kit/v08/email-drafts.md",
+    "altText": "event-kit/v08/alt-text.md"
+  },
   "expectedOutputCount": 10,
-  "generationMode": "built-in image_gen for botanical decoration; deterministic SVG composition of original photographs and editable text",
   "unresolved": [
-    "Visual review and photo usage confirmation",
-    "Destination requirements not independently reverified; project draft presets used"
+    "Visual review of the v08 images",
+    "Alt text review (terminology corrected; descriptions carried from v07)",
+    "Photo usage permissions",
+    "Publishing and sending are not authorized"
   ],
   "deliverables": [
     {
-      "file": "previews/v02/instagram-event.png",
-      "composition": "compositions/v02/instagram-event.svg",
-      "formatId": "instagram-feed-portrait",
+      "file": "event-kit/v08/general/instagram.png",
+      "svg": "event-kit/v08/general/instagram.svg",
+      "copy": "event-kit/v08/general/instagram.txt",
+      "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
+      "sha256": "da7bcd08bce16c7a5ae1ccbd902fba2d88a095c408b005fb7eca111f0171f779",
       "workshopId": null,
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg",
-        "sources/dance-lift.jpg",
-        "sources/contact-improvisation.jpg",
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Minifesti La Mutable, 22 noviembre 2026, 15:00–22:00. Collage de las cuatro prácticas.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Collage de cuatro fotografías: una elevación en pareja, masaje en el suelo, una práctica grupal de movimiento y una postura de Yin Yoga. Cartel en crema, tinta y naranja. 22 noviembre 2026, 15:00–22:00. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/facebook-event.png",
-      "composition": "compositions/v02/facebook-event.svg",
-      "formatId": "facebook-event-cover",
+      "file": "event-kit/v08/general/whatsapp.png",
+      "svg": "event-kit/v08/general/whatsapp.svg",
+      "copy": "event-kit/v08/general/whatsapp.txt",
+      "channel": "Estado de WhatsApp",
       "dimensions": [
-        1920,
-        1080
+        1080,
+        1920
       ],
       "fileType": "image/png",
+      "sha256": "c80a0a46cc1f5f09955e48b37cfbd1a58222a8367d43caaed5dd5c035c97c8e2",
       "workshopId": null,
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg",
-        "sources/dance-lift.jpg",
-        "sources/contact-improvisation.jpg",
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Minifesti La Mutable, 22 noviembre 2026, 15:00–22:00. Collage de las cuatro prácticas.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Collage de cuatro fotografías: una elevación en pareja, masaje en el suelo, una práctica grupal de movimiento y una postura de Yin Yoga. Cartel en crema, tinta y naranja. 22 noviembre 2026, 15:00–22:00. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/instagram-thai-yoga-massage.png",
-      "composition": "compositions/v02/instagram-thai-yoga-massage.svg",
-      "formatId": "instagram-feed-portrait",
+      "file": "event-kit/v08/thai-yoga-massage/instagram.png",
+      "svg": "event-kit/v08/thai-yoga-massage/instagram.svg",
+      "copy": "event-kit/v08/thai-yoga-massage/instagram.txt",
+      "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
+      "sha256": "fdb8d759ad8695d3bcc4eaa35f90092241e5230f7def8c908bc5dfcbd0216f1e",
       "workshopId": "thai-yoga-massage",
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg",
-        "sources/dance-lift.jpg",
-        "sources/contact-improvisation.jpg",
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Masaje Thai Yoga, con Bart, 22 noviembre 2026, 15:00–16:30.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de Masaje Thai Yoga, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 15:00–16:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/meetup-thai-yoga-massage.png",
-      "composition": "compositions/v02/meetup-thai-yoga-massage.svg",
-      "formatId": "meetup-cover",
+      "file": "event-kit/v08/thai-yoga-massage/whatsapp.png",
+      "svg": "event-kit/v08/thai-yoga-massage/whatsapp.svg",
+      "copy": "event-kit/v08/thai-yoga-massage/whatsapp.txt",
+      "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
-        608
+        1920
       ],
       "fileType": "image/png",
+      "sha256": "d7816686a11d0c77b1457fec7d12707a04293b90ba9f64384e28fd607f403c28",
       "workshopId": "thai-yoga-massage",
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Masaje Thai Yoga, con Bart, 22 noviembre 2026, 15:00–16:30.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de Masaje Thai Yoga, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 15:00–16:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/instagram-dance-lift.png",
-      "composition": "compositions/v02/instagram-dance-lift.svg",
-      "formatId": "instagram-feed-portrait",
+      "file": "event-kit/v08/dance-lift/instagram.png",
+      "svg": "event-kit/v08/dance-lift/instagram.svg",
+      "copy": "event-kit/v08/dance-lift/instagram.txt",
+      "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
+      "sha256": "41423c20ce8e48a78b03b3ee6dfaeb4f4f391c68d67cb60bfc0ef1015a365b6a",
       "workshopId": "dance-lift",
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg",
-        "sources/dance-lift.jpg",
-        "sources/contact-improvisation.jpg",
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Dance Lift: apoyándonos en movimiento, con Emanuela y Tavi, 22 noviembre 2026, 17:00–18:30.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de Dance Lift: apoyándonos en movimiento, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 17:00–18:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/meetup-dance-lift.png",
-      "composition": "compositions/v02/meetup-dance-lift.svg",
-      "formatId": "meetup-cover",
+      "file": "event-kit/v08/dance-lift/whatsapp.png",
+      "svg": "event-kit/v08/dance-lift/whatsapp.svg",
+      "copy": "event-kit/v08/dance-lift/whatsapp.txt",
+      "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
-        608
+        1920
       ],
       "fileType": "image/png",
+      "sha256": "b3bcf9ad6f53a596b981ee66bfb5cb1e0942fed7878f94bcda000cb7c4dde9f6",
       "workshopId": "dance-lift",
-      "sourceAssets": [
-        "sources/dance-lift.jpg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Dance Lift: apoyándonos en movimiento, con Emanuela y Tavi, 22 noviembre 2026, 17:00–18:30.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de Dance Lift: apoyándonos en movimiento, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 17:00–18:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/instagram-contact-improvisation.png",
-      "composition": "compositions/v02/instagram-contact-improvisation.svg",
-      "formatId": "instagram-feed-portrait",
+      "file": "event-kit/v08/contact-improvisation/instagram.png",
+      "svg": "event-kit/v08/contact-improvisation/instagram.svg",
+      "copy": "event-kit/v08/contact-improvisation/instagram.txt",
+      "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
+      "sha256": "3ecf70c9f4f2a5340440ae94a8cd32eabe110ad22c3166f5764eb80ce67779c7",
       "workshopId": "contact-improvisation",
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg",
-        "sources/dance-lift.jpg",
-        "sources/contact-improvisation.jpg",
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Improvisación de contacto · Corpo Sutil, con Diana Flor, 22 noviembre 2026, 19:00–20:30.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de Contact improvisación · Corpo Sutil, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 19:00–20:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/meetup-contact-improvisation.png",
-      "composition": "compositions/v02/meetup-contact-improvisation.svg",
-      "formatId": "meetup-cover",
+      "file": "event-kit/v08/contact-improvisation/whatsapp.png",
+      "svg": "event-kit/v08/contact-improvisation/whatsapp.svg",
+      "copy": "event-kit/v08/contact-improvisation/whatsapp.txt",
+      "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
-        608
+        1920
       ],
       "fileType": "image/png",
+      "sha256": "32b9b16e9ca5a261b4b2b7f14446c9f72fa3e1b29fd7dad7cc95fda31173c2b7",
       "workshopId": "contact-improvisation",
-      "sourceAssets": [
-        "sources/contact-improvisation.jpg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "Improvisación de contacto · Corpo Sutil, con Diana Flor, 22 noviembre 2026, 19:00–20:30.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de Contact improvisación · Corpo Sutil, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 19:00–20:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/instagram-inward-yin-yoga.png",
-      "composition": "compositions/v02/instagram-inward-yin-yoga.svg",
-      "formatId": "instagram-feed-portrait",
+      "file": "event-kit/v08/inward-yin-yoga/instagram.png",
+      "svg": "event-kit/v08/inward-yin-yoga/instagram.svg",
+      "copy": "event-kit/v08/inward-yin-yoga/instagram.txt",
+      "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
+      "sha256": "ccfa2766ce68c330065c225ae817ffd176233b9ebdf13cd9e8e9316a2bef5d4c",
       "workshopId": "inward-yin-yoga",
-      "sourceAssets": [
-        "sources/thai-yoga-massage.jpg",
-        "sources/dance-lift.jpg",
-        "sources/contact-improvisation.jpg",
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "INWARD — Yin Yoga y meditación guiada, con Arancha, 22 noviembre 2026, 21:00–22:00.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de INWARD — Yin Yoga y meditación guiada, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 21:00–22:00. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "previews/v02/meetup-inward-yin-yoga.png",
-      "composition": "compositions/v02/meetup-inward-yin-yoga.svg",
-      "formatId": "meetup-cover",
+      "file": "event-kit/v08/inward-yin-yoga/whatsapp.png",
+      "svg": "event-kit/v08/inward-yin-yoga/whatsapp.svg",
+      "copy": "event-kit/v08/inward-yin-yoga/whatsapp.txt",
+      "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
-        608
+        1920
       ],
       "fileType": "image/png",
+      "sha256": "1ed172e5c8d1e18adeb3ada0bdf0973a6a13070f3689a970bd22c64380e6099c",
       "workshopId": "inward-yin-yoga",
-      "sourceAssets": [
-        "sources/inward-yin-yoga.jpeg"
-      ],
-      "fonts": [
-        "Arial Narrow Bold",
-        "Arial"
-      ],
-      "reviewStatus": "draft-pending-visual-review",
-      "altText": "INWARD — Yin Yoga y meditación guiada, con Arancha, 22 noviembre 2026, 21:00–22:00.",
-      "deviations": [
-        "Arial Narrow Bold substitutes for unavailable Barlow Condensed.",
-        "Original photographs fitted whole to preserve bodies."
-      ]
+      "altText": "Fotografía principal de INWARD — Yin Yoga y meditación guiada, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 21:00–22:00. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
+    }
+  ],
+  "history": [
+    {
+      "record": "previews/v02/delivery.json",
+      "note": "Previous edition delivery record for the v02 Instagram/Facebook/Meetup previews, preserved unchanged. Superseded by event kits; historical wording is kept."
+    },
+    {
+      "record": "event-kit/v07/manifest.json",
+      "note": "Previous current kit, superseded by v08 for the «Contact improvisación» correction (issue #21)."
     }
   ]
 }

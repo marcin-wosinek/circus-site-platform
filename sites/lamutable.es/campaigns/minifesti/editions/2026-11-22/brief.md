@@ -20,4 +20,4 @@ No logo, invented price, registration link or call to action is added.
 
 Review v02 previews and editable compositions before publication. Remaining review
 items are visual approval, photo usage permissions, and destination export checks.
-Arial Narrow Bold substitutes for unavailable Barlow Condensed. See delivery.json.
+Arial Narrow Bold substitutes for unavailable Barlow Condensed. See previews/v02/delivery.json.

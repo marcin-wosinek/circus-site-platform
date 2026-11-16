@@ -3,17 +3,27 @@
 Status: the 22 November edition has ten v01 draft previews and editable SVG
 compositions. Event facts and final review remain pending. No publishing is authorized.
 
-The [22 November Event Kit](editions/2026-11-22/event-kit/v07/index.html)
+The current [22 November Event Kit](editions/2026-11-22/event-kit/v08/index.html)
 contains five WhatsApp/Instagram bundles with Spanish copy, editable SVGs and
-email drafts. Facts are confirmed for that delivery; visual approval and photo
-permissions remain pending. See its
-[review record](editions/2026-11-22/event-kit/v07/review.md).
+email drafts. v08 corrects «Improvisación de contacto» to «Contact
+improvisación» and keeps the v07 artwork. Facts and text are approved; visual
+approval, alt-text review and photo permissions remain pending. See its
+[review record](editions/2026-11-22/event-kit/v08/review.md) and the edition
+[delivery record](editions/2026-11-22/delivery.json). v07 and earlier kits are
+kept unchanged as history.
 
-That edition's wording is now a separately reviewed text revision,
-[text/v01](editions/2026-11-22/text/v01/text.json), migrated verbatim from v07
-and still awaiting approval. New kits come from
-[event-kit/build.mjs](editions/2026-11-22/event-kit/build.mjs) with an approved
-revision passed explicitly. See [Campaign text revisions](../../../../docs/campaign-text.md).
+v08 was rendered from the approved text revision
+[text/v02](editions/2026-11-22/text/v02/text.json).
+[text/v01](editions/2026-11-22/text/v01/text.json) remains the unapproved
+verbatim migration from v07. To reproduce:
+
+```sh
+node sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/build.mjs \
+  --text sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v02 --version <new version>
+```
+
+New kits always need an approved revision passed explicitly. See
+[Campaign text revisions](../../../../docs/campaign-text.md).
 
 One reusable recipe supports editions with 3–8 workshops. Each edition produces
 one Instagram overview, one Facebook event cover, and one Instagram and one
