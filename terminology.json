@@ -6,9 +6,15 @@
       "context": "The movement practice and its classes, jams and workshops, as named in activity listings, captions, alt text and image lettering.",
       "sources": [
         "https://github.com/marcin-wosinek/circus-site-platform/issues/20",
-        "https://github.com/marcin-wosinek/circus-site-platform/issues/20#issuecomment-6927402256"
+        "https://github.com/marcin-wosinek/circus-site-platform/issues/20#issuecomment-6927402256",
+        "https://github.com/marcin-wosinek/circus-site-platform/issues/21",
+        "https://es.wikipedia.org/wiki/Contact_improvisaci%C3%B3n",
+        "https://contactimprov.es/"
       ],
       "languages": {
+        "en": {
+          "preferred": "Contact improvisation"
+        },
         "es": {
           "preferred": "Contact improvisación",
           "discouraged": ["Improvisación de contacto"]

@@ -275,6 +275,23 @@ test('the seeded glossary contains the reported Spanish term and La Mutable', ()
 	assert.equal(effectiveEntry(terminology.concepts['la-mutable'], 'en').preferred, 'La Mutable');
 });
 
+test('the seeded glossary contains the approved English term and the issue #21 references', () => {
+	const terminology = loadEffectiveTerminology(platformDir, 'lamutable.es');
+	const concept = terminology.concepts['contact-improvisation'];
+	const english = effectiveEntry(concept, 'en');
+	assert.equal(english.preferred, 'Contact improvisation');
+	assert.deepEqual(english.discouraged, []);
+	assert.equal(english.source, 'terminology.json');
+	assert.equal(effectiveEntry(concept, 'es').preferred, 'Contact improvisación');
+	for (const reference of [
+		'https://github.com/marcin-wosinek/circus-site-platform/issues/21',
+		'https://es.wikipedia.org/wiki/Contact_improvisaci%C3%B3n',
+		'https://contactimprov.es/',
+	]) {
+		assert.ok(concept.sources.includes(reference), `missing reference ${reference}`);
+	}
+});
+
 test('terminology:check reports findings with exit 1 and leaves the copy unchanged', (context) => {
 	const directory = tempDir(context);
 	const file = resolve(directory, 'copy.txt');
