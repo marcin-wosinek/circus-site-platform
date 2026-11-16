@@ -170,3 +170,10 @@ shows up later.
   palettes/pairings, but the palette above is the default, locked look.
 - Source brief: 2026-07-25 front-page redesign for La Mutable, a Valencia
   circus/dance/movement mutual-support association (`.hallmark/log.json`).
+
+## Minifesti social artwork · 16 November 2026
+
+The 22 November Event Kit v03 uses the WhatsApp footer arrangement for all
+five Instagram images: original logo left, short venue line and orange booking
+line on the right. This campaign decision is separate from the theme footer.
+See [the kit review](campaigns/minifesti/editions/2026-11-22/event-kit/v04/review.md).

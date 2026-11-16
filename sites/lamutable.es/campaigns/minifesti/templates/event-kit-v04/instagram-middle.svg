@@ -1,0 +1,7 @@
+<g id="event-middle">
+  <text id="event-name" x="60" y="774" fill="#262122" font-family="Barlow Condensed" font-weight="800" font-size="142">MINIFESTI</text>
+  <text id="date" x="65" y="832" fill="#E85E14" font-family="Barlow Condensed" font-weight="800" font-size="52">{{date}}</text>
+  <text id="workshop-name" x="65" y="908" fill="#262122" font-family="Barlow Condensed" font-weight="800" font-size="{{titleSize}}">{{title}}</text>
+  <text id="hours" x="65" y="965" fill="#E85E14" font-family="Barlow Condensed" font-weight="800" font-size="52">{{hours}}</text>
+  <text id="teachers" x="65" y="1010" fill="#262122" font-family="Arial" font-size="30">{{teacher}}</text>
+</g>
