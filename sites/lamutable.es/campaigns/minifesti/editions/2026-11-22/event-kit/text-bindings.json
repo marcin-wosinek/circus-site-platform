@@ -1,0 +1,56 @@
+{
+	"formatVersion": 1,
+	"note": "Binds reviewed campaign text labels to the live <text> elements of the baseline kit's SVGs. Locators are literal SVG attributes; every <text> element must be bound. maxWidth overrides the default canvas-margin limit in pixels.",
+	"baseline": "v07",
+	"channels": {
+		"instagram": { "width": 1080, "height": 1350 },
+		"whatsapp": { "width": 1080, "height": 1920 }
+	},
+	"layouts": {
+		"general": {
+			"instagram": {
+				"organizer": { "x": "65", "y": "605" },
+				"event-name": { "x": "58", "y": "750" },
+				"date": { "id": "date" },
+				"hours": { "id": "hours" },
+				"venue": { "id": "venue" },
+				"booking": { "id": "booking" }
+			},
+			"whatsapp": {
+				"organizer": { "x": "65", "y": "605" },
+				"event-name": { "x": "58", "y": "750" },
+				"date": { "id": "date" },
+				"hours": { "id": "hours" },
+				"venue-name": { "x": "65", "y": "1231" },
+				"venue-address": { "x": "65", "y": "1265" },
+				"call-to-action": { "x": "65", "y": "1660" },
+				"programme-link": { "x": "65", "y": "1720" }
+			}
+		},
+		"workshop": {
+			"instagram": {
+				"event-name": { "id": "event-name" },
+				"date": { "id": "date" },
+				"workshop-name": { "id": "workshop-name" },
+				"hours": { "id": "hours" },
+				"teachers": { "id": "teachers" },
+				"venue": { "id": "venue" },
+				"booking": { "id": "booking" }
+			},
+			"whatsapp": {
+				"event-name": { "id": "event-name" },
+				"date": { "id": "date" },
+				"workshop-name": { "id": "workshop-name" },
+				"hours": { "id": "hours" },
+				"teachers": { "id": "teachers" },
+				"supporting-1": { "x": "60", "y": "1525", "maxWidth": 310 },
+				"supporting-2": { "x": "385", "y": "1525", "maxWidth": 310 },
+				"supporting-3": { "x": "710", "y": "1525", "maxWidth": 310 },
+				"venue": { "id": "venue" },
+				"booking": { "id": "booking" }
+			}
+		}
+	},
+	"subjectLayouts": { "general": "general" },
+	"defaultLayout": "workshop"
+}
