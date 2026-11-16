@@ -224,3 +224,25 @@ Dependencies and draft protection match the WhatsApp renderer. Outputs use the
 folders. The template has named editable text and photo slots; hours and teachers
 come from event.json. Four workshops and a one-line display title are supported;
 overflow requires a deliberate copy/layout revision. No publishing is performed.
+
+## Complete featured workshop set · 16 November 2026
+
+Render both new featured formats for all four workshops:
+
+```sh
+node sites/lamutable.es/campaigns/minifesti/templates/v03/render-whatsapp.mjs --workshops
+node sites/lamutable.es/campaigns/minifesti/templates/v03/render-instagram-featured.mjs --workshops
+```
+
+The batch option reads short titles and featured crops from
+`featured-workshops.json`, and hours/teachers from the edition's event data.
+Shared channel copy and supporting crops remain in the channel JSON files.
+Existing compositions are skipped; use `--replace-drafts` only when deliberately
+revising them. Without `--workshops`, the original single-example behavior remains.
+
+The complete set contains four 1080 × 1920 WhatsApp images and four
+1080 × 1350 Instagram images, editable SVGs, mobile previews, and per-image
+delivery records. Existing Dance Lift assets were preserved. See the
+[asset index](../../editions/2026-11-22/previews/v03/featured-workshops.md)
+and combined contact sheet for review. All eight mobile previews were visually
+checked for crop, text fit, supporting labels and footer placement.

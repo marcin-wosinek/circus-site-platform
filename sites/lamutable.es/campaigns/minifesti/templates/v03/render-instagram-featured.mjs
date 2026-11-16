@@ -31,8 +31,17 @@ const photos = new Map(event.workshops.map(w => {
   if (!existsSync(resolve(base, w.photo))) throw Error(`Missing photo: ${w.id}`);
   return [w.id, w];
 }));
-const featured = photos.get(config.featuredWorkshopId);
-if (!featured || !config.displayTitleLines.length) throw Error('Trial requires a featured workshop and two title lines');
+const layouts = JSON.parse(readFileSync(resolve(root, 'featured-workshops.json')));
+const selections = process.argv.includes('--workshops') ? event.workshops.map(w => w.id) : [config.featuredWorkshopId];
+for (const id of selections) {
+const layout = layouts[id];
+if (!layout) throw Error('Missing featured layout: ' + id);
+const selectedConfig = process.argv.includes('--workshops') ? {
+  ...config, featuredWorkshopId: id, displayTitleLines: [layout.title], featuredCrop: layout.crop,
+  labels: { ...config.labels, 'dance-lift': 'DANCE LIFT' }
+} : config;
+const featured = photos.get(selectedConfig.featuredWorkshopId);
+if (!featured || !selectedConfig.displayTitleLines.length) throw Error('Trial requires a featured workshop and two title lines');
 const date = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${event.date}T12:00:00Z`)).replaceAll(' de ', ' ').toUpperCase();
 const records = [];
 function photo(id, x, y, w, h, crop) {
@@ -54,14 +63,17 @@ function photo(id, x, y, w, h, crop) {
 const name = 'instagram-featured-' + featured.id;
 const out = resolve(base, 'compositions/v03/' + name + '.svg');
 const preview = resolve(base, 'previews/v03/' + name + '.png');
-if (existsSync(out) && !process.argv.includes('--replace-drafts')) throw Error('Draft exists; preserve reviewed versions before --replace-drafts');
-const slots = { ...brand.colors, logo, heading: config.heading,
+if (existsSync(out) && !process.argv.includes('--replace-drafts')) {
+  if (process.argv.includes('--workshops')) { console.log('Preserved existing draft: ' + preview); continue; }
+  throw Error('Draft exists; preserve reviewed versions before --replace-drafts');
+}
+const slots = { ...brand.colors, logo, heading: selectedConfig.heading,
  date: new Intl.DateTimeFormat('es', {day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(event.date+'T12:00:00Z')).toUpperCase(),
- title: config.displayTitleLines.join(' '), hours: featured.start+'–'+featured.end,
- teacher: 'con '+featured.instructors.join(' y '), venue: config.venue, booking: config.booking,
- featuredPhoto: photo(featured.id,0,0,1080,480,config.featuredCrop),
- supportingPhotos: event.workshops.filter(w=>w.id!==featured.id).map((w,i)=>photo(w.id,60+i*325,960,310,170,config.supportingCrops[w.id])).join(''),
- supportingLabels: event.workshops.filter(w=>w.id!==featured.id).map((w,i)=>{const label=config.labels[w.id];measure(label,27,font,310);return '<text x="'+(60+i*325)+'" y="1170">'+xml(label)+'</text>';}).join('') };
+ title: selectedConfig.displayTitleLines.join(' '), hours: featured.start+'–'+featured.end,
+ teacher: 'con '+featured.instructors.join(' y '), venue: selectedConfig.venue, booking: selectedConfig.booking,
+ featuredPhoto: photo(featured.id,0,0,1080,480,selectedConfig.featuredCrop),
+ supportingPhotos: event.workshops.filter(w=>w.id!==featured.id).map((w,i)=>photo(w.id,60+i*325,960,310,170,selectedConfig.supportingCrops[w.id])).join(''),
+ supportingLabels: event.workshops.filter(w=>w.id!==featured.id).map((w,i)=>{const label=selectedConfig.labels[w.id];measure(label,27,font,310);return '<text x="'+(60+i*325)+'" y="1170">'+xml(label)+'</text>';}).join('') };
 let template = readFileSync(resolve(root,'instagram-featured.svg'),'utf8');
 for (const m of template.matchAll(/<text[^>]*font-family="([^"]+)"[^>]*font-size="(\d+)"[^>]*>\{\{(\w+)\}\}/g)) measure(slots[m[3]],Number(m[2]),m[1]==='Arial'?bodyFont:font,m[3]==='venue'||m[3]==='booking'?850:960);
 const fragments = new Set(['featuredPhoto','supportingPhotos','supportingLabels','logo']);
@@ -71,3 +83,4 @@ writeFileSync(out,svg);run(['-background',brand.colors.cream,'MSVG:'+out,preview
 run([preview,'-resize','360x450',preview.replace('.png','-mobile.png')]);
 writeFileSync(preview.replace('.png','-delivery.json'),JSON.stringify({status:'draft-pending-review',template:'v03/instagram-featured.svg',brandVersion:brand.brandVersion,dimensions:[1080,1350],featuredWorkshopId:featured.id,photos:records},null,2)+'\n');
 console.log(preview);
+}

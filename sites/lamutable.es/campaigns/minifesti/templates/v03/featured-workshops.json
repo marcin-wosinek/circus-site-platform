@@ -1,0 +1,33 @@
+{
+  "thai-yoga-massage": {
+    "title": "MASAJE THAI YOGA",
+    "crop": [
+      0,
+      170,
+      819,
+      850
+    ]
+  },
+  "dance-lift": {
+    "title": "DANCE LIFT",
+    "crop": [
+      0,
+      240,
+      683,
+      660
+    ]
+  },
+  "contact-improvisation": {
+    "title": "CONTACT IMPROVISATION",
+    "crop": null
+  },
+  "inward-yin-yoga": {
+    "title": "INWARD · YIN YOGA",
+    "crop": [
+      260,
+      350,
+      470,
+      355
+    ]
+  }
+}
