@@ -59,10 +59,12 @@ existing Drive location. Preserve previous versions. Within that folder:
   <campaign> <edition> · <version> · Instagram       (Google Doc)
   <campaign> <edition> · <version> · WhatsApp status (Google Doc)
   <campaign> <edition> · <version> · WhatsApp groups (Google Doc)
+  <campaign> <edition> · <version> · <Display name>   (Google Doc, one per member)
   <campaign>-<edition>-<version>-<subject>-<channel>.png
-  team/
-    <campaign> <edition> · <version> · <Display name>   (Google Doc, one per member)
 ```
+
+Keep every document in the versioned folder itself; do not nest personal
+documents in a `team/` or other subfolder.
 
 The three Google Docs are central working documents. Each covers the general
 event followed by every workshop in programme order, for its channel only.
@@ -109,7 +111,8 @@ leaving a broken or missing image.
 ## One document for every teammate
 
 Create one Google Doc per stable `team.json` member ID, titled
-`<campaign> <edition> · <version> · <Display name>`, in the `team/` folder.
+`<campaign> <edition> · <version> · <Display name>`, directly in the versioned
+delivery folder next to the central documents.
 Begin with their display name, edition, and kit version. Organize by relevant
 subject, then use these three channel sections in order, each with its
 embedded image, full-resolution link, and copy:

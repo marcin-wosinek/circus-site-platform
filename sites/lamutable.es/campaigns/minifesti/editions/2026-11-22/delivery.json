@@ -389,50 +389,46 @@
           "fileName": "minifesti-2026-11-22-v09-inward-yin-yoga-whatsapp-group.png"
         }
       },
-      "teamFolder": {
-        "id": "1gkMytxwUOE0MQQbHNkJZD51yxr1_tif-",
-        "url": "https://drive.google.com/drive/folders/1gkMytxwUOE0MQQbHNkJZD51yxr1_tif-"
-      },
-      "teamFiles": {
+      "teamDocuments": {
         "marcin": {
-          "id": "1LM7VLHLRS9-zGngjiZe43E-9VIxqhvJD",
-          "url": "https://drive.google.com/file/d/1LM7VLHLRS9-zGngjiZe43E-9VIxqhvJD/view?usp=drivesdk",
-          "fileName": "marcin.txt"
+          "id": "1e1jOuaVY9pcVqnTtpwkwIjssgg-XmF3n4XOqyWGnRuU",
+          "url": "https://docs.google.com/document/d/1e1jOuaVY9pcVqnTtpwkwIjssgg-XmF3n4XOqyWGnRuU/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Marcin"
         },
         "sayil": {
-          "id": "1wG_xI4xvoQfGlEI16tRLkV6OubT3L6JM",
-          "url": "https://drive.google.com/file/d/1wG_xI4xvoQfGlEI16tRLkV6OubT3L6JM/view?usp=drivesdk",
-          "fileName": "sayil.txt"
+          "id": "1Nt3076qdI0zctjA3oxXf7c4VFuRWINvEdw5X6X_f_n4",
+          "url": "https://docs.google.com/document/d/1Nt3076qdI0zctjA3oxXf7c4VFuRWINvEdw5X6X_f_n4/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Sayil"
         },
         "nina": {
-          "id": "1W4S7N8KSBnGk6rTTH-VLDNaOXRBNkGuK",
-          "url": "https://drive.google.com/file/d/1W4S7N8KSBnGk6rTTH-VLDNaOXRBNkGuK/view?usp=drivesdk",
-          "fileName": "nina.txt"
+          "id": "1h-dyfUPSXV9fdfE4qD5r6hj7I9eu_FYRB2TSC-LDKig",
+          "url": "https://docs.google.com/document/d/1h-dyfUPSXV9fdfE4qD5r6hj7I9eu_FYRB2TSC-LDKig/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Nina"
         },
         "diana": {
-          "id": "1sRRrcVLu_i2tHJ1E7Rqtqn-1VK_5-QHE",
-          "url": "https://drive.google.com/file/d/1sRRrcVLu_i2tHJ1E7Rqtqn-1VK_5-QHE/view?usp=drivesdk",
-          "fileName": "diana.txt"
+          "id": "1EIMnn3WE0LvaRnzIA4rtI-tsEMgViekg864GpQREcNs",
+          "url": "https://docs.google.com/document/d/1EIMnn3WE0LvaRnzIA4rtI-tsEMgViekg864GpQREcNs/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Diana"
         },
         "arancha": {
-          "id": "1q_oSc_fcPifQIiBB-pj12KKpQ46hTxDM",
-          "url": "https://drive.google.com/file/d/1q_oSc_fcPifQIiBB-pj12KKpQ46hTxDM/view?usp=drivesdk",
-          "fileName": "arancha.txt"
+          "id": "1r4x2fAQbRVBkiPOt3KZGntoNEnJ4A6D-BGadkFns3vQ",
+          "url": "https://docs.google.com/document/d/1r4x2fAQbRVBkiPOt3KZGntoNEnJ4A6D-BGadkFns3vQ/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Arancha"
         },
         "bart": {
-          "id": "1zizuJNrnF00Kr91_4vKfce1x1KRzMMto",
-          "url": "https://drive.google.com/file/d/1zizuJNrnF00Kr91_4vKfce1x1KRzMMto/view?usp=drivesdk",
-          "fileName": "bart.txt"
+          "id": "1AyYqXMRX7Zco_mWyk92etFhDMzTCYa0iJt7_uDz456U",
+          "url": "https://docs.google.com/document/d/1AyYqXMRX7Zco_mWyk92etFhDMzTCYa0iJt7_uDz456U/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Bart"
         },
         "emanuela": {
-          "id": "1RGe8SAy9pf1Mhf4hy0Rrv71Q_xUc3E4s",
-          "url": "https://drive.google.com/file/d/1RGe8SAy9pf1Mhf4hy0Rrv71Q_xUc3E4s/view?usp=drivesdk",
-          "fileName": "emanuela.txt"
+          "id": "1cqv_xbgIFu7ebOD4R0hNSB3EIJAH8Bhsw0uNiFzWaZA",
+          "url": "https://docs.google.com/document/d/1cqv_xbgIFu7ebOD4R0hNSB3EIJAH8Bhsw0uNiFzWaZA/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Emanuela"
         },
         "tavi": {
-          "id": "17ygN94FAJVquTqGEBEPiEECYZJewNRkP",
-          "url": "https://drive.google.com/file/d/17ygN94FAJVquTqGEBEPiEECYZJewNRkP/view?usp=drivesdk",
-          "fileName": "tavi.txt"
+          "id": "1GN7eo9IJrsShKZm2_q3whWgFwdkoyUvYG9dDUWCPZhA",
+          "url": "https://docs.google.com/document/d/1GN7eo9IJrsShKZm2_q3whWgFwdkoyUvYG9dDUWCPZhA/edit?usp=drivesdk",
+          "title": "Minifesti 22 noviembre 2026 · v09 · Tavi"
         }
       },
       "sourceText": {
@@ -443,7 +439,7 @@
       "reviewStatus": "packaging-verified-visual-approval-pending",
       "verification": [
         "Three channel documents: exact source copy, five embedded previews, correct PNG links, five pages each; exported PDFs visually inspected.",
-        "Eight personal text files read back byte-for-byte; sender and subject selections from team.json.",
+        "Eight personal Google Docs in the delivery folder itself (no team/ subfolder): group, Instagram and status sections with embedded previews and full-resolution PNG links; sender and subject selections from team.json; Emanuela and Sayil read back and Tavi's PDF export visually inspected.",
         "All fifteen original PNGs downloaded; SHA-256 and dimensions verified against v09 manifest; SVG labels match current text.",
         "Spanish and English terminology checks passed."
       ],
