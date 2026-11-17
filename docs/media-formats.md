@@ -31,7 +31,7 @@ accompanying post text or publishing metadata.
 | `instagram-story` | Instagram Story | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `instagram-reel-cover` | Instagram Reel cover | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `whatsapp-status` | WhatsApp Status | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
-| `whatsapp-group-image` | WhatsApp group message | 1080 × 1350 (4:5) | Event or offer name, main visual | Short date, short location, logo | Paragraphs, full programme, visible URLs, QR codes |
+| `whatsapp-group-image` | WhatsApp group message | 1080 × 1080 (1:1) | Event or offer name, main visual | Short date, short location, logo | Paragraphs, full programme, visible URLs, QR codes |
 
 ### Text formats
 
@@ -98,6 +98,9 @@ export. This preset does not change existing campaign copy.
 The `whatsapp-group-image` project preset was added on 2026-11-17 for
 promotional images sent to group chats with an accompanying text message.
 The canvas is a project design choice, not an official WhatsApp requirement.
+It was changed from 1080 × 1350 (4:5) to 1080 × 1080 (1:1) on 2026-11-17
+after a test send showed the chat preview center-cropping the 4:5 image to
+a square, which hid the top photos and the bottom logo.
 
 Let the main photo or illustration carry the image. Include only the event or
 offer name, preferably in one or two short lines. Aim for no more than 15 words

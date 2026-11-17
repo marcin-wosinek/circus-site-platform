@@ -244,7 +244,7 @@ test('builder renders WhatsApp group images from their templates when the text l
 	assert.equal(plan.outputs.length, 15);
 	for (const subject of text.subjects) {
 		const group = plan.outputs.find((output) => output.subject === subject.id && output.channel === 'whatsapp-group');
-		assert.deepEqual([group.width, group.height], [1080, 1350]);
+		assert.deepEqual([group.width, group.height], [1080, 1080]);
 		assert.equal(group.copy, subject.copy['whatsapp-group']);
 		assert.doesNotMatch(group.svg, /\{\{/);
 		for (const label of Object.values(subject.labels['whatsapp-group'])) assert.ok(group.svg.includes(`>${label}</text>`), `${subject.id}: ${label}`);

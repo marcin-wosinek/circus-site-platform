@@ -1,5 +1,6 @@
-// Renders the WhatsApp group image templates (1080 × 1350, preset
-// `whatsapp-group-image` in docs/media-formats.md) for this edition: one SVG
+// Renders the WhatsApp group image templates (1080 × 1080, preset
+// `whatsapp-group-image` in docs/media-formats.md; WhatsApp center-crops
+// taller images to a square in the chat preview) for this edition: one SVG
 // per subject with its cropped photos and the brand logo embedded, and a
 // {{label}} slot in every <text> element. Wording comes only from campaign
 // text, bound later by ../build.mjs. Requires ImageMagick. Deterministic, so
@@ -32,19 +33,19 @@ function photo({ src, gravity }, width, height) {
 	return `data:image/jpeg;base64,${jpeg.toString('base64')}`;
 }
 
-const open = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1350" viewBox="0 0 1080 1350">
-  <rect width="1080" height="1350" fill="${cream}"/>`;
-const mark = `  <image id="brand-logo" x="65" y="1210" width="40" height="75" preserveAspectRatio="xMidYMid meet" xlink:href="${logo}"/>`;
+const open = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="${cream}"/>`;
+const mark = `  <image id="brand-logo" x="65" y="940" width="40" height="75" preserveAspectRatio="xMidYMid meet" xlink:href="${logo}"/>`;
 
 const layouts = {
 	general: (subject) => `${open}
   <g id="overview-photos">
-${subject.photos.map((item, index) => `    <image x="${index % 2 ? 546 : 28}" y="${index < 2 ? 28 : 440}" width="506" height="400" xlink:href="${photo(item, 506, 400)}"/>`).join('\n')}
+${subject.photos.map((item, index) => `    <image x="${index % 2 ? 546 : 28}" y="${index < 2 ? 28 : 305}" width="506" height="265" xlink:href="${photo(item, 506, 265)}"/>`).join('\n')}
   </g>
-  <path id="wave" d="M0 790 C200 830 330 760 540 790 S880 845 1080 775 V1350 H0Z" fill="${cream}"/>
-  <text id="organizer" x="65" y="905" fill="${ink}" font-family="Arial" font-size="36">{{organizer}}</text>
-  <text id="event-name" x="56" y="1085" fill="${ink}" ${HEADING} font-size="205">{{event-name}}</text>
-  <text id="date-location" x="65" y="1165" fill="${accent}" ${HEADING} font-size="62">{{date-location}}</text>
+  <path id="wave" d="M0 520 C200 560 330 490 540 520 S880 575 1080 505 V1080 H0Z" fill="${cream}"/>
+  <text id="organizer" x="65" y="635" fill="${ink}" font-family="Arial" font-size="36">{{organizer}}</text>
+  <text id="event-name" x="56" y="815" fill="${ink}" ${HEADING} font-size="205">{{event-name}}</text>
+  <text id="date-location" x="65" y="895" fill="${accent}" ${HEADING} font-size="62">{{date-location}}</text>
 ${mark}
 </svg>
 `,
@@ -57,16 +58,16 @@ ${mark}
 function workshop(subject, lines) {
 	const shift = (lines - 1) * 118;
 	const names = lines === 1
-		? `  <text id="workshop-name" x="62" y="1093" fill="${ink}" ${HEADING} font-size="125">{{workshop-name}}</text>`
-		: `  <text id="workshop-name-1" x="62" y="975" fill="${ink}" ${HEADING} font-size="125">{{workshop-name-1}}</text>
-  <text id="workshop-name-2" x="62" y="1093" fill="${ink}" ${HEADING} font-size="125">{{workshop-name-2}}</text>`;
+		? `  <text id="workshop-name" x="62" y="823" fill="${ink}" ${HEADING} font-size="125">{{workshop-name}}</text>`
+		: `  <text id="workshop-name-1" x="62" y="705" fill="${ink}" ${HEADING} font-size="125">{{workshop-name-1}}</text>
+  <text id="workshop-name-2" x="62" y="823" fill="${ink}" ${HEADING} font-size="125">{{workshop-name-2}}</text>`;
 	return `${open}
-  <g id="featured-photo"><image x="28" y="28" width="1024" height="${878 - shift}" xlink:href="${photo(subject.photo, 1024, 878 - shift)}"/></g>
-  <path id="wave" d="M0 ${853 - shift} C210 ${898 - shift} 360 ${813 - shift} 560 ${843 - shift} S900 ${898 - shift} 1080 ${833 - shift} V1350 H0Z" fill="${cream}"/>
-  <text id="event-date" x="65" y="${973 - shift}" fill="${accent}" ${HEADING} font-size="62">{{event-date}}</text>
+  <g id="featured-photo"><image x="28" y="28" width="1024" height="${608 - shift}" xlink:href="${photo(subject.photo, 1024, 608 - shift)}"/></g>
+  <path id="wave" d="M0 ${583 - shift} C210 ${628 - shift} 360 ${543 - shift} 560 ${573 - shift} S900 ${628 - shift} 1080 ${563 - shift} V1080 H0Z" fill="${cream}"/>
+  <text id="event-date" x="65" y="${703 - shift}" fill="${accent}" ${HEADING} font-size="62">{{event-date}}</text>
 ${names}
-  <text id="teachers" x="65" y="1160" fill="${ink}" font-family="Arial" font-size="40">{{teachers}}</text>
-  <text id="venue" x="125" y="1262" fill="${ink}" font-family="Arial" font-size="34">{{venue}}</text>
+  <text id="teachers" x="65" y="890" fill="${ink}" font-family="Arial" font-size="40">{{teachers}}</text>
+  <text id="venue" x="125" y="992" fill="${ink}" font-family="Arial" font-size="34">{{venue}}</text>
 ${mark}
 </svg>
 `;

@@ -6,7 +6,7 @@
 	"channels": {
 		"instagram": { "width": 1080, "height": 1350 },
 		"whatsapp": { "width": 1080, "height": 1920 },
-		"whatsapp-group": { "width": 1080, "height": 1350, "source": "whatsapp-group" }
+		"whatsapp-group": { "width": 1080, "height": 1080, "source": "whatsapp-group" }
 	},
 	"layouts": {
 		"general": {
