@@ -3,9 +3,11 @@
 Status: the 22 November edition has ten v01 draft previews and editable SVG
 compositions. Event facts and final review remain pending. No publishing is authorized.
 
-The current [22 November Event Kit](editions/2026-11-22/event-kit/v12/index.html)
+The current [22 November Event Kit](editions/2026-11-22/event-kit/v13/index.html)
 contains five WhatsApp Status/Instagram/WhatsApp group bundles with Spanish
-copy, editable SVGs and email drafts. v12 makes the WhatsApp group images
+copy, editable SVGs and email drafts. v13 shortens the WhatsApp Status copy
+and links the general event page instead of the signup anchor; the images are
+unchanged from v12. v12 makes the WhatsApp group images
 square (`whatsapp-group-image`, now 1080 × 1080) because the chat preview
 center-crops 4:5 images; the other images are unchanged from v11. v11 mirrors the workshop Instagram wave: it rises over the
 text on the left and dips on the right, keeping edges at y=650. v10 made the workshop Instagram wave

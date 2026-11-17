@@ -145,10 +145,15 @@ limits and export constraints at delivery time.
 
 For this project's WhatsApp status writing workflow, write one continuous
 line with no line breaks. Use single asterisks for bold text (`*event name*`).
-Separate sections with short sentences or `·` separators. Include a clear
-invitation to participate and the full booking URL, without Markdown link
-formatting. Apply the site's brand voice and emoji preferences from its kit.
-These are user-specified writing requirements, recorded on 2026-11-13.
+Separate sections with `·` separators. Keep it short, about 25 words: the
+bold name (with the teacher for a workshop), the date with the start time or
+time range, a short location such as the neighbourhood, at most one short
+sentence, and a short invitation. Leave the full address, description,
+language and programme to the linked page. Link the general event page in
+full, not a deep link to the signup section (no `#` fragment), without
+Markdown link formatting. Apply the site's brand voice and emoji preferences
+from its kit. These are user-specified writing requirements, recorded on
+2026-11-13; shortened, with the general event link, on 2026-11-17.
 
 ### Instagram composition and margins
 
