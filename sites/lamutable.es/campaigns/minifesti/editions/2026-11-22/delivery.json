@@ -2,87 +2,87 @@
   "formatVersion": 1,
   "status": "facts-confirmed-visuals-pending",
   "current": {
-    "kit": "event-kit/v11",
-    "index": "event-kit/v11/index.html",
-    "manifest": "event-kit/v11/manifest.json",
-    "review": "event-kit/v11/review.md",
+    "kit": "event-kit/v13",
+    "index": "event-kit/v13/index.html",
+    "manifest": "event-kit/v13/manifest.json",
+    "review": "event-kit/v13/review.md",
     "text": {
       "path": "text/v02/text.json",
-      "sha256": "9bc07b383345e90ba52c8d6585c92aa32e155a036a87eba44f8c94c086d4ce92"
+      "sha256": "e733cdf5d5c89d1b286f9c9d01b76a769d430a6825e82442d928202a1ed16a50"
     },
-    "emailDrafts": "event-kit/v11/email-drafts.md",
-    "altText": "event-kit/v11/alt-text.md",
+    "emailDrafts": "event-kit/v13/email-drafts.md",
+    "altText": "event-kit/v13/alt-text.md",
     "driveDelivery": {
-      "version": "v11",
-      "folder": "https://drive.google.com/drive/folders/15NWPwfuYFj4jDo5CqygZi3btkFcpEpYb",
+      "version": "v13",
+      "folder": "https://drive.google.com/drive/folders/1cfR6u8MYFiZzxN-M-88jhNsKzfVKiVdA",
       "documents": {
         "instagram": {
-          "id": "1UBglRKtVKYYf41LmOQuUtTPMsJKdnsxDVrsrayCvBVY",
-          "url": "https://docs.google.com/document/d/1UBglRKtVKYYf41LmOQuUtTPMsJKdnsxDVrsrayCvBVY/edit?usp=drivesdk",
-          "title": "Instagram · Minifesti 22 noviembre 2026 · v11"
+          "id": "1KuEU8Ph2zkodBLyfiUO5ttT-9EgW4dpwN_A74taKYDE",
+          "url": "https://docs.google.com/document/d/1KuEU8Ph2zkodBLyfiUO5ttT-9EgW4dpwN_A74taKYDE/edit?usp=drivesdk",
+          "title": "Instagram · Minifesti 22 noviembre 2026 · v13"
         },
         "whatsapp": {
-          "id": "1-4oDSXV-zhk_t_Zdaqkfx_X6I5PjcpzSn8c8cGp6zbA",
-          "url": "https://docs.google.com/document/d/1-4oDSXV-zhk_t_Zdaqkfx_X6I5PjcpzSn8c8cGp6zbA/edit?usp=drivesdk",
-          "title": "WhatsApp Status · Minifesti 22 noviembre 2026 · v11"
+          "id": "15RTeGE25hQkCv0QV7kgXCf3deelr_eeOWSGdEJQECZ8",
+          "url": "https://docs.google.com/document/d/15RTeGE25hQkCv0QV7kgXCf3deelr_eeOWSGdEJQECZ8/edit?usp=drivesdk",
+          "title": "WhatsApp Status · Minifesti 22 noviembre 2026 · v13"
         },
         "whatsapp-group": {
-          "id": "11oMzqGOW7nT3vVTy_9oA0USCUsz-8Gyj1dZtCWKxfxA",
-          "url": "https://docs.google.com/document/d/11oMzqGOW7nT3vVTy_9oA0USCUsz-8Gyj1dZtCWKxfxA/edit?usp=drivesdk",
-          "title": "WhatsApp Groups · Minifesti 22 noviembre 2026 · v11"
+          "id": "1ZlrNsYHiGM9rAvWN7BbPO2gNTyCjlRNxWY3zumTKazw",
+          "url": "https://docs.google.com/document/d/1ZlrNsYHiGM9rAvWN7BbPO2gNTyCjlRNxWY3zumTKazw/edit?usp=drivesdk",
+          "title": "WhatsApp Groups · Minifesti 22 noviembre 2026 · v13"
         }
       },
       "teamDocuments": {
         "marcin": {
-          "id": "1JyIw2heSscmCRzdRbBC7_a9ap5dE9RQ8lOiFwvcw9gQ",
-          "url": "https://docs.google.com/document/d/1JyIw2heSscmCRzdRbBC7_a9ap5dE9RQ8lOiFwvcw9gQ/edit?usp=drivesdk",
-          "title": "Marcin · Minifesti 22 noviembre 2026 · v11"
+          "id": "1FiiQEjUcmOTV9cuzDzMYsyePcfjWBypY8_LSiunlsVI",
+          "url": "https://docs.google.com/document/d/1FiiQEjUcmOTV9cuzDzMYsyePcfjWBypY8_LSiunlsVI/edit?usp=drivesdk",
+          "title": "Marcin · Minifesti 22 noviembre 2026 · v13"
         },
         "sayil": {
-          "id": "1pBERqWe8GAaUoMkSo9JBELQX2zI7CIPrvQqHBliK8Ks",
-          "url": "https://docs.google.com/document/d/1pBERqWe8GAaUoMkSo9JBELQX2zI7CIPrvQqHBliK8Ks/edit?usp=drivesdk",
-          "title": "Sayil · Minifesti 22 noviembre 2026 · v11"
+          "id": "1DjYUk5iFQcLyFAYGF7hAEmNMzbSp3luI8hQmIau3EPQ",
+          "url": "https://docs.google.com/document/d/1DjYUk5iFQcLyFAYGF7hAEmNMzbSp3luI8hQmIau3EPQ/edit?usp=drivesdk",
+          "title": "Sayil · Minifesti 22 noviembre 2026 · v13"
         },
         "nina": {
-          "id": "1S7hffhd_32SBkSECdp7SRZTF7wpv-BjIpVolTmr7jsI",
-          "url": "https://docs.google.com/document/d/1S7hffhd_32SBkSECdp7SRZTF7wpv-BjIpVolTmr7jsI/edit?usp=drivesdk",
-          "title": "Nina · Minifesti 22 noviembre 2026 · v11"
+          "id": "1Las-ZUePR3XEi2zUcztDEstzuvgidz4C2SSXSdXxYaA",
+          "url": "https://docs.google.com/document/d/1Las-ZUePR3XEi2zUcztDEstzuvgidz4C2SSXSdXxYaA/edit?usp=drivesdk",
+          "title": "Nina · Minifesti 22 noviembre 2026 · v13"
         },
         "diana": {
-          "id": "1JLOl3zzNKlBom11TuPfLhL0Wyr7t3yhEKFt6P1b_hhA",
-          "url": "https://docs.google.com/document/d/1JLOl3zzNKlBom11TuPfLhL0Wyr7t3yhEKFt6P1b_hhA/edit?usp=drivesdk",
-          "title": "Diana · Minifesti 22 noviembre 2026 · v11"
+          "id": "17yGT_EfkuX58XaMd8HNNXFXSggjiVmtPJdc823p_6L0",
+          "url": "https://docs.google.com/document/d/17yGT_EfkuX58XaMd8HNNXFXSggjiVmtPJdc823p_6L0/edit?usp=drivesdk",
+          "title": "Diana · Minifesti 22 noviembre 2026 · v13"
         },
         "arancha": {
-          "id": "1D6twxGH_2PpDTHbuluxDBbcrNBr1W4D4E1qjGVcNQRE",
-          "url": "https://docs.google.com/document/d/1D6twxGH_2PpDTHbuluxDBbcrNBr1W4D4E1qjGVcNQRE/edit?usp=drivesdk",
-          "title": "Arancha · Minifesti 22 noviembre 2026 · v11"
+          "id": "1LKqYhIH6qtWry7fyl55cRyECkG50RKMulUOv5zuYAC0",
+          "url": "https://docs.google.com/document/d/1LKqYhIH6qtWry7fyl55cRyECkG50RKMulUOv5zuYAC0/edit?usp=drivesdk",
+          "title": "Arancha · Minifesti 22 noviembre 2026 · v13"
         },
         "bart": {
-          "id": "1cwSR_lBn3s9RoGdfeDfjs8wtTLPFjt5j4ntdN1n2cxM",
-          "url": "https://docs.google.com/document/d/1cwSR_lBn3s9RoGdfeDfjs8wtTLPFjt5j4ntdN1n2cxM/edit?usp=drivesdk",
-          "title": "Bart · Minifesti 22 noviembre 2026 · v11"
+          "id": "1ygGCkKUcbUr3vGg4xj6kUc7V5qwtrOLhk1sLp_l-3EQ",
+          "url": "https://docs.google.com/document/d/1ygGCkKUcbUr3vGg4xj6kUc7V5qwtrOLhk1sLp_l-3EQ/edit?usp=drivesdk",
+          "title": "Bart · Minifesti 22 noviembre 2026 · v13"
         },
         "emanuela": {
-          "id": "1yKkyUPZ-RGLLfV_2_i7EiR9a3mfb0KggAMDhh4paoHI",
-          "url": "https://docs.google.com/document/d/1yKkyUPZ-RGLLfV_2_i7EiR9a3mfb0KggAMDhh4paoHI/edit?usp=drivesdk",
-          "title": "Emanuela · Minifesti 22 noviembre 2026 · v11"
+          "id": "1rRJXfQsTvADX4CKkQ_LnHQAtVt1VhZIzZEFOTeXvpZ8",
+          "url": "https://docs.google.com/document/d/1rRJXfQsTvADX4CKkQ_LnHQAtVt1VhZIzZEFOTeXvpZ8/edit?usp=drivesdk",
+          "title": "Emanuela · Minifesti 22 noviembre 2026 · v13"
         },
         "tavi": {
-          "id": "150-nwqoNMclBjxhPXGU5jU8Iw5wl5b0NK_91DDhIlGI",
-          "url": "https://docs.google.com/document/d/150-nwqoNMclBjxhPXGU5jU8Iw5wl5b0NK_91DDhIlGI/edit?usp=drivesdk",
-          "title": "Tavi · Minifesti 22 noviembre 2026 · v11"
+          "id": "1IWpBv02HxQ0W96rEJmkJQ3QePG30UgJzjMMqtNSBVGA",
+          "url": "https://docs.google.com/document/d/1IWpBv02HxQ0W96rEJmkJQ3QePG30UgJzjMMqtNSBVGA/edit?usp=drivesdk",
+          "title": "Tavi · Minifesti 22 noviembre 2026 · v13"
         }
       },
       "sourceText": {
         "path": "text/v02/text.json",
-        "sha256": "9bc07b383345e90ba52c8d6585c92aa32e155a036a87eba44f8c94c086d4ce92"
+        "sha256": "e733cdf5d5c89d1b286f9c9d01b76a769d430a6825e82442d928202a1ed16a50"
       }
     }
   },
   "expectedOutputCount": 15,
   "unresolved": [
-    "Visual review of the v11 images",
+    "Visual review of the v13 images",
     "Alt text review (WhatsApp group descriptions are new in v11)",
     "Test send of the WhatsApp group images to check chat-preview cropping, compression and readability",
     "Photo usage permissions",
@@ -335,6 +335,10 @@
     {
       "record": "event-kit/v10/manifest.json",
       "note": "Previous current kit, superseded by v11, which mirrors the workshop Instagram wave so it rises over the heading on the left and dips on the right. The earlier Drive delivery is preserved."
+    },
+    {
+      "record": "event-kit/v11/manifest.json",
+      "note": "Previous current kit, superseded by v12 (square 1080 × 1080 WhatsApp group images) and v13 (short WhatsApp Status copy linking the general event page). The earlier Drive delivery is preserved."
     }
   ],
   "deliveries": [
@@ -817,6 +821,165 @@
       "notes": [
         "Three central channel documents and eight personal documents are directly in the versioned folder.",
         "The source ZIP of the full v11 kit (27 MB) exceeds the 10 MB connector upload limit and was not uploaded; the kit is in the repository at event-kit/v11.",
+        "Packaging does not approve visuals or photo permissions and does not authorize publishing or sending."
+      ]
+    },
+    {
+      "version": "v13",
+      "deliveredAt": "2026-11-17",
+      "folder": {
+        "id": "1cfR6u8MYFiZzxN-M-88jhNsKzfVKiVdA",
+        "url": "https://drive.google.com/drive/folders/1cfR6u8MYFiZzxN-M-88jhNsKzfVKiVdA"
+      },
+      "documents": {
+        "instagram": {
+          "id": "1KuEU8Ph2zkodBLyfiUO5ttT-9EgW4dpwN_A74taKYDE",
+          "url": "https://docs.google.com/document/d/1KuEU8Ph2zkodBLyfiUO5ttT-9EgW4dpwN_A74taKYDE/edit?usp=drivesdk",
+          "title": "Instagram · Minifesti 22 noviembre 2026 · v13"
+        },
+        "whatsapp": {
+          "id": "15RTeGE25hQkCv0QV7kgXCf3deelr_eeOWSGdEJQECZ8",
+          "url": "https://docs.google.com/document/d/15RTeGE25hQkCv0QV7kgXCf3deelr_eeOWSGdEJQECZ8/edit?usp=drivesdk",
+          "title": "WhatsApp Status · Minifesti 22 noviembre 2026 · v13"
+        },
+        "whatsapp-group": {
+          "id": "1ZlrNsYHiGM9rAvWN7BbPO2gNTyCjlRNxWY3zumTKazw",
+          "url": "https://docs.google.com/document/d/1ZlrNsYHiGM9rAvWN7BbPO2gNTyCjlRNxWY3zumTKazw/edit?usp=drivesdk",
+          "title": "WhatsApp Groups · Minifesti 22 noviembre 2026 · v13"
+        }
+      },
+      "teamDocuments": {
+        "marcin": {
+          "id": "1FiiQEjUcmOTV9cuzDzMYsyePcfjWBypY8_LSiunlsVI",
+          "url": "https://docs.google.com/document/d/1FiiQEjUcmOTV9cuzDzMYsyePcfjWBypY8_LSiunlsVI/edit?usp=drivesdk",
+          "title": "Marcin · Minifesti 22 noviembre 2026 · v13"
+        },
+        "sayil": {
+          "id": "1DjYUk5iFQcLyFAYGF7hAEmNMzbSp3luI8hQmIau3EPQ",
+          "url": "https://docs.google.com/document/d/1DjYUk5iFQcLyFAYGF7hAEmNMzbSp3luI8hQmIau3EPQ/edit?usp=drivesdk",
+          "title": "Sayil · Minifesti 22 noviembre 2026 · v13"
+        },
+        "nina": {
+          "id": "1Las-ZUePR3XEi2zUcztDEstzuvgidz4C2SSXSdXxYaA",
+          "url": "https://docs.google.com/document/d/1Las-ZUePR3XEi2zUcztDEstzuvgidz4C2SSXSdXxYaA/edit?usp=drivesdk",
+          "title": "Nina · Minifesti 22 noviembre 2026 · v13"
+        },
+        "diana": {
+          "id": "17yGT_EfkuX58XaMd8HNNXFXSggjiVmtPJdc823p_6L0",
+          "url": "https://docs.google.com/document/d/17yGT_EfkuX58XaMd8HNNXFXSggjiVmtPJdc823p_6L0/edit?usp=drivesdk",
+          "title": "Diana · Minifesti 22 noviembre 2026 · v13"
+        },
+        "arancha": {
+          "id": "1LKqYhIH6qtWry7fyl55cRyECkG50RKMulUOv5zuYAC0",
+          "url": "https://docs.google.com/document/d/1LKqYhIH6qtWry7fyl55cRyECkG50RKMulUOv5zuYAC0/edit?usp=drivesdk",
+          "title": "Arancha · Minifesti 22 noviembre 2026 · v13"
+        },
+        "bart": {
+          "id": "1ygGCkKUcbUr3vGg4xj6kUc7V5qwtrOLhk1sLp_l-3EQ",
+          "url": "https://docs.google.com/document/d/1ygGCkKUcbUr3vGg4xj6kUc7V5qwtrOLhk1sLp_l-3EQ/edit?usp=drivesdk",
+          "title": "Bart · Minifesti 22 noviembre 2026 · v13"
+        },
+        "emanuela": {
+          "id": "1rRJXfQsTvADX4CKkQ_LnHQAtVt1VhZIzZEFOTeXvpZ8",
+          "url": "https://docs.google.com/document/d/1rRJXfQsTvADX4CKkQ_LnHQAtVt1VhZIzZEFOTeXvpZ8/edit?usp=drivesdk",
+          "title": "Emanuela · Minifesti 22 noviembre 2026 · v13"
+        },
+        "tavi": {
+          "id": "1IWpBv02HxQ0W96rEJmkJQ3QePG30UgJzjMMqtNSBVGA",
+          "url": "https://docs.google.com/document/d/1IWpBv02HxQ0W96rEJmkJQ3QePG30UgJzjMMqtNSBVGA/edit?usp=drivesdk",
+          "title": "Tavi · Minifesti 22 noviembre 2026 · v13"
+        }
+      },
+      "images": {
+        "general/instagram": {
+          "id": "1ggMTWjpc2htfDUbZUVK0a0p82l7SPMSl",
+          "url": "https://drive.google.com/file/d/1ggMTWjpc2htfDUbZUVK0a0p82l7SPMSl/view?usp=drivesdk",
+          "fileName": "general-instagram-minifesti-2026-11-22-v13.png"
+        },
+        "general/whatsapp": {
+          "id": "1Hu5iCNOvgAbc_C_UJ5uve4DFEL2s2QOE",
+          "url": "https://drive.google.com/file/d/1Hu5iCNOvgAbc_C_UJ5uve4DFEL2s2QOE/view?usp=drivesdk",
+          "fileName": "general-whatsapp-minifesti-2026-11-22-v13.png"
+        },
+        "general/whatsapp-group": {
+          "id": "1UorYR0geD9XPo4OafFjjz64xGaBzLq9T",
+          "url": "https://drive.google.com/file/d/1UorYR0geD9XPo4OafFjjz64xGaBzLq9T/view?usp=drivesdk",
+          "fileName": "general-whatsapp-group-minifesti-2026-11-22-v13.png"
+        },
+        "thai-yoga-massage/instagram": {
+          "id": "1Y4OEcjP-UZTfPnZB_VdNBRhKSEuh8OUU",
+          "url": "https://drive.google.com/file/d/1Y4OEcjP-UZTfPnZB_VdNBRhKSEuh8OUU/view?usp=drivesdk",
+          "fileName": "thai-yoga-massage-instagram-minifesti-2026-11-22-v13.png"
+        },
+        "thai-yoga-massage/whatsapp": {
+          "id": "1UCFs6Mbb3qIaQ7shNsEPLCOTSgq-i0DW",
+          "url": "https://drive.google.com/file/d/1UCFs6Mbb3qIaQ7shNsEPLCOTSgq-i0DW/view?usp=drivesdk",
+          "fileName": "thai-yoga-massage-whatsapp-minifesti-2026-11-22-v13.png"
+        },
+        "thai-yoga-massage/whatsapp-group": {
+          "id": "14o_6idayLXmAL0AcN7ePvO5fjvkt9Xv-",
+          "url": "https://drive.google.com/file/d/14o_6idayLXmAL0AcN7ePvO5fjvkt9Xv-/view?usp=drivesdk",
+          "fileName": "thai-yoga-massage-whatsapp-group-minifesti-2026-11-22-v13.png"
+        },
+        "dance-lift/instagram": {
+          "id": "1AEaXUwuZDQWL1lJPThzBKmzeQi5RAd4J",
+          "url": "https://drive.google.com/file/d/1AEaXUwuZDQWL1lJPThzBKmzeQi5RAd4J/view?usp=drivesdk",
+          "fileName": "dance-lift-instagram-minifesti-2026-11-22-v13.png"
+        },
+        "dance-lift/whatsapp": {
+          "id": "1GGkmnF69Rc0KU_HeXzpO6chPU4yoiZbi",
+          "url": "https://drive.google.com/file/d/1GGkmnF69Rc0KU_HeXzpO6chPU4yoiZbi/view?usp=drivesdk",
+          "fileName": "dance-lift-whatsapp-minifesti-2026-11-22-v13.png"
+        },
+        "dance-lift/whatsapp-group": {
+          "id": "1R8ataYfWW5gS69ua-Eax-W2irvR5t4G5",
+          "url": "https://drive.google.com/file/d/1R8ataYfWW5gS69ua-Eax-W2irvR5t4G5/view?usp=drivesdk",
+          "fileName": "dance-lift-whatsapp-group-minifesti-2026-11-22-v13.png"
+        },
+        "contact-improvisation/instagram": {
+          "id": "1rOqHXyeRFpgsTq5OxJ3YF6z_0WdXMk9e",
+          "url": "https://drive.google.com/file/d/1rOqHXyeRFpgsTq5OxJ3YF6z_0WdXMk9e/view?usp=drivesdk",
+          "fileName": "contact-improvisation-instagram-minifesti-2026-11-22-v13.png"
+        },
+        "contact-improvisation/whatsapp": {
+          "id": "17mPcEv080tabEgh3IeOr0gvabS0gWuZk",
+          "url": "https://drive.google.com/file/d/17mPcEv080tabEgh3IeOr0gvabS0gWuZk/view?usp=drivesdk",
+          "fileName": "contact-improvisation-whatsapp-minifesti-2026-11-22-v13.png"
+        },
+        "contact-improvisation/whatsapp-group": {
+          "id": "1__Sr3hJagLNI9RdkU4YSdXr9h670JPNs",
+          "url": "https://drive.google.com/file/d/1__Sr3hJagLNI9RdkU4YSdXr9h670JPNs/view?usp=drivesdk",
+          "fileName": "contact-improvisation-whatsapp-group-minifesti-2026-11-22-v13.png"
+        },
+        "inward-yin-yoga/instagram": {
+          "id": "1mq9SyyKxH5L6SCdvlCv_-f0uVWyf2JlL",
+          "url": "https://drive.google.com/file/d/1mq9SyyKxH5L6SCdvlCv_-f0uVWyf2JlL/view?usp=drivesdk",
+          "fileName": "inward-yin-yoga-instagram-minifesti-2026-11-22-v13.png"
+        },
+        "inward-yin-yoga/whatsapp": {
+          "id": "1YLv8kHHjz_liA9J1aoYxrbfEgCg9gFjS",
+          "url": "https://drive.google.com/file/d/1YLv8kHHjz_liA9J1aoYxrbfEgCg9gFjS/view?usp=drivesdk",
+          "fileName": "inward-yin-yoga-whatsapp-minifesti-2026-11-22-v13.png"
+        },
+        "inward-yin-yoga/whatsapp-group": {
+          "id": "1ulJCDdG8Y4_Fip2PYbS5RFWLMSOE42pg",
+          "url": "https://drive.google.com/file/d/1ulJCDdG8Y4_Fip2PYbS5RFWLMSOE42pg/view?usp=drivesdk",
+          "fileName": "inward-yin-yoga-whatsapp-group-minifesti-2026-11-22-v13.png"
+        }
+      },
+      "sourceText": {
+        "path": "text/v02/text.json",
+        "sha256": "e733cdf5d5c89d1b286f9c9d01b76a769d430a6825e82442d928202a1ed16a50"
+      },
+      "checks": [
+        "15 PNGs from the v13 kit uploaded; SHA-256 verified against the v13 manifest before upload and Drive file sizes match the local files.",
+        "11 native Google Docs created from current text.json: three channel documents and eight personal documents directly in the versioned folder.",
+        "Spanish and English terminology checks passed.",
+        "WhatsApp Status, Instagram, Tavi and Arancha documents exported to PDF and visually inspected: previews embedded and correctly paired, aspect ratio kept, labelled PNG links, copy with paragraph breaks, accents and emoji intact. Tavi also read back as text."
+      ],
+      "notes": [
+        "WhatsApp Status copy is the shortened v13 copy linking the general event page; group and Instagram copy keep the #inscripcion link.",
+        "The deliverables list above still records the v11 per-image entries; v13 Instagram and Status PNGs are byte-identical to v11, and group PNGs are the v12 square versions listed in event-kit/v13/manifest.json.",
         "Packaging does not approve visuals or photo permissions and does not authorize publishing or sending."
       ]
     }
