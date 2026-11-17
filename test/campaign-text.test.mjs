@@ -152,6 +152,29 @@ test('document export lists every label and keeps copy line breaks, escaped', ()
 	assert.match(formatDocument({ ...text, language: 'pl' }), /<b>Text on the image<\/b>/);
 });
 
+test('per-sender copy is validated, reviewed, checked for terminology, and exported', () => {
+	const text = v01();
+	text.subjects[0].senderCopy = { whatsapp: { sayil: 'Hola, soy Sayil.\n\nImprovisación de contacto\n', 'nina-r': 'Hola, soy Nina.\n' } };
+	assert.deepEqual(campaignTextDiagnostics(text), []);
+	assert.equal(exportedCopy(text, 'general', 'whatsapp'), v01().subjects[0].copy.whatsapp);
+	const html = formatDocument(text);
+	assert.match(html, /<p><b>Texto para copiar · Sayil<\/b><\/p>\n<p>Hola, soy Sayil\.<\/p>\n<p>Improvisación de contacto<\/p>/);
+	assert.match(html, /<b>Texto para copiar · Nina r<\/b>/);
+	assert.ok(terminologyFindings(text, terminology).some((finding) => finding.location === 'general.senderCopy.whatsapp.sayil'));
+
+	const broken = v01();
+	broken.subjects[0].senderCopy = { facebook: { sayil: 'X' }, whatsapp: { 'Bad ID': 'X', nina: '' }, instagram: {} };
+	broken.subjects[1].senderCopy = 'nope';
+	const diagnostics = campaignTextDiagnostics(broken).join('\n');
+	for (const expected of [
+		/senderCopy\.facebook: channel "facebook" is not listed/,
+		/senderCopy\.whatsapp\.Bad ID: sender IDs must be safe/,
+		/senderCopy\.whatsapp\.nina: missing or empty copy/,
+		/senderCopy\.instagram: required non-empty object/,
+		/thai-yoga-massage"\.senderCopy: must be an object/,
+	]) assert.match(diagnostics, expected);
+});
+
 test('CLI shows text and writes the document without ImageMagick on PATH', (context) => {
 	const root = tempDir(context);
 	const { notes, ...text } = v01();
@@ -227,7 +250,8 @@ test('builder renders WhatsApp group images from their templates when the text l
 		for (const label of Object.values(subject.labels['whatsapp-group'])) assert.ok(group.svg.includes(`>${label}</text>`), `${subject.id}: ${label}`);
 		assert.ok(`event-kit/whatsapp-group/${subject.id}.svg` in plan.sourceHashes);
 	}
-	assert.match(emailDrafts(text), /### Grupo de WhatsApp\n\n\*Dance Lift: apoyándonos en movimiento\*\n/);
+	const danceLiftGroup = text.subjects.find((subject) => subject.id === 'dance-lift').copy['whatsapp-group'];
+	assert.ok(emailDrafts(text).includes(`### Grupo de WhatsApp\n\n${danceLiftGroup.replace(/\n$/, '')}`));
 	assert.equal(plan.altText, resolve(edition, 'event-kit/alt-text.md'));
 
 	const unknown = structuredClone(text);

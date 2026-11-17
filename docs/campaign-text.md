@@ -47,6 +47,12 @@ Each subject has a safe kebab-case `id`, a single-line `title`, and
   be rendered.
 - `copy.<channel>` is the exact text to export with that image. Whitespace and
   any trailing line break are preserved byte for byte. Use LF line breaks only.
+- `senderCopy.<channel>.<sender-id>` (optional) holds a version of that
+  channel's copy for one more sender, such as a personal group message from
+  another team member. Sender IDs are safe kebab-case IDs, normally the
+  edition's `team.json` member IDs. Only listed channels are allowed, and the
+  same copy rules apply. Builders still export `copy`; `show` and `doc` list
+  each sender's version after it, and terminology checks include them.
 
 Validation reports every problem at once. Rejected inputs include unknown keys,
 duplicate JSON keys or subject IDs, unsafe IDs, missing channels, missing or

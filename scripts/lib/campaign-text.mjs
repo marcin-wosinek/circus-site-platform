@@ -29,7 +29,7 @@ const LABEL_FORBIDDEN = /[\u0000-\u001f\u007f]/;
 const COPY_FORBIDDEN = /[\u0000-\u0009\u000b-\u001f\u007f]/;
 
 const TEXT_KEYS = new Set(['formatVersion', 'site', 'campaign', 'edition', 'language', 'revision', 'basedOn', 'migration', 'notes', 'googleDoc', 'channels', 'subjects']);
-const SUBJECT_KEYS = new Set(['id', 'title', 'labels', 'copy']);
+const SUBJECT_KEYS = new Set(['id', 'title', 'labels', 'copy', 'senderCopy']);
 const BASED_ON_KEYS = new Set(['path', 'revision', 'sha256']);
 const MIGRATION_KEYS = new Set(['source', 'note', 'files']);
 
@@ -173,6 +173,27 @@ export function campaignTextDiagnostics(data) {
 				}
 			}
 		}
+		// Optional per-sender versions of a channel's copy, keyed by channel and
+		// then by sender ID (for example a campaign team member ID). Builders
+		// still export `copy`; these are delivered alongside it.
+		if (subject.senderCopy !== undefined) {
+			if (!isPlainObject(subject.senderCopy)) {
+				diagnostics.push(`${where}.senderCopy: must be an object keyed by channel.`);
+				return;
+			}
+			for (const [channel, senders] of Object.entries(subject.senderCopy)) {
+				const at = `${where}.senderCopy.${channel}`;
+				if (!channelSet.has(channel)) diagnostics.push(`${at}: channel "${channel}" is not listed in channels.`);
+				if (!isPlainObject(senders) || !Object.keys(senders).length) {
+					diagnostics.push(`${at}: required non-empty object of sender ID to copy.`);
+					continue;
+				}
+				for (const [sender, copy] of Object.entries(senders)) {
+					if (!SAFE_ID_PATTERN.test(sender)) diagnostics.push(`${at}.${sender}: sender IDs must be safe lowercase kebab-case IDs.`);
+					validateCopy(copy, `${at}.${sender}`, diagnostics);
+				}
+			}
+		}
 	});
 	return diagnostics;
 }
@@ -216,6 +237,11 @@ export function readCampaignText(path, { label = path, expect = {} } = {}) {
 	return { file, label, bytes, sha256: sha256(bytes), text };
 }
 
+// Per-sender copy for one channel, as [senderId, copy] pairs in file order.
+export function senderCopies(subject, channel) {
+	return Object.entries(subject.senderCopy?.[channel] ?? {});
+}
+
 // Every reviewable string with a stable location, in review order.
 export function textEntries(text) {
 	const entries = [];
@@ -226,6 +252,9 @@ export function textEntries(text) {
 				entries.push({ subject: subject.id, channel, location: `${subject.id}.labels.${channel}.${name}`, kind: 'label', name, value });
 			}
 			entries.push({ subject: subject.id, channel, location: `${subject.id}.copy.${channel}`, kind: 'copy', value: subject.copy[channel] });
+			for (const [sender, value] of senderCopies(subject, channel)) {
+				entries.push({ subject: subject.id, channel, sender, location: `${subject.id}.senderCopy.${channel}.${sender}`, kind: 'copy', value });
+			}
 		}
 	}
 	return entries;
@@ -296,6 +325,10 @@ export function formatReview(campaignText, findings) {
 			const copy = subject.copy[channel];
 			lines.push('', `-- ${channel} copy (${copy.endsWith('\n') ? 'ends with a line break' : 'no trailing line break'})`);
 			lines.push(indent(copy.replace(/\n$/, ''), '  | '));
+			for (const [sender, value] of senderCopies(subject, channel)) {
+				lines.push('', `-- ${channel} copy from ${sender} (${value.endsWith('\n') ? 'ends with a line break' : 'no trailing line break'})`);
+				lines.push(indent(value.replace(/\n$/, ''), '  | '));
+			}
 		}
 	}
 	lines.push('', ...formatFindings(findings));
@@ -316,6 +349,10 @@ function humanize(id) {
 	return CHANNEL_NAMES[id] ?? id.replace(/-/g, ' ').replace(/^./, (letter) => letter.toUpperCase());
 }
 
+function copyParagraphs(copy) {
+	return copy.replace(/\n+$/, '').split(/\n{2,}/).map((paragraph) => `<p>${paragraph.split('\n').map(escapeHtml).join('<br>')}</p>`);
+}
+
 // The deliverable as one HTML page. Uploaded to Google Drive with
 // contentMimeType text/html, it converts to an editable Google Doc. Copy keeps
 // its line breaks; blank lines separate paragraphs.
@@ -331,9 +368,9 @@ export function formatDocument(text, { title = `${text.campaign} · ${text.editi
 		for (const channel of text.channels) {
 			parts.push(`<h3>${escapeHtml(humanize(channel))}</h3>`, `<p><b>${words.image}</b></p>`, '<ul>');
 			for (const value of Object.values(subject.labels[channel])) parts.push(`<li>${escapeHtml(value)}</li>`);
-			parts.push('</ul>', `<p><b>${words.copy}</b></p>`);
-			for (const paragraph of subject.copy[channel].replace(/\n+$/, '').split(/\n{2,}/)) {
-				parts.push(`<p>${paragraph.split('\n').map(escapeHtml).join('<br>')}</p>`);
+			parts.push('</ul>', `<p><b>${words.copy}</b></p>`, ...copyParagraphs(subject.copy[channel]));
+			for (const [sender, value] of senderCopies(subject, channel)) {
+				parts.push(`<p><b>${words.copy} · ${escapeHtml(humanize(sender))}</b></p>`, ...copyParagraphs(value));
 			}
 		}
 	}
