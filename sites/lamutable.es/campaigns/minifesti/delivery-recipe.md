@@ -15,7 +15,13 @@ of their workshop count or image design.
   PNGs for the general event and every workshop.
 
 Preserve this pairing of images and copy. Split central delivery by channel
-and add a personal text file for every team member, as specified below.
+and add a personal document for every team member, as specified below.
+
+Every deliverable is a rich-text Google Doc: real headings, embedded image
+previews, clickable links, and selectable copy. Do not hand off plain `.txt`
+files, raw URLs, or text-only bundles; the
+[v09 WhatsApp status document](https://docs.google.com/document/d/10EZ6sqaL8uT46fbHiTZYXmOCbutAuuCCc02qMUwZB10/edit)
+is the expected shape, and the v09 `team/*.txt` files are the pattern to avoid.
 The references remain unchanged; their wording and event facts are historical.
 
 ## Inputs
@@ -55,14 +61,7 @@ existing Drive location. Preserve previous versions. Within that folder:
   <campaign> <edition> · <version> · WhatsApp groups (Google Doc)
   <campaign>-<edition>-<version>-<subject>-<channel>.png
   team/
-    marcin.txt
-    sayil.txt
-    nina.txt
-    diana.txt
-    arancha.txt
-    bart.txt
-    emanuela.txt
-    tavi.txt
+    <campaign> <edition> · <version> · <Display name>   (Google Doc, one per member)
 ```
 
 The three Google Docs are central working documents. Each covers the general
@@ -79,23 +78,48 @@ page. Link to the original PNG, not a screenshot or thumbnail. Keep copy as
 text rather than baking it into an image. Do not combine Instagram and
 WhatsApp status into tabs or sections of one document.
 
-Upload images once per subject/channel. Central documents and personal files
-link to those same assets. Editable SVGs and review records may accompany the
+Upload images once per subject/channel. Central and personal documents
+embed and link to those same assets. Editable SVGs and review records may accompany the
 kit, but PNG download links are the primary image handoff.
 
-## One text file for every teammate
+## Rich document format
 
-Create a UTF-8 `.txt` file named by each stable `team.json` member ID. Begin
-with their display name, edition, and kit version. Organize by relevant subject,
-then use these three sections in order:
+All central and personal documents use the same structure:
 
-1. WhatsApp group message: sender-specific invitation and group-image link.
-2. Instagram post: exact post copy and Instagram-image link.
-3. WhatsApp status: exact status copy and status-image link.
+- Document title as the top heading, then one `Heading 1` per subject and,
+  in personal documents, one `Heading 2` per channel within it.
+- The embedded preview image directly under its heading, at a readable width
+  with its aspect ratio preserved.
+- A short labelled hyperlink to the full-resolution PNG, such as
+  "Descargar PNG · resolución completa". Link the label text; do not paste the
+  bare Drive URL.
+- The copy as normal paragraphs with real paragraph and line breaks, so a
+  reader can select exactly the message to paste. URLs inside the copy stay
+  as written and become clickable links. WhatsApp markers such as `*bold*`
+  stay literal because the copy is pasted into WhatsApp.
+- Headings and spacing separate sections. Do not add `--- INICIO ---` style
+  markers, ASCII rules, or labels inside copy blocks.
 
-Keep file labels and asset links outside the copy blocks. Preserve the copy
-itself exactly, including whitespace. Use unambiguous separators between
-sections so the recipient can select just the message to paste.
+Build each document as HTML (`<h1>`/`<h2>`, `<img>`, `<a href>`, `<p>` with
+`<br>` for line breaks) and upload it with content type `text/html` so Drive
+converts it to a Google Doc. Images must be fetchable when Drive converts the
+HTML; check after upload that every preview actually embedded rather than
+leaving a broken or missing image.
+
+## One document for every teammate
+
+Create one Google Doc per stable `team.json` member ID, titled
+`<campaign> <edition> · <version> · <Display name>`, in the `team/` folder.
+Begin with their display name, edition, and kit version. Organize by relevant
+subject, then use these three channel sections in order, each with its
+embedded image, full-resolution link, and copy:
+
+1. WhatsApp group message: sender-specific invitation and group image.
+2. Instagram post: exact post copy and Instagram image.
+3. WhatsApp status: exact status copy and status image.
+
+Preserve the copy itself exactly, including line breaks, accents, emoji, and
+links.
 
 Select relevance from recorded roles and workshop associations:
 
@@ -112,22 +136,22 @@ personal-message rules. Do not reuse another person's first-person message.
 Instagram and status use the subject's shared channel copy unless an explicit
 sender version exists for that channel; if it does, use it.
 
-For 22 November 2026, produce all eight files:
+For 22 November 2026, produce all eight documents:
 
-| File | Relevant subject |
+| Member ID | Relevant subject |
 | --- | --- |
-| `marcin.txt` | General event |
-| `sayil.txt` | General event |
-| `nina.txt` | General event |
-| `diana.txt` | Contact improvisación · Corpo Sutil |
-| `arancha.txt` | INWARD — Yin Yoga y meditación guiada |
-| `bart.txt` | Masaje Thai Yoga |
-| `emanuela.txt` | Dance Lift: apoyándonos en movimiento |
-| `tavi.txt` | Dance Lift: apoyándonos en movimiento |
+| `marcin` | General event |
+| `sayil` | General event |
+| `nina` | General event |
+| `diana` | Contact improvisación · Corpo Sutil |
+| `arancha` | INWARD — Yin Yoga y meditación guiada |
+| `bart` | Masaje Thai Yoga |
+| `emanuela` | Dance Lift: apoyándonos en movimiento |
+| `tavi` | Dance Lift: apoyándonos en movimiento |
 
-Tavi's file therefore contains his own Dance Lift group invitation, the Dance
-Lift Instagram post, and the Dance Lift WhatsApp status, each paired with the
-correct image link. Emanuela receives a separate file with her own invitation
+Tavi's document therefore contains his own Dance Lift group invitation, the Dance
+Lift Instagram post, and the Dance Lift WhatsApp status, each with the
+correct embedded image and link. Emanuela receives a separate document with her own invitation
 and the same workshop's shared assets. Future editions derive this table
 from their own roster rather than copying these names.
 
@@ -135,13 +159,16 @@ from their own roster rather than copying these names.
 
 1. Check current source copy and terminology for each language in use. Compare
    exported text against the selected source blocks without normalizing it.
-2. Confirm three separate central Google Docs, one file per team member, and
+2. Confirm three separate central Google Docs, one Google Doc per team member, and
    one complete subject/channel image set. Confirm subject order and recipient
    selection against `event.json` and `team.json`.
-3. Read back the delivered documents and text files. Inspect document previews
-   and final images for readable text, correct pairing, aspect ratio, accents,
-   and clipping. Open the download links and confirm full-resolution files.
-4. Record delivered folder, central-document, image, and team-file links in the
+3. Read back every delivered document. Plain-text read-back shows neither
+   embedded images nor link targets, so also export each document to PDF and
+   inspect it: every preview embedded and correctly paired, aspect ratio kept,
+   labelled links clickable, copy with its paragraph breaks, accents and emoji
+   intact, and no clipping. Open the download links and confirm
+   full-resolution files.
+4. Record delivered folder, central-document, image, and team-document links in the
    edition's delivery record, along with the source text path/hash and kit
    version. Keep review status explicit; packaging does not approve visuals.
 5. Return the folder and central document links to the user. Preparation does
@@ -149,4 +176,5 @@ from their own roster rather than copying these names.
 
 This is a delivery procedure, not a new export command. The existing
 `campaign:text:doc` exports source text; it does not by itself create these
-channel documents, link uploaded images, or generate personal bundles.
+channel documents, embed or link uploaded images, or generate personal
+documents.

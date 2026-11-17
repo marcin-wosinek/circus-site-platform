@@ -164,5 +164,6 @@ Historical kits v01–v08 and their builders remain unchanged.
 For the final text and image handoff, follow the Minifesti
 [delivery recipe](../sites/lamutable.es/campaigns/minifesti/delivery-recipe.md).
 It preserves the v08 preview/download/copy pattern, separates central documents
-by channel, and adds one relevant text file per team member. These are exports
+by channel, and adds one relevant rich-text Google Doc per team member, each
+with embedded image previews and linked full-resolution PNGs. These are exports
 of the same current `text.json`, not independent wording sources.
