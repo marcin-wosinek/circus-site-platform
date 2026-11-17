@@ -1,33 +1,32 @@
 #!/usr/bin/env node
-// Prepare, inspect, and approve reviewed campaign text without rendering
-// images. See docs/campaign-text.md.
+// Inspect campaign text and export it as a document for delivery. Image
+// rendering lives in each site's builder. See docs/campaign-text.md.
 //
-// Exit codes: 0 success, 2 invalid input, refused approval, or configuration.
+// Exit codes: 0 success, 2 invalid input or configuration.
+import { existsSync, writeFileSync } from 'node:fs';
 import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CliError } from './lib/cli-error.mjs';
-import { approvalStatus, approveRevision, createRevision, formatReview, readRevision, terminologyFindings } from './lib/campaign-text.mjs';
+import { formatDocument, formatReview, readCampaignText, terminologyFindings } from './lib/campaign-text.mjs';
 import { loadEffectiveTerminology } from './lib/terminology.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const USAGE = [
 	'Usage:',
-	'  npm run campaign:text:create -- --from <draft-or-revision text.json> --output <new revision directory>',
-	'  npm run campaign:text:show -- <revision directory or text.json>',
-	'  npm run campaign:text:approve -- <revision directory or text.json> --sha256 <digest> --reviewer <name> [--preserve-terminology <concept> ... --reason <text>]',
+	'  npm run campaign:text:show -- <text.json or its directory>',
+	'  npm run campaign:text:doc -- <text.json or its directory> --output <file.html> [--title <document title>] [--force]',
 ].join('\n');
 
 const OPTIONS = {
-	create: new Set(['--from', '--output']),
-	show: new Set([]),
-	approve: new Set(['--sha256', '--reviewer', '--preserve-terminology', '--reason']),
+	show: { values: new Set(), flags: new Set() },
+	doc: { values: new Set(['--output', '--title']), flags: new Set(['--force']) },
 };
-const REPEATABLE = new Set(['--preserve-terminology']);
 
 export function parseArgs(argv) {
 	const [operation, ...rest] = argv;
-	if (!(operation in OPTIONS)) throw new CliError(`Unknown operation "${operation ?? ''}".\n${USAGE}`);
-	const options = { operation, positional: [], values: {}, preserve: [] };
+	if (!Object.hasOwn(OPTIONS, operation ?? '')) throw new CliError(`Unknown operation "${operation ?? ''}".\n${USAGE}`);
+	const allowed = OPTIONS[operation];
+	const options = { operation, positional: [], values: {}, flags: new Set() };
 	let positionalOnly = false;
 	for (let index = 0; index < rest.length; index += 1) {
 		const argument = rest[index];
@@ -39,8 +38,12 @@ export function parseArgs(argv) {
 			positionalOnly = true;
 			continue;
 		}
+		if (allowed.flags.has(argument)) {
+			options.flags.add(argument);
+			continue;
+		}
 		const match = /^(--[a-z0-9-]+)(?:=(.*))?$/s.exec(argument);
-		if (!match || !OPTIONS[operation].has(match[1])) throw new CliError(`Unsupported option "${argument}" for ${operation}.\n${USAGE}`);
+		if (!match || !allowed.values.has(match[1])) throw new CliError(`Unsupported option "${argument}" for ${operation}.\n${USAGE}`);
 		const [, name, inline] = match;
 		let value = inline;
 		if (value === undefined) {
@@ -48,22 +51,11 @@ export function parseArgs(argv) {
 			index += 1;
 		}
 		if (value === undefined || value === '' || value.startsWith('--')) throw new CliError(`Option ${name} requires a value.`);
-		if (REPEATABLE.has(name)) {
-			options.preserve.push(value);
-			continue;
-		}
 		if (name in options.values) throw new CliError(`Duplicate option: ${name}`);
 		options.values[name] = value;
 	}
-	if (operation === 'create') {
-		if (options.positional.length) throw new CliError(`campaign:text:create takes no positional arguments.\n${USAGE}`);
-		for (const name of ['--from', '--output']) if (!options.values[name]) throw new CliError(`Missing ${name}.\n${USAGE}`);
-	} else if (options.positional.length !== 1) {
-		throw new CliError(`campaign:text:${operation} requires exactly one revision path.\n${USAGE}`);
-	}
-	if (operation === 'approve') {
-		for (const name of ['--sha256', '--reviewer']) if (!options.values[name]) throw new CliError(`Missing ${name}.\n${USAGE}`);
-	}
+	if (options.positional.length !== 1) throw new CliError(`campaign:text:${operation} requires exactly one text path.\n${USAGE}`);
+	if (operation === 'doc' && !options.values['--output']) throw new CliError(`Missing --output.\n${USAGE}`);
 	return options;
 }
 
@@ -72,40 +64,21 @@ function display(path, baseDir) {
 	return shown && !shown.startsWith('..') ? shown : path;
 }
 
-export function main(argv, { out = console.log, baseDir = process.env.INIT_CWD || process.cwd(), now = new Date(), platform = platformDir } = {}) {
+export function main(argv, { out = console.log, baseDir = process.env.INIT_CWD || process.cwd(), platform = platformDir } = {}) {
 	const options = parseArgs(argv);
-	if (options.operation === 'create') {
-		const sourcePath = resolve(baseDir, options.values['--from']);
-		const revision = createRevision({ sourcePath, sourceLabel: display(sourcePath, platform), outputDir: resolve(baseDir, options.values['--output']) });
-		const label = display(revision.file, baseDir);
-		out(`Created unapproved revision "${revision.text.revision}" at ${label}`);
-		out(`SHA-256: ${revision.sha256}`);
-		out(`Edit it if needed, then review it with: npm run campaign:text:show -- ${label}`);
-		return 0;
-	}
 	const path = resolve(baseDir, options.positional[0]);
-	const label = display(path, baseDir);
+	const campaignText = readCampaignText(path, { label: display(path, baseDir) });
+	const findings = terminologyFindings(campaignText.text, loadEffectiveTerminology(platform, campaignText.text.site));
 	if (options.operation === 'show') {
-		const revision = readRevision(path, { label });
-		const terminology = loadEffectiveTerminology(platform, revision.text.site);
-		out(formatReview(revision, approvalStatus(revision), terminologyFindings(revision.text, terminology)));
+		out(formatReview(campaignText, findings));
 		return 0;
 	}
-	const preview = readRevision(path, { label });
-	const terminology = loadEffectiveTerminology(platform, preview.text.site);
-	const { revision, record } = approveRevision({
-		path,
-		label,
-		expectedSha256: options.values['--sha256'],
-		reviewer: options.values['--reviewer'],
-		preserve: options.preserve,
-		reason: options.values['--reason'],
-		terminology,
-		now,
-	});
-	out(`Approved revision "${record.revision}" (${record.sha256}) by ${record.reviewer} at ${record.approvedAt}.`);
-	for (const exception of record.terminology.exceptions) out(`Preserved terminology "${exception.concept}" (${exception.findings} finding${exception.findings === 1 ? '' : 's'}): ${exception.reason}`);
-	out(`Recorded in ${display(resolve(revision.dir, 'approval.json'), baseDir)}. ${record.scope}`);
+	const output = resolve(baseDir, options.values['--output']);
+	if (existsSync(output) && !options.flags.has('--force')) throw new CliError(`${display(output, baseDir)} exists; pass --force to replace it.`);
+	writeFileSync(output, formatDocument(campaignText.text, { title: options.values['--title'] }));
+	out(`Wrote ${display(output, baseDir)} from ${campaignText.label}.`);
+	if (findings.length) out(`Warning: ${findings.length} terminology finding(s); run campaign:text:show to review them before delivering.`);
+	out('Upload it to Google Drive as text/html to convert it into a Google Doc, then record the link in googleDoc.');
 	return 0;
 }
 

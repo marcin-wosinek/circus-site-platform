@@ -74,18 +74,17 @@ preserve its Git history and verify the imported tree.
   in context rather than rewriting quotations or unrelated uses. Follow
   `docs/terminology.md`.
 
-- Campaign images use reviewed text revisions. Prepare labels and channel copy
-  with `npm run campaign:text:create`, inspect them with
-  `npm run campaign:text:show`, and render only from a revision a human
-  approved with `npm run campaign:text:approve`. Do not approve text on a
-  user's behalf, and do not edit an approved revision: create a new one. Text
-  approval does not approve visuals, alt text, photo permissions, publishing,
-  or sending. Follow `docs/campaign-text.md`.
+- Campaign images take their wording from one `text.json` per edition. Write
+  labels and channel copy once, check them with `npm run campaign:text:show`,
+  export them with `npm run campaign:text:doc`, and deliver them as a Google
+  Doc. Apply feedback by editing `text.json` in place and updating the doc.
+  Render images from the current file. Delivering text does not authorize
+  publishing or sending. Follow `docs/campaign-text.md`.
 
 - For WhatsApp group messages and captions, use the global
   `whatsapp-group-text` preset in `docs/media-formats.md`: WhatsApp formatting,
   short paragraphs, and real line breaks. Apply the site's brand kit and
-  terminology. Preserve approved campaign copy exactly during export.
+  terminology. Preserve campaign copy exactly during export.
 
 - Treat production systems as read-only unless a task explicitly authorizes a
   write operation.

@@ -144,21 +144,18 @@ input. See [Terminology](docs/terminology.md).
 
 ## Campaign text
 
-Campaign images are built in two stages. First, review and approve a text
-revision containing every image label and all channel copy. Then render images
-from that revision. No ImageMagick is needed to prepare or approve text:
+Each campaign edition keeps every image label and all channel copy in one
+`text.json`. Write it once, deliver it to people as a Google Doc, and edit it
+in place when feedback arrives. Image builders render from the current file.
+No ImageMagick is needed to check or export text:
 
 ```sh
-npm run campaign:text:create -- --from <edition>/text/v01/text.json --output <edition>/text/v02
-npm run campaign:text:show -- <edition>/text/v02
-npm run campaign:text:approve -- <edition>/text/v02 --sha256 <digest> --reviewer "<name>"
+npm run campaign:text:show -- <edition>/text.json
+npm run campaign:text:doc -- <edition>/text.json --output <scratch>/doc.html
 ```
 
-Approval records the SHA-256 of the exact reviewed file. Any later change
-invalidates it, and image builders refuse unapproved or modified text.
-Glossary findings block approval until they are corrected or explicitly
-preserved with `--preserve-terminology <concept> --reason <text>`. See
-[Campaign text revisions](docs/campaign-text.md).
+Upload the HTML to Google Drive as `text/html` to get a Google Doc, and record
+its link in `googleDoc`. See [Campaign text](docs/campaign-text.md).
 
 ## Planned scope
 

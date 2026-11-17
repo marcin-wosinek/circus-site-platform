@@ -12,18 +12,19 @@ approval, alt-text review and photo permissions remain pending. See its
 [delivery record](editions/2026-11-22/delivery.json). v07 and earlier kits are
 kept unchanged as history.
 
-v08 was rendered from the approved text revision
-[text/v02](editions/2026-11-22/text/v02/text.json).
-[text/v01](editions/2026-11-22/text/v01/text.json) remains the unapproved
-verbatim migration from v07. To reproduce:
+v08 was rendered from
+[text/v02](editions/2026-11-22/text/v02/text.json), the edition's current text;
+apply feedback there in place.
+[text/v01](editions/2026-11-22/text/v01/text.json) remains the verbatim
+migration from v07. To reproduce:
 
 ```sh
 node sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/build.mjs \
   --text sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v02 --version <new version>
 ```
 
-New kits always need an approved revision passed explicitly. See
-[Campaign text revisions](../../../../docs/campaign-text.md).
+New kits always take the text file explicitly. See
+[Campaign text](../../../../docs/campaign-text.md).
 
 One reusable recipe supports editions with 3–8 workshops. Each edition produces
 one Instagram overview, one Facebook event cover, and one Instagram and one
@@ -71,11 +72,11 @@ that playbook.
    lettering in plain text files and run
    `npm run terminology:check -- --site lamutable.es --language es <file> ...`.
    Review findings in context; do not rewrite quotations blindly.
-7. Put every image label and all channel copy in a campaign text revision
-   (`editions/YYYY-MM-DD/text/vNN/text.json`). Review it with
-   `npm run campaign:text:show` and have the user approve it with
-   `npm run campaign:text:approve` before rendering. Visual-only reruns reuse
-   the same approved revision; wording changes need a new revision.
+7. Put every image label and all channel copy in the edition's campaign text
+   (`editions/YYYY-MM-DD/text.json`). Check it with
+   `npm run campaign:text:show`, export it with `npm run campaign:text:doc`,
+   and deliver it as a Google Doc. Apply feedback by editing `text.json` in
+   place and updating the doc, then render.
 8. Produce versioned previews, review the complete set, then export approved
    final-size files. Record actual formats, fonts, source versions, deviations,
    alt text and review status in delivery.json. Do not overwrite reviewed versions.

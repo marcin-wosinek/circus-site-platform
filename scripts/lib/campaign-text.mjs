@@ -1,23 +1,19 @@
-// Reviewed campaign text revisions: validation, approval, and exact export.
+// Campaign text: validation, review output, document export, and exact copy
+// for image builders.
 //
-// A revision is a directory holding `text.json` (image labels and channel copy
-// for every subject of one campaign edition) and, once reviewed, `approval.json`
-// (the reviewer, timestamp, terminology review, and the SHA-256 of the exact
-// `text.json` bytes that were approved). Image builders consume only approved
-// revisions; any byte change to `text.json` after approval invalidates it.
+// One `text.json` per campaign edition holds every image label and channel
+// copy for each subject. It is generated once, delivered to people as a Google
+// Doc, and edited in place when feedback arrives; Git keeps the history.
 // Nothing here renders images. See docs/campaign-text.md.
 import { createHash } from 'node:crypto';
-import { existsSync, linkSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { basename, dirname, resolve } from 'node:path';
+import { existsSync, readFileSync, statSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { CliError } from './cli-error.mjs';
 import { parseJsonNoDuplicateKeys } from './strict-json.mjs';
 import { decodeUtf8, findDiscouragedTerms, discouragedTerms } from './terminology.mjs';
 
 export const CAMPAIGN_TEXT_FORMAT_VERSION = 1;
-export const APPROVAL_FORMAT_VERSION = 1;
 export const TEXT_FILE = 'text.json';
-export const APPROVAL_FILE = 'approval.json';
-export const APPROVAL_SCOPE = 'Campaign text only. Does not approve visuals, alt text, photo permissions, publication, or sending.';
 
 const SITE_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
 const REVISION_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
@@ -26,16 +22,16 @@ const REVISION_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
 const SAFE_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const LANGUAGE_PATTERN = /^[a-z]{2,3}(?:-[A-Z]{2})?$/;
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
+const GOOGLE_DOC_PATTERN = /^https:\/\/docs\.google\.com\/document\/d\/[A-Za-z0-9_-]+(?:[/?#][^\s]*)?$/;
 // Labels are single-line image text; copy may contain line breaks but no other
 // control characters (CR is rejected so exported bytes stay unambiguous).
 const LABEL_FORBIDDEN = /[\u0000-\u001f\u007f]/;
 const COPY_FORBIDDEN = /[\u0000-\u0009\u000b-\u001f\u007f]/;
 
-const TEXT_KEYS = new Set(['formatVersion', 'site', 'campaign', 'edition', 'language', 'revision', 'basedOn', 'migration', 'notes', 'channels', 'subjects']);
+const TEXT_KEYS = new Set(['formatVersion', 'site', 'campaign', 'edition', 'language', 'revision', 'basedOn', 'migration', 'notes', 'googleDoc', 'channels', 'subjects']);
 const SUBJECT_KEYS = new Set(['id', 'title', 'labels', 'copy']);
 const BASED_ON_KEYS = new Set(['path', 'revision', 'sha256']);
 const MIGRATION_KEYS = new Set(['source', 'note', 'files']);
-const APPROVAL_KEYS = new Set(['formatVersion', 'revision', 'artifact', 'sha256', 'reviewer', 'approvedAt', 'scope', 'terminology']);
 
 export class CampaignTextError extends CliError {
 	constructor(message, diagnostics = []) {
@@ -92,8 +88,13 @@ export function campaignTextDiagnostics(data) {
 	requireString(data.campaign, 'campaign', diagnostics, SAFE_ID_PATTERN, 'a lowercase kebab-case ID');
 	requireString(data.edition, 'edition', diagnostics, REVISION_ID_PATTERN, 'a lowercase ID such as "2026-11-22"');
 	requireString(data.language, 'language', diagnostics, LANGUAGE_PATTERN, 'a language code such as "es"');
-	requireString(data.revision, 'revision', diagnostics, REVISION_ID_PATTERN, 'a lowercase revision ID such as "v01"');
+	// revision, basedOn, and migration are optional provenance kept by earlier
+	// revision-directory files; new text is edited in place.
+	if (data.revision !== undefined) requireString(data.revision, 'revision', diagnostics, REVISION_ID_PATTERN, 'a lowercase revision ID such as "v01"');
 	if (data.notes !== undefined && typeof data.notes !== 'string') diagnostics.push('notes: must be a string when present.');
+	if (data.googleDoc !== undefined && (typeof data.googleDoc !== 'string' || !GOOGLE_DOC_PATTERN.test(data.googleDoc))) {
+		diagnostics.push('googleDoc: must be a https://docs.google.com/document/d/… URL when present.');
+	}
 	if (data.basedOn !== undefined && data.basedOn !== null) {
 		if (!isPlainObject(data.basedOn)) diagnostics.push('basedOn: must be an object or null.');
 		else {
@@ -196,85 +197,23 @@ function readBytes(path, label) {
 	return readFileSync(path);
 }
 
-// Resolves either a revision directory or its text.json.
+// Accepts a text.json file or a directory containing one.
 export function resolveTextPath(path) {
 	const absolute = resolve(path);
 	if (existsSync(absolute) && statSync(absolute).isDirectory()) return resolve(absolute, TEXT_FILE);
 	return absolute;
 }
 
-// Reads and validates a revision. The revision ID must match its directory
-// name so revisions cannot be confused when copied around.
-export function readRevision(path, { label = path } = {}) {
+// Reads and validates campaign text. `expect` lets a builder refuse text that
+// belongs to another site, campaign, or edition.
+export function readCampaignText(path, { label = path, expect = {} } = {}) {
 	const file = resolveTextPath(path);
-	if (!existsSync(file)) throw new CampaignTextError(`${label} not found.`);
-	if (basename(file) !== TEXT_FILE) throw new CampaignTextError(`${label}: a campaign text revision is a directory containing ${TEXT_FILE}.`);
 	const bytes = readBytes(file, label);
 	const text = parseCampaignText(bytes, label);
-	const dir = dirname(file);
-	if (basename(dir) !== text.revision) {
-		throw new CampaignTextError(`${label}: revision "${text.revision}" must live in a directory named "${text.revision}", not "${basename(dir)}".`);
-	}
-	return { file, dir, label, bytes, sha256: sha256(bytes), text };
-}
-
-function approvalDiagnostics(record) {
-	const diagnostics = [];
-	if (!isPlainObject(record)) return ['Top level must be a JSON object.'];
-	unknownKeys(record, APPROVAL_KEYS, 'approval', diagnostics);
-	if (record.formatVersion !== APPROVAL_FORMAT_VERSION) diagnostics.push(`formatVersion: expected ${APPROVAL_FORMAT_VERSION}.`);
-	requireString(record.revision, 'revision', diagnostics, REVISION_ID_PATTERN, 'a revision ID');
-	if (record.artifact !== TEXT_FILE) diagnostics.push(`artifact: expected "${TEXT_FILE}".`);
-	requireString(record.sha256, 'sha256', diagnostics, SHA256_PATTERN, 'a SHA-256 hex digest');
-	requireString(record.reviewer, 'reviewer', diagnostics);
-	if (typeof record.approvedAt !== 'string' || Number.isNaN(Date.parse(record.approvedAt))) diagnostics.push('approvedAt: required ISO 8601 timestamp.');
-	if (!isPlainObject(record.terminology) || !Array.isArray(record.terminology.findings) || !Array.isArray(record.terminology.exceptions)) {
-		diagnostics.push('terminology: required object with findings and exceptions arrays.');
-	}
-	return diagnostics;
-}
-
-export function readApproval(revision) {
-	const file = resolve(revision.dir, APPROVAL_FILE);
-	if (!existsSync(file)) return null;
-	const label = `${APPROVAL_FILE} for revision "${revision.text.revision}"`;
-	const bytes = readBytes(file, label);
-	let record;
-	try {
-		record = parseJsonNoDuplicateKeys(decodeUtf8(bytes, label), { label });
-	} catch (error) {
-		throw new CampaignTextError(error.message);
-	}
-	const diagnostics = approvalDiagnostics(record);
-	if (diagnostics.length) throw new CampaignTextError(`Invalid ${label}:`, diagnostics);
-	return { file, sha256: sha256(bytes), record };
-}
-
-// Returns { state: 'unapproved' | 'approved' | 'modified', approval }.
-export function approvalStatus(revision) {
-	const approval = readApproval(revision);
-	if (!approval) return { state: 'unapproved', approval: null };
-	const matches = approval.record.sha256 === revision.sha256 && approval.record.revision === revision.text.revision;
-	return { state: matches ? 'approved' : 'modified', approval };
-}
-
-// The gate for image builders: returns the approved revision or explains
-// exactly why it cannot be used. Call this before creating any output.
-export function requireApprovedRevision(path, { label = path, expect = {} } = {}) {
-	const revision = readRevision(path, { label });
 	for (const [key, value] of Object.entries(expect)) {
-		if (revision.text[key] !== value) {
-			throw new CampaignTextError(`${label}: ${key} is "${revision.text[key]}", but this builder requires "${value}".`);
-		}
+		if (text[key] !== value) throw new CampaignTextError(`${label}: ${key} is "${text[key]}", but this builder requires "${value}".`);
 	}
-	const { state, approval } = approvalStatus(revision);
-	if (state === 'unapproved') {
-		throw new CampaignTextError(`${label}: revision "${revision.text.revision}" is not approved. Review it with campaign:text:show and approve it with campaign:text:approve before generating images.`);
-	}
-	if (state === 'modified') {
-		throw new CampaignTextError(`${label}: ${TEXT_FILE} was modified after approval (approved ${approval.record.sha256}, now ${revision.sha256}). Restore the approved text or create a new revision with campaign:text:create and review it.`);
-	}
-	return { ...revision, approval };
+	return { file, label, bytes, sha256: sha256(bytes), text };
 }
 
 // Every reviewable string with a stable location, in review order.
@@ -313,14 +252,14 @@ export function terminologyFindings(text, terminology) {
 
 export function subjectById(text, id) {
 	const subject = text.subjects.find((item) => item.id === id);
-	if (!subject) throw new CampaignTextError(`Revision "${text.revision}" has no subject "${id}".`);
+	if (!subject) throw new CampaignTextError(`Campaign text has no subject "${id}".`);
 	return subject;
 }
 
-// Exact channel copy as stored in the reviewed revision. Never reconstruct it.
+// Exact channel copy as stored in the campaign text. Never reconstruct it.
 export function exportedCopy(text, subjectId, channel) {
 	const subject = subjectById(text, subjectId);
-	if (!(channel in subject.copy)) throw new CampaignTextError(`Revision "${text.revision}" has no ${channel} copy for "${subjectId}".`);
+	if (!(channel in subject.copy)) throw new CampaignTextError(`Campaign text has no ${channel} copy for "${subjectId}".`);
 	return subject.copy[channel];
 }
 
@@ -328,127 +267,26 @@ export function serializeText(text) {
 	return `${JSON.stringify(text, null, '\t')}\n`;
 }
 
-// Creates a new unapproved revision directory from a draft or an earlier
-// revision. Existing revisions are never overwritten, and approval is never
-// carried over.
-export function createRevision({ sourcePath, outputDir, sourceLabel = sourcePath }) {
-	const bytes = readBytes(resolve(sourcePath), sourceLabel);
-	const draftText = decodeUtf8(bytes, sourceLabel);
-	let draft;
-	try {
-		draft = parseJsonNoDuplicateKeys(draftText, { label: sourceLabel });
-	} catch (error) {
-		throw new CampaignTextError(error.message);
-	}
-	if (!isPlainObject(draft)) throw new CampaignTextError(`${sourceLabel}: top level must be a JSON object.`);
-	const revision = basename(resolve(outputDir));
-	if (!REVISION_ID_PATTERN.test(revision)) throw new CampaignTextError(`Output directory name "${revision}" is not a valid revision ID such as "v02".`);
-	const { migration, basedOn, ...rest } = draft;
-	const text = {
-		...rest,
-		revision,
-		basedOn: { path: sourceLabel, ...(typeof draft.revision === 'string' ? { revision: draft.revision } : {}), sha256: sha256(bytes) },
-	};
-	const ordered = orderKeys(text);
-	const diagnostics = campaignTextDiagnostics(ordered);
-	if (diagnostics.length) throw new CampaignTextError(`Cannot create revision "${revision}" from ${sourceLabel}:`, diagnostics);
-	const dir = resolve(outputDir);
-	if (existsSync(dir)) throw new CampaignTextError(`${dir} already exists. Revisions are never overwritten; choose a new revision ID.`);
-	mkdirSync(dir, { recursive: true });
-	const file = resolve(dir, TEXT_FILE);
-	writeFileSync(file, serializeText(ordered), { flag: 'wx' });
-	return readRevision(file);
-}
-
-function orderKeys(text) {
-	const order = ['formatVersion', 'site', 'campaign', 'edition', 'language', 'revision', 'basedOn', 'notes', 'channels', 'subjects'];
-	const result = {};
-	for (const key of order) if (text[key] !== undefined) result[key] = text[key];
-	for (const key of Object.keys(text)) if (!(key in result)) result[key] = text[key];
-	return result;
-}
-
-// Records approval of the exact reviewed bytes. Glossary findings must each be
-// covered by an explicit preservation exception; exceptions without findings
-// are rejected so they cannot silently accumulate.
-export function approveRevision({ path, label = path, expectedSha256, reviewer, preserve = [], reason, terminology, now = new Date() }) {
-	const revision = readRevision(path, { label });
-	if (typeof expectedSha256 !== 'string' || !SHA256_PATTERN.test(expectedSha256)) {
-		throw new CampaignTextError('Approval requires --sha256 with the 64-character digest printed by campaign:text:show.');
-	}
-	if (expectedSha256 !== revision.sha256) {
-		throw new CampaignTextError(`${label} changed since it was reviewed (reviewed ${expectedSha256}, now ${revision.sha256}). Inspect it again with campaign:text:show.`);
-	}
-	if (typeof reviewer !== 'string' || !reviewer.trim()) throw new CampaignTextError('Approval requires --reviewer.');
-	const existing = approvalStatus(revision);
-	if (existing.state === 'approved') throw new CampaignTextError(`Revision "${revision.text.revision}" is already approved by ${existing.approval.record.reviewer} at ${existing.approval.record.approvedAt}.`);
-	if (existing.state === 'modified') {
-		throw new CampaignTextError(`Revision "${revision.text.revision}" was approved for different content (${existing.approval.record.sha256}). Approved revisions are never re-approved; create a new revision with campaign:text:create.`);
-	}
-	if (terminology.siteId !== revision.text.site) throw new CampaignTextError(`Terminology was loaded for "${terminology.siteId}", but the revision belongs to "${revision.text.site}".`);
-	const findings = terminologyFindings(revision.text, terminology);
-	const preserved = [...new Set(preserve)];
-	if (preserved.length && (typeof reason !== 'string' || !reason.trim())) {
-		throw new CampaignTextError('--preserve-terminology requires --reason explaining why the historical wording is kept.');
-	}
-	const findingConcepts = new Set(findings.map((finding) => finding.concept));
-	const unused = preserved.filter((concept) => !findingConcepts.has(concept));
-	if (unused.length) throw new CampaignTextError(`No terminology findings for: ${unused.join(', ')}. Remove those --preserve-terminology options.`);
-	const uncovered = findings.filter((finding) => !preserved.includes(finding.concept));
-	if (uncovered.length) {
-		throw new CampaignTextError(
-			`Revision "${revision.text.revision}" has unresolved terminology findings. Correct them in a new revision, or keep historical wording explicitly with --preserve-terminology <concept> --reason <text>:`,
-			uncovered.map((finding) => `${finding.location}:${finding.line}:${finding.column}: "${finding.matched}" (concept "${finding.concept}"); preferred "${finding.preferred}"`),
-		);
-	}
-	const record = {
-		formatVersion: APPROVAL_FORMAT_VERSION,
-		revision: revision.text.revision,
-		artifact: TEXT_FILE,
-		sha256: revision.sha256,
-		reviewer: reviewer.trim(),
-		approvedAt: now.toISOString(),
-		scope: APPROVAL_SCOPE,
-		terminology: {
-			site: terminology.siteId,
-			language: revision.text.language,
-			findings,
-			exceptions: preserved.map((concept) => ({ concept, reason: reason.trim(), findings: findings.filter((finding) => finding.concept === concept).length })),
-		},
-	};
-	const file = resolve(revision.dir, APPROVAL_FILE);
-	// Write to a temporary file, then hard-link it into place: the link fails if
-	// another approval appeared meanwhile, and readers never see partial JSON.
-	const temporary = `${file}.tmp-${process.pid}`;
-	writeFileSync(temporary, `${JSON.stringify(record, null, '\t')}\n`, { flag: 'wx' });
-	try {
-		linkSync(temporary, file);
-	} catch (error) {
-		if (error.code === 'EEXIST') throw new CampaignTextError(`${APPROVAL_FILE} appeared for revision "${revision.text.revision}" during approval; inspect it.`);
-		throw error;
-	} finally {
-		rmSync(temporary, { force: true });
-	}
-	return { revision, record };
-}
-
 function indent(text, prefix) {
 	return text.split('\n').map((line) => (line ? `${prefix}${line}` : prefix.trimEnd())).join('\n');
 }
 
-// A readable review of every label and copy string.
-export function formatReview(revision, status, findings) {
-	const { text } = revision;
-	const lines = [
-		`Campaign text ${revision.label}`,
-		`${text.site} · ${text.campaign} · edition ${text.edition} · language ${text.language} · revision ${text.revision}`,
-		`SHA-256: ${revision.sha256}`,
+function formatFindings(findings) {
+	if (!findings.length) return ['Terminology: no discouraged wording found. Unlisted wording is not checked.'];
+	return [
+		`Terminology findings (${findings.length}) — review each in context before delivering:`,
+		...findings.map((finding) => `  ${finding.location}:${finding.line}:${finding.column}: discouraged "${finding.matched}" (concept "${finding.concept}", ${finding.source}); preferred "${finding.preferred}"`),
 	];
-	if (text.basedOn) lines.push(`Based on: ${text.basedOn.path}${text.basedOn.revision ? ` (revision ${text.basedOn.revision})` : ''} ${text.basedOn.sha256}`);
-	if (text.migration) lines.push(`Migrated from: ${text.migration.source} (${Object.keys(text.migration.files).length} hashed source files)`);
-	if (status.state === 'approved') lines.push(`Approval: approved by ${status.approval.record.reviewer} at ${status.approval.record.approvedAt}`);
-	else if (status.state === 'modified') lines.push(`Approval: INVALID — text.json changed after approval (approved ${status.approval.record.sha256})`);
-	else lines.push('Approval: not approved');
+}
+
+// A readable terminal review of every label and copy string.
+export function formatReview(campaignText, findings) {
+	const { text } = campaignText;
+	const lines = [
+		`Campaign text ${campaignText.label}`,
+		`${text.site} · ${text.campaign} · edition ${text.edition} · language ${text.language}`,
+		`Google Doc: ${text.googleDoc ?? 'not delivered yet'}`,
+	];
 	if (text.notes) lines.push('', indent(text.notes, 'Note: '));
 	for (const subject of text.subjects) {
 		lines.push('', `== ${subject.id} · ${subject.title}`);
@@ -460,19 +298,45 @@ export function formatReview(revision, status, findings) {
 			lines.push(indent(copy.replace(/\n$/, ''), '  | '));
 		}
 	}
-	lines.push('');
-	if (findings.length) {
-		lines.push(`Terminology findings (${findings.length}):`);
-		for (const finding of findings) {
-			lines.push(`  ${finding.location}:${finding.line}:${finding.column}: discouraged "${finding.matched}" (concept "${finding.concept}", ${finding.source}); preferred "${finding.preferred}"`);
-		}
-		lines.push('  Correct them in a new revision, or preserve historical wording explicitly when approving.');
-	} else {
-		lines.push('Terminology: no discouraged wording found. This does not approve unlisted wording.');
-	}
-	if (status.state === 'unapproved') {
-		const preserve = [...new Set(findings.map((finding) => finding.concept))].map((concept) => ` --preserve-terminology ${concept}`).join('');
-		lines.push('', `After reviewing, approve with: npm run campaign:text:approve -- ${revision.label} --sha256 ${revision.sha256} --reviewer <name>${preserve}${preserve ? ' --reason <text>' : ''}`);
-	}
+	lines.push('', ...formatFindings(findings));
 	return lines.join('\n');
+}
+
+const CHANNEL_NAMES = { whatsapp: 'WhatsApp', instagram: 'Instagram', facebook: 'Facebook', meetup: 'Meetup' };
+const DOCUMENT_LABELS = {
+	en: { image: 'Text on the image', copy: 'Text to copy' },
+	es: { image: 'Texto en la imagen', copy: 'Texto para copiar' },
+};
+
+function escapeHtml(value) {
+	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function humanize(id) {
+	return CHANNEL_NAMES[id] ?? id.replace(/-/g, ' ').replace(/^./, (letter) => letter.toUpperCase());
+}
+
+// The deliverable as one HTML page. Uploaded to Google Drive with
+// contentMimeType text/html, it converts to an editable Google Doc. Copy keeps
+// its line breaks; blank lines separate paragraphs.
+export function formatDocument(text, { title = `${text.campaign} · ${text.edition}` } = {}) {
+	const words = DOCUMENT_LABELS[text.language.split('-')[0]] ?? DOCUMENT_LABELS.en;
+	const parts = [
+		'<!doctype html>',
+		`<html lang="${escapeHtml(text.language)}"><head><meta charset="utf-8"><title>${escapeHtml(title)}</title></head><body>`,
+		`<h1>${escapeHtml(title)}</h1>`,
+	];
+	for (const subject of text.subjects) {
+		parts.push(`<h2>${escapeHtml(subject.title)}</h2>`);
+		for (const channel of text.channels) {
+			parts.push(`<h3>${escapeHtml(humanize(channel))}</h3>`, `<p><b>${words.image}</b></p>`, '<ul>');
+			for (const value of Object.values(subject.labels[channel])) parts.push(`<li>${escapeHtml(value)}</li>`);
+			parts.push('</ul>', `<p><b>${words.copy}</b></p>`);
+			for (const paragraph of subject.copy[channel].replace(/\n+$/, '').split(/\n{2,}/)) {
+				parts.push(`<p>${paragraph.split('\n').map(escapeHtml).join('<br>')}</p>`);
+			}
+		}
+	}
+	parts.push('</body></html>', '');
+	return parts.join('\n');
 }

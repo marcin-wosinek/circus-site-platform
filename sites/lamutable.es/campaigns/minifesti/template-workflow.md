@@ -21,8 +21,8 @@ or illustrations remain separate assets.
 - Event facts, ordered workshops, and any approved short display titles in
   the edition's `event.json`.
 - Original photos, provenance, and inspected crop focal points.
-- An approved [campaign text revision](../../../../docs/campaign-text.md) with
-  every image label and all channel copy, reviewed before any rendering.
+- The edition's [campaign text](../../../../docs/campaign-text.md) with every
+  image label and all channel copy, delivered as a Google Doc before rendering.
 - Required output roles and sizes from `recipe.json` and the media catalogue.
 - An edition brief identifying unresolved facts and visual decisions.
 
@@ -84,12 +84,11 @@ content before batch production.
 
 ## 4. Fill and render deterministically
 
-Text comes first. Prepare and approve the edition's text revision with the
-`campaign:text:*` commands, then render. The renderer takes the revision path
-explicitly and refuses unapproved text or text modified after approval. It binds
-labels and exports copy verbatim from that revision, never from `event.json`
-or an earlier kit's copy. Visual-only reruns reuse the same revision. Wording
-changes need a new reviewed revision. The 22 November
+Text comes first. Write the edition's `text.json`, deliver it with the
+`campaign:text:*` commands, and apply feedback in place, then render. The
+renderer takes the text path explicitly. It binds labels and exports copy
+verbatim from that file, never from `event.json` or an earlier kit's copy.
+Visual-only reruns reuse the same file. The 22 November
 [`event-kit/build.mjs`](editions/2026-11-22/event-kit/build.mjs) is the first
 example: it binds labels by name into the v07 artwork through
 `event-kit/text-bindings.json`.

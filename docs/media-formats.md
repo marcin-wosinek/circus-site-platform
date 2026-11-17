@@ -90,8 +90,8 @@ breaks. In JSON channel copy, encode line breaks as `\n`; exported `.txt` files
 contain actual LF characters. A fenced block may present copy for review, but
 its fences are not part of the message. Review the pasted message in WhatsApp
 before sending. For campaigns, store the exact message in `copy.whatsapp` and
-follow [campaign text review](campaign-text.md); never reformat an approved
-revision during export. This preset does not change existing approved copy.
+follow [campaign text](campaign-text.md); never reformat campaign copy during
+export. This preset does not change existing campaign copy.
 
 ### WhatsApp group image composition
 
