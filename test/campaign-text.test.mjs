@@ -212,6 +212,34 @@ test('builder binds labels and exports exact copy, identically on every run', (c
 	assert.throws(() => prepareBuild({ textPath: file, version: 'v08', outputRoot }), /exists; preserve it/);
 });
 
+test('builder renders WhatsApp group images from their templates when the text lists the channel', (context) => {
+	const root = tempDir(context);
+	const current = resolve(edition, 'text/v02/text.json');
+	const plan = prepareBuild({ textPath: current, version: 'v99', outputRoot: resolve(root, 'kits') });
+	const { text } = plan.campaignText;
+	assert.deepEqual(text.channels, ['instagram', 'whatsapp', 'whatsapp-group']);
+	assert.equal(plan.outputs.length, 15);
+	for (const subject of text.subjects) {
+		const group = plan.outputs.find((output) => output.subject === subject.id && output.channel === 'whatsapp-group');
+		assert.deepEqual([group.width, group.height], [1080, 1350]);
+		assert.equal(group.copy, subject.copy['whatsapp-group']);
+		assert.doesNotMatch(group.svg, /\{\{/);
+		for (const label of Object.values(subject.labels['whatsapp-group'])) assert.ok(group.svg.includes(`>${label}</text>`), `${subject.id}: ${label}`);
+		assert.ok(`event-kit/whatsapp-group/${subject.id}.svg` in plan.sourceHashes);
+	}
+	assert.match(emailDrafts(text), /### Grupo de WhatsApp\n\n\*Dance Lift: apoyándonos en movimiento\*\n/);
+	assert.equal(plan.altText, resolve(edition, 'event-kit/alt-text.md'));
+
+	const unknown = structuredClone(text);
+	unknown.channels.push('facebook');
+	for (const subject of unknown.subjects) { subject.labels.facebook = { x: 'X' }; subject.copy.facebook = 'X'; }
+	assert.throws(() => prepareBuild({ textPath: writeText(resolve(root, 'unknown'), unknown), version: 'v99', outputRoot: resolve(root, 'kits') }), /\[facebook\] have no bindings/);
+	const swapped = structuredClone(text);
+	const contact = swapped.subjects.find((subject) => subject.id === 'contact-improvisation');
+	contact.labels['whatsapp-group'] = { ...swapped.subjects[1].labels['whatsapp-group'] };
+	assert.throws(() => prepareBuild({ textPath: writeText(resolve(root, 'swapped'), swapped), version: 'v99', outputRoot: resolve(root, 'kits') }), /no label for binding\(s\): workshop-name-1, workshop-name-2/);
+});
+
 test('builder rejects text that does not match its bindings or edition', (context) => {
 	const root = tempDir(context);
 	const cases = [

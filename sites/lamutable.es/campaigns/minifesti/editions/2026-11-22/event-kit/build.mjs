@@ -1,5 +1,6 @@
 // Renders a new event kit from an explicitly selected campaign text file,
-// using the v07 artwork as the visual baseline. All wording on the images and
+// using the v07 artwork as the visual baseline for Instagram and WhatsApp
+// Status and the whatsapp-group/ templates for WhatsApp group images. All wording on the images and
 // in the exported copy comes from that file; nothing is derived
 // from event.json or an earlier kit's copy files. Historical kits and the
 // build-v01…v07 builders are preserved. See docs/campaign-text.md.
@@ -23,7 +24,7 @@ const FONTS = {
 	'Barlow Condensed': resolve(templates, 'fonts/BarlowCondensed-ExtraBold.ttf'),
 };
 const MARGIN = 65;
-const CHANNEL_NAMES = { whatsapp: 'Estado de WhatsApp', instagram: 'Publicación de Instagram' };
+const CHANNEL_NAMES = { whatsapp: 'Estado de WhatsApp', instagram: 'Publicación de Instagram', 'whatsapp-group': 'Grupo de WhatsApp' };
 const EXPECT = { site: 'lamutable.es', campaign: 'minifesti', edition: '2026-11-22' };
 
 const repoPath = (path) => {
@@ -48,13 +49,20 @@ export function parseArgs(argv) {
 	return values;
 }
 
-export function emailDraft(subject, whatsappCopy, instagramCopy) {
-	return `## ${subject.title}\n\nAsunto: Para compartir · ${subject.title} · 22 noviembre\n\nAdjuntos: ${subject.id}/whatsapp.png y ${subject.id}/instagram.png\n\nHola,\n\nAquí tienes las dos piezas de ${subject.title} para compartir desde tu cuenta cuando el equipo apruebe el kit. Guarda la imagen del canal que vayas a usar y copia su texto.\n\n### Estado de WhatsApp\n\n${whatsappCopy}\n\n### Publicación de Instagram\n\n${instagramCopy.replace(/\n$/, '')}\n\nGracias por compartir movimiento en común.\n`;
+// groupCopy is optional; without it the draft keeps its original two-piece form.
+export function emailDraft(subject, whatsappCopy, instagramCopy, groupCopy) {
+	const attachments = groupCopy === undefined
+		? `${subject.id}/whatsapp.png y ${subject.id}/instagram.png`
+		: `${subject.id}/whatsapp.png, ${subject.id}/instagram.png y ${subject.id}/whatsapp-group.png`;
+	const pieces = groupCopy === undefined ? 'las dos piezas' : 'las tres piezas';
+	const group = groupCopy === undefined ? '' : `\n\n### Grupo de WhatsApp\n\n${groupCopy.replace(/\n$/, '')}`;
+	return `## ${subject.title}\n\nAsunto: Para compartir · ${subject.title} · 22 noviembre\n\nAdjuntos: ${attachments}\n\nHola,\n\nAquí tienes ${pieces} de ${subject.title} para compartir desde tu cuenta cuando el equipo apruebe el kit. Guarda la imagen del canal que vayas a usar y copia su texto.\n\n### Estado de WhatsApp\n\n${whatsappCopy}\n\n### Publicación de Instagram\n\n${instagramCopy.replace(/\n$/, '')}${group}\n\nGracias por compartir movimiento en común.\n`;
 }
 
 export function emailDrafts(text) {
+	const hasGroup = text.channels.includes('whatsapp-group');
 	return '# Borradores de correo · pendientes de aprobación y envío manual\n\n' + text.subjects
-		.map((subject) => emailDraft(subject, exportedCopy(text, subject.id, 'whatsapp'), exportedCopy(text, subject.id, 'instagram')))
+		.map((subject) => emailDraft(subject, exportedCopy(text, subject.id, 'whatsapp'), exportedCopy(text, subject.id, 'instagram'), hasGroup ? exportedCopy(text, subject.id, 'whatsapp-group') : undefined))
 		.join('\n');
 }
 
@@ -74,9 +82,14 @@ export function prepareBuild({ textPath, version, outputRoot = here, cwd = proce
 	if (subjectIds.join() !== baselineSubjects.join()) {
 		throw Error(`Campaign text subjects [${subjectIds}] do not match the ${bindings.baseline} baseline [${baselineSubjects}].`);
 	}
-	const channels = Object.keys(bindings.channels);
-	if ([...text.channels].sort().join() !== [...channels].sort().join()) {
-		throw Error(`Campaign text channels [${text.channels}] do not match the baseline channels [${channels}].`);
+	// Render the channels the text lists, in its order. Instagram and WhatsApp
+	// Status are required; other bound channels, such as whatsapp-group, are
+	// rendered when the text provides them.
+	const channels = text.channels;
+	const unknown = channels.filter((channel) => !(channel in bindings.channels));
+	if (unknown.length) throw Error(`Campaign text channels [${unknown}] have no bindings; known channels are [${Object.keys(bindings.channels)}].`);
+	for (const required of ['instagram', 'whatsapp']) {
+		if (!channels.includes(required)) throw Error(`Campaign text must include the "${required}" channel.`);
 	}
 	const outputs = [];
 	const sourceHashes = {};
@@ -84,16 +97,19 @@ export function prepareBuild({ textPath, version, outputRoot = here, cwd = proce
 		if (subject.copy.whatsapp.includes('\n')) throw Error(`${subject.id}: WhatsApp copy must be one line.`);
 		const layout = bindings.layouts[bindings.subjectLayouts[subject.id] ?? bindings.defaultLayout];
 		for (const channel of channels) {
-			const file = `${subject.id}/${channel}.svg`;
-			const source = readFileSync(resolve(baseline, file));
-			sourceHashes[`event-kit/${bindings.baseline}/${file}`] = sha256(source);
+			const { source: sourceDir, width, height } = bindings.channels[channel];
+			const file = sourceDir ? `${sourceDir}/${subject.id}.svg` : `${bindings.baseline}/${subject.id}/${channel}.svg`;
+			const source = readFileSync(resolve(here, file));
+			sourceHashes[`event-kit/${file}`] = sha256(source);
+			if (!layout[channel]) throw Error(`${subject.id}: layout has no bindings for channel "${channel}".`);
 			const { svg, placements } = bindLabels(source.toString('utf8'), layout[channel], subject.labels[channel], { where: `${subject.id}/${channel}` });
-			outputs.push({ subject: subject.id, channel, svg, placements, ...bindings.channels[channel], copy: exportedCopy(text, subject.id, channel) });
+			outputs.push({ subject: subject.id, channel, svg, placements, width, height, copy: exportedCopy(text, subject.id, channel) });
 		}
 	}
 	const out = resolve(cwd, outputRoot, version);
 	if (existsSync(out)) throw Error(`${repoPath(out)} exists; preserve it and choose a new version.`);
-	return { campaignText, bindings, bindingsSha256: sha256(bindingsBytes), baseline, baselineManifest, sourceHashes, outputs, out, version };
+	const altText = resolve(here, bindings.altText ?? `${bindings.baseline}/alt-text.md`);
+	return { campaignText, bindings, altText, bindingsSha256: sha256(bindingsBytes), baseline, baselineManifest, sourceHashes, outputs, out, version };
 }
 
 function measure(magick, placement, width) {
@@ -133,9 +149,9 @@ export function build(plan) {
 			records.push({ file: `${output.subject}/${output.channel}.png`, dimensions: [output.width, output.height], sha256: sha256(readFileSync(base + '.png')) });
 		}
 		writeFileSync(resolve(staging, 'email-drafts.md'), emailDrafts(text));
-		// Alt text describes the visuals, not the reviewed campaign text, so it
-		// stays with the visual baseline and is reviewed per kit.
-		cpSync(resolve(plan.baseline, 'alt-text.md'), resolve(staging, 'alt-text.md'));
+		// Alt text describes the visuals, not the campaign text, so it is kept
+		// next to the bindings (or with the visual baseline) and reviewed per kit.
+		cpSync(plan.altText, resolve(staging, 'alt-text.md'));
 		const manifest = {
 			status: 'draft-pending-user-review',
 			brandVersion: plan.baselineManifest.brandVersion,
@@ -152,25 +168,25 @@ export function build(plan) {
 				...(text.googleDoc ? { googleDoc: text.googleDoc } : {}),
 			},
 			visualBaseline: { version: plan.bindings.baseline, bindings: 'event-kit/text-bindings.json', bindingsSha256: plan.bindingsSha256, sourceHashes: plan.sourceHashes },
-			altText: { source: `${plan.bindings.baseline}/alt-text.md`, status: 'carried-from-visual-baseline-pending-review' },
+			altText: { source: repoPath(plan.altText), status: 'carried-pending-review' },
 			revision: { base: plan.bindings.baseline, date: new Date().toISOString().slice(0, 10), change: `Labels and copy from ${repoPath(campaignText.file)}; artwork from ${plan.bindings.baseline}.`, builder: 'build.mjs' },
 			outputs: records,
 		};
 		writeFileSync(resolve(staging, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
 		const accent = plan.baselineManifest.accentColor;
-		writeFileSync(resolve(staging, 'index.html'), `<!doctype html><html lang="${text.language}"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Minifesti · Event Kit</title><style>body{font:18px system-ui;max-width:1100px;margin:40px auto;padding:20px;background:${brand.colors.cream};color:${brand.colors.ink}}section{margin:60px 0}article{display:inline-block;vertical-align:top;width:46%;margin:1%}img{width:100%;height:540px;object-fit:contain}a{color:${accent}}@media(max-width:600px){article{width:98%}}</style><h1>Minifesti · 22 noviembre 2026</h1><p>Borrador para revisión.</p><p><a href="review.md">Notas de revisión</a> · <a href="email-drafts.md">Correos</a> · <a href="alt-text.md">Textos alternativos</a></p>${text.subjects.map((s) => `<section><h2>${escapeXml(s.title)}</h2>${['whatsapp', 'instagram'].map((c) => `<article><h3>${CHANNEL_NAMES[c]}</h3><a href="${s.id}/${c}.png"><img src="${s.id}/${c}.png" alt="${escapeXml(s.title)}"></a><p><a href="${s.id}/${c}.png">Imagen PNG</a> · <a href="${s.id}/${c}.txt">Texto para copiar</a> · <a href="${s.id}/${c}.svg">SVG editable</a></p></article>`).join('')}</section>`).join('')}</html>`);
+		writeFileSync(resolve(staging, 'index.html'), `<!doctype html><html lang="${text.language}"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Minifesti · Event Kit</title><style>body{font:18px system-ui;max-width:1100px;margin:40px auto;padding:20px;background:${brand.colors.cream};color:${brand.colors.ink}}section{margin:60px 0}article{display:inline-block;vertical-align:top;width:46%;margin:1%}img{width:100%;height:540px;object-fit:contain}a{color:${accent}}@media(max-width:600px){article{width:98%}}</style><h1>Minifesti · 22 noviembre 2026</h1><p>Borrador para revisión.</p><p><a href="review.md">Notas de revisión</a> · <a href="email-drafts.md">Correos</a> · <a href="alt-text.md">Textos alternativos</a></p>${text.subjects.map((s) => `<section><h2>${escapeXml(s.title)}</h2>${text.channels.map((c) => `<article><h3>${CHANNEL_NAMES[c]}</h3><a href="${s.id}/${c}.png"><img src="${s.id}/${c}.png" alt="${escapeXml(s.title)}"></a><p><a href="${s.id}/${c}.png">Imagen PNG</a> · <a href="${s.id}/${c}.txt">Texto para copiar</a> · <a href="${s.id}/${c}.svg">SVG editable</a></p></article>`).join('')}</section>`).join('')}</html>`);
 		magick(['montage', ...text.subjects.map((s) => resolve(staging, s.id, 'instagram.png')), '-thumbnail', '324x405', '-tile', `${text.subjects.length}x1`, '-geometry', '+10+10', '-background', brand.colors.cream, '-define', 'png:exclude-chunks=date,time', resolve(staging, 'contact-sheet.png')]);
 		writeFileSync(resolve(staging, 'review.md'), `# Event Kit ${plan.version} · 22 noviembre 2026
 
 Local draft for review. Every image label and all exported copy come from
 ${manifest.text.path} (SHA-256 ${campaignText.sha256})${text.googleDoc ? `, delivered as
 ${text.googleDoc}` : ''}. Artwork, photos and crops are the
-${plan.bindings.baseline} baseline, bound through event-kit/text-bindings.json.
+${plan.bindings.baseline} baseline${text.channels.includes('whatsapp-group') ? ' and, for WhatsApp group images, the\nevent-kit/whatsapp-group templates,' : ''} bound through event-kit/text-bindings.json.
 Text widths were measured with the actual fonts; ${records.length} output
 dimensions verified.
 
 Visuals, alt text, photo permissions, publication and sending are reviewed
-separately. alt-text.md is carried from ${plan.bindings.baseline}
+separately. alt-text.md is carried from ${manifest.altText.source}
 and must be checked against these images. Visual review is pending.
 
 Reproduce: node sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/build.mjs --text ${manifest.text.path} --version <new version>

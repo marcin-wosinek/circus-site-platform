@@ -1,0 +1,18 @@
+{
+	"formatVersion": 1,
+	"note": "Visual templates for the whatsapp-group-image preset (docs/media-formats.md). render-templates.mjs turns this file and the edition's source photos into one SVG per subject; build.mjs binds campaign text labels into their {{label}} slots. gravity chooses the crop anchor.",
+	"accentColor": "#E85E14",
+	"general": {
+		"layout": "general",
+		"photos": [
+			{ "src": "sources/thai-yoga-massage.jpg", "gravity": "center" },
+			{ "src": "sources/dance-lift.jpg", "gravity": "center" },
+			{ "src": "sources/contact-improvisation.jpg", "gravity": "center" },
+			{ "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" }
+		]
+	},
+	"thai-yoga-massage": { "layout": "workshop", "photo": { "src": "sources/thai-yoga-massage.jpg", "gravity": "center" } },
+	"dance-lift": { "layout": "workshop", "photo": { "src": "sources/dance-lift.jpg", "gravity": "center" } },
+	"contact-improvisation": { "layout": "workshop-two-line-name", "photo": { "src": "sources/contact-improvisation.jpg", "gravity": "center" } },
+	"inward-yin-yoga": { "layout": "workshop", "photo": { "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" } }
+}

@@ -3,22 +3,26 @@
 Status: the 22 November edition has ten v01 draft previews and editable SVG
 compositions. Event facts and final review remain pending. No publishing is authorized.
 
-The current [22 November Event Kit](editions/2026-11-22/event-kit/v08/index.html)
-contains five WhatsApp/Instagram bundles with Spanish copy, editable SVGs and
-email drafts. v08 corrects «Improvisación de contacto» to «Contact
-improvisación» and keeps the v07 artwork. Facts and text are approved; visual
-approval, alt-text review and photo permissions remain pending. See its
-[review record](editions/2026-11-22/event-kit/v08/review.md) and the edition
-[delivery record](editions/2026-11-22/delivery.json). v07 and earlier kits are
+The current [22 November Event Kit](editions/2026-11-22/event-kit/v09/index.html)
+contains five WhatsApp Status/Instagram/WhatsApp group bundles with Spanish
+copy, editable SVGs and email drafts. v09 adds the WhatsApp group images
+(`whatsapp-group-image`, 1080 × 1350) and group messages
+(`whatsapp-group-text`) from the
+[whatsapp-group templates](editions/2026-11-22/event-kit/whatsapp-group/);
+the other images are unchanged from v08. Visual approval, a WhatsApp test
+send, alt-text review and photo permissions remain pending. See its
+[review record](editions/2026-11-22/event-kit/v09/review.md) and the edition
+[delivery record](editions/2026-11-22/delivery.json). v08 and earlier kits are
 kept unchanged as history.
 
-v08 was rendered from
+v09 was rendered from
 [text/v02](editions/2026-11-22/text/v02/text.json), the edition's current text;
 apply feedback there in place.
 [text/v01](editions/2026-11-22/text/v01/text.json) remains the verbatim
 migration from v07. To reproduce:
 
 ```sh
+node sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/whatsapp-group/render-templates.mjs  # only after changing templates.json or photos
 node sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/build.mjs \
   --text sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v02 --version <new version>
 ```

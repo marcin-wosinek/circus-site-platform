@@ -1,33 +1,31 @@
 {
   "formatVersion": 1,
-  "status": "facts-confirmed-text-approved-visuals-pending",
+  "status": "facts-confirmed-visuals-pending",
   "current": {
-    "kit": "event-kit/v08",
-    "index": "event-kit/v08/index.html",
-    "manifest": "event-kit/v08/manifest.json",
-    "review": "event-kit/v08/review.md",
+    "kit": "event-kit/v09",
+    "index": "event-kit/v09/index.html",
+    "manifest": "event-kit/v09/manifest.json",
+    "review": "event-kit/v09/review.md",
     "text": {
-      "revision": "text/v02",
-      "sha256": "9e6d7ae40823acc820250de86fccc04f5348bd07055611b33b92c8890e9e84ae",
-      "approval": "text/v02/approval.json",
-      "reviewer": "Marcin",
-      "approvedAt": "2026-11-16T20:42:19.009Z"
+      "path": "text/v02/text.json",
+      "sha256": "b927158cf6331dd06d660a9edc972841b6a2f580ebf75b4248edb61da1a26a41"
     },
-    "emailDrafts": "event-kit/v08/email-drafts.md",
-    "altText": "event-kit/v08/alt-text.md"
+    "emailDrafts": "event-kit/v09/email-drafts.md",
+    "altText": "event-kit/v09/alt-text.md"
   },
-  "expectedOutputCount": 10,
+  "expectedOutputCount": 15,
   "unresolved": [
-    "Visual review of the v08 images",
-    "Alt text review (terminology corrected; descriptions carried from v07)",
+    "Visual review of the v09 images",
+    "Alt text review (WhatsApp group descriptions are new in v09)",
+    "Test send of the WhatsApp group images to check chat-preview cropping, compression and readability",
     "Photo usage permissions",
     "Publishing and sending are not authorized"
   ],
   "deliverables": [
     {
-      "file": "event-kit/v08/general/instagram.png",
-      "svg": "event-kit/v08/general/instagram.svg",
-      "copy": "event-kit/v08/general/instagram.txt",
+      "file": "event-kit/v09/general/instagram.png",
+      "svg": "event-kit/v09/general/instagram.svg",
+      "copy": "event-kit/v09/general/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
@@ -40,9 +38,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/general/whatsapp.png",
-      "svg": "event-kit/v08/general/whatsapp.svg",
-      "copy": "event-kit/v08/general/whatsapp.txt",
+      "file": "event-kit/v09/general/whatsapp.png",
+      "svg": "event-kit/v09/general/whatsapp.svg",
+      "copy": "event-kit/v09/general/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -55,9 +53,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/thai-yoga-massage/instagram.png",
-      "svg": "event-kit/v08/thai-yoga-massage/instagram.svg",
-      "copy": "event-kit/v08/thai-yoga-massage/instagram.txt",
+      "file": "event-kit/v09/general/whatsapp-group.png",
+      "svg": "event-kit/v09/general/whatsapp-group.svg",
+      "copy": "event-kit/v09/general/whatsapp-group.txt",
+      "channel": "Grupo de WhatsApp",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "sha256": "2eadbda03db15d046464784e8ddfc54b123cc96a4612eb0def2f1f8354facb56",
+      "workshopId": null,
+      "altText": "Cuatro fotografías en cuadrícula: masaje Thai Yoga en pareja, una elevación de Dance Lift, una práctica grupal de movimiento en el suelo y una postura de Yin Yoga vista desde arriba. Debajo, sobre fondo crema: La Mutable, Minifesti, 22 noviembre · Benimaclet.",
+      "reviewStatus": "draft-pending-visual-review"
+    },
+    {
+      "file": "event-kit/v09/thai-yoga-massage/instagram.png",
+      "svg": "event-kit/v09/thai-yoga-massage/instagram.svg",
+      "copy": "event-kit/v09/thai-yoga-massage/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
@@ -70,9 +83,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/thai-yoga-massage/whatsapp.png",
-      "svg": "event-kit/v08/thai-yoga-massage/whatsapp.svg",
-      "copy": "event-kit/v08/thai-yoga-massage/whatsapp.txt",
+      "file": "event-kit/v09/thai-yoga-massage/whatsapp.png",
+      "svg": "event-kit/v09/thai-yoga-massage/whatsapp.svg",
+      "copy": "event-kit/v09/thai-yoga-massage/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -85,9 +98,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/dance-lift/instagram.png",
-      "svg": "event-kit/v08/dance-lift/instagram.svg",
-      "copy": "event-kit/v08/dance-lift/instagram.txt",
+      "file": "event-kit/v09/thai-yoga-massage/whatsapp-group.png",
+      "svg": "event-kit/v09/thai-yoga-massage/whatsapp-group.svg",
+      "copy": "event-kit/v09/thai-yoga-massage/whatsapp-group.txt",
+      "channel": "Grupo de WhatsApp",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "sha256": "8ebdcba1deecafd9236471597a92c9d48a5c39579977185551c5438de4e9a92c",
+      "workshopId": "thai-yoga-massage",
+      "altText": "Fotografía de un masaje Thai Yoga en pareja sobre una esterilla. Debajo, sobre fondo crema: Minifesti · 22 noviembre, Masaje Thai Yoga, con Bart. La Mutable · Benimaclet.",
+      "reviewStatus": "draft-pending-visual-review"
+    },
+    {
+      "file": "event-kit/v09/dance-lift/instagram.png",
+      "svg": "event-kit/v09/dance-lift/instagram.svg",
+      "copy": "event-kit/v09/dance-lift/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
@@ -100,9 +128,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/dance-lift/whatsapp.png",
-      "svg": "event-kit/v08/dance-lift/whatsapp.svg",
-      "copy": "event-kit/v08/dance-lift/whatsapp.txt",
+      "file": "event-kit/v09/dance-lift/whatsapp.png",
+      "svg": "event-kit/v09/dance-lift/whatsapp.svg",
+      "copy": "event-kit/v09/dance-lift/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -115,9 +143,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/contact-improvisation/instagram.png",
-      "svg": "event-kit/v08/contact-improvisation/instagram.svg",
-      "copy": "event-kit/v08/contact-improvisation/instagram.txt",
+      "file": "event-kit/v09/dance-lift/whatsapp-group.png",
+      "svg": "event-kit/v09/dance-lift/whatsapp-group.svg",
+      "copy": "event-kit/v09/dance-lift/whatsapp-group.txt",
+      "channel": "Grupo de WhatsApp",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "sha256": "19d813f326ca7fd14c5edc19408c8b510f5ec1ff02550b187b5fd2a674a15f5f",
+      "workshopId": "dance-lift",
+      "altText": "Fotografía de una elevación en pareja al aire libre, junto a columnas pintadas. Debajo, sobre fondo crema: Minifesti · 22 noviembre, Dance Lift, con Emanuela y Tavi. La Mutable · Benimaclet.",
+      "reviewStatus": "draft-pending-visual-review"
+    },
+    {
+      "file": "event-kit/v09/contact-improvisation/instagram.png",
+      "svg": "event-kit/v09/contact-improvisation/instagram.svg",
+      "copy": "event-kit/v09/contact-improvisation/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
@@ -130,9 +173,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/contact-improvisation/whatsapp.png",
-      "svg": "event-kit/v08/contact-improvisation/whatsapp.svg",
-      "copy": "event-kit/v08/contact-improvisation/whatsapp.txt",
+      "file": "event-kit/v09/contact-improvisation/whatsapp.png",
+      "svg": "event-kit/v09/contact-improvisation/whatsapp.svg",
+      "copy": "event-kit/v09/contact-improvisation/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -145,9 +188,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/inward-yin-yoga/instagram.png",
-      "svg": "event-kit/v08/inward-yin-yoga/instagram.svg",
-      "copy": "event-kit/v08/inward-yin-yoga/instagram.txt",
+      "file": "event-kit/v09/contact-improvisation/whatsapp-group.png",
+      "svg": "event-kit/v09/contact-improvisation/whatsapp-group.svg",
+      "copy": "event-kit/v09/contact-improvisation/whatsapp-group.txt",
+      "channel": "Grupo de WhatsApp",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "sha256": "236d4b7073a97436bcb0915e9f3fba0aacd710e02cbb2bdbd6afacb1434af14b",
+      "workshopId": "contact-improvisation",
+      "altText": "Fotografía de una práctica grupal de movimiento en el suelo de una sala luminosa. Debajo, sobre fondo crema: Minifesti · 22 noviembre, Contact improvisación, con Diana Flor. La Mutable · Benimaclet.",
+      "reviewStatus": "draft-pending-visual-review"
+    },
+    {
+      "file": "event-kit/v09/inward-yin-yoga/instagram.png",
+      "svg": "event-kit/v09/inward-yin-yoga/instagram.svg",
+      "copy": "event-kit/v09/inward-yin-yoga/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
@@ -160,9 +218,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v08/inward-yin-yoga/whatsapp.png",
-      "svg": "event-kit/v08/inward-yin-yoga/whatsapp.svg",
-      "copy": "event-kit/v08/inward-yin-yoga/whatsapp.txt",
+      "file": "event-kit/v09/inward-yin-yoga/whatsapp.png",
+      "svg": "event-kit/v09/inward-yin-yoga/whatsapp.svg",
+      "copy": "event-kit/v09/inward-yin-yoga/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -172,6 +230,21 @@
       "sha256": "1ed172e5c8d1e18adeb3ada0bdf0973a6a13070f3689a970bd22c64380e6099c",
       "workshopId": "inward-yin-yoga",
       "altText": "Fotografía principal de INWARD — Yin Yoga y meditación guiada, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 21:00–22:00. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
+      "reviewStatus": "draft-pending-visual-review"
+    },
+    {
+      "file": "event-kit/v09/inward-yin-yoga/whatsapp-group.png",
+      "svg": "event-kit/v09/inward-yin-yoga/whatsapp-group.svg",
+      "copy": "event-kit/v09/inward-yin-yoga/whatsapp-group.txt",
+      "channel": "Grupo de WhatsApp",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "fileType": "image/png",
+      "sha256": "1c3d40758d1d8053b64f3328c74daeba0945a0cb67a8694662029f67da56998f",
+      "workshopId": "inward-yin-yoga",
+      "altText": "Fotografía cenital de una persona en una postura de Yin Yoga sobre un suelo de baldosas hexagonales. Debajo, sobre fondo crema: Minifesti · 22 noviembre, Inward · Yin Yoga, con Arancha. La Mutable · Benimaclet.",
       "reviewStatus": "draft-pending-visual-review"
     }
   ],
@@ -183,6 +256,10 @@
     {
       "record": "event-kit/v07/manifest.json",
       "note": "Previous current kit, superseded by v08 for the «Contact improvisación» correction (issue #21)."
+    },
+    {
+      "record": "event-kit/v08/manifest.json",
+      "note": "Previous current kit, superseded by v09, which adds WhatsApp group images (whatsapp-group-image preset) and group messages for all five subjects. v08 Instagram and WhatsApp Status images are byte-identical in v09."
     }
   ]
 }

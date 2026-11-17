@@ -10,10 +10,11 @@
 		"revision": "v01",
 		"sha256": "93e059c134d3d8340ce4d71e0d845ab3b9e15b4e78e6531c60fa25be03e4708d"
 	},
-	"notes": "Corrects the dance practice to «Contact improvisación» (issue #21) in the workshop title, image labels, programme copy and workshop copy, and replaces the abbreviated supporting label «CONTACTO» with «CONTACT IMPROVISACIÓN». The description «Exploramos el contacto, el peso…» describes physical contact and is unchanged. All other wording, facts, URLs and formatting are identical to v01.",
+	"notes": "Corrects the dance practice to «Contact improvisación» (issue #21) in the workshop title, image labels, programme copy and workshop copy, and replaces the abbreviated supporting label «CONTACTO» with «CONTACT IMPROVISACIÓN». The description «Exploramos el contacto, el peso…» describes physical contact and is unchanged. All other wording, facts, URLs and formatting are identical to v01. 2026-11-17: added the whatsapp-group channel (image labels and group message for each subject) following the whatsapp-group-image and whatsapp-group-text presets.",
 	"channels": [
 		"instagram",
-		"whatsapp"
+		"whatsapp",
+		"whatsapp-group"
 	],
 	"subjects": [
 		{
@@ -37,11 +38,17 @@
 					"venue-address": "C/ de Sant Columbà, 11, bajo · Benimaclet · València",
 					"call-to-action": "VEN A COMPARTIR MOVIMIENTO",
 					"programme-link": "Programa e inscripción en lamutable.es"
+				},
+				"whatsapp-group": {
+					"organizer": "La Mutable",
+					"event-name": "MINIFESTI",
+					"date-location": "22 NOVIEMBRE · BENIMACLET"
 				}
 			},
 			"copy": {
 				"instagram": "Minifesti La Mutable\n\nVen a compartir una tarde de movimiento, encuentro y cuidado con La Mutable. Elige los talleres en los que quieres participar.\n\n22 noviembre 2026 · 15:00–22:00\nAsociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\n15:00–16:30 · Masaje Thai Yoga · Bart (inglés)\n17:00–18:30 · Dance Lift: apoyándonos en movimiento · Emanuela y Tavi (español)\n19:00–20:30 · Contact improvisación · Corpo Sutil · Diana Flor (español)\n21:00–22:00 · INWARD — Yin Yoga y meditación guiada · Arancha (inglés)\n\nConsulta precios y condiciones e inscríbete: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n\nOrganiza La Mutable. Movimiento en común.\n",
-				"whatsapp": "*Minifesti La Mutable* · 📅 22 noviembre 2026 · 15:00–22:00 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Ven a compartir una tarde de movimiento, encuentro y cuidado con La Mutable. Elige los talleres en los que quieres participar. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion"
+				"whatsapp": "*Minifesti La Mutable* · 📅 22 noviembre 2026 · 15:00–22:00 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Ven a compartir una tarde de movimiento, encuentro y cuidado con La Mutable. Elige los talleres en los que quieres participar. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+				"whatsapp-group": "*Minifesti La Mutable*\n\nVen a compartir una tarde de movimiento, encuentro y cuidado con La Mutable. Elige los talleres en los que quieres participar.\n\n*Cuándo:* 22 noviembre 2026 · 15:00–22:00\n*Dónde:* Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\n*Programa*\n- 15:00–16:30 · Masaje Thai Yoga · Bart (inglés)\n- 17:00–18:30 · Dance Lift: apoyándonos en movimiento · Emanuela y Tavi (español)\n- 19:00–20:30 · Contact improvisación · Corpo Sutil · Diana Flor (español)\n- 21:00–22:00 · INWARD — Yin Yoga y meditación guiada · Arancha (inglés)\n\nConsulta precios y condiciones y reserva tu plaza:\nhttps://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n"
 			}
 		},
 		{
@@ -68,11 +75,18 @@
 					"supporting-3": "YIN YOGA",
 					"venue": "Samadhi · Benimaclet · València",
 					"booking": "Reserva en lamutable.es"
+				},
+				"whatsapp-group": {
+					"event-date": "MINIFESTI · 22 NOVIEMBRE",
+					"workshop-name": "MASAJE THAI YOGA",
+					"teachers": "con Bart",
+					"venue": "La Mutable · Benimaclet"
 				}
 			},
 			"copy": {
 				"instagram": "Masaje Thai Yoga\nCon Bart\n\nVen a dar y recibir estiramientos y masaje en pareja. Taller impartido en inglés.\n\n22 noviembre 2026 · 15:00–16:30\nAsociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable.\n\nConsulta precios y condiciones e inscríbete: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n\nOrganiza La Mutable. Movimiento en común.\n",
-				"whatsapp": "*Masaje Thai Yoga* · Con Bart. 📅 22 noviembre 2026 · 15:00–16:30 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Ven a dar y recibir estiramientos y masaje en pareja. Taller impartido en inglés. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion"
+				"whatsapp": "*Masaje Thai Yoga* · Con Bart. 📅 22 noviembre 2026 · 15:00–16:30 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Ven a dar y recibir estiramientos y masaje en pareja. Taller impartido en inglés. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+				"whatsapp-group": "*Masaje Thai Yoga*\n\nVen a dar y recibir estiramientos y masaje en pareja. Taller impartido en inglés.\n\n*Con:* Bart\n*Cuándo:* 22 noviembre 2026 · 15:00–16:30\n*Dónde:* Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable. Consulta precios y condiciones y reserva tu plaza:\nhttps://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n"
 			}
 		},
 		{
@@ -99,11 +113,18 @@
 					"supporting-3": "YIN YOGA",
 					"venue": "Samadhi · Benimaclet · València",
 					"booking": "Reserva en lamutable.es"
+				},
+				"whatsapp-group": {
+					"event-date": "MINIFESTI · 22 NOVIEMBRE",
+					"workshop-name": "DANCE LIFT",
+					"teachers": "con Emanuela y Tavi",
+					"venue": "La Mutable · Benimaclet"
 				}
 			},
 			"copy": {
 				"instagram": "Dance Lift: apoyándonos en movimiento\nCon Emanuela y Tavi\n\nVen a explorar apoyos, elevaciones y movimiento compartido con Emanuela y Tavi. Taller impartido en español.\n\n22 noviembre 2026 · 17:00–18:30\nAsociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable.\n\nConsulta precios y condiciones e inscríbete: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n\nOrganiza La Mutable. Movimiento en común.\n",
-				"whatsapp": "*Dance Lift: apoyándonos en movimiento* · Con Emanuela y Tavi. 📅 22 noviembre 2026 · 17:00–18:30 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Ven a explorar apoyos, elevaciones y movimiento compartido con Emanuela y Tavi. Taller impartido en español. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion"
+				"whatsapp": "*Dance Lift: apoyándonos en movimiento* · Con Emanuela y Tavi. 📅 22 noviembre 2026 · 17:00–18:30 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Ven a explorar apoyos, elevaciones y movimiento compartido con Emanuela y Tavi. Taller impartido en español. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+				"whatsapp-group": "*Dance Lift: apoyándonos en movimiento*\n\nVen a explorar apoyos, elevaciones y movimiento compartido con Emanuela y Tavi. Taller impartido en español.\n\n*Con:* Emanuela y Tavi\n*Cuándo:* 22 noviembre 2026 · 17:00–18:30\n*Dónde:* Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable. Consulta precios y condiciones y reserva tu plaza:\nhttps://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n"
 			}
 		},
 		{
@@ -130,11 +151,19 @@
 					"supporting-3": "YIN YOGA",
 					"venue": "Samadhi · Benimaclet · València",
 					"booking": "Reserva en lamutable.es"
+				},
+				"whatsapp-group": {
+					"event-date": "MINIFESTI · 22 NOVIEMBRE",
+					"workshop-name-1": "CONTACT",
+					"workshop-name-2": "IMPROVISACIÓN",
+					"teachers": "con Diana Flor",
+					"venue": "La Mutable · Benimaclet"
 				}
 			},
 			"copy": {
 				"instagram": "Contact improvisación · Corpo Sutil\nCon Diana Flor\n\nExploramos el contacto, el peso y nuestra relación con el suelo a través del movimiento. Taller impartido en español.\n\n22 noviembre 2026 · 19:00–20:30\nAsociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable.\n\nConsulta precios y condiciones e inscríbete: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n\nOrganiza La Mutable. Movimiento en común.\n",
-				"whatsapp": "*Contact improvisación · Corpo Sutil* · Con Diana Flor. 📅 22 noviembre 2026 · 19:00–20:30 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Exploramos el contacto, el peso y nuestra relación con el suelo a través del movimiento. Taller impartido en español. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion"
+				"whatsapp": "*Contact improvisación · Corpo Sutil* · Con Diana Flor. 📅 22 noviembre 2026 · 19:00–20:30 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Exploramos el contacto, el peso y nuestra relación con el suelo a través del movimiento. Taller impartido en español. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+				"whatsapp-group": "*Contact improvisación · Corpo Sutil*\n\nExploramos el contacto, el peso y nuestra relación con el suelo a través del movimiento. Taller impartido en español.\n\n*Con:* Diana Flor\n*Cuándo:* 22 noviembre 2026 · 19:00–20:30\n*Dónde:* Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable. Consulta precios y condiciones y reserva tu plaza:\nhttps://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n"
 			}
 		},
 		{
@@ -161,11 +190,18 @@
 					"supporting-3": "CONTACT IMPROVISACIÓN",
 					"venue": "Samadhi · Benimaclet · València",
 					"booking": "Reserva en lamutable.es"
+				},
+				"whatsapp-group": {
+					"event-date": "MINIFESTI · 22 NOVIEMBRE",
+					"workshop-name": "INWARD · YIN YOGA",
+					"teachers": "con Arancha",
+					"venue": "La Mutable · Benimaclet"
 				}
 			},
 			"copy": {
 				"instagram": "INWARD — Yin Yoga y meditación guiada\nCon Arancha\n\nUna invitación a bajar el ritmo con Yin Yoga y meditación guiada. Taller impartido en inglés.\n\n22 noviembre 2026 · 21:00–22:00\nAsociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable.\n\nConsulta precios y condiciones e inscríbete: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n\nOrganiza La Mutable. Movimiento en común.\n",
-				"whatsapp": "*INWARD — Yin Yoga y meditación guiada* · Con Arancha. 📅 22 noviembre 2026 · 21:00–22:00 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Una invitación a bajar el ritmo con Yin Yoga y meditación guiada. Taller impartido en inglés. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion"
+				"whatsapp": "*INWARD — Yin Yoga y meditación guiada* · Con Arancha. 📅 22 noviembre 2026 · 21:00–22:00 · 📍 Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia · Una invitación a bajar el ritmo con Yin Yoga y meditación guiada. Taller impartido en inglés. Dentro de Minifesti La Mutable. Participa y reserva tu plaza: https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+				"whatsapp-group": "*INWARD — Yin Yoga y meditación guiada*\n\nUna invitación a bajar el ritmo con Yin Yoga y meditación guiada. Taller impartido en inglés.\n\n*Con:* Arancha\n*Cuándo:* 22 noviembre 2026 · 21:00–22:00\n*Dónde:* Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia\n\nDentro de Minifesti La Mutable. Consulta precios y condiciones y reserva tu plaza:\nhttps://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion\n"
 			}
 		}
 	]

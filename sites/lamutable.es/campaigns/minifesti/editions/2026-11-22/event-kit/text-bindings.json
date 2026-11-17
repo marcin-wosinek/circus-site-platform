@@ -1,10 +1,12 @@
 {
 	"formatVersion": 1,
-	"note": "Binds reviewed campaign text labels to the live <text> elements of the baseline kit's SVGs. Locators are literal SVG attributes; every <text> element must be bound. maxWidth overrides the default canvas-margin limit in pixels.",
+	"note": "Binds campaign text labels to the live <text> elements of each channel's source SVGs. Channels without a source use the baseline kit's <subject>/<channel>.svg; a channel with a source uses <source>/<subject>.svg. Locators are literal SVG attributes; every <text> element must be bound. maxWidth overrides the default canvas-margin limit in pixels. altText is the reviewed alt text copied into every kit.",
 	"baseline": "v07",
+	"altText": "alt-text.md",
 	"channels": {
 		"instagram": { "width": 1080, "height": 1350 },
-		"whatsapp": { "width": 1080, "height": 1920 }
+		"whatsapp": { "width": 1080, "height": 1920 },
+		"whatsapp-group": { "width": 1080, "height": 1350, "source": "whatsapp-group" }
 	},
 	"layouts": {
 		"general": {
@@ -25,6 +27,11 @@
 				"venue-address": { "x": "65", "y": "1265" },
 				"call-to-action": { "x": "65", "y": "1660" },
 				"programme-link": { "x": "65", "y": "1720" }
+			},
+			"whatsapp-group": {
+				"organizer": { "id": "organizer" },
+				"event-name": { "id": "event-name" },
+				"date-location": { "id": "date-location" }
 			}
 		},
 		"workshop": {
@@ -48,9 +55,45 @@
 				"supporting-3": { "x": "710", "y": "1525", "maxWidth": 310 },
 				"venue": { "id": "venue" },
 				"booking": { "id": "booking" }
+			},
+			"whatsapp-group": {
+				"event-date": { "id": "event-date" },
+				"workshop-name": { "id": "workshop-name" },
+				"teachers": { "id": "teachers" },
+				"venue": { "id": "venue" }
+			}
+		},
+		"workshop-two-line-name": {
+			"instagram": {
+				"event-name": { "id": "event-name" },
+				"date": { "id": "date" },
+				"workshop-name": { "id": "workshop-name" },
+				"hours": { "id": "hours" },
+				"teachers": { "id": "teachers" },
+				"venue": { "id": "venue" },
+				"booking": { "id": "booking" }
+			},
+			"whatsapp": {
+				"event-name": { "id": "event-name" },
+				"date": { "id": "date" },
+				"workshop-name": { "id": "workshop-name" },
+				"hours": { "id": "hours" },
+				"teachers": { "id": "teachers" },
+				"supporting-1": { "x": "60", "y": "1525", "maxWidth": 310 },
+				"supporting-2": { "x": "385", "y": "1525", "maxWidth": 310 },
+				"supporting-3": { "x": "710", "y": "1525", "maxWidth": 310 },
+				"venue": { "id": "venue" },
+				"booking": { "id": "booking" }
+			},
+			"whatsapp-group": {
+				"event-date": { "id": "event-date" },
+				"workshop-name-1": { "id": "workshop-name-1" },
+				"workshop-name-2": { "id": "workshop-name-2" },
+				"teachers": { "id": "teachers" },
+				"venue": { "id": "venue" }
 			}
 		}
 	},
-	"subjectLayouts": { "general": "general" },
+	"subjectLayouts": { "general": "general", "contact-improvisation": "workshop-two-line-name" },
 	"defaultLayout": "workshop"
 }
