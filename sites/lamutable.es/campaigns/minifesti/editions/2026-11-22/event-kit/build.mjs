@@ -107,7 +107,7 @@ export function prepareBuild({ textPath, version, outputRoot = here, cwd = proce
 			if (channel === 'instagram' && subject.id !== 'general') {
 				const original = 'M0 655 C210 700 360 608 560 642 S900 696 1080 635 V1070 H0Z';
 				if (!artwork.includes(original)) throw Error(`${subject.id}: expected Instagram wave is missing.`);
-				artwork = artwork.replace(original, 'M0 650 C180 680 360 680 540 650 C720 620 900 620 1080 650 V1070 H0Z');
+				artwork = artwork.replace(original, 'M0 650 C180 620 360 620 540 650 C720 680 900 680 1080 650 V1070 H0Z');
 			}
 			if (!layout[channel]) throw Error(`${subject.id}: layout has no bindings for channel "${channel}".`);
 			const { svg, placements } = bindLabels(artwork, layout[channel], subject.labels[channel], { where: `${subject.id}/${channel}` });
