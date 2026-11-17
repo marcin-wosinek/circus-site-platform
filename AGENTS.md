@@ -82,6 +82,11 @@ preserve its Git history and verify the imported tree.
   approval does not approve visuals, alt text, photo permissions, publishing,
   or sending. Follow `docs/campaign-text.md`.
 
+- For WhatsApp group messages and captions, use the global
+  `whatsapp-group-text` preset in `docs/media-formats.md`: WhatsApp formatting,
+  short paragraphs, and real line breaks. Apply the site's brand kit and
+  terminology. Preserve approved campaign copy exactly during export.
+
 - Treat production systems as read-only unless a task explicitly authorizes a
   write operation.
 - Never commit credentials, application passwords, private keys, production

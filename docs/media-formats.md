@@ -1,6 +1,6 @@
 # Media formats
 
-Status: draft catalogue, version 0.4.0.
+Status: draft catalogue, version 0.5.0.
 
 These shared presets describe the output canvas and its content. A site's
 [brand kit](brand-kits.md) supplies voice, colours, typography, and approved
@@ -33,6 +33,66 @@ accompanying post text or publishing metadata.
 | `whatsapp-status` | WhatsApp Status | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `whatsapp-group-image` | WhatsApp group message | 1080 × 1350 (4:5) | Event or offer name, main visual | Short date, short location, logo | Paragraphs, full programme, visible URLs, QR codes |
 
+### Text formats
+
+| Format ID | Destination | Output | Required |
+| --- | --- | --- | --- |
+| `whatsapp-group-text` | WhatsApp group message or image caption | UTF-8 plain text with LF line breaks and WhatsApp formatting | Name or subject, short introduction, relevant practical details, clear next action |
+
+### WhatsApp group text
+
+The global `whatsapp-group-text` preset was added on 2026-11-17. Use it across
+sites for group announcements, with or without an accompanying image. The
+site's brand kit controls voice, language, and emoji preferences; this preset
+controls structure and formatting.
+
+Start with a short bold title using single asterisks (`*Event or subject*`).
+Follow it with a blank line and one or two short introductory sentences.
+Group practical details on separate lines: date and time, venue and location,
+price, and booking requirements where applicable. Include the year or time
+zone when needed to avoid ambiguity. Add a short programme only when useful,
+using one `- ` bullet per line. Finish with one clear invitation or next action
+and the full destination URL on its own line, where applicable.
+
+Use real line breaks, with one blank line between sections. Keep each paragraph
+short and let the app wrap sentences naturally; do not insert line breaks to
+simulate a fixed screen width. Omit inapplicable sections and resolve missing
+facts before final delivery. Keep the message understandable if forwarded
+without its image or earlier conversation.
+
+Use WhatsApp syntax: `*bold*` for the title and selective emphasis, `_italic_`
+for an optional short aside, and `- ` for list items. Keep markers balanced
+within a line. Avoid Markdown headings, double-asterisk bold, HTML, tables,
+and Markdown links; write URLs in full. Formatting reference:
+[WhatsApp Help Center](https://faq.whatsapp.com/539178204879377/).
+
+Reusable structure (placeholders are drafting aids, never final copy):
+
+```text
+*[Event or subject]*
+
+[Short introduction explaining what is happening and who it is for.]
+
+*When:* [Full date and time]
+*Where:* [Venue, city and address as needed]
+*Price:* [Verified price and booking conditions]
+
+*Programme*
+- [Activity and time]
+- [Activity and time]
+
+[Clear invitation or next action]
+[Full booking or information URL]
+```
+
+Deliver as copy-ready text, preserving the literal formatting markers and line
+breaks. In JSON channel copy, encode line breaks as `\n`; exported `.txt` files
+contain actual LF characters. A fenced block may present copy for review, but
+its fences are not part of the message. Review the pasted message in WhatsApp
+before sending. For campaigns, store the exact message in `copy.whatsapp` and
+follow [campaign text review](campaign-text.md); never reformat an approved
+revision during export. This preset does not change existing approved copy.
+
 ### WhatsApp group image composition
 
 The `whatsapp-group-image` project preset was added on 2026-11-17 for
@@ -51,7 +111,7 @@ booking link, and invitation to participate in the accompanying message as
 applicable. Repeat the event or offer name there so the message remains
 understandable on its own. Send the text as the image caption where practical
 so the two travel together. The WhatsApp Status single-line copy rule below
-does not apply to group messages; use short paragraphs for readability.
+does not apply to group messages; use the `whatsapp-group-text` preset above.
 
 Keep essential content at least 65 px inside every edge, respecting any larger
 brand clear-space requirements. Background imagery may extend to the edges.
