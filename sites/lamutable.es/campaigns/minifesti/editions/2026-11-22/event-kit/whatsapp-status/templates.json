@@ -1,0 +1,50 @@
+{
+	"formatVersion": 1,
+	"note": "Visual templates for the whatsapp-status preset (docs/media-formats.md). WhatsApp lays the status caption over roughly the bottom fifth of the image, so all wording and the logo end above y = 1480 and the area below holds only a decorative ink band. render-templates.mjs turns this file and the edition's source photos into one SVG per subject; build.mjs binds campaign text labels into their {{label}} slots. gravity chooses the crop anchor and the optional focusY (0–1) centres a crop vertically; supporting lists the other workshops' photos in the order of the supporting-1…3 labels.",
+	"accentColor": "#E85E14",
+	"general": {
+		"layout": "general",
+		"photos": [
+			{ "src": "sources/thai-yoga-massage.jpg", "gravity": "center" },
+			{ "src": "sources/dance-lift.jpg", "gravity": "north", "focusY": 0.42 },
+			{ "src": "sources/contact-improvisation.jpg", "gravity": "center" },
+			{ "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" }
+		]
+	},
+	"thai-yoga-massage": {
+		"layout": "workshop",
+		"photo": { "src": "sources/thai-yoga-massage.jpg", "gravity": "center" },
+		"supporting": [
+			{ "src": "sources/dance-lift.jpg", "gravity": "north", "focusY": 0.42 },
+			{ "src": "sources/contact-improvisation.jpg", "gravity": "center" },
+			{ "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" }
+		]
+	},
+	"dance-lift": {
+		"layout": "workshop",
+		"photo": { "src": "sources/dance-lift.jpg", "gravity": "north", "focusY": 0.42 },
+		"supporting": [
+			{ "src": "sources/thai-yoga-massage.jpg", "gravity": "center" },
+			{ "src": "sources/contact-improvisation.jpg", "gravity": "center" },
+			{ "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" }
+		]
+	},
+	"contact-improvisation": {
+		"layout": "workshop",
+		"photo": { "src": "sources/contact-improvisation.jpg", "gravity": "center" },
+		"supporting": [
+			{ "src": "sources/thai-yoga-massage.jpg", "gravity": "center" },
+			{ "src": "sources/dance-lift.jpg", "gravity": "north", "focusY": 0.42 },
+			{ "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" }
+		]
+	},
+	"inward-yin-yoga": {
+		"layout": "workshop",
+		"photo": { "src": "sources/inward-yin-yoga.jpeg", "gravity": "center" },
+		"supporting": [
+			{ "src": "sources/thai-yoga-massage.jpg", "gravity": "center" },
+			{ "src": "sources/dance-lift.jpg", "gravity": "north", "focusY": 0.42 },
+			{ "src": "sources/contact-improvisation.jpg", "gravity": "center" }
+		]
+	}
+}

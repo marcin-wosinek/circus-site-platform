@@ -1,0 +1,173 @@
+{
+  "status": "draft-pending-user-review",
+  "brandVersion": "0.1.2",
+  "accentColor": "#E85E14",
+  "mediaCatalogueVersion": "0.3.1",
+  "bookingUrl": "https://lamutable.es/fair-events/minifesti-la-mutable-22-de-noviembre/#inscripcion",
+  "bookingChecked": "2026-11-16; HTTP GET only; form anchor inscripcion present; no checkout submitted",
+  "fonts": [
+    "Barlow Condensed ExtraBold (bundled, SIL OFL 1.1)",
+    "Arial (macOS system font, not redistributed)"
+  ],
+  "renderer": "Version: ImageMagick 7.1.2-5 Q16-HDRI aarch64 23392 https://imagemagick.org",
+  "text": {
+    "path": "sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v02/text.json",
+    "language": "es",
+    "sha256": "e733cdf5d5c89d1b286f9c9d01b76a769d430a6825e82442d928202a1ed16a50",
+    "googleDoc": "https://docs.google.com/document/d/1J9m-FGY3VFn-7ELRQdkPBPolTjwz4sTgp1hUbmgj9zU"
+  },
+  "visualBaseline": {
+    "version": "v07",
+    "bindings": "event-kit/text-bindings.json",
+    "bindingsSha256": "6d683a91a7b4bc773b25656cbc19acc8a3ae7d82bd40fca29201b99e8a0918e8",
+    "sourceHashes": {
+      "event-kit/v07/general/instagram.svg": "62a305796b9a21852e90151d99a2f36d65587aa508172bc49fc17144cc7b1202",
+      "event-kit/whatsapp-status/general.svg": "03164cbb8f3b1a052f5a9eb4da8140c594c6746535c9c7856f9f73828867a8a6",
+      "event-kit/whatsapp-group/general.svg": "a76b676b4f4a9cc274ceedd4343b07fa5cf66ff51b0c1712bda0c6e2cdaea3d1",
+      "event-kit/v07/thai-yoga-massage/instagram.svg": "35e2122e31352880ee07d5b2f9603d9ce16c27f5ded747926112f221f5bbac21",
+      "event-kit/whatsapp-status/thai-yoga-massage.svg": "bf36b0dc8fa2e03d063c7708ceff5b68672e252f69aa270098e9e2cb63a09d5a",
+      "event-kit/whatsapp-group/thai-yoga-massage.svg": "fda53bc2c714a331214db114ac8c7dc79597a89b36736c539350d30303844a6b",
+      "event-kit/v07/dance-lift/instagram.svg": "bde8abdd583c942a740470348baa072cb7748c546b6a304f5d077072df98035a",
+      "event-kit/whatsapp-status/dance-lift.svg": "2535ee2f06ecd339c8e384091a09eb73affab46fa787e447c40acc7204795631",
+      "event-kit/whatsapp-group/dance-lift.svg": "a1a2bd59330f74b6357d6cf04f4887e35a41d74b9f8f459cc83e547dd4754b8d",
+      "event-kit/v07/contact-improvisation/instagram.svg": "97054a9186fc52b13529dafeef1d9f1d7ca3a0b1c7cfc645730cfb08158510b7",
+      "event-kit/whatsapp-status/contact-improvisation.svg": "f8959b006944e83f8a0b9a6e26ab8432402ed3b2849a4e7dab4a9981cb928918",
+      "event-kit/whatsapp-group/contact-improvisation.svg": "69f1eb09dba2ccecc941d9839591a7a1b7ea543d583a564f8f0dfb687b1bbedd",
+      "event-kit/v07/inward-yin-yoga/instagram.svg": "f89936f92e2c1d1f6a353c5ca074a09143e645684567f73268d112c284c6fe3d",
+      "event-kit/whatsapp-status/inward-yin-yoga.svg": "56ef6557c6b7aac1cd5b2a108e987a34a5f2c6f6ff37ddf147cf208336633323",
+      "event-kit/whatsapp-group/inward-yin-yoga.svg": "4c00312970ed8b395b53ccf1f98f3ac355f29444c0fc1ba1c26f1e3294c38838"
+    }
+  },
+  "altText": {
+    "source": "sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/event-kit/alt-text.md",
+    "status": "carried-pending-review"
+  },
+  "revision": {
+    "base": "v07",
+    "date": "2026-11-17",
+    "change": "Labels and copy from sites/lamutable.es/campaigns/minifesti/editions/2026-11-22/text/v02/text.json; Instagram artwork from v07, with a seamless periodic wave on workshop Instagram images; WhatsApp Status and group images from the event-kit/whatsapp-status and event-kit/whatsapp-group templates.",
+    "builder": "build.mjs"
+  },
+  "outputs": [
+    {
+      "file": "general/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "da7bcd08bce16c7a5ae1ccbd902fba2d88a095c408b005fb7eca111f0171f779"
+    },
+    {
+      "file": "general/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "baa31f9779a17e25fbbc39f3f79795ecc068b5126da167323090b528ea307349"
+    },
+    {
+      "file": "general/whatsapp-group.png",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "sha256": "2dcff944a8b5ca5b6006308e560ccf80901f359c30ac85e07cca9ede2b0e5912"
+    },
+    {
+      "file": "thai-yoga-massage/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "778b96e1d402f6200cf2f760566e474b2adcea491c60915985311caa9c6ee345"
+    },
+    {
+      "file": "thai-yoga-massage/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "7042ff801980e1b525120c698ed947bb7803f46cdc061f2df01e61c57b5151f9"
+    },
+    {
+      "file": "thai-yoga-massage/whatsapp-group.png",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "sha256": "5da484557c17f606276de681a55616f5c29fbeba32fd1b958f3ed2ee4c747634"
+    },
+    {
+      "file": "dance-lift/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "bcb30f5cfd5f4612bab770a3613d6880d5d23041733fe4190e496f8c3ce49426"
+    },
+    {
+      "file": "dance-lift/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "5743a293802be967d703029138e0e9eb72f3f9d5bd0838944d6c133496dda57c"
+    },
+    {
+      "file": "dance-lift/whatsapp-group.png",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "sha256": "26acd18053b841d049b73cc9cffc4739c1dbf4231d6868c841f5eb7d49806e9e"
+    },
+    {
+      "file": "contact-improvisation/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "f662b0d82651fef3e1bcaa24c2b204dc8a3c605ebf5ab275a31d246965aeb714"
+    },
+    {
+      "file": "contact-improvisation/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "e2ddfc735ceb0a70468c1e278e82bc1d249851b5c987c0898c0885a6b2521a34"
+    },
+    {
+      "file": "contact-improvisation/whatsapp-group.png",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "sha256": "258c32e900080f1b5d711602ef984cbaad3122f84d4b218bfa2c3d5bf7e984a2"
+    },
+    {
+      "file": "inward-yin-yoga/instagram.png",
+      "dimensions": [
+        1080,
+        1350
+      ],
+      "sha256": "78c40da1069aeef628d886736604ec0f9e9cfc993626d476705d83b2ade34ae5"
+    },
+    {
+      "file": "inward-yin-yoga/whatsapp.png",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "sha256": "bde35bfbb4c66710adb88cf76b0d74c86ea73249ec011da8127e379225ca6e1a"
+    },
+    {
+      "file": "inward-yin-yoga/whatsapp-group.png",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "sha256": "ead004f7179cda46578e7bf08412bcc60013dcc29996cb790f71277dbff5a3c6"
+    }
+  ]
+}

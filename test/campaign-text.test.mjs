@@ -50,6 +50,23 @@ function layoutFor(id) {
 	return bindings.layouts[bindings.subjectLayouts[id] ?? bindings.defaultLayout];
 }
 
+// The v07 WhatsApp Status SVGs predate the whatsapp-status templates; these
+// are the literal positions their labels were bound by until v13.
+const V07_WHATSAPP_POSITIONS = {
+	organizer: ['65', '605'], 'event-name': ['58', '750'], 'venue-name': ['65', '1231'], 'venue-address': ['65', '1265'],
+	'call-to-action': ['65', '1660'], 'programme-link': ['65', '1720'],
+	'supporting-1': ['60', '1525'], 'supporting-2': ['385', '1525'], 'supporting-3': ['710', '1525'],
+};
+function v07LayoutFor(id, channel) {
+	const layout = layoutFor(id)[channel];
+	if (channel !== 'whatsapp') return layout;
+	return Object.fromEntries(Object.entries(layout).map(([label, locator]) => {
+		if (!(label in V07_WHATSAPP_POSITIONS) || (id !== 'general' && label === 'event-name')) return [label, locator];
+		const [x, y] = V07_WHATSAPP_POSITIONS[label];
+		return [label, { x, y, ...(locator.maxWidth ? { maxWidth: locator.maxWidth } : {}) }];
+	}));
+}
+
 test('migrated v01 preserves every v07 channel copy file byte-for-byte', () => {
 	const text = v01();
 	assert.deepEqual(text.subjects.map((subject) => subject.id), ['general', 'thai-yoga-massage', 'dance-lift', 'contact-improvisation', 'inward-yin-yoga']);
@@ -69,7 +86,7 @@ test('migrated v01 labels reproduce the v07 SVGs exactly and its email drafts', 
 	for (const subject of text.subjects) {
 		for (const channel of text.channels) {
 			const svg = readFileSync(resolve(v07, subject.id, `${channel}.svg`), 'utf8');
-			const layout = layoutFor(subject.id)[channel];
+			const layout = v07LayoutFor(subject.id, channel);
 			assert.deepEqual(extractLabels(svg, layout), subject.labels[channel], `${subject.id}/${channel} labels`);
 			assert.equal(bindLabels(svg, layout, subject.labels[channel]).svg, svg, `${subject.id}/${channel} rebinding`);
 		}
@@ -249,6 +266,16 @@ test('builder renders WhatsApp group images from their templates when the text l
 		assert.doesNotMatch(group.svg, /\{\{/);
 		for (const label of Object.values(subject.labels['whatsapp-group'])) assert.ok(group.svg.includes(`>${label}</text>`), `${subject.id}: ${label}`);
 		assert.ok(`event-kit/whatsapp-group/${subject.id}.svg` in plan.sourceHashes);
+	}
+	for (const subject of text.subjects) {
+		const status = plan.outputs.find((output) => output.subject === subject.id && output.channel === 'whatsapp');
+		assert.deepEqual([status.width, status.height], [1080, 1920]);
+		assert.doesNotMatch(status.svg, /\{\{/);
+		assert.ok(`event-kit/whatsapp-status/${subject.id}.svg` in plan.sourceHashes);
+		// WhatsApp lays the status caption over the bottom of the image.
+		for (const { y } of status.svg.matchAll(/<text\b[^>]*\by="(?<y>\d+)"/g).map((match) => match.groups)) assert.ok(Number(y) <= 1480, `${subject.id}: text at y=${y}`);
+		const logo = /id="brand-logo" x="\d+" y="(\d+)" width="\d+" height="(\d+)"/.exec(status.svg);
+		assert.ok(Number(logo[1]) + Number(logo[2]) <= 1480, `${subject.id}: logo`);
 	}
 	const danceLiftGroup = text.subjects.find((subject) => subject.id === 'dance-lift').copy['whatsapp-group'];
 	assert.ok(emailDrafts(text).includes(`### Grupo de WhatsApp\n\n${danceLiftGroup.replace(/\n$/, '')}`));

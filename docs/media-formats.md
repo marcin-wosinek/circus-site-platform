@@ -136,8 +136,15 @@ official WhatsApp image specification. Reference:
 [WhatsApp Status image dimensions](https://www.w3schools.com/tools/tool_resize_whatsapp_status.php).
 
 Use JPEG for photos or PNG for graphics with text. Keep essential text and
-logos away from the top and bottom edges to allow for interface controls;
-this preset does not define numeric safe margins. Preview in WhatsApp before
+logos away from the top and bottom edges to allow for interface controls.
+WhatsApp lays the status caption, truncated to about three lines with
+"Leer más", over the bottom of the image: on 2026-11-17 a captioned status
+covered roughly the bottom 365 px of the 1080 × 1920 canvas. Keep all
+wording and logos above y = 1480 (the bottom 440 px, about 23 %) and fill
+the area below with decoration only; a dark, plain fill keeps the caption's
+white text readable. About 120 px at the top sit under the progress bar and
+sender name, so use that area only for photos. These are project margins
+observed in one test, not official WhatsApp safe areas. Preview in WhatsApp before
 posting to check cropping, overlays, and mobile readability. Confirm file-size
 limits and export constraints at delivery time.
 

@@ -5,7 +5,7 @@
 	"altText": "alt-text.md",
 	"channels": {
 		"instagram": { "width": 1080, "height": 1350 },
-		"whatsapp": { "width": 1080, "height": 1920 },
+		"whatsapp": { "width": 1080, "height": 1920, "source": "whatsapp-status" },
 		"whatsapp-group": { "width": 1080, "height": 1080, "source": "whatsapp-group" }
 	},
 	"layouts": {
@@ -19,14 +19,14 @@
 				"booking": { "id": "booking" }
 			},
 			"whatsapp": {
-				"organizer": { "x": "65", "y": "605" },
-				"event-name": { "x": "58", "y": "750" },
+				"organizer": { "id": "organizer" },
+				"event-name": { "id": "event-name" },
 				"date": { "id": "date" },
 				"hours": { "id": "hours" },
-				"venue-name": { "x": "65", "y": "1231" },
-				"venue-address": { "x": "65", "y": "1265" },
-				"call-to-action": { "x": "65", "y": "1660" },
-				"programme-link": { "x": "65", "y": "1720" }
+				"venue-name": { "id": "venue-name" },
+				"venue-address": { "id": "venue-address" },
+				"call-to-action": { "id": "call-to-action" },
+				"programme-link": { "id": "programme-link" }
 			},
 			"whatsapp-group": {
 				"organizer": { "id": "organizer" },
@@ -50,9 +50,9 @@
 				"workshop-name": { "id": "workshop-name" },
 				"hours": { "id": "hours" },
 				"teachers": { "id": "teachers" },
-				"supporting-1": { "x": "60", "y": "1525", "maxWidth": 310 },
-				"supporting-2": { "x": "385", "y": "1525", "maxWidth": 310 },
-				"supporting-3": { "x": "710", "y": "1525", "maxWidth": 310 },
+				"supporting-1": { "id": "supporting-1", "maxWidth": 310 },
+				"supporting-2": { "id": "supporting-2", "maxWidth": 310 },
+				"supporting-3": { "id": "supporting-3", "maxWidth": 310 },
 				"venue": { "id": "venue" },
 				"booking": { "id": "booking" }
 			},
@@ -79,9 +79,9 @@
 				"workshop-name": { "id": "workshop-name" },
 				"hours": { "id": "hours" },
 				"teachers": { "id": "teachers" },
-				"supporting-1": { "x": "60", "y": "1525", "maxWidth": 310 },
-				"supporting-2": { "x": "385", "y": "1525", "maxWidth": 310 },
-				"supporting-3": { "x": "710", "y": "1525", "maxWidth": 310 },
+				"supporting-1": { "id": "supporting-1", "maxWidth": 310 },
+				"supporting-2": { "id": "supporting-2", "maxWidth": 310 },
+				"supporting-3": { "id": "supporting-3", "maxWidth": 310 },
 				"venue": { "id": "venue" },
 				"booking": { "id": "booking" }
 			},

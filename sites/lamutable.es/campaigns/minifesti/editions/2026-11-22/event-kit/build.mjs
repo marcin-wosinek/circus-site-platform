@@ -1,6 +1,7 @@
 // Renders a new event kit from an explicitly selected campaign text file,
-// using the v07 artwork as the visual baseline for Instagram and WhatsApp
-// Status and the whatsapp-group/ templates for WhatsApp group images. All wording on the images and
+// using the v07 artwork as the visual baseline for Instagram, the
+// whatsapp-status/ templates for WhatsApp Status images and the
+// whatsapp-group/ templates for WhatsApp group images. All wording on the images and
 // in the exported copy comes from that file; nothing is derived
 // from event.json or an earlier kit's copy files. Historical kits and the
 // build-v01…v07 builders are preserved. See docs/campaign-text.md.
@@ -177,7 +178,7 @@ export function build(plan) {
 			},
 			visualBaseline: { version: plan.bindings.baseline, bindings: 'event-kit/text-bindings.json', bindingsSha256: plan.bindingsSha256, sourceHashes: plan.sourceHashes },
 			altText: { source: repoPath(plan.altText), status: 'carried-pending-review' },
-			revision: { base: plan.bindings.baseline, date: new Date().toISOString().slice(0, 10), change: `Labels and copy from ${repoPath(campaignText.file)}; artwork from ${plan.bindings.baseline}, with a seamless periodic wave on workshop Instagram images.`, builder: 'build.mjs' },
+			revision: { base: plan.bindings.baseline, date: new Date().toISOString().slice(0, 10), change: `Labels and copy from ${repoPath(campaignText.file)}; Instagram artwork from ${plan.bindings.baseline}, with a seamless periodic wave on workshop Instagram images; WhatsApp Status and group images from the event-kit/whatsapp-status and event-kit/whatsapp-group templates.`, builder: 'build.mjs' },
 			outputs: records,
 		};
 		writeFileSync(resolve(staging, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
@@ -189,7 +190,8 @@ export function build(plan) {
 Local draft for review. Every image label and all exported copy come from
 ${manifest.text.path} (SHA-256 ${campaignText.sha256})${text.googleDoc ? `, delivered as
 ${text.googleDoc}` : ''}. Artwork, photos and crops are the
-${plan.bindings.baseline} baseline${text.channels.includes('whatsapp-group') ? ' and, for WhatsApp group images, the\nevent-kit/whatsapp-group templates,' : ''} bound through event-kit/text-bindings.json.
+${plan.bindings.baseline} baseline for Instagram, the event-kit/whatsapp-status templates for
+WhatsApp Status${text.channels.includes('whatsapp-group') ? ' and the event-kit/whatsapp-group templates for\nWhatsApp group images,' : ','} bound through event-kit/text-bindings.json.
 Text widths were measured with the actual fonts; ${records.length} output
 dimensions verified.
 
