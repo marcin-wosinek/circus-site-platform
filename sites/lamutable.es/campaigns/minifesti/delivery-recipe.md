@@ -56,12 +56,17 @@ existing Drive location. Preserve previous versions. Within that folder:
 
 ```text
 <version>/
-  <campaign> <edition> · <version> · Instagram       (Google Doc)
-  <campaign> <edition> · <version> · WhatsApp status (Google Doc)
-  <campaign> <edition> · <version> · WhatsApp groups (Google Doc)
-  <campaign> <edition> · <version> · <Display name>   (Google Doc, one per member)
-  <campaign>-<edition>-<version>-<subject>-<channel>.png
+  Instagram · <campaign> <edition> · <version>       (Google Doc)
+  WhatsApp Status · <campaign> <edition> · <version> (Google Doc)
+  WhatsApp Groups · <campaign> <edition> · <version> (Google Doc)
+  <Display name> · <campaign> <edition> · <version>  (Google Doc, one per member)
+  <subject>-<channel>-<campaign>-<edition>-<version>.png
 ```
+
+Start with the most specific identifier: the person's display name (for
+example, Marcin or Bart), intended use for central documents, or subject and
+channel for images. Apply this convention to future exports and uploads;
+do not regenerate or rename existing deliverables solely to change naming.
 
 Keep every document in the versioned folder itself; do not nest personal
 documents in a `team/` or other subfolder.
@@ -111,7 +116,7 @@ leaving a broken or missing image.
 ## One document for every teammate
 
 Create one Google Doc per stable `team.json` member ID, titled
-`<campaign> <edition> · <version> · <Display name>`, directly in the versioned
+`<Display name> · <campaign> <edition> · <version>`, directly in the versioned
 delivery folder next to the central documents.
 Begin with their display name, edition, and kit version. Organize by relevant
 subject, then use these three channel sections in order, each with its

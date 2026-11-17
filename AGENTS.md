@@ -81,6 +81,13 @@ preserve its Git history and verify the imported tree.
   Render images from the current file. Delivering text does not authorize
   publishing or sending. Follow `docs/campaign-text.md`.
 
+- Name campaign deliverables with the most specific identifying part first:
+  the person's display name (for example, Marcin or Bart) for personal files,
+  or the intended use (for example, WhatsApp Groups) for shared files. Put
+  campaign, edition, and version afterwards. Apply this to future generation;
+  a naming-instruction update alone does not authorize regenerating or renaming
+  existing deliverables.
+
 - For WhatsApp group messages and captions, use the global
   `whatsapp-group-text` preset in `docs/media-formats.md`: WhatsApp formatting,
   short paragraphs, and real line breaks. Apply the site's brand kit and

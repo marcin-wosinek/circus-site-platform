@@ -20,6 +20,15 @@ publishes, or sends anything.
 
 ## File layout
 
+Name generated campaign deliverables with the most specific identifying part
+first. Personal files start with the person's display name, such as `Marcin`
+or `Bart`; shared files start with their intended use, such as `WhatsApp Groups`.
+Follow with campaign, edition, and version. For individual images, lead with
+the subject and channel before campaign, edition, and version. This applies
+to exported filenames and Google Drive document titles. Keep source filenames
+such as `text.json` unchanged. Updating this convention alone does not call
+for regenerating or renaming existing deliverables.
+
 New editions keep their text at `editions/<edition>/text.json`. Older editions
 may keep it in a revision directory such as `text/v02/text.json`; there, edit
 the latest one in place rather than adding another directory. Commands accept
