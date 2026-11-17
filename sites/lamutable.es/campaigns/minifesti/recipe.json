@@ -1,6 +1,7 @@
 {
   "formatVersion": 1,
   "status": "draft",
+  "deliveryRecipe": "delivery-recipe.md",
   "mediaCatalogue": "../../../../docs/media-formats.md",
   "mediaCatalogueVersion": "0.2.0",
   "workshopCount": {

@@ -39,6 +39,9 @@ Meetup image per workshop: 2 + 2 × workshop count outputs.
 - [Shared media formats](../../../../docs/media-formats.md): dimensions and channel rules.
 - [Brand kit convention](../../../../docs/brand-kits.md): identity and asset handling.
 - [Recipe](recipe.json): output roles and workshop-count limits.
+- [Delivery recipe](delivery-recipe.md): v08-style image previews and download
+  links, separate central channel documents, and a relevant text file for
+  every teammate. Use this for each edition's text and image handoff.
 - [Art direction](art-direction.md): series appearance, pending visual input.
 - Each edition's event.json: facts, ordered workshops, brand reference and variant.
 - Each edition's optional team.json: campaign participants, roles and workshop

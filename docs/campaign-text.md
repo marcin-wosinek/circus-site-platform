@@ -160,3 +160,9 @@ copy stay byte-identical across runs from unchanged text.
   timestamps are omitted, so reruns are byte-identical.
 
 Historical kits v01–v08 and their builders remain unchanged.
+
+For the final text and image handoff, follow the Minifesti
+[delivery recipe](../sites/lamutable.es/campaigns/minifesti/delivery-recipe.md).
+It preserves the v08 preview/download/copy pattern, separates central documents
+by channel, and adds one relevant text file per team member. These are exports
+of the same current `text.json`, not independent wording sources.
