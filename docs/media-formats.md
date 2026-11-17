@@ -1,6 +1,6 @@
 # Media formats
 
-Status: draft catalogue, version 0.3.2.
+Status: draft catalogue, version 0.4.0.
 
 These shared presets describe the output canvas and its content. A site's
 [brand kit](brand-kits.md) supplies voice, colours, typography, and approved
@@ -31,6 +31,39 @@ accompanying post text or publishing metadata.
 | `instagram-story` | Instagram Story | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `instagram-reel-cover` | Instagram Reel cover | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `whatsapp-status` | WhatsApp Status | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
+| `whatsapp-group-image` | WhatsApp group message | 1080 × 1350 (4:5) | Event or offer name, main visual | Short date, short location, logo | Paragraphs, full programme, visible URLs, QR codes |
+
+### WhatsApp group image composition
+
+The `whatsapp-group-image` project preset was added on 2026-11-17 for
+promotional images sent to group chats with an accompanying text message.
+The canvas is a project design choice, not an official WhatsApp requirement.
+
+Let the main photo or illustration carry the image. Include only the event or
+offer name, preferably in one or two short lines. Aim for no more than 15 words
+in total on the image, including any optional short date and location. Omit
+optional details before reducing the type size; do not shorten an approved
+name or invent abbreviations just to meet the target. A logo may identify the
+organiser where the brand kit allows it.
+
+Put the description, full date and time, venue/address, price, programme,
+booking link, and invitation to participate in the accompanying message as
+applicable. Repeat the event or offer name there so the message remains
+understandable on its own. Send the text as the image caption where practical
+so the two travel together. The WhatsApp Status single-line copy rule below
+does not apply to group messages; use short paragraphs for readability.
+
+Keep essential content at least 65 px inside every edge, respecting any larger
+brand clear-space requirements. Background imagery may extend to the edges.
+Use large, high-contrast lettering that reads in a phone's chat preview. These
+are project composition margins, not guaranteed WhatsApp safe areas.
+
+Export PNG for graphics with text or JPEG for photographic compositions.
+Before delivery, inspect a final-size export and send a test in WhatsApp to
+check chat-preview cropping, compression, and readability without opening the
+image. Deliver the image and accompanying message together. Follow the
+[campaign text review workflow](campaign-text.md) for campaign lettering and
+channel copy before rendering.
 
 ### WhatsApp Status composition
 
