@@ -64,6 +64,38 @@ to send on their behalf; obtain those details when needed rather than inventing
 them. This file stores facts only and introduces no message generation or
 sending command.
 
+### Personal group messages — 22 November 2026
+
+Prepare two types of personal invitation using the shared
+`whatsapp-group-text` preset, the brand kit, terminology, and verified edition
+facts. Both start with a short introduction naming the sender and their role.
+Use short paragraphs, WhatsApp formatting, and one clear invitation to join.
+
+- **General:** write in Spanish, opening with an introduction such as
+  «Hola, soy Marcin, uno de los organizadores de Minifesti La Mutable.»
+  Invite the group to the whole event and give all four workshops equal
+  weight. Include the date, programme times, venue, and full booking link.
+- **Workshop:** write the entire message in the featured workshop's language.
+  Introduce the teacher, lead with their workshop and what participants will
+  explore, and highlight its time and language. Briefly mention the other
+  three activities as part of Minifesti, then include the event date, venue,
+  and full booking link. Use first-person singular or plural to match the
+  sender: «doy» or «damos» in Spanish, for example.
+
+Workshop language and introduction examples:
+
+| Workshop | Message language | Introduction |
+| --- | --- | --- |
+| Masaje Thai Yoga | English | Hi, I'm Bart, one of the workshop teachers at Minifesti La Mutable. |
+| Dance Lift | Spanish | Hola, soy Tavi, uno de los talleristas de Minifesti La Mutable. |
+| Contact improvisación | Spanish | Hola, soy Diana Flor, una de las talleristas de Minifesti La Mutable. |
+| INWARD — Yin Yoga y meditación guiada | English | Hi, I'm Arancha, one of the workshop teachers at Minifesti La Mutable. |
+
+Adapt the introduction to the actual sender recorded in `team.json`; these
+examples do not authorize sending messages on anyone's behalf. Store final
+campaign wording in the edition's current `text.json` and follow the campaign
+text delivery workflow above.
+
 Paths inside JSON are relative to that JSON file unless explicitly labelled as
 repository-relative. Null means unresolved, never permission to invent a value.
 These JSON documents are planning conventions, not an implemented renderer or schema.
