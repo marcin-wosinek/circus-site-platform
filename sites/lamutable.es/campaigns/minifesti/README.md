@@ -37,6 +37,28 @@ Meetup image per workshop: 2 + 2 × workshop count outputs.
 - [Recipe](recipe.json): output roles and workshop-count limits.
 - [Art direction](art-direction.md): series appearance, pending visual input.
 - Each edition's event.json: facts, ordered workshops, brand reference and variant.
+- Each edition's optional team.json: campaign participants, roles and workshop
+  associations. The [22 November team](editions/2026-11-22/team.json) records
+  the eight participants supplied by the user.
+
+### Campaign team data
+
+`team.json` is a small edition-owned data convention, with `formatVersion: 1`,
+`editionId`, a provenance `source`, and an ordered `members` array. Each member
+has a stable `id`, the supplied `name`, a `roles` array (`organizer` and/or
+`workshop-teacher`), and `workshopIds` referring to the edition's `event.json`.
+An empty workshop array means no workshop association is recorded. Keep IDs
+stable if display names change. Diana is listed as supplied by the user;
+the associated workshop's existing instructor credit remains Diana Flor.
+
+For future personal message drafts, select the sender by member ID and use
+their recorded role and workshop associations with the verified event facts.
+Store generated wording separately from team data and apply the shared
+`whatsapp-group-text` format where appropriate. A role does not establish
+someone's writing style, personal experience, preferred language, or permission
+to send on their behalf; obtain those details when needed rather than inventing
+them. This file stores facts only and introduces no message generation or
+sending command.
 
 Paths inside JSON are relative to that JSON file unless explicitly labelled as
 repository-relative. Null means unresolved, never permission to invent a value.

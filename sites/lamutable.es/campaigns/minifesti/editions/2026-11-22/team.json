@@ -1,0 +1,15 @@
+{
+  "formatVersion": 1,
+  "editionId": "2026-11-22",
+  "source": "Team names and roles supplied by the user; workshop associations from event.json.",
+  "members": [
+    { "id": "marcin", "name": "Marcin", "roles": ["organizer"], "workshopIds": [] },
+    { "id": "sayil", "name": "Sayil", "roles": ["organizer"], "workshopIds": [] },
+    { "id": "nina", "name": "Nina", "roles": ["organizer"], "workshopIds": [] },
+    { "id": "diana", "name": "Diana", "roles": ["workshop-teacher"], "workshopIds": ["contact-improvisation"] },
+    { "id": "arancha", "name": "Arancha", "roles": ["workshop-teacher"], "workshopIds": ["inward-yin-yoga"] },
+    { "id": "bart", "name": "Bart", "roles": ["workshop-teacher"], "workshopIds": ["thai-yoga-massage"] },
+    { "id": "emanuela", "name": "Emanuela", "roles": ["workshop-teacher"], "workshopIds": ["dance-lift"] },
+    { "id": "tavi", "name": "Tavi", "roles": ["workshop-teacher"], "workshopIds": ["dance-lift"] }
+  ]
+}
