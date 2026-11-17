@@ -2,34 +2,76 @@
   "formatVersion": 1,
   "status": "facts-confirmed-visuals-pending",
   "current": {
-    "kit": "event-kit/v09",
-    "index": "event-kit/v09/index.html",
-    "manifest": "event-kit/v09/manifest.json",
-    "review": "event-kit/v09/review.md",
+    "kit": "event-kit/v10",
+    "index": "event-kit/v10/index.html",
+    "manifest": "event-kit/v10/manifest.json",
+    "review": "event-kit/v10/review.md",
     "text": {
       "path": "text/v02/text.json",
-      "sha256": "b927158cf6331dd06d660a9edc972841b6a2f580ebf75b4248edb61da1a26a41"
+      "sha256": "9bc07b383345e90ba52c8d6585c92aa32e155a036a87eba44f8c94c086d4ce92"
     },
-    "emailDrafts": "event-kit/v09/email-drafts.md",
-    "altText": "event-kit/v09/alt-text.md",
+    "emailDrafts": "event-kit/v10/email-drafts.md",
+    "altText": "event-kit/v10/alt-text.md",
     "driveDelivery": {
-      "version": "v09",
-      "folder": "https://drive.google.com/drive/folders/1Bh85FsNkgytauI4t8-UwNFV8vRlmbCLY",
+      "version": "v10",
+      "folder": "https://drive.google.com/drive/folders/1cMULu7Bxk_YLSzvsy9HITRPsE0559hx9",
       "documents": {
         "instagram": {
-          "id": "1RUjdvmR58pVLkthryci3SXUtJsBk2LK36dcNRkTZBNc",
-          "url": "https://docs.google.com/document/d/1RUjdvmR58pVLkthryci3SXUtJsBk2LK36dcNRkTZBNc/edit?usp=drivesdk",
-          "title": "Minifesti 22 noviembre 2026 · v09 · Instagram"
+          "id": "1CUp__MvEiKK5TvNvHSoXHF_89FQ7X0ek4Nj-g3h4XYI",
+          "url": "https://docs.google.com/document/d/1CUp__MvEiKK5TvNvHSoXHF_89FQ7X0ek4Nj-g3h4XYI/edit?usp=drivesdk",
+          "title": "Instagram · Minifesti 22 noviembre 2026 · v10"
         },
         "whatsapp": {
-          "id": "10EZ6sqaL8uT46fbHiTZYXmOCbutAuuCCc02qMUwZB10",
-          "url": "https://docs.google.com/document/d/10EZ6sqaL8uT46fbHiTZYXmOCbutAuuCCc02qMUwZB10/edit?usp=drivesdk",
-          "title": "Minifesti 22 noviembre 2026 · v09 · WhatsApp status"
+          "id": "1oTVzFq6qFM3mmH9fruXP25sK0G_6FTbTamnJ977F0mU",
+          "url": "https://docs.google.com/document/d/1oTVzFq6qFM3mmH9fruXP25sK0G_6FTbTamnJ977F0mU/edit?usp=drivesdk",
+          "title": "WhatsApp Status · Minifesti 22 noviembre 2026 · v10"
         },
         "whatsapp-group": {
-          "id": "13jvYDFRlyVLQfI-YR3fBXWz46YDYh66DiiimN32zfaU",
-          "url": "https://docs.google.com/document/d/13jvYDFRlyVLQfI-YR3fBXWz46YDYh66DiiimN32zfaU/edit?usp=drivesdk",
-          "title": "Minifesti 22 noviembre 2026 · v09 · WhatsApp groups"
+          "id": "1fCygX-Q9OZYM8SlhGKN5lezhyM29l9iSkUt24lcA90E",
+          "url": "https://docs.google.com/document/d/1fCygX-Q9OZYM8SlhGKN5lezhyM29l9iSkUt24lcA90E/edit?usp=drivesdk",
+          "title": "WhatsApp Groups · Minifesti 22 noviembre 2026 · v10"
+        }
+      },
+      "teamDocuments": {
+        "marcin": {
+          "id": "16cGKQD1xo8W3YXP0Xv4M7AK3qylCmBPMxu0YaC_kOTA",
+          "url": "https://docs.google.com/document/d/16cGKQD1xo8W3YXP0Xv4M7AK3qylCmBPMxu0YaC_kOTA/edit?usp=drivesdk",
+          "title": "Marcin · Minifesti 22 noviembre 2026 · v10"
+        },
+        "sayil": {
+          "id": "1cTyrps_gHSXE2j0ry7M2PUoObycs5Ucj-T_SgdCOsDY",
+          "url": "https://docs.google.com/document/d/1cTyrps_gHSXE2j0ry7M2PUoObycs5Ucj-T_SgdCOsDY/edit?usp=drivesdk",
+          "title": "Sayil · Minifesti 22 noviembre 2026 · v10"
+        },
+        "nina": {
+          "id": "1VGWiU4z5NHWH_bduAlLXjrPZQS82gt4FwTMRU9iYSU4",
+          "url": "https://docs.google.com/document/d/1VGWiU4z5NHWH_bduAlLXjrPZQS82gt4FwTMRU9iYSU4/edit?usp=drivesdk",
+          "title": "Nina · Minifesti 22 noviembre 2026 · v10"
+        },
+        "diana": {
+          "id": "1O_WoYX3zShnHpaIjK_pomppTq_ZUG0IdlDLhxeUGDbo",
+          "url": "https://docs.google.com/document/d/1O_WoYX3zShnHpaIjK_pomppTq_ZUG0IdlDLhxeUGDbo/edit?usp=drivesdk",
+          "title": "Diana · Minifesti 22 noviembre 2026 · v10"
+        },
+        "arancha": {
+          "id": "1kyOjXOFTcu8CyVq-uGs3YgypuKmEzNDcUU21l1TYEwk",
+          "url": "https://docs.google.com/document/d/1kyOjXOFTcu8CyVq-uGs3YgypuKmEzNDcUU21l1TYEwk/edit?usp=drivesdk",
+          "title": "Arancha · Minifesti 22 noviembre 2026 · v10"
+        },
+        "bart": {
+          "id": "1ZYKpnpLiTFvr_wHj5oDMvvkljUTgKGpjYYo_mvnpnrI",
+          "url": "https://docs.google.com/document/d/1ZYKpnpLiTFvr_wHj5oDMvvkljUTgKGpjYYo_mvnpnrI/edit?usp=drivesdk",
+          "title": "Bart · Minifesti 22 noviembre 2026 · v10"
+        },
+        "emanuela": {
+          "id": "1MkCpby3bwJrosuuY8hfOccLCKH5OoJ2kbiY-Acerqx8",
+          "url": "https://docs.google.com/document/d/1MkCpby3bwJrosuuY8hfOccLCKH5OoJ2kbiY-Acerqx8/edit?usp=drivesdk",
+          "title": "Emanuela · Minifesti 22 noviembre 2026 · v10"
+        },
+        "tavi": {
+          "id": "1oqsJELAxQtsJw1LXgvLa9pvH7ZO60TWZSTEJ0AjDDJ8",
+          "url": "https://docs.google.com/document/d/1oqsJELAxQtsJw1LXgvLa9pvH7ZO60TWZSTEJ0AjDDJ8/edit?usp=drivesdk",
+          "title": "Tavi · Minifesti 22 noviembre 2026 · v10"
         }
       },
       "sourceText": {
@@ -40,17 +82,17 @@
   },
   "expectedOutputCount": 15,
   "unresolved": [
-    "Visual review of the v09 images",
-    "Alt text review (WhatsApp group descriptions are new in v09)",
+    "Visual review of the v10 images",
+    "Alt text review (WhatsApp group descriptions are new in v10)",
     "Test send of the WhatsApp group images to check chat-preview cropping, compression and readability",
     "Photo usage permissions",
     "Publishing and sending are not authorized"
   ],
   "deliverables": [
     {
-      "file": "event-kit/v09/general/instagram.png",
-      "svg": "event-kit/v09/general/instagram.svg",
-      "copy": "event-kit/v09/general/instagram.txt",
+      "file": "event-kit/v10/general/instagram.png",
+      "svg": "event-kit/v10/general/instagram.svg",
+      "copy": "event-kit/v10/general/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
@@ -63,9 +105,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/general/whatsapp.png",
-      "svg": "event-kit/v09/general/whatsapp.svg",
-      "copy": "event-kit/v09/general/whatsapp.txt",
+      "file": "event-kit/v10/general/whatsapp.png",
+      "svg": "event-kit/v10/general/whatsapp.svg",
+      "copy": "event-kit/v10/general/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -78,9 +120,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/general/whatsapp-group.png",
-      "svg": "event-kit/v09/general/whatsapp-group.svg",
-      "copy": "event-kit/v09/general/whatsapp-group.txt",
+      "file": "event-kit/v10/general/whatsapp-group.png",
+      "svg": "event-kit/v10/general/whatsapp-group.svg",
+      "copy": "event-kit/v10/general/whatsapp-group.txt",
       "channel": "Grupo de WhatsApp",
       "dimensions": [
         1080,
@@ -93,24 +135,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/thai-yoga-massage/instagram.png",
-      "svg": "event-kit/v09/thai-yoga-massage/instagram.svg",
-      "copy": "event-kit/v09/thai-yoga-massage/instagram.txt",
+      "file": "event-kit/v10/thai-yoga-massage/instagram.png",
+      "svg": "event-kit/v10/thai-yoga-massage/instagram.svg",
+      "copy": "event-kit/v10/thai-yoga-massage/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
-      "sha256": "fdb8d759ad8695d3bcc4eaa35f90092241e5230f7def8c908bc5dfcbd0216f1e",
+      "sha256": "77411e865457dd67c14e548ea16a60f7f2ceb62ec07f04e39c8d5b8289af8599",
       "workshopId": "thai-yoga-massage",
       "altText": "Fotografía principal de Masaje Thai Yoga, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 15:00–16:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/thai-yoga-massage/whatsapp.png",
-      "svg": "event-kit/v09/thai-yoga-massage/whatsapp.svg",
-      "copy": "event-kit/v09/thai-yoga-massage/whatsapp.txt",
+      "file": "event-kit/v10/thai-yoga-massage/whatsapp.png",
+      "svg": "event-kit/v10/thai-yoga-massage/whatsapp.svg",
+      "copy": "event-kit/v10/thai-yoga-massage/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -123,9 +165,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/thai-yoga-massage/whatsapp-group.png",
-      "svg": "event-kit/v09/thai-yoga-massage/whatsapp-group.svg",
-      "copy": "event-kit/v09/thai-yoga-massage/whatsapp-group.txt",
+      "file": "event-kit/v10/thai-yoga-massage/whatsapp-group.png",
+      "svg": "event-kit/v10/thai-yoga-massage/whatsapp-group.svg",
+      "copy": "event-kit/v10/thai-yoga-massage/whatsapp-group.txt",
       "channel": "Grupo de WhatsApp",
       "dimensions": [
         1080,
@@ -138,24 +180,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/dance-lift/instagram.png",
-      "svg": "event-kit/v09/dance-lift/instagram.svg",
-      "copy": "event-kit/v09/dance-lift/instagram.txt",
+      "file": "event-kit/v10/dance-lift/instagram.png",
+      "svg": "event-kit/v10/dance-lift/instagram.svg",
+      "copy": "event-kit/v10/dance-lift/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
-      "sha256": "41423c20ce8e48a78b03b3ee6dfaeb4f4f391c68d67cb60bfc0ef1015a365b6a",
+      "sha256": "8d479339de958e1b14193df8e60ccee28205def4484e1788f910679601934670",
       "workshopId": "dance-lift",
       "altText": "Fotografía principal de Dance Lift: apoyándonos en movimiento, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 17:00–18:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/dance-lift/whatsapp.png",
-      "svg": "event-kit/v09/dance-lift/whatsapp.svg",
-      "copy": "event-kit/v09/dance-lift/whatsapp.txt",
+      "file": "event-kit/v10/dance-lift/whatsapp.png",
+      "svg": "event-kit/v10/dance-lift/whatsapp.svg",
+      "copy": "event-kit/v10/dance-lift/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -168,9 +210,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/dance-lift/whatsapp-group.png",
-      "svg": "event-kit/v09/dance-lift/whatsapp-group.svg",
-      "copy": "event-kit/v09/dance-lift/whatsapp-group.txt",
+      "file": "event-kit/v10/dance-lift/whatsapp-group.png",
+      "svg": "event-kit/v10/dance-lift/whatsapp-group.svg",
+      "copy": "event-kit/v10/dance-lift/whatsapp-group.txt",
       "channel": "Grupo de WhatsApp",
       "dimensions": [
         1080,
@@ -183,24 +225,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/contact-improvisation/instagram.png",
-      "svg": "event-kit/v09/contact-improvisation/instagram.svg",
-      "copy": "event-kit/v09/contact-improvisation/instagram.txt",
+      "file": "event-kit/v10/contact-improvisation/instagram.png",
+      "svg": "event-kit/v10/contact-improvisation/instagram.svg",
+      "copy": "event-kit/v10/contact-improvisation/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
-      "sha256": "3ecf70c9f4f2a5340440ae94a8cd32eabe110ad22c3166f5764eb80ce67779c7",
+      "sha256": "c2ccfa0f1edbe84c911bb4729aabe6584ed2c6fef9393879eee4eb17d780e9d9",
       "workshopId": "contact-improvisation",
       "altText": "Fotografía principal de Contact improvisación · Corpo Sutil, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 19:00–20:30. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/contact-improvisation/whatsapp.png",
-      "svg": "event-kit/v09/contact-improvisation/whatsapp.svg",
-      "copy": "event-kit/v09/contact-improvisation/whatsapp.txt",
+      "file": "event-kit/v10/contact-improvisation/whatsapp.png",
+      "svg": "event-kit/v10/contact-improvisation/whatsapp.svg",
+      "copy": "event-kit/v10/contact-improvisation/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -213,9 +255,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/contact-improvisation/whatsapp-group.png",
-      "svg": "event-kit/v09/contact-improvisation/whatsapp-group.svg",
-      "copy": "event-kit/v09/contact-improvisation/whatsapp-group.txt",
+      "file": "event-kit/v10/contact-improvisation/whatsapp-group.png",
+      "svg": "event-kit/v10/contact-improvisation/whatsapp-group.svg",
+      "copy": "event-kit/v10/contact-improvisation/whatsapp-group.txt",
       "channel": "Grupo de WhatsApp",
       "dimensions": [
         1080,
@@ -228,24 +270,24 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/inward-yin-yoga/instagram.png",
-      "svg": "event-kit/v09/inward-yin-yoga/instagram.svg",
-      "copy": "event-kit/v09/inward-yin-yoga/instagram.txt",
+      "file": "event-kit/v10/inward-yin-yoga/instagram.png",
+      "svg": "event-kit/v10/inward-yin-yoga/instagram.svg",
+      "copy": "event-kit/v10/inward-yin-yoga/instagram.txt",
       "channel": "Publicación de Instagram",
       "dimensions": [
         1080,
         1350
       ],
       "fileType": "image/png",
-      "sha256": "ccfa2766ce68c330065c225ae817ffd176233b9ebdf13cd9e8e9316a2bef5d4c",
+      "sha256": "41cc4c5ef4a87098f16987ede84e575ba7890544558cec80b9df4048bad30b4b",
       "workshopId": "inward-yin-yoga",
       "altText": "Fotografía principal de INWARD — Yin Yoga y meditación guiada, acompañada por tres fotos de las otras prácticas del Minifesti. Cartel en crema, tinta y naranja. 22 noviembre 2026, 21:00–22:00. Asociación Samadhi de Salud Integral, C/ de Sant Columbà, 11, bajo, Benimaclet, 46020 València, Valencia. Inscripción en lamutable.es.",
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/inward-yin-yoga/whatsapp.png",
-      "svg": "event-kit/v09/inward-yin-yoga/whatsapp.svg",
-      "copy": "event-kit/v09/inward-yin-yoga/whatsapp.txt",
+      "file": "event-kit/v10/inward-yin-yoga/whatsapp.png",
+      "svg": "event-kit/v10/inward-yin-yoga/whatsapp.svg",
+      "copy": "event-kit/v10/inward-yin-yoga/whatsapp.txt",
       "channel": "Estado de WhatsApp",
       "dimensions": [
         1080,
@@ -258,9 +300,9 @@
       "reviewStatus": "draft-pending-visual-review"
     },
     {
-      "file": "event-kit/v09/inward-yin-yoga/whatsapp-group.png",
-      "svg": "event-kit/v09/inward-yin-yoga/whatsapp-group.svg",
-      "copy": "event-kit/v09/inward-yin-yoga/whatsapp-group.txt",
+      "file": "event-kit/v10/inward-yin-yoga/whatsapp-group.png",
+      "svg": "event-kit/v10/inward-yin-yoga/whatsapp-group.svg",
+      "copy": "event-kit/v10/inward-yin-yoga/whatsapp-group.txt",
       "channel": "Grupo de WhatsApp",
       "dimensions": [
         1080,
@@ -285,6 +327,10 @@
     {
       "record": "event-kit/v08/manifest.json",
       "note": "Previous current kit, superseded by v09, which adds WhatsApp group images (whatsapp-group-image preset) and group messages for all five subjects. v08 Instagram and WhatsApp Status images are byte-identical in v09."
+    },
+    {
+      "record": "event-kit/v09/manifest.json",
+      "note": "Previous current kit, superseded by v10 for the seamless workshop Instagram wave. The earlier Drive delivery is preserved."
     }
   ],
   "deliveries": [
@@ -446,6 +492,169 @@
       "notes": [
         "The current source group invitations supersede the older whatsapp-group.txt files in v09; delivery uses current text.json. Image labels are unchanged.",
         "Added explicit senderCopy mappings for Marcin, Bart, Tavi, Diana and Arancha using their existing default copy verbatim; no wording changed.",
+        "Packaging does not approve visuals or photo permissions and does not authorize publishing or sending."
+      ]
+    },
+    {
+      "version": "v10",
+      "deliveredAt": "2026-11-17",
+      "folder": {
+        "id": "1cMULu7Bxk_YLSzvsy9HITRPsE0559hx9",
+        "url": "https://drive.google.com/drive/folders/1cMULu7Bxk_YLSzvsy9HITRPsE0559hx9"
+      },
+      "documents": {
+        "instagram": {
+          "id": "1CUp__MvEiKK5TvNvHSoXHF_89FQ7X0ek4Nj-g3h4XYI",
+          "url": "https://docs.google.com/document/d/1CUp__MvEiKK5TvNvHSoXHF_89FQ7X0ek4Nj-g3h4XYI/edit?usp=drivesdk",
+          "title": "Instagram · Minifesti 22 noviembre 2026 · v10"
+        },
+        "whatsapp": {
+          "id": "1oTVzFq6qFM3mmH9fruXP25sK0G_6FTbTamnJ977F0mU",
+          "url": "https://docs.google.com/document/d/1oTVzFq6qFM3mmH9fruXP25sK0G_6FTbTamnJ977F0mU/edit?usp=drivesdk",
+          "title": "WhatsApp Status · Minifesti 22 noviembre 2026 · v10"
+        },
+        "whatsapp-group": {
+          "id": "1fCygX-Q9OZYM8SlhGKN5lezhyM29l9iSkUt24lcA90E",
+          "url": "https://docs.google.com/document/d/1fCygX-Q9OZYM8SlhGKN5lezhyM29l9iSkUt24lcA90E/edit?usp=drivesdk",
+          "title": "WhatsApp Groups · Minifesti 22 noviembre 2026 · v10"
+        }
+      },
+      "teamDocuments": {
+        "marcin": {
+          "id": "16cGKQD1xo8W3YXP0Xv4M7AK3qylCmBPMxu0YaC_kOTA",
+          "url": "https://docs.google.com/document/d/16cGKQD1xo8W3YXP0Xv4M7AK3qylCmBPMxu0YaC_kOTA/edit?usp=drivesdk",
+          "title": "Marcin · Minifesti 22 noviembre 2026 · v10"
+        },
+        "sayil": {
+          "id": "1cTyrps_gHSXE2j0ry7M2PUoObycs5Ucj-T_SgdCOsDY",
+          "url": "https://docs.google.com/document/d/1cTyrps_gHSXE2j0ry7M2PUoObycs5Ucj-T_SgdCOsDY/edit?usp=drivesdk",
+          "title": "Sayil · Minifesti 22 noviembre 2026 · v10"
+        },
+        "nina": {
+          "id": "1VGWiU4z5NHWH_bduAlLXjrPZQS82gt4FwTMRU9iYSU4",
+          "url": "https://docs.google.com/document/d/1VGWiU4z5NHWH_bduAlLXjrPZQS82gt4FwTMRU9iYSU4/edit?usp=drivesdk",
+          "title": "Nina · Minifesti 22 noviembre 2026 · v10"
+        },
+        "diana": {
+          "id": "1O_WoYX3zShnHpaIjK_pomppTq_ZUG0IdlDLhxeUGDbo",
+          "url": "https://docs.google.com/document/d/1O_WoYX3zShnHpaIjK_pomppTq_ZUG0IdlDLhxeUGDbo/edit?usp=drivesdk",
+          "title": "Diana · Minifesti 22 noviembre 2026 · v10"
+        },
+        "arancha": {
+          "id": "1kyOjXOFTcu8CyVq-uGs3YgypuKmEzNDcUU21l1TYEwk",
+          "url": "https://docs.google.com/document/d/1kyOjXOFTcu8CyVq-uGs3YgypuKmEzNDcUU21l1TYEwk/edit?usp=drivesdk",
+          "title": "Arancha · Minifesti 22 noviembre 2026 · v10"
+        },
+        "bart": {
+          "id": "1ZYKpnpLiTFvr_wHj5oDMvvkljUTgKGpjYYo_mvnpnrI",
+          "url": "https://docs.google.com/document/d/1ZYKpnpLiTFvr_wHj5oDMvvkljUTgKGpjYYo_mvnpnrI/edit?usp=drivesdk",
+          "title": "Bart · Minifesti 22 noviembre 2026 · v10"
+        },
+        "emanuela": {
+          "id": "1MkCpby3bwJrosuuY8hfOccLCKH5OoJ2kbiY-Acerqx8",
+          "url": "https://docs.google.com/document/d/1MkCpby3bwJrosuuY8hfOccLCKH5OoJ2kbiY-Acerqx8/edit?usp=drivesdk",
+          "title": "Emanuela · Minifesti 22 noviembre 2026 · v10"
+        },
+        "tavi": {
+          "id": "1oqsJELAxQtsJw1LXgvLa9pvH7ZO60TWZSTEJ0AjDDJ8",
+          "url": "https://docs.google.com/document/d/1oqsJELAxQtsJw1LXgvLa9pvH7ZO60TWZSTEJ0AjDDJ8/edit?usp=drivesdk",
+          "title": "Tavi · Minifesti 22 noviembre 2026 · v10"
+        }
+      },
+      "images": {
+        "general/instagram": {
+          "id": "1YoWkIZ-rcKRVPkCeNFdulykUYdf58m0Z",
+          "url": "https://drive.google.com/file/d/1YoWkIZ-rcKRVPkCeNFdulykUYdf58m0Z/view?usp=drivesdk",
+          "fileName": "general-instagram-minifesti-2026-11-22-v10.png"
+        },
+        "general/whatsapp": {
+          "id": "1ES6x7SkGNG2OIfuqudIRIlnwj8g8sELX",
+          "url": "https://drive.google.com/file/d/1ES6x7SkGNG2OIfuqudIRIlnwj8g8sELX/view?usp=drivesdk",
+          "fileName": "general-whatsapp-minifesti-2026-11-22-v10.png"
+        },
+        "general/whatsapp-group": {
+          "id": "1UcUn64iXOBzZsWsP206jeQZdsZ_nGWnv",
+          "url": "https://drive.google.com/file/d/1UcUn64iXOBzZsWsP206jeQZdsZ_nGWnv/view?usp=drivesdk",
+          "fileName": "general-whatsapp-group-minifesti-2026-11-22-v10.png"
+        },
+        "thai-yoga-massage/instagram": {
+          "id": "1N1SY7_-z5ymOcrFWCFwzp1yqvMlCbIXa",
+          "url": "https://drive.google.com/file/d/1N1SY7_-z5ymOcrFWCFwzp1yqvMlCbIXa/view?usp=drivesdk",
+          "fileName": "thai-yoga-massage-instagram-minifesti-2026-11-22-v10.png"
+        },
+        "thai-yoga-massage/whatsapp": {
+          "id": "19GpgiXC1rCzffyVA8UIqKf0hPA09tZOR",
+          "url": "https://drive.google.com/file/d/19GpgiXC1rCzffyVA8UIqKf0hPA09tZOR/view?usp=drivesdk",
+          "fileName": "thai-yoga-massage-whatsapp-minifesti-2026-11-22-v10.png"
+        },
+        "thai-yoga-massage/whatsapp-group": {
+          "id": "1iVNsPUDUmiPVHJB_OVycP8u2vbsSAQWQ",
+          "url": "https://drive.google.com/file/d/1iVNsPUDUmiPVHJB_OVycP8u2vbsSAQWQ/view?usp=drivesdk",
+          "fileName": "thai-yoga-massage-whatsapp-group-minifesti-2026-11-22-v10.png"
+        },
+        "dance-lift/instagram": {
+          "id": "1avsUKeUPwyXKyendP7_cPt66SHTL0Krj",
+          "url": "https://drive.google.com/file/d/1avsUKeUPwyXKyendP7_cPt66SHTL0Krj/view?usp=drivesdk",
+          "fileName": "dance-lift-instagram-minifesti-2026-11-22-v10.png"
+        },
+        "dance-lift/whatsapp": {
+          "id": "1SD4uL4fzrAJxnV5KSZJgPe38hYRBvd0O",
+          "url": "https://drive.google.com/file/d/1SD4uL4fzrAJxnV5KSZJgPe38hYRBvd0O/view?usp=drivesdk",
+          "fileName": "dance-lift-whatsapp-minifesti-2026-11-22-v10.png"
+        },
+        "dance-lift/whatsapp-group": {
+          "id": "1GgcmaTT96LWKSWkYuXRI6NHflK-YQQg5",
+          "url": "https://drive.google.com/file/d/1GgcmaTT96LWKSWkYuXRI6NHflK-YQQg5/view?usp=drivesdk",
+          "fileName": "dance-lift-whatsapp-group-minifesti-2026-11-22-v10.png"
+        },
+        "contact-improvisation/instagram": {
+          "id": "1lneP19SCxrqb8UxpB78M8Jq3mrNE7_4n",
+          "url": "https://drive.google.com/file/d/1lneP19SCxrqb8UxpB78M8Jq3mrNE7_4n/view?usp=drivesdk",
+          "fileName": "contact-improvisation-instagram-minifesti-2026-11-22-v10.png"
+        },
+        "contact-improvisation/whatsapp": {
+          "id": "1byUnqChQwu8VggyVQy2jdbB7T0uNPWU8",
+          "url": "https://drive.google.com/file/d/1byUnqChQwu8VggyVQy2jdbB7T0uNPWU8/view?usp=drivesdk",
+          "fileName": "contact-improvisation-whatsapp-minifesti-2026-11-22-v10.png"
+        },
+        "contact-improvisation/whatsapp-group": {
+          "id": "1L0-FfedgeImYf0N0U0SPcZvLHaBo-8jz",
+          "url": "https://drive.google.com/file/d/1L0-FfedgeImYf0N0U0SPcZvLHaBo-8jz/view?usp=drivesdk",
+          "fileName": "contact-improvisation-whatsapp-group-minifesti-2026-11-22-v10.png"
+        },
+        "inward-yin-yoga/instagram": {
+          "id": "1BCoCvK-ByDoDTbDPEiLvpRyKIFQa4A-b",
+          "url": "https://drive.google.com/file/d/1BCoCvK-ByDoDTbDPEiLvpRyKIFQa4A-b/view?usp=drivesdk",
+          "fileName": "inward-yin-yoga-instagram-minifesti-2026-11-22-v10.png"
+        },
+        "inward-yin-yoga/whatsapp": {
+          "id": "1nZJ43PLgrlJE8E4twXp9PoVkhZYVDQ0P",
+          "url": "https://drive.google.com/file/d/1nZJ43PLgrlJE8E4twXp9PoVkhZYVDQ0P/view?usp=drivesdk",
+          "fileName": "inward-yin-yoga-whatsapp-minifesti-2026-11-22-v10.png"
+        },
+        "inward-yin-yoga/whatsapp-group": {
+          "id": "1YsvzykFhMcrIkSBp73PsVuY4lLe9oH9a",
+          "url": "https://drive.google.com/file/d/1YsvzykFhMcrIkSBp73PsVuY4lLe9oH9a/view?usp=drivesdk",
+          "fileName": "inward-yin-yoga-whatsapp-group-minifesti-2026-11-22-v10.png"
+        }
+      },
+      "sourceArchive": {
+        "id": "1PKkccGJcSdlsz-9y5-T99WoDl1QFlf77",
+        "url": "https://drive.google.com/file/d/1PKkccGJcSdlsz-9y5-T99WoDl1QFlf77/view?usp=drivesdk"
+      },
+      "sourceText": {
+        "path": "text/v02/text.json",
+        "sha256": "9bc07b383345e90ba52c8d6585c92aa32e155a036a87eba44f8c94c086d4ce92"
+      },
+      "checks": [
+        "15 individually downloadable PNGs uploaded from the v10 manifest.",
+        "11 native Google Docs read back: exact source copy including line breaks, 39 embedded previews and 39 matching labelled PNG links verified.",
+        "Spanish and English terminology checks passed.",
+        "All 11 Google Docs exported to PDF and visually inspected: previews render, labelled links are clickable, exact copy and paragraph breaks are preserved, and no clipping or orphan booking links remain."
+      ],
+      "notes": [
+        "Three central channel documents and eight personal documents are directly in the versioned folder.",
+        "The ZIP includes the complete local v10 kit, including editable SVGs, copy files, HTML index, previews, manifest, alt text, review record and email drafts.",
         "Packaging does not approve visuals or photo permissions and does not authorize publishing or sending."
       ]
     }
