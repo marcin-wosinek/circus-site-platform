@@ -101,8 +101,16 @@ export function prepareBuild({ textPath, version, outputRoot = here, cwd = proce
 			const file = sourceDir ? `${sourceDir}/${subject.id}.svg` : `${bindings.baseline}/${subject.id}/${channel}.svg`;
 			const source = readFileSync(resolve(here, file));
 			sourceHashes[`event-kit/${file}`] = sha256(source);
+			// A periodic wave joins neighboring workshop posts at the same height
+			// and tangent, including when Instagram reverses their display order.
+			let artwork = source.toString('utf8');
+			if (channel === 'instagram' && subject.id !== 'general') {
+				const original = 'M0 655 C210 700 360 608 560 642 S900 696 1080 635 V1070 H0Z';
+				if (!artwork.includes(original)) throw Error(`${subject.id}: expected Instagram wave is missing.`);
+				artwork = artwork.replace(original, 'M0 650 C180 680 360 680 540 650 C720 620 900 620 1080 650 V1070 H0Z');
+			}
 			if (!layout[channel]) throw Error(`${subject.id}: layout has no bindings for channel "${channel}".`);
-			const { svg, placements } = bindLabels(source.toString('utf8'), layout[channel], subject.labels[channel], { where: `${subject.id}/${channel}` });
+			const { svg, placements } = bindLabels(artwork, layout[channel], subject.labels[channel], { where: `${subject.id}/${channel}` });
 			outputs.push({ subject: subject.id, channel, svg, placements, width, height, copy: exportedCopy(text, subject.id, channel) });
 		}
 	}
@@ -169,7 +177,7 @@ export function build(plan) {
 			},
 			visualBaseline: { version: plan.bindings.baseline, bindings: 'event-kit/text-bindings.json', bindingsSha256: plan.bindingsSha256, sourceHashes: plan.sourceHashes },
 			altText: { source: repoPath(plan.altText), status: 'carried-pending-review' },
-			revision: { base: plan.bindings.baseline, date: new Date().toISOString().slice(0, 10), change: `Labels and copy from ${repoPath(campaignText.file)}; artwork from ${plan.bindings.baseline}.`, builder: 'build.mjs' },
+			revision: { base: plan.bindings.baseline, date: new Date().toISOString().slice(0, 10), change: `Labels and copy from ${repoPath(campaignText.file)}; artwork from ${plan.bindings.baseline}, with a seamless periodic wave on workshop Instagram images.`, builder: 'build.mjs' },
 			outputs: records,
 		};
 		writeFileSync(resolve(staging, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
