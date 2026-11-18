@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "privacy-policy",
+  "type": "page",
+  "title": "Privacy Policy",
+  "slug": "privacy-policy",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "99ce8f9f8ec34cf1692e489498afded6069960cf1e0d1171bc66187d26094491"
+}

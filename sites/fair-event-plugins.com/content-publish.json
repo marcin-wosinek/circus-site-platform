@@ -12,6 +12,18 @@
         "publish"
       ],
       "metadata": []
+    },
+    "privacy-policy": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/privacy-policy/"
+      },
+      "artifactDir": "content/pages/privacy-policy",
+      "allowedStatuses": [
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }

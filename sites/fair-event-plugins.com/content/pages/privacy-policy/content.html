@@ -1,0 +1,341 @@
+<!-- wp:paragraph -->
+<p><em>Last updated: 18 November 2026</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This privacy policy describes how <strong>fair-event-plugins.com</strong> ("the site", "we") processes personal data. The site exists to host documentation and to operate a small <strong>OAuth proxy service</strong> used by the open-source <a href="https://wordpress.org/plugins/fair-payment/">Fair Payment WordPress plugin</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">1. Data controller</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The site and the OAuth proxy are operated by:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Marcin Wosinek</strong><br>Spain<br>Contact: marcin.wosinek@gmail.com</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For all questions about this policy or your personal data, please use the email above.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">2. What the OAuth proxy does</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The Fair Payment plugin connects WordPress sites to the <a href="https://www.mollie.com/">Mollie</a> payment gateway. Mollie's OAuth integration requires a registered client secret that cannot be safely shipped inside an open-source plugin distributed via WordPress.org. To work around this, <code>fair-event-plugins.com</code> runs a small proxy that holds the client secret and performs the OAuth handshake with Mollie on behalf of the plugin.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The proxy exposes three endpoints used during the connection flow:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><code>/oauth/authorize</code> — starts the Mollie OAuth flow.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>/oauth/callback</code> — receives Mollie's authorization code and exchanges it for tokens.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>/oauth/refresh</code> — exchanges a refresh token for a new access token when the old one expires.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>The proxy is not involved in processing payments.</strong> Payments flow directly from your WordPress site to Mollie's API at <code>api.mollie.com</code>. No payment data, customer data, or order data ever reaches <code>fair-event-plugins.com</code>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">3. Data processed by the OAuth proxy</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3.1 Data that passes through but is not stored</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The following data is held only in temporary cache entries (transients) for <strong>up to 10 minutes</strong> while the OAuth handshake is in progress, then deleted automatically:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>The Mollie OAuth authorization code returned by Mollie.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The Mollie access token and refresh token issued for your Mollie account.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The OAuth scope granted.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The Mollie organization id and profile id needed for profile selection.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>During a token refresh (<code>/oauth/refresh</code>), the plugin sends us your Mollie refresh token. We forward it to Mollie, return the new access token to your site, and <strong>do not store the refresh token</strong>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3.2 Data stored permanently in our connection log</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For every connection attempt — successful or failed — we record one row in our database containing:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>The requesting WordPress site's site id, site name, and site URL (as provided by the plugin).</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The Mollie organization id and Mollie profile id that were connected.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The OAuth scope granted by Mollie.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Whether a Mollie profile was created automatically as part of the connection.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Connection status (success / failed) and, on failure, the error code and message returned by Mollie.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>This log <strong>does not contain access tokens, refresh tokens, customer data, or any payment data.</strong> It is used to debug failed connections, monitor abuse, and understand how the proxy is being used.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3.3 Standard web server logs</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The web server hosting <code>fair-event-plugins.com</code> (provided by Hostinger) records standard request logs for every visit, including documentation pageviews and OAuth requests:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>IP address</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Date and time</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Requested URL and HTTP method</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>HTTP response status</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>User-agent string</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Retention is controlled by Hostinger's standard log-retention policy.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3.4 Analytics (Plausible)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The documentation pages of <code>fair-event-plugins.com</code> use <a href="https://plausible.io/">Plausible Analytics</a> to count visits and understand which docs are useful. Plausible is a privacy-focused, cookieless analytics service hosted in the European Union.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Plausible does <strong>not</strong> use cookies, does <strong>not</strong> track visitors across sites, and does <strong>not</strong> collect personal data or device fingerprints. It records aggregated, anonymous metrics such as page URL, referrer, country (derived from IP and then discarded), browser, and operating system. IP addresses are processed only transiently to derive country and a daily anonymous visitor hash, and are not stored.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Plausible is not loaded on the OAuth proxy endpoints (<code>/oauth/*</code>).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>See Plausible's <a href="https://plausible.io/data-policy">data policy</a> for full details.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3.5 Error monitoring (Sentry)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The OAuth proxy uses <a href="https://sentry.io/">Sentry</a>, an error-monitoring service, so that we are alerted when a Mollie connection fails and can fix the problem quickly. Monitoring covers only the proxy's Mollie OAuth flows: authorization, callback, profile selection, and token refresh. Sentry is not loaded on the documentation pages and does not run in your browser.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>When one of these flows fails, the proxy sends Sentry a diagnostic report containing:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>The flow and a fixed failure category, for example a failed request to Mollie or an unexpected answer from Mollie.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Where applicable, which request to Mollie failed, its HTTP status code, and a standard OAuth error code.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The type of exception or PHP error, and code locations: file path within the plugin or WordPress, line number, and function name.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Technical event details: time, severity, plugin release, environment, and the name and version of the error-reporting library.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>These reports are not meant to contain personal data. They are assembled from these fixed fields only, and the proxy is configured to leave out access tokens, refresh tokens, authorization codes, the client secret, state values, request URLs, parameters, headers and bodies, user details, the IP address of the requesting site or browser, error message text, and program variables. Cancelled authorizations and invalid requests are not reported, and the number of reports is limited.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Sentry also processes the information it needs to receive, store, and secure these reports, as described in Sentry's <a href="https://sentry.io/privacy/">privacy policy</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">4. Legal basis (GDPR Article 6)</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For visitors to the documentation pages, processing of server-log data is based on our <strong>legitimate interest</strong> (Art. 6(1)(f) GDPR) in operating and securing the site.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For OAuth proxy use, processing is based on <strong>performance of a service you requested</strong> (Art. 6(1)(b) GDPR) — you initiate the proxy call by clicking "Connect Mollie" inside the Fair Payment plugin, and the data is processed solely to deliver that connection. Logging of connection attempts is additionally covered by our <strong>legitimate interest</strong> (Art. 6(1)(f) GDPR) in diagnosing failures and preventing abuse.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>To the extent that an error report contains personal data at all, error monitoring of the OAuth proxy with Sentry is based on our <strong>legitimate interest</strong> (Art. 6(1)(f) GDPR) in detecting and fixing failed connections, so that the proxy keeps working for the sites that rely on it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">5. Recipients and third parties</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Mollie B.V.</strong> (Netherlands) — The OAuth proxy exchanges tokens with <code>api.mollie.com</code>. See Mollie's <a href="https://www.mollie.com/legal/user-agreement">user agreement</a> and <a href="https://www.mollie.com/legal/privacy">privacy policy</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Hostinger International Ltd.</strong> (Lithuania) — provides the hosting on which the site and OAuth proxy run. Hostinger processes server-log data on our behalf as a data processor. See <a href="https://www.hostinger.com/legal/privacy-policy">Hostinger's privacy policy</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Plausible Insights OÜ</strong> (Estonia) — provides anonymous, cookieless analytics for the documentation pages only. See <a href="https://plausible.io/data-policy">Plausible's data policy</a> and <a href="https://plausible.io/privacy">privacy policy</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Functional Software, Inc. (Sentry)</strong> (United States) — provides error monitoring for the OAuth proxy only. It receives the diagnostic reports described in section 3.5, which are not meant to contain personal data. See <a href="https://sentry.io/privacy/">Sentry's privacy policy</a>.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>We do not sell or share your data with any other third parties. We do not use advertising or tracking cookies on <code>fair-event-plugins.com</code>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">6. International transfers</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Mollie (Netherlands), Hostinger (Lithuania), and Plausible (Estonia) are all established in the European Union.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Sentry is operated by Functional Software, Inc., established in the United States. Our Sentry organization stores its diagnostic reports in Sentry's EU data storage location in Frankfurt, Germany. Sentry and its subprocessors may still process data outside the EEA, for example to provide support or to operate its service. These reports are not meant to contain personal data. See Sentry's <a href="https://sentry.io/legal/subprocessors/">list of subprocessors</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">7. Retention</h2>
+<!-- /wp:heading -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Data</th><th>Retention</th></tr></thead><tbody><tr><td>OAuth handshake transients (tokens, codes)</td><td>Up to 10 minutes, then auto-deleted</td></tr><tr><td>Refresh tokens passed to <code>/oauth/refresh</code></td><td>Not stored — forwarded to Mollie and discarded</td></tr><tr><td>Connection log rows</td><td>Kept for the operational lifetime of the proxy, for debugging and abuse prevention</td></tr><tr><td>Server access logs</td><td>Per Hostinger's standard log-retention policy</td></tr><tr><td>Sentry diagnostic reports</td><td>30 days, then deleted by Sentry</td></tr><tr><td>Plausible analytics data</td><td>Aggregated, anonymous — no personal data retained</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">8. Your rights under GDPR</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>As an EU/EEA data subject you have the right to:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Access the personal data we hold about you.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Request correction of inaccurate data.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Request erasure of your data (right to be forgotten).</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Restrict or object to processing.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Data portability.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Lodge a complaint with the Spanish data protection authority, the <a href="https://www.aepd.es/">Agencia Española de Protección de Datos (AEPD)</a>.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>To exercise these rights, email marcin.wosinek@gmail.com. Because the proxy stores so little identifiable data (site URL + Mollie organization id), we will normally ask for the relevant <code>site_id</code> or site URL to locate your records.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>You can revoke the plugin's access to your Mollie account at any time from your <a href="https://my.mollie.com/dashboard/">Mollie dashboard</a> under <strong>Settings → Authorized applications</strong>. Doing so invalidates the tokens issued through the proxy.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">9. Security</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The OAuth proxy runs over HTTPS only. The Mollie client secret is stored in server configuration and is never exposed to client sites. Transient cache entries are deleted automatically after at most 10 minutes.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">10. Changes to this policy</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>We may update this policy when the proxy's behavior changes or when required by law. The "Last updated" date at the top reflects the most recent change. Material changes will be announced on the site's homepage.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">11. Contact</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For any privacy-related questions, write to <strong>marcin.wosinek@gmail.com</strong>.</p>
+<!-- /wp:paragraph -->

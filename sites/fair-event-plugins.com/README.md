@@ -36,14 +36,25 @@ when that tracked configuration changes.
 
 ## Managed content
 
-The static homepage is configured for managed publishing through
-[`content-publish.json`](content-publish.json), using the content key
-`homepage`. Edit it in the local WordPress environment, then export its
-committed artifact from the platform root:
+Two pages are configured for managed publishing through
+[`content-publish.json`](content-publish.json):
+
+| Content key | Page |
+| --- | --- |
+| `homepage` | The static front page |
+| `privacy-policy` | The existing published page at `/privacy-policy/` |
+
+Edit a page in the local WordPress environment, then export and plan only that
+item from the platform root, so the other page is left out:
 
 ```sh
-npm run content:export -- fair-event-plugins.com --key homepage
+npm run content:export -- fair-event-plugins.com --key privacy-policy
+npm run content:plan -- fair-event-plugins.com --key privacy-policy
 ```
+
+The privacy policy should plan as an `update` of the existing production page;
+investigate a `create` or `conflict` result before going further. Its wording
+needs explicit approval before publication.
 
 See [`../../docs/publish-content.md`](../../docs/publish-content.md) for the
 guarded plan and apply workflow.
