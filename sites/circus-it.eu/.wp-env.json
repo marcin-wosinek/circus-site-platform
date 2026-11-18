@@ -4,13 +4,15 @@
   "testsEnvironment": false,
   "plugins": [
     "https://downloads.wordpress.org/plugin/polylang.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.13.0-1-g47ca5d43/fair-events.1.13.0-1-g47ca5d43.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.13.0-1-g47ca5d43/fair-payments-connector.2.0.0-1-g47ca5d43.zip",
-    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-1.13.0-1-g47ca5d43/fair-timetable.0.7.1-1-g47ca5d43.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.3.0-53-g8458f831/fair-events.2.3.0-53-g8458f831.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.3.0-53-g8458f831/fair-payments-connector.2.8.1-53-g8458f831.zip",
+    "https://github.com/marcin-wosinek/fair-event-plugins/releases/download/build-2.3.0-53-g8458f831/fair-timetable.0.8.1-53-g8458f831.zip",
     "https://downloads.wordpress.org/plugin/hostinger.zip",
     "https://downloads.wordpress.org/plugin/plausible-analytics.zip"
   ],
-  "themes": ["./circus-it"],
+  "themes": [
+    "https://downloads.wordpress.org/theme/blockbase.zip"
+  ],
   "config": {
     "WP_DEBUG": true,
     "SCRIPT_DEBUG": true,

@@ -1,6 +1,6 @@
 # Media formats
 
-Status: draft catalogue, version 0.5.0.
+Status: draft catalogue, version 0.6.0.
 
 These shared presets describe the output canvas and its content. A site's
 [brand kit](brand-kits.md) supplies voice, colours, typography, and approved
@@ -8,8 +8,10 @@ assets. A campaign brief supplies verified facts. Future top-level skills
 should combine these three inputs using the stable format IDs below.
 
 Source: [Graphics dimensions](https://docs.google.com/document/d/14A9x4oL8E2MGg6mEYitx4o51q2Km0tmESiKGyf83Scg/edit),
-read on 2026-11-10. Meetup and Facebook dimensions and content rules below transcribe selected formats from that document;
-they are project presets, not independently verified current platform limits.
+read on 2026-11-10. Meetup dimensions and Meetup/Facebook content rules below
+transcribe selected formats from that document. Facebook event sizing was
+revised on 2026-11-17 using the references below. These are project presets,
+not independently verified current platform limits.
 Check destination requirements before final delivery. Do not silently change a
 preset when a platform changes: record the discrepancy and revise it explicitly.
 
@@ -23,7 +25,7 @@ accompanying post text or publishing metadata.
 | Format ID | Destination | Canvas | Required | Optional | Prohibited |
 | --- | --- | --- | --- | --- | --- |
 | `meetup-cover` | Meetup | 1080 × 608 | Unspecified | Unspecified | Unspecified |
-| `facebook-event-cover` | Facebook Event | 1920 × 1080 | Event name, visuals | Logo, dates | QR code, link |
+| `facebook-event-cover` | Facebook Event | 1920 × 1005 (approximately 1.91:1) | Event name, visuals | Logo, dates | QR code, link |
 | `instagram-feed-portrait` | Instagram feed | 1080 × 1350 (4:5) | Unspecified | Unspecified | Unspecified |
 | `instagram-feed-tall` | Instagram feed | 1080 × 1440 (3:4) | Unspecified | Unspecified | Unspecified |
 | `instagram-feed-square` | Instagram feed | 1080 × 1080 (1:1) | Unspecified | Unspecified | Unspecified |
@@ -32,6 +34,32 @@ accompanying post text or publishing metadata.
 | `instagram-reel-cover` | Instagram Reel cover | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `whatsapp-status` | WhatsApp Status | 1080 × 1920 (9:16) | Unspecified | Unspecified | Unspecified |
 | `whatsapp-group-image` | WhatsApp group message | 1080 × 1080 (1:1) | Event or offer name, main visual | Short date, short location, logo | Paragraphs, full programme, visible URLs, QR codes |
+
+### Facebook event cover
+
+The `facebook-event-cover` canvas was revised from 1920 × 1080 to
+1920 × 1005 px on 2026-11-17, following
+[Buffer's event cover recommendation](https://buffer.com/resources/facebook-cover-photo-size/).
+This is a recommended export size, not a verified Meta requirement:
+[Meta's event cover help page](https://www.facebook.com/help/1910675759253872)
+redirected to login during research. This update applies to future exports;
+it does not require regenerating existing deliverables.
+
+Use one strong focal image and large, high-contrast event lettering. Keep
+optional details short and essential text, faces, and logos near the centre,
+with expendable background at the edges. Avoid dense programmes and tiny
+lettering. Put full practical details in the event's text fields, repeating
+essential information there so it is accessible without reading the image.
+
+gropping can vary between displays; there is no guaranteed safe area in this
+preset. [Jon Loomer's event cover tests](https://www.jonloomer.com/facebook-image-dimensions-page-group-event/)
+show mobile edge cropping. Inspect the uploaded cover on desktop, in the
+Facebook mobile app, and in a shared-event preview before final use.
+Generation does not authorize uploading or publishing.
+
+Export in sRGB, using PNG for graphics with lettering or high-quality JPEG
+for photographic compositions. These are project export recommendations,
+not verified event-specific file requirements.
 
 ### Text formats
 
