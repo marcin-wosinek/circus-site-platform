@@ -42,3 +42,22 @@ Production templates and styles stored in the database are imported with the
 content. The retained `circus-it` theme files are not replaced by an import. See
 [`../../docs/import-production.md`](../../docs/import-production.md) for the
 shared workflow, safeguards, configuration keys, and local credentials.
+
+## Event Kit landing page
+
+The Spanish landing page lives at `/event-kit/`. Its editable core blocks and
+Fair Form signup are managed as the `event-kit` content key in
+`content-publish.json`, with the export under `content/pages/event-kit/`.
+The retained development theme is not required.
+
+Fair Form must be installed and active on production before publishing. The
+form is identified as `event-kit-testing-updates` and collects a required email
+and explicit consent to Event Kit updates, plus optional name and event type.
+Submissions use Fair Form's storage; this page does not configure an automated
+mailing campaign or send updates. The plugin is intentionally not added to the
+local wp-env configuration: without it, local previews omit the form.
+
+After editing locally, run `npm run content:export -- circus-it.eu --key event-kit`,
+review and commit the artifact, then follow `docs/publish-content.md` to plan
+and apply only this page. Do not pull production again before exporting local
+edits: a pull replaces the local database.

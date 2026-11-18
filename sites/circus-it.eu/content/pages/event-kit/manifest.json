@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "event-kit",
+  "type": "page",
+  "title": "Event Kit",
+  "slug": "event-kit",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "80bbdc895994a58de175c0401ec309abe52cb8abb3895a0469af24b6192703c4"
+}

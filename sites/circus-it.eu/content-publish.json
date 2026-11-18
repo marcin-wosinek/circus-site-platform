@@ -1,0 +1,15 @@
+{
+  "$schema": "../../schemas/content-publish.schema.json",
+  "items": {
+    "event-kit": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/event-kit/"
+      },
+      "artifactDir": "content/pages/event-kit",
+      "allowedStatuses": ["draft", "publish"],
+      "metadata": []
+    }
+  }
+}
