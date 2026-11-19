@@ -1,0 +1,191 @@
+/*
+ * Issue #27 design previews — local only, never shipped.
+ * Three alternatives for the hero Cover on the six Brussels pages.
+ * Every value references a theme preset; the only literals are layout
+ * ratios and gradient stops.
+ */
+
+/* Per-page focal points for the mobile crop (x y of the main subject). */
+.fc-hero--focus-home { --fc-hero-focus: 62% 50%; }
+.fc-hero--focus-bodywork { --fc-hero-focus: 75% 40%; }
+.fc-hero--focus-thai { --fc-hero-focus: 66% 50%; }
+.fc-hero--focus-kobido { --fc-hero-focus: 75% 45%; }
+.fc-hero--focus-vouchers { --fc-hero-focus: 74% 45%; }
+.fc-hero--focus-relax { --fc-hero-focus: 68% 70%; }
+
+/* The preview <style> block precedes the hero; keep it flush with the header. */
+.wp-block-cover.fc-hero { margin-block-start: 0 !important; }
+
+/* Text colours for a solid paper ground (alternatives A and C). */
+.fc-hero--stack,
+.fc-hero--rec,
+.fc-hero--fade {
+	--fc-hero-ground: var(--wp--preset--color--paper);
+}
+
+/* ------------------------------------------------------------------ */
+/* A — Image above text (mobile and tablet portrait, < 782px)          */
+/* ------------------------------------------------------------------ */
+@media (max-width: 781px) {
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: flex-start;
+		min-height: 0 !important;
+		aspect-ratio: auto !important;
+		padding: 0 !important;
+		background: var(--fc-hero-ground);
+		overflow: visible;
+	}
+
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) > .wp-block-cover__image-background {
+		position: relative;
+		inset: auto;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 3 / 2;
+		object-position: var(--fc-hero-focus) !important;
+	}
+
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) > .wp-block-cover__background {
+		display: none;
+	}
+
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) > .wp-block-cover__inner-container {
+		width: 100%;
+		padding: var(--wp--preset--spacing--lg) var(--wp--preset--spacing--md);
+		box-sizing: border-box;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* B — Full-image gradient (all widths)                                 */
+/* ------------------------------------------------------------------ */
+.wp-block-cover.fc-hero--scrim > .wp-block-cover__background {
+	opacity: 1 !important;
+	background: linear-gradient(
+		90deg,
+		color-mix(in oklab, var(--wp--preset--color--scrim), var(--wp--preset--color--ink) 25%) 0%,
+		var(--wp--preset--color--scrim) 45%,
+		transparent 80%
+	) !important;
+}
+
+.fc-hero--scrim .wp-block-cover__inner-container :is(h1, p, strong) {
+	color: var(--wp--preset--color--accent-ink) !important;
+}
+
+.fc-hero--scrim .wp-block-button:is(.is-style-ghost, .is-style-outline) .wp-block-button__link {
+	background: var(--wp--preset--color--card) !important;
+	border-color: var(--wp--preset--color--card) !important;
+	color: var(--wp--preset--color--ink) !important;
+}
+
+@media (max-width: 781px) {
+	.wp-block-cover.fc-hero--scrim {
+		align-items: flex-end;
+		aspect-ratio: auto !important;
+		min-height: 0 !important;
+		padding-top: 70vw !important;
+		padding-bottom: var(--wp--preset--spacing--lg) !important;
+	}
+
+	.wp-block-cover.fc-hero--scrim > .wp-block-cover__image-background {
+		object-position: var(--fc-hero-focus) !important;
+	}
+
+	.wp-block-cover.fc-hero--scrim > .wp-block-cover__background {
+		background: linear-gradient(
+			180deg,
+			transparent 0%,
+			color-mix(in oklab, var(--wp--preset--color--ink), transparent 70%) 20%,
+			var(--wp--preset--color--scrim) 45%,
+			color-mix(in oklab, var(--wp--preset--color--scrim), var(--wp--preset--color--ink) 30%) 100%
+		) !important;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* C — Mobile-specific composition (< 782px)                           */
+/* Square subject crop that fades into paper; text sits on the fade.   */
+/* ------------------------------------------------------------------ */
+@media (max-width: 781px) {
+	.wp-block-cover.fc-hero--fade {
+		display: block;
+		min-height: 0 !important;
+		aspect-ratio: auto !important;
+		padding: 82vw var(--wp--preset--spacing--md) var(--wp--preset--spacing--lg) !important;
+		background: var(--fc-hero-ground);
+	}
+
+	.fc-hero--fade > .wp-block-cover__image-background {
+		inset: 0 0 auto 0;
+		height: 100vw;
+		object-position: var(--fc-hero-focus) !important;
+	}
+
+	.wp-block-cover.fc-hero--fade > .wp-block-cover__background {
+		inset: 0 0 auto 0;
+		height: 100vw;
+		opacity: 1 !important;
+		background: linear-gradient(
+			180deg,
+			transparent 55%,
+			color-mix(in oklab, var(--fc-hero-ground), transparent 25%) 80%,
+			var(--fc-hero-ground) 100%
+		) !important;
+	}
+
+	.fc-hero--fade > .wp-block-cover__inner-container {
+		position: relative;
+	}
+}
+
+/* Shared readable text colours on the paper ground (A and C, mobile). */
+@media (max-width: 781px) {
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) .wp-block-cover__inner-container :is(p, strong).has-accent-ink-color,
+	.fc-hero--fade .wp-block-cover__inner-container :is(p, strong).has-accent-ink-color,
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) .wp-block-cover__inner-container p:not(.has-text-color),
+	.fc-hero--fade .wp-block-cover__inner-container p:not(.has-text-color) {
+		color: var(--wp--preset--color--ink) !important;
+	}
+
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec) .wp-block-cover__inner-container h1,
+	.fc-hero--fade .wp-block-cover__inner-container h1 {
+		color: var(--wp--preset--color--accent-deep) !important;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* Recommended — A below 782px, B's duotone gradient from 782px up.    */
+/* ------------------------------------------------------------------ */
+@media (min-width: 782px) {
+	.wp-block-cover.fc-hero--rec > .wp-block-cover__background {
+		opacity: 1 !important;
+		background: linear-gradient(
+			90deg,
+			color-mix(in oklab, var(--wp--preset--color--scrim), var(--wp--preset--color--ink) 25%) 0%,
+			var(--wp--preset--color--scrim) 45%,
+			transparent 80%
+		) !important;
+	}
+
+	.fc-hero--rec .wp-block-cover__inner-container :is(h1, p, strong) {
+		color: var(--wp--preset--color--accent-ink) !important;
+	}
+
+	.fc-hero--rec .wp-block-button:is(.is-style-ghost, .is-style-outline) .wp-block-button__link {
+		background: var(--wp--preset--color--card) !important;
+		border-color: var(--wp--preset--color--card) !important;
+		color: var(--wp--preset--color--ink) !important;
+	}
+}
+
+/* Outline buttons on the paper ground use the theme Ghost colours. */
+@media (max-width: 781px) {
+	.wp-block-cover:is(.fc-hero--stack, .fc-hero--rec, .fc-hero--fade) .wp-block-button.is-style-outline .wp-block-button__link {
+		color: var(--wp--preset--color--accent-deep) !important;
+		border-color: var(--wp--preset--color--accent-deep) !important;
+	}
+}
