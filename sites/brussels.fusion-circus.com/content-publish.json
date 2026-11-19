@@ -25,6 +25,32 @@
         "publish"
       ],
       "metadata": []
+    },
+    "massage-gift-vouchers": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/massage-gift-vouchers/"
+      },
+      "artifactDir": "content/pages/massage-gift-vouchers",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "relax-together": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/relax-together/"
+      },
+      "artifactDir": "content/pages/relax-together",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }

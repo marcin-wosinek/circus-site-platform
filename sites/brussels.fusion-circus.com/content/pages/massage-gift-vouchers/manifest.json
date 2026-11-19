@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "massage-gift-vouchers",
+  "type": "page",
+  "title": "Gift Vouchers",
+  "slug": "massage-gift-vouchers",
+  "status": "publish",
+  "template": "page-no-title",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-10_13_04-PM-1024x1008.png",
+      "file": "inline-image-1.png",
+      "sha256": "747dcb61c5a454c33173fbd04bbdd801ebb46bb5270569985a5aae7101411e09"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-10_13_46-PM-1024x683.png",
+      "file": "inline-image-2.png",
+      "sha256": "d2040020f09a4424af5f5816674c0ee37fe06f6bfb74c04f80e603ac79640b19"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-10_14_47-PM-1024x1007.png",
+      "file": "inline-image-3.png",
+      "sha256": "5ce65a5ea376382ee13727854a1149b66ecb20df86b7391afd250cd070b8781d"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-10_25_08-PM.png",
+      "file": "inline-image-4.png",
+      "sha256": "c58cc1d47f35f98c0a0c29f6cf1bcce511d50a826b381400be31ad65eae5d847"
+    },
+    {
+      "path": "2026/11/Elegant-Dance-Bodywork-Gift-Set-2-1024x1024.png",
+      "file": "inline-image-5.png",
+      "sha256": "04068c4a757b2bd59b6f05046917118f89c6431836784edf673e40e5ee39ed39"
+    },
+    {
+      "path": "2026/11/Fusion-Circus-Gift-Voucher.png",
+      "file": "inline-image-6.png",
+      "sha256": "99762080b11504602cb5e6d262f8f4a572c1a8454e7e0598cdb238510e168531"
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "aac9d273cb2878307975003ec9738604ae467ad66d31d7374283a3dffa0f3f90"
+}
