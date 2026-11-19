@@ -6,8 +6,11 @@ the photographic hero (the first Cover block) on six Brussels pages. This
 directory holds **preview-only** tooling and the review record. It doesn't
 change the shared theme, the managed page artifacts or production.
 
-Status (2026-11-19): three alternatives were compared, and a recommendation is
-waiting for design approval. Implementation is not started.
+Status (2026-11-20): the client chose **C (mobile composition)** and approved
+the Ghost button switch (departure 3; departures 1 and 2 apply only to the
+desktop scrim, which C doesn't use). Implemented as the theme's Photo hero
+Cover style with a separate mobile focal point; see
+`sites/fusion-circus/design.md` § Photo hero.
 
 ## Pages and baseline
 
@@ -158,7 +161,7 @@ node ~/workspace/fair-event-plugins/scripts/screenshot.js \
   /issue-27-rec-home/ 390x844 rec-home-390x844-viewport.png --no-login --viewport
 ```
 
-## After approval (not started)
+## After approval (done; the brief below records the original plan)
 
 The full handoff for the implementing session is in
 [IMPLEMENTATION.md](IMPLEMENTATION.md). In outline:
@@ -173,3 +176,26 @@ The full handoff for the implementing session is in
    attach the before/after comparison to the PR.
 4. Record the locked decisions in `sites/fusion-circus/design.md` and the
    editor guidance in the Brussels README.
+
+## Implementation results (2026-11-20)
+
+- Theme 0.1.5: `is-style-photo-hero` on core/cover, the mobile rules in
+  `style.css`, and a `mobileFocalPoint` Cover attribute
+  (`assets/js/photo-hero-editor.js`, rendered by `functions.php`). The preview
+  focal points would also have moved the desktop crop. That added 3 desktop
+  AA failures (the home paragraph dropped from 11.41 to 1.16:1), and no single
+  compromise point kept both crops, so desktop keeps each page's original
+  focal point.
+- Content: the Photo hero style and mobile focal points on all six heroes,
+  plus the homepage's `@mobile` removal and Outline → Ghost switch. Homepage,
+  gift vouchers and Relax Together are managed artifacts. Bodywork, Thai and
+  Kobido can't be exported: they reference a PDF and an MP4.
+- Contrast after (`VARIANTS=before contrast.mjs` on the real pages): 0 of 60
+  mobile and 0 of 30 tablet failures; desktop 12 of 30, as before, with
+  identical ratios except the homepage Ghost button (3.47 → 4.31:1).
+  `FOCUS='{"<key>":"x% y%"}'` and `KEYS=` measure trial focal points without
+  saving.
+- Checks (`VARIANT=live checks.mjs`): no clipped hero text and visible focus on
+  every hero button. The only overflow is at 180 and 195px wide, from the
+  Relax Together FAQ accordion icon and a later full-width group on Kobido, outside the
+  hero, and it predates this work.

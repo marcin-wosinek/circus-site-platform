@@ -30,6 +30,10 @@ const PAGES = {
 };
 const VARIANTS = (process.env.VARIANTS || 'before,stack,scrim,fade,rec').split(',');
 const VIEWPORTS = (process.env.VIEWPORTS || '360x800,390x844,768x1024,1280x900').split(',');
+// Optional trial focal points, e.g. FOCUS='{"home":"50% 50%"}': applied to the
+// hero image before measuring, so candidates can be compared without saving.
+const FOCUS = JSON.parse(process.env.FOCUS || '{}');
+const KEYS = (process.env.KEYS || Object.keys(PAGES).join(',')).split(',');
 
 const lin = (c) => {
 	c /= 255;
@@ -55,13 +59,18 @@ function pixels(png) {
 
 const browser = await chromium.launch();
 const results = [];
-for (const [key, path] of Object.entries(PAGES)) {
+for (const [key, path] of Object.entries(PAGES).filter(([k]) => KEYS.includes(k))) {
 	for (const variant of VARIANTS) {
 		const url = BASE + (variant === 'before' ? path : `/issue-27-${variant}-${key}/`);
 		for (const vp of VIEWPORTS) {
 			const [width, height] = vp.split('x').map(Number);
 			const page = await browser.newPage({ viewport: { width, height } });
 			await page.goto(url, { waitUntil: 'networkidle' });
+			if (FOCUS[key]) {
+				await page.evaluate((pos) => {
+					document.querySelector('main .wp-block-cover, .wp-block-cover').querySelector('.wp-block-cover__image-background').style.objectPosition = pos;
+				}, FOCUS[key]);
+			}
 			const items = await page.evaluate(() => {
 				const hero = document.querySelector('main .wp-block-cover, .wp-block-cover');
 				const els = hero.querySelectorAll(

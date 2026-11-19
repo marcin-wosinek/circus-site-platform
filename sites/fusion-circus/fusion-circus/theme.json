@@ -247,6 +247,11 @@
 			},
 			"eventCard": {
 				"shadow": "0 0.75rem 1.5rem #17141e26"
+			},
+			"photoHero": {
+				"imageHeight": "100vw",
+				"textStart": "82vw",
+				"fadeStart": "55%"
 			}
 		}
 	},

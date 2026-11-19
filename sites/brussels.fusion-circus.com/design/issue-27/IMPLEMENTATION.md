@@ -283,7 +283,7 @@ node ~/workspace/fair-event-plugins/scripts/screenshot.js \
   stated.
 - **Overflow, zoom and focus.** `checks.mjs` targets preview URLs and
   `.wp-block-cover.fc-hero`. Point it at the real paths and at
-  `.wp-block-cover.is-style-photo-hero`, then confirm:
+  `.wp-block-cover.is-style-photo-hero` (now `VARIANT=live`), then confirm:
   - no horizontal overflow at the four sizes or at 195 × 422 and 640 × 450;
   - no clipped hero text;
   - visible keyboard focus on the hero buttons.

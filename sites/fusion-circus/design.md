@@ -9,6 +9,47 @@ decoration. Questions are sibling Accordion Items within one Accordion; answers
 contain editable paragraphs, never nested Accordions. Three example questions
 provide an editable starting point, and each insertion is independent.
 
+## Photo hero (2026-11-20)
+
+Issue #27, option C ("mobile composition"), chosen by the client over the
+recommended stack-plus-scrim treatment. An opt-in Cover block style,
+`is-style-photo-hero` ("Photo hero"), for a page's first photographic section.
+
+- **Below 782px** (the header breakpoint): the Cover drops its minimum height
+  and fixed aspect ratio. The photo becomes a square crop, `100vw` tall
+  (`custom.photoHero.imageHeight`), and the overlay fades from transparent at
+  `custom.photoHero.fadeStart` (55%) to `paper` at the bottom. The copy starts
+  at `custom.photoHero.textStart` (`82vw`), on the fade, padded `md`
+  horizontally and `lg` below. White or uncoloured copy becomes `ink`; the H1
+  becomes `accent-deep`. Copy that already carries a dark colour (violet,
+  `accent-2-deep`, `ink`) keeps it.
+- **From 782px:** unchanged. The Cover renders exactly as a plain Cover,
+  including its existing text colours.
+- **Mobile focal point:** the square crop needs a different focal point from
+  the panoramic desktop crop. A single shared point couldn't serve both: every
+  point that kept the mobile subject in frame slid it under the desktop text
+  column. The Cover therefore gets a second attribute, `mobileFocalPoint`,
+  with its own picker ("Photo hero: mobile crop" panel,
+  `assets/js/photo-hero-editor.js`). `functions.php` renders it as
+  `--fc-photo-hero-focus` plus the class `has-photo-hero-focus`; only the
+  mobile rule reads it. Without it, the Cover's own focal point applies at
+  every width. The attribute lives in the block comment only, so the saved
+  markup and block validation are unaffected.
+- **Contrast** (2nd-percentile pixel behind each element, six Brussels pages):
+  0 of 60 mobile and 0 of 30 tablet elements fail AA (lowest 3.12:1, a large
+  heading on the fade). Desktop keeps its pre-existing 12 of 30 failures,
+  which the client accepted with option C. The fix for those is the scrim
+  treatment that was recommended and not chosen.
+- **Ghost on the homepage hero (approved departure):** the homepage's core
+  Outline button with a custom `#cf1c72` (4.17:1 on paper) became the theme
+  Ghost style (5.13:1 on paper). Below 782px it sits on paper. From 782px it
+  still sits on the photo, where it measures 4.31:1 (up from 3.47:1). That is
+  one of the 12 desktop failures above and a known exception to "Ghost: never
+  on photos" (§ CTA voice).
+- Rejected: A (image above text), B (full-image gradient: hides the subject on
+  long-copy pages), and the recommended A + desktop scrim. See
+  `sites/brussels.fusion-circus.com/design/issue-27/README.md`.
+
 Locked design system. Future design work (Hallmark runs, templates, patterns)
 reads this file first and defers to it. Amend intentionally — the file is the
 rule. In this repo `theme.json` is canonical for tokens (WordPress reads it);
@@ -82,6 +123,8 @@ if the real faces differ. Rhythm read from a vision pass on the captures.
 - Tertiary (amended 2026-08-05) · "Ghost" — magenta 2px outline pill, transparent
   fill, magenta label; fills magenta on hover. Paper/card grounds only, never on
   photos (outline contrast can't be guaranteed on imagery).
+  Exception (2026-11-20): the homepage Photo hero's second button, which sits
+  on paper on mobile but on the photo from 782px (§ Photo hero).
 
 ## Motion stance
 

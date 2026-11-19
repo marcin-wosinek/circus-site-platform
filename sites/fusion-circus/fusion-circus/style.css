@@ -3,7 +3,7 @@ Theme Name: Fusion Circus
 Theme URI: https://fusion-circus.example
 Description: Child theme of Twenty Twenty-Five for fusion-circus.example
 Template: twentytwentyfive
-Version: 0.1.4
+Version: 0.1.5
 Requires at least: 6.7
 Requires PHP: 7.4
 Text Domain: fusion-circus
@@ -220,4 +220,61 @@ Text Domain: fusion-circus
 	.fc-event-row { flex-wrap: wrap; }
 	.fc-event-row__body, .fc-event-row .wp-block-button { flex-basis: 100%; }
 	.fc-event-row .wp-block-button__link { box-sizing: border-box; width: 100%; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Photo hero — opt-in Cover style for a page's first, photographic section.
+ * Spec: design.md § Photo hero (locked 2026-11-20, issue #27, option C).
+ *
+ * Below 782px the photo becomes a square crop at the Cover's focal point that
+ * fades into paper; the copy starts on the fade in readable paper colours.
+ * From 782px the Cover renders exactly as a plain Cover. The mobile crop
+ * follows the "Mobile focal point" (assets/js/photo-hero-editor.js), falling
+ * back to the Cover's native focal point when none is set.
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 781.98px) {
+	.wp-block-cover.is-style-photo-hero {
+		display: block;
+		min-height: 0 !important;
+		aspect-ratio: auto !important;
+		padding: var(--wp--custom--photo-hero--text-start) var(--wp--preset--spacing--md) var(--wp--preset--spacing--lg) !important;
+		background: var(--wp--preset--color--paper);
+	}
+
+	.wp-block-cover.is-style-photo-hero > .wp-block-cover__image-background,
+	.wp-block-cover.is-style-photo-hero > .wp-block-cover__background {
+		inset: 0 0 auto 0;
+		height: var(--wp--custom--photo-hero--image-height);
+	}
+
+	.wp-block-cover.is-style-photo-hero > .wp-block-cover__background {
+		opacity: 1 !important;
+		background: linear-gradient(
+			180deg,
+			transparent var(--wp--custom--photo-hero--fade-start),
+			color-mix(in oklab, var(--wp--preset--color--paper), transparent 25%) 80%,
+			var(--wp--preset--color--paper) 100%
+		) !important;
+	}
+
+	/* Mobile focal point, set by functions.php when the editor chose one;
+	 * otherwise the Cover's own focal point (inline object-position) applies. */
+	.wp-block-cover.is-style-photo-hero.has-photo-hero-focus > .wp-block-cover__image-background {
+		object-position: var(--fc-photo-hero-focus) !important;
+	}
+
+	.wp-block-cover.is-style-photo-hero > .wp-block-cover__inner-container {
+		position: relative;
+	}
+
+	/* Copy coloured for the photo (white, or no colour) reads as ink on paper. */
+	.wp-block-cover.is-style-photo-hero .wp-block-cover__inner-container :is(p, strong).has-accent-ink-color,
+	.wp-block-cover.is-style-photo-hero .wp-block-cover__inner-container p:not(.has-text-color) {
+		color: var(--wp--preset--color--ink) !important;
+	}
+
+	.wp-block-cover.is-style-photo-hero .wp-block-cover__inner-container h1 {
+		color: var(--wp--preset--color--accent-deep) !important;
+	}
 }

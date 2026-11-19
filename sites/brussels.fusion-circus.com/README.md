@@ -78,6 +78,49 @@ restore this committed homepage after a pull, materialize `{{SITE_URL}}` in
 `content.html` as `http://localhost:9794` and update the local static front page
 with WP-CLI or paste the markup into its code editor.
 
+## Photo hero sections
+
+The first, photographic Cover on the homepage and the service pages uses the
+shared theme's **Photo hero** style (theme 0.1.5 or later; see
+`sites/fusion-circus/design.md` § Photo hero). Below 782px it shows a square
+crop of the photo that fades into the page background, with the copy
+underneath. Wider screens show the Cover unchanged.
+
+For a new or changed hero:
+
+1. Select the page's first Cover and choose **Styles → Photo hero**.
+2. Keep the Cover's **Focal point** where it suits desktop: the subject should
+   stay clear of the text column.
+3. In **Photo hero: mobile crop**, place the **Mobile focal point** on the
+   photo's main subject.
+4. Preview at 390px and at desktop width before saving.
+5. Don't give hero text its own light colours for mobile. The style turns
+   white or uncoloured copy into dark text below 782px, and a light custom
+   colour would be unreadable on the fade.
+
+Current settings:
+
+| Page | Managed key | Cover focal point | Mobile focal point |
+|---|---|---|---|
+| `/` | `homepage` | 39% 64% | 62% 50% |
+| `/personalised-bodywork-brussels/` | — | default | 75% 40% |
+| `/thai-yoga-massage-brussels/` | — | default | 66% 50% |
+| `/kobido-massage-brussels/` | — | 49% 66% | 75% 45% |
+| `/massage-gift-vouchers/` | `massage-gift-vouchers` | default | 74% 45% |
+| `/relax-together/` | `relax-together` | 44% 69% | 68% 70% |
+
+The gift vouchers and Relax Together pages are managed artifacts:
+
+```sh
+npm run content:export -- brussels.fusion-circus.com --key massage-gift-vouchers
+npm run content:export -- brussels.fusion-circus.com --key relax-together
+```
+
+The bodywork, Thai and Kobido pages aren't managed. They reference a PDF or an
+MP4 upload, which the content publisher can't package. Apply the style and
+mobile focal point from the table in the production editor, after the theme
+is deployed.
+
 ## Workshops page
 
 The `/events-calendar/` page ("Workshops") is managed by `content-publish.json`

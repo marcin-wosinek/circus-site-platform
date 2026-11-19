@@ -20,6 +20,9 @@ mkdirSync(out, { recursive: true });
 
 const KEYS = ['home', 'bodywork', 'thai', 'kobido', 'vouchers', 'relax'];
 const VARIANT = process.env.VARIANT || 'rec';
+// VARIANT=live checks the real pages carrying the shipped Photo hero style.
+const LIVE = { home: '/', bodywork: '/personalised-bodywork-brussels/', thai: '/thai-yoga-massage-brussels/', kobido: '/kobido-massage-brussels/', vouchers: '/massage-gift-vouchers/', relax: '/relax-together/' };
+const HERO = VARIANT === 'live' ? '.wp-block-cover.is-style-photo-hero' : '.wp-block-cover.fc-hero';
 // 200% zoom of 360/390-wide phones and of the 1280 desktop.
 const VIEWPORTS = ['360x800', '390x844', '768x1024', '1280x900', '180x400', '195x422', '640x450'];
 
@@ -29,9 +32,9 @@ for (const key of KEYS) {
 	for (const vp of VIEWPORTS) {
 		const [width, height] = vp.split('x').map(Number);
 		const page = await browser.newPage({ viewport: { width, height } });
-		await page.goto(`${BASE}/issue-27-${VARIANT}-${key}/`, { waitUntil: 'networkidle' });
-		const r = await page.evaluate(() => {
-			const hero = document.querySelector('.wp-block-cover.fc-hero');
+		await page.goto(VARIANT === 'live' ? `${BASE}${LIVE[key]}` : `${BASE}/issue-27-${VARIANT}-${key}/`, { waitUntil: 'networkidle' });
+		const r = await page.evaluate((HERO) => {
+			const hero = document.querySelector(HERO);
 			const inner = hero.querySelector('.wp-block-cover__inner-container');
 			const heroBox = hero.getBoundingClientRect();
 			const clipped = [...inner.querySelectorAll('h1, p, .wp-block-button__link')].filter((el) => {
@@ -44,16 +47,17 @@ for (const key of KEYS) {
 				clipped,
 				imageH: Math.round(img.height),
 			};
-		});
+		}, HERO);
 		rows.push({ key, vp, ...r });
 		if (vp === '390x844' || vp === '1280x900') {
 			// Tab until focus reaches the first hero button (if any), then capture it.
-			const hasButton = await page.locator('.fc-hero .wp-block-button__link').count();
+			const hasButton = await page.locator(`${HERO} .wp-block-button__link`).count();
 			let reached = false;
 			for (let i = 0; hasButton && i < 80 && !reached; i++) {
 				await page.keyboard.press('Tab');
 				reached = await page.evaluate(
-					() => !!document.activeElement?.closest('.fc-hero .wp-block-button')
+					(HERO) => !!document.activeElement?.closest(`${HERO} .wp-block-button`),
+					HERO
 				);
 			}
 			rows.at(-1).focusReached = hasButton ? reached : 'no buttons';
@@ -65,7 +69,7 @@ for (const key of KEYS) {
 					return { y: b.y };
 				});
 				await page.screenshot({
-					path: join(out, `focus-${key}-${vp}.png`),
+					path: join(out, `focus-${VARIANT}-${key}-${vp}.png`),
 					clip: { x: 0, y: Math.max(0, box.y - 60), width, height: Math.min(200, height - Math.max(0, box.y - 60)) },
 				});
 			}
