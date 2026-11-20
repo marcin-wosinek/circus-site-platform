@@ -111,3 +111,19 @@ version control.
 Each applied import preserves the previous local database and uploads in the
 site's ignored `import/` directory. The command prints their paths when it
 finishes. Restoring them is currently a manual operation.
+
+## Upload provenance
+
+Before replacing active uploads, import streams SHA-256 hashes for all extracted
+regular files and prepares a sorted provenance manifest. A successful replacement
+atomically installs it at ignored `import/uploads-manifest.json`, recording schema
+version 1, site ID, production URL, SSH destination and WordPress path, import
+time, and each file's path, hash, and size. It contains no credentials. Symlinked
+uploads are rejected. `--preflight` and `--verify` do not create provenance.
+
+The previous active manifest is removed before replacing uploads. An interrupted
+replacement therefore leaves no usable stale provenance; rerun the guarded
+import to rebuild it. Never synthesize provenance from current local uploads.
+Preserve local authoring changes before re-importing; the importer also retains
+the previous local database and uploads for manual recovery. Reference-only
+content export requires valid provenance; see [publish content](publish-content.md).

@@ -156,3 +156,8 @@ saves a plan record. See [`docs/publish-content.md`](docs/publish-content.md)
 for the guarded apply workflow. Apply requires an explicit saved plan path and
 `--confirm-production=<site-id>`, verifies a full database backup before any
 write, and leaves recovery as a manual operator action.
+
+Reference-only PDF/video exports require ignored upload provenance from a
+successful production import. Preserve local edits before re-importing; never
+synthesize provenance from current uploads. Plan/apply must recheck reference
+bytes on production without copying or overwriting those files.

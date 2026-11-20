@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { buildUploadProvenance, replaceUploadsWithProvenance } from './lib/upload-provenance.mjs';
 
 import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -155,6 +156,8 @@ await runCli(async () => {
 	mkdirSync(uploadsNext, { recursive: true });
 	runInherit('tar', ['-xzf', uploadsArchive, '--strip-components=1', '-C', uploadsNext], { cwd: projectDir });
 
+	const provenance = await buildUploadProvenance(uploadsNext, { siteId, source: { productionUrl, sshTarget, sshPort: sshPort ?? null, remotePath } });
+
 	const localBackup = `wp-content/import/local-before-${timestamp}.sql`;
 	runWpCli(projectDir, ['db', 'export', localBackup, '--add-drop-table', '--quiet']);
 	runWpCli(projectDir, ['db', 'reset', '--yes']);
@@ -182,10 +185,12 @@ await runCli(async () => {
 
 	const previousUploads = join(importDir, `uploads-before-${timestamp}`);
 	cpSync(uploadsDir, previousUploads, { recursive: true });
-	for (const entry of readdirSync(uploadsDir)) rmSync(join(uploadsDir, entry), { recursive: true, force: true });
-	for (const entry of readdirSync(uploadsNext)) {
-		cpSync(join(uploadsNext, entry), join(uploadsDir, entry), { recursive: true });
-	}
+	await replaceUploadsWithProvenance(join(importDir, 'uploads-manifest.json'), provenance, () => {
+		for (const entry of readdirSync(uploadsDir)) rmSync(join(uploadsDir, entry), { recursive: true, force: true });
+		for (const entry of readdirSync(uploadsNext)) {
+			cpSync(join(uploadsNext, entry), join(uploadsDir, entry), { recursive: true });
+		}
+	});
 	rmSync(uploadsNext, { recursive: true });
 	rmSync(uploadsArchive);
 

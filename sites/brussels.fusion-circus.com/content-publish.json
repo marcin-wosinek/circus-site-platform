@@ -51,6 +51,45 @@
         "publish"
       ],
       "metadata": []
+    },
+    "personalised-bodywork-brussels": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/personalised-bodywork-brussels/"
+      },
+      "artifactDir": "content/pages/personalised-bodywork-brussels",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "thai-yoga-massage-brussels": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/thai-yoga-massage-brussels/"
+      },
+      "artifactDir": "content/pages/thai-yoga-massage-brussels",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "kobido-massage-brussels": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/kobido-massage-brussels/"
+      },
+      "artifactDir": "content/pages/kobido-massage-brussels",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }

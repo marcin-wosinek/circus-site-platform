@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "kobido-massage-brussels",
+  "type": "page",
+  "title": "Kobido Massage",
+  "slug": "kobido-massage-brussels",
+  "status": "publish",
+  "template": "page-no-title",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-07_10_42-PM.png",
+      "file": "inline-image-1.png",
+      "sha256": "f0e7a723f2763b954ba6c140d06b98cee55bde5453521f27e44778374757a6a5"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-07_35_54-PM-1024x683.png",
+      "file": "inline-image-2.png",
+      "sha256": "304a8f153af77dfe0bc61d3d64c9da0b174ffe65f38a7f62c5d45eadf92fb1c2"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-07_59_59-PM-250x300.png",
+      "file": "inline-image-3.png",
+      "sha256": "1d3505beb3b0151852c7482eb38019a0a0016b8016180cdd9be1f856540c8eed"
+    }
+  ],
+  "uploadReferences": [
+    {
+      "path": "2026/11/bodywork-4.pdf",
+      "sha256": "2f9e4e8e33314b34be1253f9add0570f96ef62a77d0907ae0459d19fbfd5b1fe",
+      "size": 1471072
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "907efb2287b3da1482b94355a8f3b884b6071b11103395cfc9f3b9db6be7d000"
+}

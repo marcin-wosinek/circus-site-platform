@@ -103,9 +103,9 @@ Current settings:
 | Page | Managed key | Cover focal point | Mobile focal point |
 |---|---|---|---|
 | `/` | `homepage` | 39% 64% | 62% 50% |
-| `/personalised-bodywork-brussels/` | — | default | 75% 40% |
-| `/thai-yoga-massage-brussels/` | — | default | 66% 50% |
-| `/kobido-massage-brussels/` | — | 49% 66% | 75% 45% |
+| `/personalised-bodywork-brussels/` | `personalised-bodywork-brussels` | default | 75% 40% |
+| `/thai-yoga-massage-brussels/` | `thai-yoga-massage-brussels` | default | 66% 50% |
+| `/kobido-massage-brussels/` | `kobido-massage-brussels` | 49% 66% | 75% 45% |
 | `/massage-gift-vouchers/` | `massage-gift-vouchers` | default | 74% 45% |
 | `/relax-together/` | `relax-together` | 44% 69% | 68% 70% |
 
@@ -116,10 +116,20 @@ npm run content:export -- brussels.fusion-circus.com --key massage-gift-vouchers
 npm run content:export -- brussels.fusion-circus.com --key relax-together
 ```
 
-The bodywork, Thai and Kobido pages aren't managed. They reference a PDF or an
-MP4 upload, which the content publisher can't package. Apply the style and
-mobile focal point from the table in the production editor, after the theme
-is deployed.
+The bodywork, Thai and Kobido pages are managed in matching
+`content/pages/<key>` directories. Their PDFs and video are reference-only
+uploads, verified against import provenance during export and production bytes
+during plan. Preserve local edits before a fresh import if provenance is missing.
+Export and run a read-only plan after committing each artifact:
+
+```sh
+npm run content:export -- brussels.fusion-circus.com --key personalised-bodywork-brussels
+npm run content:plan -- brussels.fusion-circus.com --key personalised-bodywork-brussels
+```
+
+Use `thai-yoga-massage-brussels` and `kobido-massage-brussels` for the other
+pages. Keep their production attachment IDs and hero settings when exporting.
+Planning does not publish content.
 
 ## Workshops page
 
