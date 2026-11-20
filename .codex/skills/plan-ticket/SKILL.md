@@ -11,15 +11,15 @@ Turn the referenced issue into a current, code-grounded implementation plan. Dra
 
 Accept a bare issue number or issue URL. For a bare number, use `marcin-wosinek/circus-site-platform`.
 
-Read the issue body and all discussion with `gh issue view <number> --comments`. Record its acceptance criteria, risks, dependencies, and open questions. Read `TICKETS.md` completely to understand why the issue describes behavior rather than implementation.
+Read the issue body and all discussion with `gh issue view <number> --repo <owner>/<repo> --comments`. Use the resolved repository explicitly for subsequent GitHub commands. Record its acceptance criteria, risks, dependencies, and open questions. Read `TICKETS.md` completely to understand why the issue describes behavior rather than implementation.
 
 Confirm the owning repository before planning. Inspect `sites.json`, `.gitmodules`, and relevant site documentation: shared capabilities and directly tracked sites belong to this repository, while a submodule normally has its own repository, instructions, issue tracker, and pull request. Stop and ask if the issue and code ownership do not match or remain ambiguous.
 
-Planning is read-only apart from the final approved issue comment. Never write to production or change implementation files while planning.
+Planning is read-only apart from the final approved issue comment and any explicitly documented project status transition. Never write to production or change implementation files while planning.
 
 ## Ground the plan
 
-Read the root `AGENTS.md`, the nearest site-level `AGENTS.md`, and relevant repository documentation. For a submodule, also read its own instructions and work against its current checkout.
+Read the root `AGENTS.md`, the nearest site-level `AGENTS.md`, and the applicable reference documents they identify before drafting. For a submodule, also read its own instructions and work against its current checkout.
 
 Inspect the real implementation deeply enough to identify:
 
@@ -46,7 +46,7 @@ Do not silently choose a material option.
 
 ## Draft the plan
 
-Structure the plan in implementation order using only sections relevant to the work. Start the draft with the exact heading `## Implementation plan`, then include:
+Structure the plan in implementation order and implementable layers such as access/URL, frontend, backend, data, and tests, using only sections relevant to the work. Start the draft with the exact heading `## Implementation plan`, record resolved outcomes under the exact heading `## Decisions`, and end with the exact heading `## Read first` and its reference list. Include:
 
 - **Context**: the intended outcome and important current behavior.
 - **Decisions**: resolved choices and rationale; never leave questions here.
@@ -60,18 +60,26 @@ Use file paths and implementation identifiers here: code grounding is the purpos
 
 ## Confirm before posting
 
-Show the complete draft in chat and ask the user to decide every remaining fork. Do not post or modify the issue until the user explicitly approves the full plan. Incorporate feedback and present the complete revised plan again whenever it changes.
+Open the chat presentation with the issue number and link, title, and its Summary section or a one-to-two-sentence restatement when it has none. Keep this context header out of the posted comment. Show the complete draft and ask the user to decide every remaining fork. Do not post or modify the issue until the user explicitly approves the full plan. Incorporate feedback and present the complete revised plan again whenever it changes.
 
-A plan is ready to post only when all decisions are recorded under **Decisions** and no open questions remain.
+A plan is ready to post only when all decisions are recorded under `## Decisions` and no open questions remain.
 
 ## Post the approved plan
 
 Preserve the exact approved Markdown. Create a uniquely named temporary file with `mktemp`, write the plan to it, and post it with:
 
 ```sh
-gh issue comment <number> --body-file <temporary-file>
+gh issue comment <number> --repo <owner>/<repo> --body-file <temporary-file>
 ```
 
 Ensure `## Implementation plan` is the first line because `$make-pr` uses that heading to locate the specification. Remove the temporary file afterward. Do not add AI attribution.
 
 Verify the posted comment and report its URL.
+
+## Project status and retries
+
+After posting, follow a transition to Ready only when the owning repository documents that workflow in its `TICKETS.md`. This repository currently defines no project status transitions; do not import Fair Event Plugins project or sprint conventions or invent a status update.
+
+When a documented transition applies, check the current status first, write only when needed, never move a later status backward, and read the project item back to verify. Report the posted comment and status transition as separate outcomes. If the project item or status option is missing, or the update cannot be verified, report the exact remaining action.
+
+When retrying an interrupted posting or status operation, inspect existing `## Implementation plan` comments to find the already-posted approved plan. Reuse that comment and retry only the incomplete operation; never post a duplicate plan.
