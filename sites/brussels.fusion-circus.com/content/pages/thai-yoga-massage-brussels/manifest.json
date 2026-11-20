@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "thai-yoga-massage-brussels",
+  "type": "page",
+  "title": "Thai Yoga Massage",
+  "slug": "thai-yoga-massage-brussels",
+  "status": "publish",
+  "template": "page-no-title",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-06_34_05-PM.png",
+      "file": "inline-image-1.png",
+      "sha256": "5bb76198c81575f313b379499f52ed77db0d3bd97242d7f8a965f6b1068746f4"
+    },
+    {
+      "path": "2026/09/od-stop-do-glow-683x1024.jpg",
+      "file": "inline-image-2.jpg",
+      "sha256": "f17a5a3a5fa036f5a4badea2590c9cffdac3d32177746b957c80826e0e583416"
+    },
+    {
+      "path": "2026/09/przybij-piatke-683x1024.jpg",
+      "file": "inline-image-3.jpg",
+      "sha256": "34df31a4928f169c39db784fb303f289834973a9d93b7cb0b73e6d2b58f3a75e"
+    },
+    {
+      "path": "2026/09/z-kolanka.jpg",
+      "file": "inline-image-4.jpg",
+      "sha256": "8f2404b02122a7af9cd2cb674da376518e2bfae561660a625deeac7db795f48b"
+    }
+  ],
+  "uploadReferences": [
+    {
+      "path": "2026/11/1118.mp4",
+      "sha256": "dfebb0c646a085af6696fffd9740d5565911938e6a1db67178afb3e98dd60fe7",
+      "size": 47994082
+    },
+    {
+      "path": "2026/11/bodywork-4.pdf",
+      "sha256": "2f9e4e8e33314b34be1253f9add0570f96ef62a77d0907ae0459d19fbfd5b1fe",
+      "size": 1471072
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "40e0aba5821387a3bfa2c9101a8d85700d566aa648852895b5f687b413793956"
+}

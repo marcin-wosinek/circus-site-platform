@@ -90,6 +90,34 @@
         }
       }
     },
+    "uploadReferences": {
+      "type": "array",
+      "description": "Production-only PDF/video references; no file bytes are packaged.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "size"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "\\.(?:[pP][dD][fF]|[mM][pP]4|[wW][eE][bB][mM])$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      }
+    },
     "metadata": {
       "type": "object",
       "description": "Only keys allowlisted by the site's content-publish.json.",

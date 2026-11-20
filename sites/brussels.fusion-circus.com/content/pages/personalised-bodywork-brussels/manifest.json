@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "personalised-bodywork-brussels",
+  "type": "page",
+  "title": "Personalised bodywork in Brussels",
+  "slug": "personalised-bodywork-brussels",
+  "status": "publish",
+  "template": "page-no-title",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-05_33_49-PM.png",
+      "file": "inline-image-1.png",
+      "sha256": "e85f01906e96dca539eedd62b08d8167f153ef6a675216b2dc63611c81af9853"
+    },
+    {
+      "path": "2026/09/ChatGPT-Image-Sep-18-2026-05_55_38-PM-1024x683.png",
+      "file": "inline-image-2.png",
+      "sha256": "e047593d7f26bb726cb66824cb2fc4f8ede0db84d8ba0e514752376bc1a186b7"
+    },
+    {
+      "path": "2026/09/kobido-better-1024x683.png",
+      "file": "inline-image-3.png",
+      "sha256": "c5062bdfb79355c7e35dc42a889cf6b9beb3b13f77aa045478bfacf0b3f0f084"
+    },
+    {
+      "path": "2026/09/masaz-praca1-1024x683.png",
+      "file": "inline-image-4.png",
+      "sha256": "16922725d5042191245d48e09d1aa0bb0c57d2907646b79e2bb91b7e279063d1"
+    }
+  ],
+  "uploadReferences": [
+    {
+      "path": "2026/11/bodywork-4.pdf",
+      "sha256": "2f9e4e8e33314b34be1253f9add0570f96ef62a77d0907ae0459d19fbfd5b1fe",
+      "size": 1471072
+    }
+  ],
+  "metadata": {},
+  "baselineHash": "9bd5cfafe05b4031acdd7a3da93f1c0d6f114ce644ae00c4abc21dfb1b5679b1"
+}

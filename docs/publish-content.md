@@ -226,3 +226,38 @@ the next deployment.
 
 WordPress items may have an empty title (for example, the Brussels homepage).
 Artifacts preserve that empty string; a title must still be a string.
+
+## Production upload references
+
+Schema version 1 optionally accepts `uploadReferences`, separate from packaged
+`inlineImages`. Each entry contains exactly `path` (relative to uploads),
+`sha256` (lowercase SHA-256), and `size` (a nonnegative safe integer in bytes).
+Only `.pdf`, `.mp4`, and `.webm` are supported. Export packages images as before;
+it writes no PDF or video bytes into the artifact. Every upload URL in the
+content must have exactly one declaration in its appropriate category.
+
+Export requires ignored `import/uploads-manifest.json` from a successful
+production import. The reference must match that manifest's site, production
+source, path, size, and hash, and the current local regular file. Symlinks and
+unsafe paths are rejected. If provenance is absent, obsolete, or invalid,
+preserve local authoring changes and re-import production. Do not generate a
+manifest from existing local uploads. Locally added documents and videos must
+first reach production through the normal media workflow, then be re-imported.
+
+Plan and apply do not require local provenance. They inspect production regular
+files over SSH, computing hashes remotely without downloading document or video
+bytes. Missing or different files make the item a `conflict`, even if its page
+would otherwise be `unchanged`; the reason names the site, key, and path. Plan
+continues reporting other items and exits 1 for conflicts. Access and invalid
+protocol responses stop the operation rather than masquerading as missing files.
+Apply checks during initial preflight, after backup before the first item
+mutation, immediately before the page write, before skipping completed items on
+retry, and in final verification. Reference-only files are never uploaded,
+created, or overwritten. Restore the expected production media through the
+normal media workflow or reconcile the artifact and make a new plan.
+
+Page normalization and baseline hashes are unchanged; reference hashes are
+independent mandatory checks. The clean Git and exact commit requirements bind
+the reference declarations to the saved plan. Original attachment IDs in block
+markup remain unchanged. File inspection proves bytes, not attachment ownership;
+those IDs remain valid only under the production-import assumption.

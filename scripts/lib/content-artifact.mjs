@@ -1,3 +1,5 @@
+import { validateUploadEntry } from './upload-provenance.mjs';
+import { validateUploadPath, isUploadReference } from './upload-path.mjs';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { extname, relative, resolve, sep } from 'node:path';
@@ -28,6 +30,7 @@ const TOP_LEVEL_FIELDS = [
 	'content',
 	'featuredImage',
 	'inlineImages',
+	'uploadReferences',
 	'metadata',
 	'baselineHash',
 ];
@@ -110,6 +113,7 @@ export function validateManifestShape(manifest, { contentKey, item }) {
 		for (const image of manifest.inlineImages) {
 			if (!image || typeof image !== 'object' || Array.isArray(image)) throw new CliError('Artifact inline image must be an object.');
 			assertOnlyKeys(image, ['path', 'file', 'sha256'], 'Artifact inline image');
+			try { validateUploadPath(image.path); } catch { throw new CliError(`Artifact inline image path is invalid: ${image.path}`); }
 			if (typeof image.path !== 'string' || !image.path || image.path.startsWith('/') || image.path.includes('\\') || image.path.split('/').some((part) => !part || part === '.' || part === '..') || !mimeTypeForExtension(image.path)) throw new CliError(`Artifact inline image path is invalid: ${image.path}`);
 			assertArtifactFilename(image.file, 'Artifact inline image file');
 			if (mimeTypeForExtension(image.file) !== mimeTypeForExtension(image.path)) throw new CliError(`Artifact inline image extension does not match: ${image.file}`);
@@ -117,6 +121,17 @@ export function validateManifestShape(manifest, { contentKey, item }) {
 			if (paths.has(image.path) || files.has(image.file)) throw new CliError('Artifact inline images contain a duplicate path or file.');
 			paths.add(image.path);
 			files.add(image.file);
+		}
+	}
+
+	if (manifest.uploadReferences !== undefined) {
+		if (!Array.isArray(manifest.uploadReferences)) throw new CliError('Artifact uploadReferences must be an array.');
+		const paths = new Set();
+		for (const entry of manifest.uploadReferences) {
+			validateUploadEntry(entry);
+			if (!isUploadReference(entry.path)) throw new CliError(`Unsupported reference extension: ${entry.path}`);
+			if (paths.has(entry.path)) throw new CliError(`Duplicate upload reference: ${entry.path}`);
+			paths.add(entry.path);
 		}
 	}
 

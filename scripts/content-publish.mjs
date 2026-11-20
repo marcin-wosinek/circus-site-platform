@@ -30,7 +30,10 @@ import { writeJsonFileAtomic } from './lib/json-file.mjs';
 import { parseJsonNoDuplicateKeys } from './lib/strict-json.mjs';
 import { createProductionBackup } from './lib/content-production-backup.mjs';
 import { ensureProductionMedia, writeProductionPost } from './lib/content-production-write.mjs';
-import { collectInlineImages, referencedUploadPaths } from './lib/content-inline-images.mjs';
+import { verifiedUploadReferences } from './lib/upload-provenance.mjs';
+import { isUploadReference, regularUploadFile } from './lib/upload-path.mjs';
+import { inspectProductionUploadReference, referenceConflict } from './lib/content-upload-references.mjs';
+import { collectInlineImages, referencedUploadPaths, assertUploadCoverage } from './lib/content-inline-images.mjs';
 import { inspectProductionInlineImage, ensureProductionInlineImage } from './lib/content-production-write.mjs';
 
 const platformDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -93,7 +96,7 @@ function exportFeaturedImage({ projectDir, wpEnvFile, pageId }) {
 	const title = runWpCliText(projectDir, ['post', 'get', thumbnailId, '--field=post_title']);
 
 	const uploadsDir = resolveUploadsDir(projectDir, wpEnvFile);
-	const sourcePath = resolve(uploadsDir, attachedFile);
+	const sourcePath = regularUploadFile(uploadsDir, attachedFile);
 	const fromUploads = relative(uploadsDir, sourcePath);
 	if (!fromUploads || fromUploads.startsWith('..')) {
 		throw new CliError(`Featured image attachment path escapes the uploads directory: ${attachedFile}`);
@@ -121,7 +124,7 @@ function exportFeaturedImage({ projectDir, wpEnvFile, pageId }) {
 	};
 }
 
-function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls, refreshBaseline }) {
+async function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls, refreshBaseline }) {
 	console.log(`Export destination: ${relative(platformDir, item.artifactDirAbsolute)} (committed artifact)`);
 	const pageId = resolvePostId(projectDir, item, siteId);
 
@@ -152,7 +155,17 @@ function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls,
 
 	assertUrlsTokenized(content, siteUrls, 'Exported content');
 	assertUrlsTokenized(post.post_title, siteUrls, 'Exported title');
-	const inlineImages = collectInlineImages(content, resolveUploadsDir(projectDir, wpEnvFile));
+	const uploadsDir = resolveUploadsDir(projectDir, wpEnvFile);
+	const inlineImages = collectInlineImages(content, uploadsDir);
+	const referencePaths = referencedUploadPaths(content).filter(isUploadReference);
+	let uploadReferences;
+	if (referencePaths.length) {
+		loadEnvFile(resolveEnvFilePath(platformDir, projectDir, siteId));
+		const { sshTarget, sshPort, remotePath } = loadProductionSshConfig();
+		uploadReferences = await verifiedUploadReferences(referencePaths, uploadsDir, resolve(projectDir, 'import/uploads-manifest.json'), {
+			siteId, contentKey, source: { productionUrl: siteUrls[0], sshTarget, sshPort: sshPort ?? null, remotePath },
+		});
+	}
 
 	const canonicalState = canonicalizePageState({
 		contentKey,
@@ -188,6 +201,7 @@ function exportItem({ siteId, projectDir, wpEnvFile, item, contentKey, siteUrls,
 		content: { file: 'content.html' },
 		featuredImage: featuredImage?.manifestEntry ?? null,
 		inlineImages: inlineImages.map((image) => image.entry),
+		...(uploadReferences ? { uploadReferences } : {}),
 		metadata,
 		baselineHash,
 	};
@@ -221,13 +235,15 @@ async function runExport({ siteId, key, refreshBaseline }) {
 	console.log(`Export source: ${projectDir} (${localUrl}, local wp-env)`);
 	runWpCliText(projectDir, ['core', 'is-installed']);
 	for (const contentKey of contentKeys) {
-		exportItem({ siteId, projectDir, wpEnvFile, item: resolveContentPublishItem(config, contentKey), contentKey, siteUrls, refreshBaseline });
+		try {
+			await exportItem({ siteId, projectDir, wpEnvFile, item: resolveContentPublishItem(config, contentKey), contentKey, siteUrls, refreshBaseline });
+		} catch (error) { throw new CliError(`${siteId}/${contentKey}: ${error.message}`); }
 	}
 }
 
 function recomputeTargetHash(manifest, artifactDirAbsolute) {
 	const contentText = readFileSync(resolve(artifactDirAbsolute, manifest.content.file), 'utf8');
-	assertInlineImageReferences(manifest, contentText);
+	assertUploadCoverage(manifest, contentText);
 	const canonicalState = canonicalizePageState({
 		contentKey: manifest.contentKey,
 		type: manifest.type,
@@ -240,14 +256,6 @@ function recomputeTargetHash(manifest, artifactDirAbsolute) {
 		metadata: manifest.metadata,
 	});
 	return hashPageState(canonicalState);
-}
-
-function assertInlineImageReferences(manifest, content) {
-	const referenced = referencedUploadPaths(content);
-	const packaged = (manifest.inlineImages ?? []).map((image) => image.path).sort();
-	if (JSON.stringify(referenced) !== JSON.stringify(packaged)) {
-		throw new CliError(`Artifact "${manifest.contentKey}" does not package every referenced upload image. Re-export it.`);
-	}
 }
 
 function inspectInlineImages(sshArgs, remotePath, manifest) {
@@ -313,7 +321,7 @@ function fetchProductionHash({ sshArgs, remotePath, postId, item, contentKey, si
 	return hashPageState(canonicalState);
 }
 
-function planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls }) {
+function planPageItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls }) {
 	const targetHash = recomputeTargetHash(manifest, item.artifactDirAbsolute);
 	const artifact = { baselineHash: manifest.baselineHash, targetHash };
 
@@ -368,6 +376,15 @@ function planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls })
 	const productionHash = fetchProductionHash({ sshArgs, remotePath, postId, item, contentKey, siteUrls });
 	const { classification, reason } = classifyByHash({ baselineHash: manifest.baselineHash, targetHash, productionHash });
 	return { contentKey, classification, reason: reason ?? null, postId, productionHash, artifact };
+}
+
+function planItem(options) {
+	const result = planPageItem(options);
+	const reason = referenceConflict(options.manifest, {
+		siteId: options.siteId,
+		inspect: (entry) => inspectProductionUploadReference(options.sshArgs, options.remotePath, entry),
+	});
+	return reason ? { ...result, classification: 'conflict', reason } : result;
 }
 
 function printPlanReport(results) {
@@ -428,7 +445,7 @@ async function runPlan({ siteId, key }) {
 		}
 		validateManifestShape(existing.manifest, { contentKey, item });
 		validateArtifactFiles(existing.manifest, item.artifactDirAbsolute);
-		assertInlineImageReferences(existing.manifest, readFileSync(resolve(item.artifactDirAbsolute, existing.manifest.content.file), 'utf8'));
+		assertUploadCoverage(existing.manifest, readFileSync(resolve(item.artifactDirAbsolute, existing.manifest.content.file), 'utf8'));
 		manifests.set(contentKey, existing.manifest);
 	}
 
@@ -457,7 +474,7 @@ async function runPlan({ siteId, key }) {
 	const results = [];
 	let hasConflict = false;
 	for (const { contentKey, item } of items) {
-		const result = planItem({ sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
+		const result = planItem({ siteId, sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
 		result.missingInlineImages = inspectInlineImages(sshArgs, remotePath, manifests.get(contentKey));
 		results.push(result);
 		if (result.classification === 'conflict') hasConflict = true;
@@ -487,7 +504,7 @@ async function runApply({ siteId, planPath }) {
 		if (!existing) throw new CliError(`Artifact missing for ${contentKey}.`);
 		validateManifestShape(existing.manifest, { contentKey, item });
 		validateArtifactFiles(existing.manifest, item.artifactDirAbsolute);
-		assertInlineImageReferences(existing.manifest, readFileSync(resolve(item.artifactDirAbsolute, existing.manifest.content.file), 'utf8'));
+		assertUploadCoverage(existing.manifest, readFileSync(resolve(item.artifactDirAbsolute, existing.manifest.content.file), 'utf8'));
 		manifests.set(contentKey, existing.manifest);
 	}
 	assertPathsCommittedAndClean(platformDir, [config.configPath, ...items.map(({ item }) => item.artifactDirAbsolute)]);
@@ -513,10 +530,10 @@ async function runApply({ siteId, planPath }) {
 	runRemoteWpCliText(sshArgs, remotePath, ['core', 'is-installed']);
 	for (const { contentKey, item } of items) {
 		const saved = record.items[contentKey];
-		const current = planItem({ sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
+		const current = planItem({ siteId, sshArgs, remotePath, contentKey, item, manifest: manifests.get(contentKey), siteUrls });
 		const starting = current.postId === saved.production.postId && current.productionHash === saved.production.hash && current.classification !== 'conflict';
 		const complete = current.postId !== null && current.productionHash === saved.artifact.targetHash && current.classification !== 'conflict' && (!saved.production.postId || current.postId === saved.production.postId);
-		if (!starting && !complete) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped before mutation.`);
+		if (!starting && !complete) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped before mutation. ${current.reason ?? ''}`);
 		inspectInlineImages(sshArgs, remotePath, manifests.get(contentKey));
 	}
 	const journalDir = resolve(platformDir, '.content-publish', 'journals', siteId);
@@ -529,9 +546,9 @@ async function runApply({ siteId, planPath }) {
 		for (const { contentKey, item } of items) {
 			const manifest = manifests.get(contentKey);
 			const saved = record.items[contentKey];
-			const current = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			const current = planItem({ siteId, sshArgs, remotePath, contentKey, item, manifest, siteUrls });
 			const missingInlineImages = inspectInlineImages(sshArgs, remotePath, manifest);
-			const alreadyDone = current.productionHash === saved.artifact.targetHash && current.postId !== null && missingInlineImages === 0;
+			const alreadyDone = current.classification !== 'conflict' && current.productionHash === saved.artifact.targetHash && current.postId !== null && missingInlineImages === 0;
 			if (alreadyDone) {
 				if (saved.production.postId && current.postId !== saved.production.postId) throw new CliError(`Production identity changed for ${contentKey}.`);
 				journal.items[contentKey] = { phase: 'verified', action: 'skipped', postId: current.postId, hash: current.productionHash }; save();
@@ -540,15 +557,15 @@ async function runApply({ siteId, planPath }) {
 			}
 			const atStart = current.postId === saved.production.postId && current.productionHash === saved.production.hash;
 			const atTarget = current.postId !== null && current.productionHash === saved.artifact.targetHash && (!saved.production.postId || current.postId === saved.production.postId);
-			if (current.classification === 'conflict' || (!atStart && !atTarget)) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped.`);
+			if (current.classification === 'conflict' || (!atStart && !atTarget)) throw new CliError(`Production changed since planning for ${contentKey}; apply stopped. ${current.reason ?? ''}`);
 			if (!backup) {
 				backup = createProductionBackup({ platformDir, siteId, sshArgs, remotePath });
 				journal.backup = backup; save();
 				console.log(`Verified backup: ${backup.path} (${backup.sha256})`);
 			}
 			// Re-read after the backup, immediately before this item's first mutation.
-			const beforeWrite = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
-			if (beforeWrite.postId !== current.postId || beforeWrite.productionHash !== current.productionHash || beforeWrite.classification === 'conflict') throw new CliError(`Production changed during backup for ${contentKey}.`);
+			const beforeWrite = planItem({ siteId, sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			if (beforeWrite.postId !== current.postId || beforeWrite.productionHash !== current.productionHash || beforeWrite.classification === 'conflict') throw new CliError(`Production changed during backup for ${contentKey}. ${beforeWrite.reason ?? ''}`);
 			for (const image of manifest.inlineImages ?? []) {
 				const bytes = readFileSync(resolve(item.artifactDirAbsolute, image.file));
 				const result = ensureProductionInlineImage(sshArgs, remotePath, image, bytes);
@@ -562,15 +579,15 @@ async function runApply({ siteId, planPath }) {
 				thumbnailId = media.id;
 				journal.items[contentKey] = { phase: 'media', mediaId: media.id, uploaded: media.uploaded }; save();
 			}
-			const beforePost = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
-			if (beforePost.postId !== current.postId || beforePost.productionHash !== current.productionHash || beforePost.classification === 'conflict') throw new CliError(`Production changed before page write for ${contentKey}.`);
+			const beforePost = planItem({ siteId, sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			if (beforePost.postId !== current.postId || beforePost.productionHash !== current.productionHash || beforePost.classification === 'conflict') throw new CliError(`Production changed before page write for ${contentKey}. ${beforePost.reason ?? ''}`);
 			const content = materializeSiteUrl(readFileSync(resolve(item.artifactDirAbsolute, manifest.content.file), 'utf8'), productionUrl);
 			const written = atTarget
 				? { id: Number(current.postId) }
 				: writeProductionPost(sshArgs, remotePath, { postId: saved.production.postId, contentKey, manifest, content, thumbnailId });
 			journal.items[contentKey] = { phase: 'page', postId: String(written.id), mediaId: thumbnailId }; save();
-			const after = planItem({ sshArgs, remotePath, contentKey, item, manifest, siteUrls });
-			if (after.postId !== String(written.id) || after.productionHash !== saved.artifact.targetHash) throw new CliError(`Post-write readback hash mismatch for ${contentKey}; deployment failed. Restore the backup manually if needed.`);
+			const after = planItem({ siteId, sshArgs, remotePath, contentKey, item, manifest, siteUrls });
+			if (after.classification === 'conflict' || after.postId !== String(written.id) || after.productionHash !== saved.artifact.targetHash) throw new CliError(`Post-write readback hash mismatch for ${contentKey}; deployment failed. ${after.reason ?? ''} Restore the backup manually if needed.`);
 			journal.items[contentKey] = { phase: 'verified', action: saved.classification, postId: after.postId, hash: after.productionHash, mediaId: thumbnailId }; save();
 			console.log(`${contentKey}: ${saved.classification} (ID ${after.postId}, ${after.productionHash})`);
 		}
