@@ -21,6 +21,23 @@ if ( null === $upcoming_cards ) {
 	}
 }
 $event = $upcoming_cards[ $post_id ] ?? null;
+// Past-event lists reuse this card: fall back to each event's latest
+// occurrence that has already started. Resolved lazily, once per request.
+static $past_cards = null;
+if ( ! $event ) {
+	if ( null === $past_cards ) {
+		$past_cards = array();
+		$rows = ( new \FairEvents\Services\EventFeedProvider() )->get_occurrences( null, current_time( 'mysql' ) );
+		foreach ( $rows as $row ) {
+			$id = (int) ( $row['event_id'] ?? 0 );
+			if ( $id ) {
+				// Rows are sorted by start ASC, so the last one wins.
+				$past_cards[ $id ] = $row;
+			}
+		}
+	}
+	$event = $past_cards[ $post_id ] ?? null;
+}
 if ( ! $event ) {
 	return;
 }

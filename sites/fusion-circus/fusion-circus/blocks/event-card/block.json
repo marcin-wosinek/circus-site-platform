@@ -3,7 +3,7 @@
   "name": "fusion-circus/event-card",
   "title": "Fusion Circus Event Card",
   "category": "widgets",
-  "description": "An upcoming event card for a Fair Events Query Loop.",
+  "description": "An event card for a Fair Events Query Loop: next occurrence, or latest past one.",
   "usesContext": ["postId", "postType"],
   "attributes": {
     "layout": {"type": "string", "enum": ["card", "row"], "default": "card"}
