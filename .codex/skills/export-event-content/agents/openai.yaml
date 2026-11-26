@@ -1,0 +1,4 @@
+interface:
+  display_name: "Export Event Content"
+  short_description: "Export all tracked pages of an event"
+  default_prompt: "Use $export-event-content to export every tracked page related to the referenced event date."

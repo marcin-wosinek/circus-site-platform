@@ -1,0 +1,4 @@
+interface:
+  display_name: "Track Event Content"
+  short_description: "Track all pages of an event for publishing"
+  default_prompt: "Use $track-event-content to start tracking every page related to the referenced event date."

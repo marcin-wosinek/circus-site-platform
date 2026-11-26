@@ -63,6 +63,12 @@ items, their featured images, and image files referenced in their content under
    existing artifacts that predate inline-image packaging before planning them.
 4. Commit the artifact together with any related code changes.
 
+For Fair Events content, the `track-event-content` and `export-event-content`
+agent skills (in `.codex/skills/`, linked from `.claude/skills/`) add configuration
+and run exports for every post linked to one event date, including translations. Both
+use `.codex/skills/track-event-content/related-posts.sh <site-id>
+<event-date-id>` to list those posts read-only from the local site.
+
 ### Adopting the current local state as the baseline
 
 The very first export for a content key has nothing to preserve, so it
