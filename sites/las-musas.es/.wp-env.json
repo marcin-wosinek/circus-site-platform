@@ -6,7 +6,7 @@
     "https://downloads.wordpress.org/plugin/hostinger.zip"
   ],
   "themes": [
-    "https://downloads.wordpress.org/theme/twentytwentyfive.zip"
+    "./las-musas"
   ],
   "config": {
     "WP_DEBUG": true,

@@ -83,8 +83,8 @@ destination, current production state, and a fresh full database backup. See
 ## Theme artifacts
 
 The root [theme packaging workflow](.github/workflows/build-themes.yml) builds
-the directly tracked `acro-agenda`, `circus-it`, `fusion-circus`, and
-`lamutable` themes. Its matrix is the
+the directly tracked `acro-agenda`, `circus-it`, `fusion-circus`,
+`lamutable`, and `las-musas` themes. Its matrix is the
 authoritative list of packaged themes; `sites.json` remains focused on site
 operations.
 
@@ -101,7 +101,8 @@ wordpress-themes.zip
 ├── acro-agenda.zip
 ├── circus-it.zip
 ├── fusion-circus.zip
-└── lamutable.zip
+├── lamutable.zip
+└── las-musas.zip
 ```
 
 Each inner ZIP is independently installable in WordPress and contains exactly
