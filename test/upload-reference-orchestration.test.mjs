@@ -30,8 +30,12 @@ else if (command.includes('Upload inspection failed')) {
 else if (command.includes('Invalid inline image bytes')) {
  const data = JSON.parse(input);
  if (/\.(pdf|mp4|webm)$/.test(data.path)) throw new Error('Reference bytes sent to image processing');
- if (data.write) { state.media++; state.mutations++; }
- output({status: data.write ? 'uploaded' : 'missing'});
+ if (state.imageRegistered) output({status:'exists'});
+ else if (data.write) {
+  state.media++; state.mutations++; state.imageRegistered = true;
+  output({status: state.orphanImage ? 'registered' : 'uploaded'});
+ }
+ else output({status: state.orphanImage ? 'unregistered' : 'missing'});
 }
 else if (command.includes('Post write failed')) { state.writes++; state.mutations++; state.done = true; output({id:1}); }
 else if (command.includes("'list'")) output([{ID:1,post_status:'publish'}]);
@@ -39,7 +43,7 @@ else if (command.includes("'--format=json'")) output({post_title:'Service',post_
 else output('');
 `;
 
-function fixture(t, { inline = false, alreadyDone = false } = {}) {
+function fixture(t, { inline = false, alreadyDone = false, orphanImage = false } = {}) {
  const dir = mkdtempSync(join(tmpdir(), 'reference-orchestration-'));
  t.after(() => rmSync(dir, { recursive: true, force: true }));
  cpSync(resolve('scripts'), join(dir, 'scripts'), { recursive: true });
@@ -67,7 +71,7 @@ function fixture(t, { inline = false, alreadyDone = false } = {}) {
  mkdirSync(join(dir,'.env.import-local'));writeFileSync(join(dir,'.env.import-local/example.test'),'PRODUCTION_SSH=test-host\nPRODUCTION_WP_PATH=/srv/wp\n');
  mkdirSync(join(dir,'bin'));writeFileSync(join(dir,'bin/ssh'),stub);chmodSync(join(dir,'bin/ssh'),0o755);
  const statePath=join(dir,'state.json');
- const initial={mode:'matching',backups:0,media:0,writes:0,mutations:0,inspections:0,done:alreadyDone,target,old};
+ const initial={mode:'matching',backups:0,media:0,writes:0,mutations:0,inspections:0,done:alreadyDone,target,old,orphanImage};
  writeFileSync(statePath,JSON.stringify(initial));
  for(const args of [['init','--quiet'],['add','scripts','sites','sites.json','package.json','.gitignore'],['-c','user.name=Test','-c','user.email=test@example.test','commit','--quiet','-m','fixture']]) {
   const result=spawnSync('git',args,{cwd:dir,encoding:'utf8'});assert.equal(result.status,0,result.stderr);
@@ -96,6 +100,23 @@ test('reference change during image processing stops before page write; retry re
 });
 test('completed retry still validates references before skipping',t=>{
  const f=fixture(t,{alreadyDone:true});assert.equal(f.run('plan').status,0);assert.equal(f.run('apply').status,0);assert.equal(f.state().mutations,0);f.mode('missing');assert.equal(f.run('apply').status,1);assert.equal(f.state().mutations,0);
+});
+
+test('apply registers a shared orphan image for unchanged pages and skips it on retry', t => {
+ const f = fixture(t, { inline: true, alreadyDone: true, orphanImage: true });
+ const plan = f.run('plan');
+ assert.equal(plan.status, 0, plan.stderr);
+ assert.match(plan.stdout, /1 inline images need upload or Media Library registration/);
+ assert.equal(f.state().mutations, 0);
+ const apply = f.run('apply');
+ assert.equal(apply.status, 0, apply.stderr);
+ assert.equal(f.state().media, 1);
+ assert.equal(f.state().writes, 0);
+ assert.equal(f.state().backups, 1);
+ const retry = f.run('apply');
+ assert.equal(retry.status, 0, retry.stderr);
+ assert.equal(f.state().media, 1);
+ assert.equal(f.state().backups, 1);
 });
 
 test('successful apply writes only the page and revalidates references in final verification', t => {

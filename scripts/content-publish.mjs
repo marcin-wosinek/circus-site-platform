@@ -262,8 +262,8 @@ function inspectInlineImages(sshArgs, remotePath, manifest) {
 	let missing = 0;
 	for (const image of manifest.inlineImages ?? []) {
 		const result = inspectProductionInlineImage(sshArgs, remotePath, image);
-		if (result.status === 'conflict') throw new CliError(`Production inline image differs at ${image.path}; refusing to overwrite it.`);
-		if (result.status === 'missing') missing += 1;
+		if (result.status === 'conflict') throw new CliError(`Production inline image conflict at ${image.path}: ${result.reason ?? 'refusing to overwrite different bytes'}.`);
+		if (result.status === 'missing' || result.status === 'unregistered') missing += 1;
 	}
 	return missing;
 }
@@ -393,7 +393,7 @@ function printPlanReport(results) {
 	for (const result of results) {
 		const parts = [`- ${result.contentKey}: ${result.classification}`];
 		if (result.postId) parts.push(`(production ID ${result.postId})`);
-		if (result.missingInlineImages) parts.push(`(${result.missingInlineImages} referenced upload images missing)`);
+		if (result.missingInlineImages) parts.push(`(${result.missingInlineImages} inline images need upload or Media Library registration)`);
 		if (result.reason) parts.push(`— ${result.reason}`);
 		console.log(parts.join(' '));
 	}
@@ -569,11 +569,11 @@ async function runApply({ siteId, planPath }) {
 			for (const image of manifest.inlineImages ?? []) {
 				const bytes = readFileSync(resolve(item.artifactDirAbsolute, image.file));
 				const result = ensureProductionInlineImage(sshArgs, remotePath, image, bytes);
-				if (result.status === 'conflict') throw new CliError(`Production inline image differs at ${image.path}; refusing to overwrite it.`);
+				if (result.status === 'conflict') throw new CliError(`Production inline image conflict at ${image.path}: ${result.reason ?? 'refusing to overwrite different bytes'}.`);
 				journal.items[contentKey] = { phase: 'inline-images', lastImage: image.path, status: result.status }; save();
 			}
 			let thumbnailId = null;
-			if (manifest.featuredImage) {
+			if (!atTarget && manifest.featuredImage) {
 				const bytes = readFileSync(resolve(item.artifactDirAbsolute, manifest.featuredImage.file));
 				const media = ensureProductionMedia(sshArgs, remotePath, manifest.featuredImage, bytes);
 				thumbnailId = media.id;

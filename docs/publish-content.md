@@ -188,10 +188,15 @@ existing ignored `.env.import-local/<site-id>` provides `PRODUCTION_SSH`,
 `PRODUCTION_SSH_KEY`. Keep this file and backups private. A fresh backup is
 made on every retry that needs a write. Each page is read back and hashed after
 writing; a mismatch is a failed deployment even if WordPress accepted it.
-Apply also copies packaged inline images to their exact upload paths before
-writing the post. It reuses identical files and refuses to overwrite a file
-whose bytes differ. These copies make existing image URLs display; the block
-editor's original attachment IDs are not remapped into production media IDs.
+Apply places packaged inline photos at their exact upload paths and registers
+them in the Media Library before writing the post. It reuses an attachment
+when its original file or a generated size matches the packaged path and
+bytes. If a matching file exists without an attachment, apply registers the
+file in place, including when the post is already at its target state.
+Plan reports photos that need an upload or registration. Apply refuses to
+overwrite different bytes or use an ambiguous attachment. A new attachment
+uses the packaged image as its full-size file, with its original dimensions
+and URL. Image blocks continue to use the URLs and IDs in the artifact.
 
 ### Recovery
 
