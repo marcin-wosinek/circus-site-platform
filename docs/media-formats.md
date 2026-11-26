@@ -1,5 +1,10 @@
 # Media formats
 
+> **Deprecated.** Campaign visuals are no longer produced in this repository.
+> Site copy now comes from the client or from the private `event-content-
+> studio` repository. Keep this material as read-only reference for existing
+> work until it moves there; do not start new work from it.
+
 Status: draft catalogue, version 0.6.0.
 
 These shared presets describe the output canvas and its content. A site's

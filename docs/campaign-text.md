@@ -1,5 +1,10 @@
 # Campaign text
 
+> **Deprecated.** Campaign text is no longer produced in this repository. Site
+> copy now comes from the client or from the private `event-content-studio`
+> repository. Keep this material as read-only reference for existing work
+> until it moves there; do not start new work from it.
+
 Campaign images are produced from one text file per edition:
 
 1. **Write the text once.** Put every image label and all channel copy for the

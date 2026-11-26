@@ -55,7 +55,8 @@ las-musas/
 └── theme.json    Theme settings; design tokens inherit Twenty Twenty-Five
 ```
 
-Visual direction is pending; there is no brand kit under `brand/` yet. Page
+Page copy comes from the client or from the private `event-content-studio`
+repository; this site has no brand kit here and will not get one. Page
 templates come from Twenty Twenty-Five and pick up the child header and footer
 parts by slug. The root theme packaging workflow builds `las-musas.zip`;
 deployment to production is a separate, manual step.

@@ -116,7 +116,15 @@ This workflow only turns committed source files into downloadable artifacts.
 It has no deployment step, production access, credentials, or production
 writes.
 
-## Brand kits
+## Site copy
+
+Site copy and campaign content are no longer authored here. Page text and
+image wording come from the client or from the private `event-content-studio`
+repository. The brand kit, terminology, and campaign text sections below are
+deprecated and kept only for existing themes and campaign editions until that
+material moves.
+
+## Brand kits (deprecated)
 
 Site-owned voice, visual guidance, and design tokens live in
 `sites/<site-id>/brand/`. Shared output presets are defined in
@@ -125,7 +133,7 @@ group messages with WhatsApp formatting and line breaks. See [Brand kits](docs/b
 convention and future skill integration. The first draft is
 [Ahora que hacemos](sites/ahoraquehacemos.com/brand/README.md), a website with a fresh local WordPress environment.
 
-## Terminology
+## Terminology (deprecated)
 
 Shared approved wording lives in [`terminology.json`](terminology.json);
 projects add terms, do-not-translate names, and explicit overrides in
@@ -143,7 +151,7 @@ with its location and preferred replacement, never rewrites files, and exits
 with `1` for findings or missing requested translations and `2` for invalid
 input. See [Terminology](docs/terminology.md).
 
-## Campaign text
+## Campaign text (deprecated)
 
 Each campaign edition keeps every image label and all channel copy in one
 `text.json`. Write it once, deliver it to people as a Google Doc, and edit it

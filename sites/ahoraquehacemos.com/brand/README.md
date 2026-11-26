@@ -1,5 +1,10 @@
 # Ahora que hacemos — brand kit
 
+> **Deprecated.** This brand kit is no longer maintained in this repository.
+> Site copy now comes from the client or from the private `event-content-
+> studio` repository. Keep this material as read-only reference for existing
+> work until it moves there; do not start new work from it.
+
 Version: **0.1.0** · Status: **draft proposal for the first website**
 
 The founder supplied the description and work-in-progress logo below. All

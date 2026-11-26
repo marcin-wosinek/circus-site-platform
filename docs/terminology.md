@@ -1,5 +1,11 @@
 # Terminology
 
+> **Deprecated.** Copy is no longer written in this repository; the glossaries
+> here serve existing campaign editions only. Site copy now comes from the
+> client or from the private `event-content-studio` repository. Keep this
+> material as read-only reference for existing work until it moves there; do
+> not start new work from it.
+
 Authors and agents use the approved wording in a glossary when they write
 copy, translate it, or prepare text for images. There are two layers:
 

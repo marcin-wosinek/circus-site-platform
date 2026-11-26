@@ -1,5 +1,10 @@
 # Site brand kits
 
+> **Deprecated.** Brand kits are no longer maintained in this repository. Site
+> copy now comes from the client or from the private `event-content-studio`
+> repository. Keep this material as read-only reference for existing work
+> until it moves there; do not start new work from it.
+
 Keep each site's brand kit in `sites/<site-id>/brand/`. Brand preparation can
 precede WordPress setup; having a kit does not register a site in `sites.json`.
 

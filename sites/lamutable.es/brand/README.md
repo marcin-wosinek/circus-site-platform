@@ -1,5 +1,10 @@
 # La Mutable — kit de marca
 
+> **Deprecated.** This brand kit is no longer maintained in this repository.
+> Site copy now comes from the client or from the private `event-content-
+> studio` repository. Keep this material as read-only reference for existing
+> work until it moves there; do not start new work from it.
+
 Versión **0.1.3 · borrador · 16 noviembre 2026**. Dirección propuesta para
 prototipos y nuevas piezas; no constituye una identidad aprobada. Los valores
 exactos viven en [tokens.json](tokens.json). No instala fuentes ni modifica la web.
