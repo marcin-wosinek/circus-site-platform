@@ -10,7 +10,33 @@
     "file": "content.html"
   },
   "featuredImage": null,
-  "inlineImages": [],
+  "inlineImages": [
+    {
+      "path": "2026/11/Jam-Contact-Impro-Danza-Fusion-1024x586.jpg",
+      "file": "inline-image-1.jpg",
+      "sha256": "cb593c12b24813d1bfc39f9d1fce010a0adbec68e83e756ed6101cd997f1ef1a"
+    },
+    {
+      "path": "2026/11/Manu-y-Sayil-Contact-Impro-Danza-Fusion-819x1024.jpg",
+      "file": "inline-image-2.jpg",
+      "sha256": "ce6e10e1184e20c01b5745eb1e603dc306b0d2e28b5345bfee19074afe8608d1"
+    },
+    {
+      "path": "2026/11/Masaje-Shiatsu-en-pareja-1024x576.jpg",
+      "file": "inline-image-3.jpg",
+      "sha256": "70d28ce8c091db6287ee1a1a478bf2eeee53dfb4e294046ca3f1059679d6088e"
+    },
+    {
+      "path": "2026/11/Sus-Lledo-Dibujo-de-movimiento.jpg",
+      "file": "inline-image-4.jpg",
+      "sha256": "3fc214346557d6a793bdc287d69f652a5814bfdcb0aa4ad58d13d25f4c917283"
+    },
+    {
+      "path": "2026/11/Te-de-bienvenida-solsticio.jpg",
+      "file": "inline-image-5.jpg",
+      "sha256": "abc6d6a76f7c1a4cc56407ece56c2ad2cbab70a710876481e9ea2896da93b197"
+    }
+  ],
   "metadata": {},
   "baselineHash": "20ebf2d2d8a62ed09e5c38843e1a3c55e59edd8f1ea8456a7129a3cf6edda1ab"
 }
