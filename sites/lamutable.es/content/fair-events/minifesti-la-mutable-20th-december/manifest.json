@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "minifesti-la-mutable-20th-december",
+  "type": "fair_event",
+  "title": "Minifesti \"La Mutable\", 20th december",
+  "slug": "minifesti-la-mutable-20th-december",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "20ebf2d2d8a62ed09e5c38843e1a3c55e59edd8f1ea8456a7129a3cf6edda1ab"
+}

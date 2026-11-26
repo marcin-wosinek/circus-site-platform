@@ -89,11 +89,13 @@ independently with the least privileges that workflow requires.
 The Spanish front page and its English translation at
 `/en/la-mutable-english/`, the `/bart/` page,
 `/fair-events/festival-de-conexion/`,
-`/fair-events/minifesti-la-mutable-26-de-septiembre/`, and
-`/fair-events/dance-connection-27-de-septiembre/` events, along with the
-`/en/fair-events/dance-connection-27th-of-september/` and
-`/en/fair-events/minifesti-la-mutable-10th-of-october/` and
-`/en/fair-events/minifesti-la-mutable-22th-of-november/` translations, are managed as committed artifacts
+`/fair-events/minifesti-la-mutable-26-de-septiembre/`,
+`/fair-events/dance-connection-27-de-septiembre/`, and
+`/fair-events/minifesti-la-mutable-20-de-diciembre/` events, along with the
+`/en/fair-events/dance-connection-27th-of-september/`,
+`/en/fair-events/minifesti-la-mutable-10th-of-october/`,
+`/en/fair-events/minifesti-la-mutable-22th-of-november/`, and
+`/en/fair-events/minifesti-la-mutable-20th-december/` translations, are managed as committed artifacts
 through [`content-publish.json`](content-publish.json). Edit them in the local
 block editor, then export their local state from the platform root:
 

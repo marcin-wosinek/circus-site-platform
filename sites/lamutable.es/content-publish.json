@@ -116,6 +116,32 @@
         "publish"
       ],
       "metadata": []
+    },
+    "minifesti-la-mutable-20-de-diciembre": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/fair-events/minifesti-la-mutable-20-de-diciembre/"
+      },
+      "artifactDir": "content/fair-events/minifesti-la-mutable-20-de-diciembre",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "minifesti-la-mutable-20th-december": {
+      "type": "fair_event",
+      "selector": {
+        "type": "post_path",
+        "path": "/en/fair-events/minifesti-la-mutable-20th-december/"
+      },
+      "artifactDir": "content/fair-events/minifesti-la-mutable-20th-december",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
     }
   }
 }
