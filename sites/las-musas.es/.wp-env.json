@@ -3,9 +3,6 @@
   "port": 9797,
   "testsEnvironment": false,
   "plugins": [
-    "https://downloads.wordpress.org/plugin/hostinger-ai-assistant.zip",
-    "https://downloads.wordpress.org/plugin/hostinger-easy-onboarding.zip",
-    "https://downloads.wordpress.org/plugin/hostinger-reach.zip",
     "https://downloads.wordpress.org/plugin/hostinger.zip"
   ],
   "themes": [
