@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "homepage",
+  "type": "page",
+  "title": "Las Musas",
+  "slug": "las-musas",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "7e4e8da09aa72360c6c7f213d7af294f1f322f867ed7cf5cf4dbd1771e099821"
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "contentKey": "quien-soy",
+  "type": "page",
+  "title": "Quien soy",
+  "slug": "quien-soy",
+  "status": "publish",
+  "template": "",
+  "content": {
+    "file": "content.html"
+  },
+  "featuredImage": null,
+  "inlineImages": [],
+  "metadata": {},
+  "baselineHash": "90f7c82e1e681503bda87bf2d604c8516ccff32cf68aea0536460eae1d917852"
+}

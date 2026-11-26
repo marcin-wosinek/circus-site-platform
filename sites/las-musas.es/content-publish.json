@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schemas/content-publish.schema.json",
+  "items": {
+    "homepage": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/las-musas/"
+      },
+      "artifactDir": "content/pages/homepage",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    },
+    "quien-soy": {
+      "type": "page",
+      "selector": {
+        "type": "page_path",
+        "path": "/quien-soy/"
+      },
+      "artifactDir": "content/pages/quien-soy",
+      "allowedStatuses": [
+        "draft",
+        "publish"
+      ],
+      "metadata": []
+    }
+  }
+}

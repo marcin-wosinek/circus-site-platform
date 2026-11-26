@@ -25,6 +25,16 @@ plugin mounting because the generated WordPress.org download URLs for
 Completing bootstrap requires valid local sources for those plugins or a
 site-specific decision to omit them from the local environment.
 
+## Managed content
+
+`content-publish.json` tracks two pages. Export them with
+`npm run content:export -- las-musas.es [--key <key>]`:
+
+- `homepage`: the `/las-musas/` page. Production does not have a static
+  front page yet (Settings → Reading shows latest posts), so the page is
+  matched by its path rather than `page_on_front`.
+- `quien-soy`: the `/quien-soy/` about page.
+
 ## Theme
 
 Production still runs Twenty Twenty-Five. The import preflight requires the
