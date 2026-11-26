@@ -1,6 +1,100 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 3,
+  "settings": {
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        { "name": "Warm Paper", "slug": "base", "color": "#F5EFE5" },
+        { "name": "Ink", "slug": "contrast", "color": "#211E1C" },
+        { "name": "Vermilion Tint", "slug": "accent-1", "color": "#F0D7CC" },
+        { "name": "Teal Tint", "slug": "accent-2", "color": "#D5E0D4" },
+        { "name": "Deep Teal", "slug": "accent-3", "color": "#126963" },
+        { "name": "Deep Teal Focus", "slug": "accent-4", "color": "#126963" },
+        { "name": "Warm Paper Field", "slug": "accent-5", "color": "#F5EFE5" },
+        { "name": "Subtle Rule", "slug": "accent-6", "color": "color-mix(in srgb, currentColor 20%, transparent)" },
+        { "name": "Vermilion", "slug": "vermilion", "color": "#C52A23" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "name": "Archivo Black",
+          "slug": "display",
+          "fontFamily": "\"Archivo Black\", system-ui, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Archivo Black",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/archivo-black.woff2"]
+            }
+          ]
+        },
+        {
+          "name": "DM Sans",
+          "slug": "body",
+          "fontFamily": "\"DM Sans\", system-ui, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "DM Sans",
+              "fontStyle": "normal",
+              "fontWeight": "100 1000",
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/dm-sans.woff2"]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|base",
+      "text": "var:preset|color|contrast"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|body",
+      "fontWeight": "400",
+      "letterSpacing": "normal",
+      "lineHeight": "1.55"
+    },
+    "elements": {
+      "heading": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|display",
+          "fontWeight": "400",
+          "letterSpacing": "normal",
+          "lineHeight": "1.15"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var:preset|color|accent-3",
+          "text": "var:preset|color|base"
+        },
+        ":hover": {
+          "color": {
+            "background": "var:preset|color|contrast",
+            "text": "var:preset|color|base"
+          }
+        },
+        "typography": {
+          "fontFamily": "var:preset|font-family|body",
+          "fontWeight": "700"
+        }
+      }
+    },
+    "blocks": {
+      "core/site-title": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|display",
+          "fontWeight": "400"
+        }
+      }
+    }
+  },
   "templateParts": [
     { "name": "header", "title": "Header", "area": "header" },
     { "name": "footer", "title": "Footer", "area": "footer" }
