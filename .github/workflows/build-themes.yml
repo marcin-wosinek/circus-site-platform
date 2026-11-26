@@ -18,118 +18,62 @@ permissions:
 
 jobs:
   package:
-    name: Package ${{ matrix.slug }}
+    name: Package WordPress themes
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - site: acro-agenda.es
-            slug: acro-agenda
-            path: sites/acro-agenda.es/acro-agenda
-          - site: circus-it.eu
-            slug: circus-it
-            path: sites/circus-it.eu/circus-it
-          - site: fusion-circus
-            slug: fusion-circus
-            path: sites/fusion-circus/fusion-circus
-          - site: lamutable.es
-            slug: lamutable
-            path: sites/lamutable.es/lamutable
-          - site: las-musas.es
-            slug: las-musas
-            path: sites/las-musas.es/las-musas
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate and package theme
-        env:
-          THEME_SITE: ${{ matrix.site }}
-          THEME_SLUG: ${{ matrix.slug }}
-          THEME_PATH: ${{ matrix.path }}
+      - name: Validate and package themes
         run: |
           set -euo pipefail
 
-          [[ "$THEME_SITE" =~ ^[a-z0-9.-]+$ ]] || { echo "Invalid site ID: $THEME_SITE" >&2; exit 1; }
-          [[ "$THEME_SLUG" =~ ^[a-z0-9-]+$ ]] || { echo "Invalid theme slug: $THEME_SLUG" >&2; exit 1; }
-          [[ "$THEME_PATH" == sites/* ]] || { echo "Theme path must be inside sites/: $THEME_PATH" >&2; exit 1; }
-          [[ -d "$THEME_PATH" ]] || { echo "Theme directory does not exist: $THEME_PATH" >&2; exit 1; }
+          # site:slug:path — the authoritative list of packaged themes.
+          themes=(
+            acro-agenda.es:acro-agenda:sites/acro-agenda.es/acro-agenda
+            circus-it.eu:circus-it:sites/circus-it.eu/circus-it
+            fusion-circus:fusion-circus:sites/fusion-circus/fusion-circus
+            lamutable.es:lamutable:sites/lamutable.es/lamutable
+            las-musas.es:las-musas:sites/las-musas.es/las-musas
+          )
 
           sites_root="$(realpath sites)"
-          resolved_path="$(realpath "$THEME_PATH")"
-          [[ "$resolved_path" == "$sites_root"/* ]] || { echo "Theme path resolves outside sites/: $resolved_path" >&2; exit 1; }
-          find "$resolved_path" -mindepth 1 -print -quit | grep -q . || { echo "Theme directory is empty: $THEME_PATH" >&2; exit 1; }
-          [[ -r "$resolved_path/style.css" ]] || { echo "Theme style.css is missing or unreadable: $THEME_PATH/style.css" >&2; exit 1; }
-          grep -Eiq '^[[:space:]]*Theme Name[[:space:]]*:' "$resolved_path/style.css" || { echo "Theme Name header is missing: $THEME_PATH/style.css" >&2; exit 1; }
+          mkdir -p stage dist
 
-          mkdir -p "stage/$THEME_SLUG" dist
-          cp -a "$resolved_path/." "stage/$THEME_SLUG/"
-          find "stage/$THEME_SLUG" -name .git -prune -exec rm -rf {} +
-          find "stage/$THEME_SLUG" -name .github -prune -exec rm -rf {} +
-          find "stage/$THEME_SLUG" -name .DS_Store -delete
-          (cd stage && zip -q -r "../dist/$THEME_SLUG.zip" "$THEME_SLUG")
+          for theme in "${themes[@]}"; do
+            IFS=: read -r THEME_SITE THEME_SLUG THEME_PATH <<< "$theme"
+            echo "Packaging $THEME_SLUG ($THEME_SITE)"
 
-          archive="dist/$THEME_SLUG.zip"
-          entries="$(unzip -Z1 "$archive")"
-          [[ -n "$entries" ]] || { echo "Archive is empty: $archive" >&2; exit 1; }
-          if grep -Eq '(^/|(^|/)\.\.(/|$))' <<< "$entries"; then
-            echo "Archive contains an unsafe path" >&2
-            exit 1
-          fi
-          if grep -Evq "^${THEME_SLUG}/" <<< "$entries"; then
-            echo "Archive contains an entry outside $THEME_SLUG/" >&2
-            exit 1
-          fi
-          grep -Fxq "$THEME_SLUG/style.css" <<< "$entries" || { echo "Archive is missing $THEME_SLUG/style.css" >&2; exit 1; }
-          if grep -Eq '(^|/)(\.git|\.github|\.DS_Store)(/|$)' <<< "$entries"; then
-            echo "Archive contains repository-only metadata" >&2
-            exit 1
-          fi
+            [[ "$THEME_SITE" =~ ^[a-z0-9.-]+$ ]] || { echo "Invalid site ID: $THEME_SITE" >&2; exit 1; }
+            [[ "$THEME_SLUG" =~ ^[a-z0-9-]+$ ]] || { echo "Invalid theme slug: $THEME_SLUG" >&2; exit 1; }
+            [[ "$THEME_PATH" == sites/* ]] || { echo "Theme path must be inside sites/: $THEME_PATH" >&2; exit 1; }
+            [[ -d "$THEME_PATH" ]] || { echo "Theme directory does not exist: $THEME_PATH" >&2; exit 1; }
 
-      - name: Upload packaged theme
-        uses: actions/upload-artifact@v4
-        with:
-          name: packaged-theme-${{ matrix.slug }}
-          path: dist/${{ matrix.slug }}.zip
-          if-no-files-found: error
-          retention-days: 1
+            resolved_path="$(realpath "$THEME_PATH")"
+            [[ "$resolved_path" == "$sites_root"/* ]] || { echo "Theme path resolves outside sites/: $resolved_path" >&2; exit 1; }
+            find "$resolved_path" -mindepth 1 -print -quit | grep -q . || { echo "Theme directory is empty: $THEME_PATH" >&2; exit 1; }
+            [[ -r "$resolved_path/style.css" ]] || { echo "Theme style.css is missing or unreadable: $THEME_PATH/style.css" >&2; exit 1; }
+            grep -Eiq '^[[:space:]]*Theme Name[[:space:]]*:' "$resolved_path/style.css" || { echo "Theme Name header is missing: $THEME_PATH/style.css" >&2; exit 1; }
 
-  bundle:
-    name: Publish theme bundle
-    needs: package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download packaged themes
-        uses: actions/download-artifact@v4
-        with:
-          pattern: packaged-theme-*
-          path: bundle
-          merge-multiple: true
+            mkdir -p "stage/$THEME_SLUG"
+            cp -a "$resolved_path/." "stage/$THEME_SLUG/"
+            find "stage/$THEME_SLUG" -name .git -prune -exec rm -rf {} +
+            find "stage/$THEME_SLUG" -name .github -prune -exec rm -rf {} +
+            find "stage/$THEME_SLUG" -name .DS_Store -delete
+            (cd stage && zip -q -r "../dist/$THEME_SLUG.zip" "$THEME_SLUG")
 
-      - name: Validate bundle contents
-        run: |
-          set -euo pipefail
-
-          mapfile -t files < <(find bundle -type f -printf '%P\n' | sort)
-          expected=(acro-agenda.zip circus-it.zip fusion-circus.zip lamutable.zip las-musas.zip)
-          [[ "${files[*]}" == "${expected[*]}" ]] || {
-            echo "Unexpected bundle contents: ${files[*]:-<empty>}" >&2
-            exit 1
-          }
-
-          for slug in acro-agenda circus-it fusion-circus lamutable las-musas; do
-            archive="bundle/$slug.zip"
+            archive="dist/$THEME_SLUG.zip"
             entries="$(unzip -Z1 "$archive")"
             [[ -n "$entries" ]] || { echo "Archive is empty: $archive" >&2; exit 1; }
             if grep -Eq '(^/|(^|/)\.\.(/|$))' <<< "$entries"; then
               echo "$archive contains an unsafe path" >&2
               exit 1
             fi
-            if grep -Evq "^${slug}/" <<< "$entries"; then
-              echo "$archive contains an entry outside $slug/" >&2
+            if grep -Evq "^${THEME_SLUG}/" <<< "$entries"; then
+              echo "$archive contains an entry outside $THEME_SLUG/" >&2
               exit 1
             fi
-            grep -Fxq "$slug/style.css" <<< "$entries" || { echo "$archive is missing $slug/style.css" >&2; exit 1; }
+            grep -Fxq "$THEME_SLUG/style.css" <<< "$entries" || { echo "$archive is missing $THEME_SLUG/style.css" >&2; exit 1; }
             if grep -Eq '(^|/)(\.git|\.github|\.DS_Store)(/|$)' <<< "$entries"; then
               echo "$archive contains repository-only metadata" >&2
               exit 1
@@ -140,5 +84,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wordpress-themes
-          path: bundle/*.zip
+          path: dist/*.zip
           if-no-files-found: error

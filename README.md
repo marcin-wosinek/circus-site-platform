@@ -84,7 +84,7 @@ destination, current production state, and a fresh full database backup. See
 
 The root [theme packaging workflow](.github/workflows/build-themes.yml) builds
 the directly tracked `acro-agenda`, `circus-it`, `fusion-circus`,
-`lamutable`, and `las-musas` themes. Its matrix is the
+`lamutable`, and `las-musas` themes. The `themes` list in its packaging step is the
 authoritative list of packaged themes; `sites.json` remains focused on site
 operations.
 
