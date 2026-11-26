@@ -177,6 +177,7 @@ The platform supports projects including:
 - [acro-agenda.es](https://acro-agenda.es/)
 - [acroyoga-club.es](https://acroyoga-club.es/)
 - [ahoraquehacemos.com](https://ahoraquehacemos.com/)
+- [las-musas.es](https://las-musas.es/)
 - [brussels.fusion-circus.com](https://brussels.fusion-circus.com/)
 - [circus-it.eu](https://circus-it.eu/)
 - [fair-event-plugins.com](https://fair-event-plugins.com/)

@@ -1,0 +1,23 @@
+{
+  "core": null,
+  "port": 9797,
+  "testsEnvironment": false,
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/hostinger-ai-assistant.zip",
+    "https://downloads.wordpress.org/plugin/hostinger-easy-onboarding.zip",
+    "https://downloads.wordpress.org/plugin/hostinger-reach.zip",
+    "https://downloads.wordpress.org/plugin/hostinger.zip"
+  ],
+  "themes": [
+    "https://downloads.wordpress.org/theme/twentytwentyfive.zip"
+  ],
+  "config": {
+    "WP_DEBUG": true,
+    "SCRIPT_DEBUG": true,
+    "WP_DEVELOPMENT_MODE": "theme"
+  },
+  "mappings": {
+    "wp-content/uploads": "./import/uploads",
+    "wp-content/import": "./import/db"
+  }
+}

@@ -12,6 +12,7 @@ and history while the platform pins the version it uses.
 | `acroyoga-club.es` | `sites/acroyoga-club.es` | 9793 | This repository |
 | `acro-agenda.es` | `sites/acro-agenda.es` | 9788 | This repository |
 | `ahoraquehacemos.com` | `sites/ahoraquehacemos.com` | 9796 | This repository |
+| `las-musas.es` | `sites/las-musas.es` | 9797 | This repository |
 | `brussels.fusion-circus.com` | `sites/brussels.fusion-circus.com` | 9794 | This repository |
 | `circus-it.eu` | `sites/circus-it.eu` | 9791 | This repository |
 | `fair-event-plugins.com` | `sites/fair-event-plugins.com` | 9792 | This repository |

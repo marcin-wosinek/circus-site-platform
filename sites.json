@@ -40,6 +40,11 @@
       "folder": "sites/ahoraquehacemos.com",
       "port": 9796,
       "productionUrl": "https://ahoraquehacemos.com"
+    },
+    "las-musas.es": {
+      "folder": "sites/las-musas.es",
+      "port": 9797,
+      "productionUrl": "https://las-musas.es"
     }
   }
 }
